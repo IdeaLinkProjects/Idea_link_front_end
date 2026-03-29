@@ -8,6 +8,8 @@
     "link": "Link"
   },
   "nav": {
+    "home": "Home",
+    "discover": "Discover",
     "login": "Login",
     "register": "Register",
     "themeLight": "Light",
@@ -36,19 +38,22 @@
         "name": "Solar Irrigation for Oromia Farms",
         "categoryIcon": "🌱",
         "fundedPercent": 72,
-        "daysRemaining": 14
+        "daysRemaining": 14,
+        "image": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&q=80&auto=format&fit=crop"
       },
       {
         "name": "Local Textile Export Marketplace",
         "categoryIcon": "🧵",
         "fundedPercent": 54,
-        "daysRemaining": 21
+        "daysRemaining": 21,
+        "image": "https://images.unsplash.com/photo-1615529328331-f8917597711f?w=800&q=80&auto=format&fit=crop"
       },
       {
         "name": "Smart Learning App in Amharic",
         "categoryIcon": "📱",
         "fundedPercent": 88,
-        "daysRemaining": 7
+        "daysRemaining": 7,
+        "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80&auto=format&fit=crop"
       }
     ]
   },
@@ -57,5 +62,967 @@
     "contact": "Contact",
     "privacy": "Privacy",
     "terms": "Terms"
+  },
+  "discoveryCta": {
+    "title": "Discover ideas worth backing",
+    "subtitle": "Browse every live project on IdealLink—filter by category, search by name, and explore progress at a glance.",
+    "button": "Go to Discovery"
+  },
+  "discovery": {
+    "meta": {
+      "title": "Discovery | IdealLink",
+      "description": "Explore crowdfunding projects across Ethiopia—search, filter by category, and find ideas to support."
+    },
+    "heading": "Discovery",
+    "searchPlaceholder": "Search projects…",
+    "categorySectionTitle": "Categories",
+    "allCategories": "All",
+    "categories": {
+      "agriculture": "Agriculture",
+      "technology": "Technology",
+      "education": "Education",
+      "health": "Health",
+      "commerce": "Commerce",
+      "energy": "Energy"
+    },
+    "viewDetails": "View project",
+    "resultsLabel": "projects",
+    "noResults": "No projects match your search or category.",
+    "goalLabel": "Goal",
+    "ideas": [
+      {
+        "id": "solar-dryer-farmers",
+        "name": "Solar Dryer for Farmers",
+        "description": "Efficient solar dryers cut post-harvest loss for smallholder farmers in sun-rich regions.",
+        "categoryKey": "agriculture",
+        "categoryIcon": "☀️",
+        "fundedPercent": 65,
+        "daysRemaining": 15,
+        "goalEtb": "45,000 ETB",
+        "image": "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "id": "solar-irrigation",
+        "name": "Solar Irrigation for Oromia Farms",
+        "description": "Affordable solar-powered irrigation kits for smallholder farmers.",
+        "categoryKey": "agriculture",
+        "categoryIcon": "🌱",
+        "fundedPercent": 72,
+        "daysRemaining": 14,
+        "goalEtb": "500K ETB",
+        "image": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "id": "textile-marketplace",
+        "name": "Local Textile Export Marketplace",
+        "description": "Connects weavers and exporters with transparent pricing.",
+        "categoryKey": "commerce",
+        "categoryIcon": "🧵",
+        "fundedPercent": 54,
+        "daysRemaining": 21,
+        "goalEtb": "1.2M ETB",
+        "image": "https://images.unsplash.com/photo-1615529328331-f8917597711f?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "id": "learning-app",
+        "name": "Smart Learning App in Amharic",
+        "description": "Mobile lessons and assessments for grades 5–8.",
+        "categoryKey": "education",
+        "categoryIcon": "📱",
+        "fundedPercent": 88,
+        "daysRemaining": 7,
+        "goalEtb": "750K ETB",
+        "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "id": "clinic-upgrade",
+        "name": "Rural Clinic Lab Equipment",
+        "description": "Basic diagnostics tools for a clinic serving 15,000 people.",
+        "categoryKey": "health",
+        "categoryIcon": "🩺",
+        "fundedPercent": 41,
+        "daysRemaining": 30,
+        "goalEtb": "890K ETB",
+        "image": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "id": "coffee-cooperative",
+        "name": "Sidama Coffee Cooperative Expansion",
+        "description": "Processing facility upgrade and fair-trade certification support.",
+        "categoryKey": "agriculture",
+        "categoryIcon": "☕",
+        "fundedPercent": 63,
+        "daysRemaining": 18,
+        "goalEtb": "2.1M ETB",
+        "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "id": "fintech-savings",
+        "name": "Community Savings Group App",
+        "description": "Digitizes rotating savings groups with SMS fallbacks.",
+        "categoryKey": "technology",
+        "categoryIcon": "💳",
+        "fundedPercent": 35,
+        "daysRemaining": 45,
+        "goalEtb": "600K ETB",
+        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "id": "minigrid",
+        "name": "Village Mini-Grid Pilot",
+        "description": "Renewable mini-grid for a kebele without grid access.",
+        "categoryKey": "energy",
+        "categoryIcon": "⚡",
+        "fundedPercent": 79,
+        "daysRemaining": 12,
+        "goalEtb": "3.5M ETB",
+        "image": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "id": "women-mfg",
+        "name": "Women-led Manufacturing Hub",
+        "description": "Shared workspace and tooling for light manufacturing startups.",
+        "categoryKey": "commerce",
+        "categoryIcon": "🏭",
+        "fundedPercent": 22,
+        "daysRemaining": 52,
+        "goalEtb": "1.8M ETB",
+        "image": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80&auto=format&fit=crop"
+      }
+    ]
+  },
+  "projectDetail": {
+    "notFound": "Project not found.",
+    "backDiscovery": "Back to Discovery",
+    "verifiedInnovator": "Verified innovator",
+    "innovatorFallback": "Campaign owner",
+    "innovatorLabel": "Innovator",
+    "categoryLabel": "Category",
+    "postedLabel": "Posted",
+    "postedFallback": "Date on file",
+    "fundedLine": "{pct}% funded",
+    "raisedGoalLine": "{raised} / {goal} ETB",
+    "daysRemainingLine": "{n} days remaining",
+    "investCta": "Invest in this Project",
+    "minInvestment": "Minimum investment: {amount} ETB",
+    "investDemoNote": "Investment flow is a demo—no funds are processed.",
+    "calculatorTitle": "Investment calculator",
+    "calculatorAmountLabel": "Amount (ETB)",
+    "calculatorEquityLabel": "Approx. equity",
+    "calculatorHint": "Based on this campaign’s equity pool and funding goal.",
+    "similarTitle": "Similar projects",
+    "quickStatsTitle": "Quick stats",
+    "statInvestors": "Investors",
+    "statUpdates": "Updates",
+    "statDocuments": "Documents",
+    "preview": "Preview",
+    "download": "Download",
+    "docDemoNote": "Full preview and downloads connect when document storage is live.",
+    "askQuestion": "Ask a question",
+    "yourQuestion": "Your question",
+    "questionPlaceholder": "e.g. What maintenance is planned for year two?",
+    "submitQuestion": "Submit question",
+    "qaDemoNote": "Questions are shown for illustration; submission is demo-only.",
+    "noAnswerYet": "Awaiting response from the innovator.",
+    "tabs": {
+      "overview": "Overview",
+      "risks": "Risks",
+      "updates": "Updates",
+      "documents": "Documents",
+      "qa": "Q&A"
+    },
+    "overview": {
+      "problemTitle": "Problem statement",
+      "solutionTitle": "Solution",
+      "teamTitle": "Team",
+      "timelineTitle": "Timeline",
+      "fundsTitle": "Use of funds"
+    },
+    "risks": {
+      "disclosureTitle": "Risk disclosure",
+      "levelTitle": "Risk level",
+      "considerationsTitle": "Investor considerations"
+    },
+    "fallback": {
+      "problem": "{name} targets a clear need in its sector. Review the summary and documents, and use Q&A to ask the innovator for detail.",
+      "solution": "The campaign describes how funds will be used to deliver outcomes. Confirm assumptions with the team before investing.",
+      "team": "Core team bios and roles will appear here when the innovator completes their profile.",
+      "risksDisclosure": "All crowdfunding involves risk of partial or total loss. Read all materials carefully.",
+      "risksLevel": "Varies",
+      "risksLevelExpl": "Risk level is self-reported and not investment advice.",
+      "risksConsiderations": "Diversify, invest only what you can afford to lose, and seek professional advice if unsure.",
+      "updateTitle": "Campaign update",
+      "updateBody": "The innovator has not yet posted a detailed timeline of updates for this listing."
+    },
+    "projects": {
+      "solar-dryer-farmers": {
+        "innovatorName": "John Doe",
+        "postedDate": "January 15, 2024",
+        "goalEtb": 45000,
+        "raisedEtb": 29250,
+        "equityOfferedPct": 12,
+        "minInvestmentEtb": 5000,
+        "investorsCount": 5,
+        "updatesCount": 3,
+        "documentsCount": 2,
+        "similarIds": ["coffee-cooperative", "solar-irrigation", "textile-marketplace"],
+        "problem": "Smallholders lose 15–30% of harvest to spoilage when rain hits during open-air drying. Diesel dryers are costly and fuel supply is unreliable.",
+        "solution": "We manufacture modular solar tunnel dryers with local sheet metal and polycarbonate. Cooperatives share units across a harvest calendar, cutting moisture to safe storage levels within 48 hours.",
+        "team": "John Doe — founder & agronomy lead (10 yrs extension work). Mulugeta A. — mechanical design. Sara K. — cooperative partnerships and training.",
+        "timeline": [
+          { "milestone": "Design & supplier contracts", "date": "Nov 2023", "done": true },
+          { "milestone": "Prototype build & lab tests", "date": "Jan 2024", "done": true },
+          { "milestone": "Pilot with 2 cooperatives", "date": "Mar–May 2024", "done": false },
+          { "milestone": "Scale to 50 shared units", "date": "Q4 2024", "done": false }
+        ],
+        "funds": [
+          { "label": "Materials", "percent": 40 },
+          { "label": "Development & labor", "percent": 35 },
+          { "label": "Marketing & outreach", "percent": 15 },
+          { "label": "Contingency", "percent": 10 }
+        ],
+        "risksDisclosure": "Market adoption may be slower if cooperatives prioritize other capital needs. Supply chain delays could push pilot dates. Currency and input cost volatility may affect margins.",
+        "riskLevel": "Medium",
+        "riskLevelExplanation": "Technology is proven at pilot scale but field deployment and payment behavior across cooperatives remain uncertain.",
+        "investorConsiderations": "Suitable for investors comfortable with hardware rollout risk and 2–3 year impact horizons. Not a liquid investment.",
+        "updates": [
+          {
+            "date": "22 March 2026",
+            "title": "Pilot dryers performing well",
+            "body": "Moisture readings improved versus open-air drying; farmer feedback incorporated into rack spacing."
+          },
+          {
+            "date": "8 March 2026",
+            "title": "Materials secured",
+            "body": "Local glazing and metal stock arrived on budget; second assembly line starting this week."
+          },
+          {
+            "date": "18 February 2026",
+            "title": "Campaign live",
+            "body": "Thank you for backing us — we will post specs and photos as milestones complete."
+          }
+        ],
+        "documents": [
+          { "name": "Solar_Dryer_Spec_v2.pdf", "kind": "pdf", "sizeLabel": "1.2 MB" },
+          { "name": "Pilot_Photos_March.zip", "kind": "archive", "sizeLabel": "4.8 MB" }
+        ],
+        "qa": [
+          {
+            "q": "What warranty do you offer on the tunnel frame?",
+            "a": "Five years on structural welds against manufacturing defect; consumables excluded.",
+            "author": "Daniel T.",
+            "date": "10 Mar 2026"
+          },
+          {
+            "q": "Can one dryer serve more than one cooperative per season?",
+            "a": "Yes — we schedule non-overlapping windows; typical utilization is 3–4 groups per year.",
+            "author": "Hanna K.",
+            "date": "4 Mar 2026"
+          },
+          {
+            "q": "Do you provide operator training?",
+            "a": "Two-day on-site training is included per pilot site; refresher videos in Amharic and Oromo.",
+            "author": "Anonymous investor",
+            "date": "28 Feb 2026"
+          }
+        ]
+      }
+    }
+  },
+  "investmentFlow": {
+    "metaTitle": "Invest | IdealLink",
+    "backToProject": "Back to project",
+    "step1Heading": "Invest in {project}",
+    "step2Heading": "Confirm Your Investment",
+    "fundedStatus": "{pct}% funded",
+    "raisedOfGoal": "{raised} / {goal} ETB",
+    "availableRemaining": "Available for investment: {amount} ETB remaining",
+    "amountLabel": "Investment amount (ETB)",
+    "minInvestmentNote": "Minimum: {amount} ETB",
+    "equityLive": "Your investment: {invest} ETB = {equity}% equity",
+    "reviewButton": "Review Investment",
+    "step1ErrorMin": "Enter at least {min} ETB.",
+    "step1ErrorMax": "Cannot exceed {max} ETB remaining in this round.",
+    "increment5000": "+5,000",
+    "increment10000": "+10,000",
+    "increment25000": "+25,000",
+    "summaryTitle": "Investment summary",
+    "summaryAmount": "Amount",
+    "summaryEquity": "Equity (approx.)",
+    "summaryDate": "Date",
+    "risksSectionTitle": "Key risks from this project",
+    "chkDisclosed": "I have read and understand the disclosed risks",
+    "chkSimulated": "I understand this is a simulated investment for academic purposes",
+    "chkReturns": "I accept that returns are simulated and not guaranteed",
+    "termsSummaryTitle": "Terms and conditions (summary)",
+    "termsSummaryBody": "This platform demo does not move real money. By confirming, you acknowledge participation rules for coursework / demonstration only and that IdealLink is not providing investment advice.",
+    "cancel": "Cancel",
+    "confirmInvestment": "Confirm Investment",
+    "chkError": "Please check all three boxes to confirm.",
+    "successTitle": "You're in!",
+    "successBody": "Your simulated investment has been recorded successfully.",
+    "receiptTitle": "Investment receipt",
+    "receiptProject": "Project",
+    "receiptAmount": "Amount",
+    "receiptEquity": "Approx. equity",
+    "receiptReference": "Reference",
+    "nextSteps": "Next steps",
+    "viewPortfolio": "View in Portfolio",
+    "messageInnovator": "Message Innovator",
+    "browseMore": "Browse More Projects"
+  },
+  "registerPage": {
+    "metaTitle": "Create Account | IdealLink",
+    "title": "Create Your Account",
+    "backHome": "Back to home",
+    "changeRole": "Change role",
+    "roleSectionTitle": "Choose your role",
+    "innovatorTitle": "Innovator",
+    "innovatorDesc": "I want to present my project and raise funds",
+    "investorTitle": "Investor",
+    "investorDesc": "I want to discover and support innovative projects",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "At least 8 characters",
+    "fullName": "Full name",
+    "fullNamePlaceholder": "Legal name as on ID",
+    "nationalId": "National ID",
+    "nationalIdPlaceholder": "National ID number",
+    "businessLicense": "Business license",
+    "uploadHint": "PDF or image (max 10MB)",
+    "riskSectionTitle": "Risk assessment",
+    "riskQ1": "Investment horizon",
+    "riskQ1o1": "Short term (under 1 year)",
+    "riskQ1o2": "Medium (1–3 years)",
+    "riskQ1o3": "Long term (3+ years)",
+    "riskQ2": "Risk tolerance",
+    "riskQ2o1": "Conservative",
+    "riskQ2o2": "Moderate",
+    "riskQ2o3": "Aggressive",
+    "riskQ3": "Have you invested in startups before?",
+    "riskQ3o1": "Yes",
+    "riskQ3o2": "No",
+    "terms": "I accept the Terms and Privacy Policy",
+    "createAccount": "Create Account",
+    "alreadyHave": "Already have an account?",
+    "loginHere": "Login here",
+    "successTitle": "Your account request was submitted.",
+    "successBody": "You can now sign in with your email.",
+    "errors": {
+      "email": "Enter a valid email address",
+      "password": "Password must be at least 8 characters",
+      "fullName": "Full name is required",
+      "nationalId": "National ID is required",
+      "license": "Please upload your business license",
+      "licenseSize": "File must be 10MB or smaller",
+      "terms": "You must accept the terms",
+      "risk": "Please answer all risk questions"
+    }
+  },
+  "loginPage": {
+    "metaTitle": "Login | IdealLink",
+    "title": "Welcome Back",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "rememberMe": "Remember me",
+    "signIn": "Sign In",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "registerHere": "Register here",
+    "backHome": "Back to home",
+    "investorHome": "Investor dashboard",
+    "errors": {
+      "email": "Enter a valid email address",
+      "password": "Password is required"
+    }
+  },
+  "innovatorDashboard": {
+    "metaTitle": "Innovator Dashboard | IdealLink",
+    "userFirstName": "John",
+    "projectsMetaTitle": "My Projects | IdealLink",
+    "messagesMetaTitle": "Messages | IdealLink",
+    "profileMetaTitle": "Profile | IdealLink",
+    "userRoleSuffix": "(Innovator)",
+    "logout": "Logout",
+    "navDashboard": "Dashboard",
+    "navProjects": "My Projects",
+    "navMessages": "Messages",
+    "navProfile": "Profile",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "welcome": "Welcome back, {name}!",
+    "today": "Today is {date}",
+    "statsActive": "Active Projects",
+    "statsPending": "Pending Review",
+    "statsRaised": "Total Raised",
+    "createProject": "Create New Project",
+    "activeProjectsTitle": "Your Active Projects",
+    "investors": "investors",
+    "daysLeft": "days left",
+    "viewDetails": "View Details",
+    "postUpdate": "Post Update",
+    "recentMessages": "Recent Messages",
+    "reply": "Reply",
+    "manageProject": "Manage project",
+    "projectsPageTitle": "My Projects",
+    "projectsPageSubtitle": "Manage and track all your crowdfunding campaigns.",
+    "messagesPageTitle": "Messages",
+    "messagesPageSubtitle": "Conversations with investors and supporters.",
+    "profilePageTitle": "Profile",
+    "profilePageSubtitle": "Your innovator account settings and public info.",
+    "stats": {
+      "activeCount": "3",
+      "pendingCount": "1",
+      "raised": "125K ETB"
+    },
+    "mockProjects": [
+      {
+        "slug": "solar-dryer-farmers",
+        "name": "Solar Dryer for Farmers",
+        "categoryIcon": "☀️",
+        "percent": 65,
+        "investors": 5,
+        "daysRemaining": 15
+      },
+      {
+        "slug": "textile-marketplace",
+        "name": "Local Textile Export Marketplace",
+        "categoryIcon": "🧵",
+        "percent": 54,
+        "investors": 18,
+        "daysRemaining": 21
+      },
+      {
+        "slug": "learning-app",
+        "name": "Smart Learning App in Amharic",
+        "categoryIcon": "📱",
+        "percent": 88,
+        "investors": 41,
+        "daysRemaining": 7
+      }
+    ],
+    "mockMessages": [
+      {
+        "from": "Sarah M.",
+        "preview": "Interested in your solar project—can we schedule a call?",
+        "time": "2h ago"
+      },
+      {
+        "from": "Daniel T.",
+        "preview": "Thanks for the update. Happy to increase my pledge.",
+        "time": "Yesterday"
+      },
+      {
+        "from": "IdealLink Support",
+        "preview": "Your submission passed initial review.",
+        "time": "3 days ago"
+      }
+    ]
+  },
+  "investorDashboard": {
+    "metaTitle": "Investor Dashboard | IdealLink",
+    "portfolioMetaTitle": "Portfolio | IdealLink",
+    "messagesMetaTitle": "Messages | IdealLink",
+    "profileMetaTitle": "Profile | IdealLink",
+    "userFirstName": "Sarah",
+    "userRoleSuffix": "(Investor)",
+    "logout": "Logout",
+    "navDashboard": "Dashboard",
+    "navBrowse": "Browse Projects",
+    "navPortfolio": "Portfolio",
+    "navMessages": "Messages",
+    "navProfile": "Profile",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "welcome": "Welcome back, {name}!",
+    "today": "Today is {date}",
+    "statsActiveInvestments": "Active Investments",
+    "statsTotalInvested": "Total Invested",
+    "statsAvgFunded": "Avg. funded (portfolio)",
+    "stats": {
+      "activeCount": "4",
+      "totalInvested": "85K ETB",
+      "avgFunded": "72%"
+    },
+    "browseProjects": "Browse Projects",
+    "recommendedTitle": "Recommended for you",
+    "fundedLabel": "funded",
+    "viewDetails": "View Details",
+    "recentInvestmentsTitle": "Recent investments",
+    "activityTitle": "Latest updates from your investments",
+    "recommended": [
+      {
+        "id": "solar-irrigation",
+        "name": "Solar Irrigation for Oromia Farms",
+        "category": "Agriculture",
+        "categoryIcon": "🌱",
+        "percent": 72
+      },
+      {
+        "id": "textile-marketplace",
+        "name": "Local Textile Export Marketplace",
+        "category": "Commerce",
+        "categoryIcon": "🧵",
+        "percent": 54
+      },
+      {
+        "id": "learning-app",
+        "name": "Smart Learning App in Amharic",
+        "category": "Education",
+        "categoryIcon": "📱",
+        "percent": 88
+      }
+    ],
+    "recentInvestments": [
+      { "project": "Solar Dryer for Farmers", "amountEtb": "12,500 ETB", "date": "26 Mar 2026" },
+      { "project": "Green Mini-Grid Co-op", "amountEtb": "20,000 ETB", "date": "22 Mar 2026" },
+      { "project": "Pharma Cold Chain Boxes", "amountEtb": "8,750 ETB", "date": "18 Mar 2026" },
+      { "project": "Addis Makerspace Tools", "amountEtb": "5,000 ETB", "date": "5 Mar 2026" }
+    ],
+    "activityFeed": [
+      {
+        "project": "Solar Dryer for Farmers",
+        "snippet": "Pilot dryers performing well — moisture down 40% vs open-air drying.",
+        "time": "2 days ago"
+      },
+      {
+        "project": "Green Mini-Grid Co-op",
+        "snippet": "Second village connection approved; timeline on track for Q2.",
+        "time": "4 days ago"
+      },
+      {
+        "project": "Pharma Cold Chain Boxes",
+        "snippet": "New field test results shared with all backers.",
+        "time": "1 week ago"
+      },
+      {
+        "project": "Addis Makerspace Tools",
+        "snippet": "Equipment delivered; training sessions scheduled.",
+        "time": "2 weeks ago"
+      }
+    ],
+    "portfolioPageTitle": "Portfolio",
+    "portfolioPageSubtitle": "Your positions, returns, and commitment schedule.",
+    "portfolioPlaceholder": "Detailed holdings, performance, and schedules will connect to your account in a future release.",
+    "messagesPageTitle": "Messages",
+    "messagesPageSubtitle": "Conversations with innovators you support.",
+    "profilePageTitle": "Profile",
+    "profilePageSubtitle": "Your investor account and preferences.",
+    "profilePlaceholder": "Profile settings and verification flows will be added in a future iteration.",
+    "mockMessages": [
+      {
+        "from": "Solar Dryer Team",
+        "preview": "Thanks for your pledge — here is the pilot photo set.",
+        "time": "5h ago"
+      },
+      {
+        "from": "IdealLink",
+        "preview": "Your investment receipt for March is ready.",
+        "time": "Yesterday"
+      }
+    ]
+  },
+  "investorPortfolio": {
+    "pageSubtitle": "Track positions, simulated performance, and risk across your commitments.",
+    "totalInvestedLabel": "Total invested",
+    "activeInvestmentsLabel": "Active investments",
+    "avgFundingLabel": "Average funding",
+    "projectsUnit": "projects",
+    "diversificationTitle": "Diversification by category",
+    "exportCsv": "Export to CSV",
+    "filterLabel": "Status",
+    "filterAll": "All",
+    "filterFunding": "Funding",
+    "filterActive": "Active",
+    "filterCompleted": "Completed",
+    "colProject": "Project",
+    "colCategory": "Category",
+    "colAmount": "Amount invested",
+    "colEquity": "Equity %",
+    "colStatus": "Status",
+    "colValue": "Current value",
+    "colActions": "Actions",
+    "actionDetails": "Open",
+    "sortAria": "Sort by {column}",
+    "statusFunding": "Funding",
+    "statusActive": "Active",
+    "statusCompleted": "Completed",
+    "detailTitle": "Investment detail",
+    "closePanel": "Close",
+    "perfTimeline": "Project performance timeline",
+    "updatesTitle": "Updates from innovator",
+    "commTitle": "Communication history",
+    "simReturnsTitle": "Simulated returns",
+    "simReturnsBody": "Illustrative mark-to-model change since your commitment (demo only, not a forecast or guarantee).",
+    "simReturnPct": "{pct}% modeled return",
+    "viewProject": "View Project",
+    "messageInnovator": "Message Innovator",
+    "metricsTitle": "Performance metrics",
+    "successRateLabel": "Funding success rate",
+    "avgReturnLabel": "Avg. simulated return",
+    "riskBreakdownTitle": "Risk exposure breakdown",
+    "you": "You",
+    "innovator": "Innovator",
+    "summary": {
+      "totalInvestedEtb": 85000,
+      "activeCount": 4,
+      "avgFundedPct": 72
+    },
+    "diversification": [
+      { "category": "Agriculture", "percent": 35, "color": "#16a34a" },
+      { "category": "Commerce", "percent": 28, "color": "#ca8a04" },
+      { "category": "Education", "percent": 22, "color": "#2563eb" },
+      { "category": "Energy", "percent": 15, "color": "#9333ea" }
+    ],
+    "performance": {
+      "successRatePct": 78,
+      "avgSimulatedReturnPct": 4.2,
+      "riskBreakdown": [
+        { "level": "Low", "percent": 30 },
+        { "level": "Medium", "percent": 55 },
+        { "level": "High", "percent": 15 }
+      ]
+    },
+    "rows": [
+      {
+        "id": "inv-1",
+        "projectSlug": "solar-dryer-farmers",
+        "name": "Solar Dryer for Farmers",
+        "category": "Agriculture",
+        "amountEtb": 22000,
+        "equityPct": 5.87,
+        "status": "active",
+        "currentValueEtb": 23320
+      },
+      {
+        "id": "inv-2",
+        "projectSlug": "textile-marketplace",
+        "name": "Local Textile Export Marketplace",
+        "category": "Commerce",
+        "amountEtb": 20000,
+        "equityPct": 1.2,
+        "status": "funding",
+        "currentValueEtb": 20000
+      },
+      {
+        "id": "inv-3",
+        "projectSlug": "learning-app",
+        "name": "Smart Learning App in Amharic",
+        "category": "Education",
+        "amountEtb": 22500,
+        "equityPct": 2.4,
+        "status": "active",
+        "currentValueEtb": 23650
+      },
+      {
+        "id": "inv-4",
+        "projectSlug": "minigrid",
+        "name": "Village Mini-Grid Pilot",
+        "category": "Energy",
+        "amountEtb": 20500,
+        "equityPct": 0.45,
+        "status": "completed",
+        "currentValueEtb": 22140
+      }
+    ],
+    "details": {
+      "inv-1": {
+        "simulatedReturnPct": 6.0,
+        "timeline": [
+          { "date": "Jan 2026", "label": "Commitment recorded", "tone": "neutral" },
+          { "date": "Feb 2026", "label": "Pilot metrics beat baseline", "tone": "positive" },
+          { "date": "Mar 2026", "label": "Second cooperative onboarded", "tone": "positive" }
+        ],
+        "updates": [
+          {
+            "date": "22 Mar 2026",
+            "title": "Pilot dryers performing well",
+            "body": "Moisture down vs open-air drying; farmer feedback incorporated."
+          },
+          {
+            "date": "8 Mar 2026",
+            "title": "Materials secured",
+            "body": "Local supply chain confirmed for Q2 assembly push."
+          }
+        ],
+        "messages": [
+          { "from": "innovator", "text": "Thanks for backing — sharing pilot photos this week.", "time": "12 Mar, 09:00" },
+          { "from": "you", "text": "Great progress. Any plan for maintenance training?", "time": "12 Mar, 14:22" },
+          { "from": "innovator", "text": "Two-day on-site training scheduled for cooperative leads.", "time": "13 Mar, 08:15" }
+        ]
+      },
+      "inv-2": {
+        "simulatedReturnPct": 0,
+        "timeline": [
+          { "date": "Mar 2026", "label": "Investment during open round", "tone": "neutral" },
+          { "date": "—", "label": "Awaiting full funding close", "tone": "neutral" }
+        ],
+        "updates": [
+          { "date": "1 Mar 2026", "title": "Weaver onboarding", "body": "Twelve new weaver groups connected to the platform." }
+        ],
+        "messages": [
+          { "from": "innovator", "text": "Welcome aboard — quarterly export report coming soon.", "time": "5 Mar, 11:40" }
+        ]
+      },
+      "inv-3": {
+        "simulatedReturnPct": 5.1,
+        "timeline": [
+          { "date": "Dec 2025", "label": "Beta launch", "tone": "neutral" },
+          { "date": "Feb 2026", "label": "10K monthly active learners", "tone": "positive" }
+        ],
+        "updates": [
+          { "date": "15 Mar 2026", "title": "New lesson pack", "body": "Grade 7 science module added in Amharic." }
+        ],
+        "messages": [
+          { "from": "you", "text": "Love the content roadmap.", "time": "10 Mar, 16:02" },
+          { "from": "innovator", "text": "Thank you! Assessment mode is next on the list.", "time": "10 Mar, 17:30" }
+        ]
+      },
+      "inv-4": {
+        "simulatedReturnPct": 8.0,
+        "timeline": [
+          { "date": "Oct 2025", "label": "Grid commissioned", "tone": "positive" },
+          { "date": "Jan 2026", "label": "Revenue share period started", "tone": "positive" },
+          { "date": "Mar 2026", "label": "Campaign completed", "tone": "positive" }
+        ],
+        "updates": [
+          { "date": "20 Mar 2026", "title": "Final distribution", "body": "Simulated distribution schedule posted for all investors." }
+        ],
+        "messages": [
+          { "from": "innovator", "text": "Final reporting package is in your inbox tab.", "time": "21 Mar, 10:00" }
+        ]
+      }
+    }
+  },
+  "innovatorProjectManage": {
+    "metaTitle": "Manage project | IdealLink",
+    "backToProjects": "Back to My Projects",
+    "projectTitle": "Solar Dryer for Farmers",
+    "statusBadge": "Active — {percent}% funded",
+    "goalEtb": 45000,
+    "raisedEtb": 29250,
+    "fundedPercent": 65,
+    "daysRemaining": 15,
+    "investorCount": 5,
+    "tabs": {
+      "overview": "Overview",
+      "updates": "Updates",
+      "documents": "Documents",
+      "investors": "Investors",
+      "messages": "Messages"
+    },
+    "overview": {
+      "fundingTitle": "Funding progress",
+      "fundedLabel": "{pct}% funded",
+      "raisedGoal": "{raised} / {goal} ETB",
+      "countdownTitle": "Campaign countdown",
+      "daysRemaining": "{n} days remaining",
+      "investorCountTitle": "Backers",
+      "investorCountLabel": "{n} investors",
+      "milestonesTitle": "Milestones",
+      "quickActionsTitle": "Quick actions",
+      "actionPostUpdate": "Post Update",
+      "actionRequestRelease": "Request Release",
+      "actionMessageInvestors": "Message Investors",
+      "complete": "Complete",
+      "pending": "Pending"
+    },
+    "milestones": [
+      { "title": "Field research & farmer interviews", "done": true },
+      { "title": "Solar dryer prototype fabricated", "done": true },
+      { "title": "Pilot deployment in Oromia", "done": false },
+      { "title": "Scale to 50 cooperative units", "done": false }
+    ],
+    "updates": {
+      "writeUpdate": "Write Update",
+      "publish": "Publish update",
+      "cancel": "Cancel",
+      "editorPlaceholder": "Share progress, challenges, and next steps…",
+      "bold": "Bold",
+      "italic": "Italic",
+      "bulletList": "Bullet list",
+      "timelineTitle": "Previous updates",
+      "emptyEditor": "Please enter some content before publishing.",
+      "publishedToast": "Update posted.",
+      "requestReleaseToast": "Release request recorded (demo).",
+      "initial": [
+        {
+          "date": "22 March 2026",
+          "title": "Pilot dryers performing well",
+          "paragraphs": [
+            "Moisture readings are down 40% versus open-air drying in the first cooperative. Farmers reported fewer spoiled crops during recent rain.",
+            "We are scheduling maintenance training for next week and refining the rack layout based on feedback."
+          ]
+        },
+        {
+          "date": "8 March 2026",
+          "title": "Materials secured",
+          "paragraphs": [
+            "Local sheet metal and glazing arrived on budget. Assembly of the second pilot unit starts this week."
+          ]
+        },
+        {
+          "date": "18 February 2026",
+          "title": "Campaign launched",
+          "paragraphs": [
+            "Thank you to everyone who backed us so far. We will post technical specs and photos as milestones complete."
+          ]
+        }
+      ]
+    },
+    "documents": {
+      "title": "Project documents",
+      "uploadTitle": "Upload files",
+      "uploadHint": "PDF, DOC, DOCX, JPG, or PNG — max 10 MB per file (demo).",
+      "chooseFiles": "Choose files",
+      "listTitle": "Uploaded files",
+      "preview": "Preview",
+      "download": "Download",
+      "emptyList": "No documents yet. Upload technical specs, photos, or reports.",
+      "initial": [
+        { "name": "Solar_Dryer_Spec_v2.pdf", "kind": "pdf", "sizeLabel": "1.2 MB" },
+        { "name": "Pilot_Site_Photo.jpg", "kind": "image", "sizeLabel": "840 KB" },
+        { "name": "Coop_Agreement_Draft.docx", "kind": "doc", "sizeLabel": "56 KB" }
+      ]
+    },
+    "investors": {
+      "title": "Investors",
+      "exportCsv": "Export to CSV",
+      "colName": "Name",
+      "colAmount": "Amount invested",
+      "colEquity": "Equity %",
+      "colDate": "Date",
+      "rows": [
+        { "name": "Sarah M.", "amountEtb": 8500, "equityPct": 2.1, "date": "12 Mar 2026" },
+        { "name": "Daniel T.", "amountEtb": 6200, "equityPct": 1.5, "date": "10 Mar 2026" },
+        { "name": "GreenGrowth Fund", "amountEtb": 10000, "equityPct": 2.8, "date": "5 Mar 2026" },
+        { "name": "Hanna K.", "amountEtb": 2750, "equityPct": 0.7, "date": "1 Mar 2026" },
+        { "name": "Yonas B.", "amountEtb": 1800, "equityPct": 0.4, "date": "28 Feb 2026" }
+      ]
+    },
+    "messages": {
+      "title": "Messages",
+      "selectThread": "Select a conversation",
+      "composePlaceholder": "Write a message…",
+      "attach": "Attach file",
+      "removeAttachment": "Remove",
+      "send": "Send",
+      "youLabel": "You",
+      "threads": [
+        {
+          "id": "t1",
+          "name": "Sarah M.",
+          "preview": "Can we schedule a call about the pilot?",
+          "items": [
+            { "from": "them", "text": "Hi — interested in expanding support after the pilot results.", "time": "12 Mar, 09:14" },
+            { "from": "me", "text": "Absolutely. Does Thursday afternoon work for you?", "time": "12 Mar, 11:02" },
+            { "from": "them", "text": "Can we schedule a call about the pilot?", "time": "13 Mar, 08:30" }
+          ]
+        },
+        {
+          "id": "t2",
+          "name": "GreenGrowth Fund",
+          "preview": "Need Q2 impact metrics for our board.",
+          "items": [
+            { "from": "them", "text": "Please share Q2 impact metrics when ready.", "time": "11 Mar, 16:40" },
+            { "from": "me", "text": "We will send a draft template by end of week.", "time": "11 Mar, 17:05" }
+          ]
+        },
+        {
+          "id": "t3",
+          "name": "Daniel T.",
+          "preview": "Thanks for the quick reply!",
+          "items": [
+            { "from": "me", "text": "Thanks for backing the campaign.", "time": "9 Mar, 10:00" },
+            { "from": "them", "text": "Thanks for the quick reply!", "time": "9 Mar, 10:22" }
+          ]
+        }
+      ]
+    }
+  },
+  "innovatorProjectWizard": {
+    "metaTitle": "Create Project | IdealLink",
+    "heading": "Create a new project",
+    "backToProjects": "Back to My Projects",
+    "stepBasics": "Basics",
+    "stepFunding": "Funding",
+    "stepRisks": "Risks",
+    "progressIntro": "Step {step}: {label}",
+    "stepN": "Step {n}",
+    "selectPlaceholder": "Select…",
+    "riskSectionTitle": "Risk disclosure",
+    "titleLabel": "Project title",
+    "titlePlaceholder": "A clear, compelling title",
+    "categoryLabel": "Category",
+    "categoryPlaceholder": "Select a category",
+    "shortDescLabel": "Short description",
+    "shortDescHelp": "Shown on listings. Maximum 200 characters.",
+    "detailedDescLabel": "Detailed description",
+    "detailedDescHelp": "Minimum 500 characters. Explain goals, impact, and execution.",
+    "next": "Next",
+    "back": "Back",
+    "goalLabel": "Funding goal (ETB)",
+    "goalHelp": "Minimum 25,000 ETB",
+    "durationLabel": "Campaign duration",
+    "duration30": "30 days",
+    "duration45": "45 days",
+    "duration60": "60 days",
+    "equityLabel": "Equity offered",
+    "equityPreview": "You are offering {pct}% equity to investors.",
+    "fundsTitle": "Use of funds breakdown (ETB)",
+    "fundsHelp": "Enter ETB amounts for each category. They must add up to your funding goal.",
+    "fundsMaterials": "Materials",
+    "fundsDevelopment": "Development",
+    "fundsMarketing": "Marketing",
+    "fundsOther": "Other",
+    "fundsSum": "Total allocated",
+    "riskMarket": "I acknowledge market demand may be lower than projected.",
+    "riskExecution": "I acknowledge technical challenges may cause delays.",
+    "riskFinancial": "I acknowledge costs may exceed projections.",
+    "riskRegulatory": "I acknowledge all applicable regulatory requirements.",
+    "riskNotesLabel": "Additional risk notes",
+    "riskNotesPlaceholder": "Optional context for reviewers…",
+    "riskLevelLabel": "Risk level",
+    "riskLow": "Low",
+    "riskMedium": "Medium",
+    "riskHigh": "High",
+    "reviewTitle": "Review summary",
+    "reviewCategory": "Category",
+    "reviewGoal": "Funding goal",
+    "reviewDuration": "Duration",
+    "reviewEquity": "Equity offered",
+    "reviewRiskLevel": "Risk level",
+    "submitReview": "Submit for Review",
+    "successTitle": "Project submitted for review",
+    "successBody": "Our team will review your campaign. You will be notified when there is an update.",
+    "viewProjects": "View My Projects",
+    "categories": [
+      { "value": "tech", "label": "Technology" },
+      { "value": "agriculture", "label": "Agriculture" },
+      { "value": "health", "label": "Health" },
+      { "value": "education", "label": "Education" },
+      { "value": "manufacturing", "label": "Manufacturing" },
+      { "value": "energy", "label": "Energy" },
+      { "value": "other", "label": "Other" }
+    ],
+    "errors": {
+      "title": "Project title is required.",
+      "category": "Please select a category.",
+      "shortLength": "Short description must be 200 characters or fewer.",
+      "detailedLength": "Detailed description must be at least 500 characters.",
+      "goalMin": "Funding goal must be at least 25,000 ETB.",
+      "goalNumber": "Enter a valid funding goal.",
+      "duration": "Select a campaign duration.",
+      "equity": "Equity must be between 1% and 45%.",
+      "fundsSum": "Use of funds must equal the funding goal (same total).",
+      "fundsNumber": "Enter valid ETB amounts for all categories.",
+      "risksRequired": "Please acknowledge all four risk statements.",
+      "riskLevel": "Select an overall risk level."
+    }
   }
 }

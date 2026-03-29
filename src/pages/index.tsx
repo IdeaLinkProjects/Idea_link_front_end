@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import am from "@/locales/am.json";
@@ -63,11 +64,19 @@ export default function Home() {
         <header
           className={`sticky top-0 z-20 border-b backdrop-blur-xl ${isDark ? "border-white/10 bg-zinc-950/70" : "border-zinc-200 bg-white/80"}`}
         >
-          <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-            <Link href="/" className="text-2xl font-extrabold tracking-tight">
-              <span className="text-emerald-500">{t.brand.ideal}</span>
-              <span className="text-emerald-300">{t.brand.link}</span>
-            </Link>
+          <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
+            <div className="flex min-w-0 flex-1 items-center gap-4 sm:flex-initial">
+              <Link href="/" className="text-2xl font-extrabold tracking-tight">
+                <span className="text-emerald-500">{t.brand.ideal}</span>
+                <span className="text-emerald-300">{t.brand.link}</span>
+              </Link>
+              <Link
+                href="/discovery"
+                className={`rounded-lg px-2 py-1.5 text-xs font-semibold transition sm:px-3 sm:py-2 sm:text-sm ${isDark ? "text-emerald-300 hover:bg-white/10" : "text-emerald-800 hover:bg-emerald-100"}`}
+              >
+                {t.nav.discover}
+              </Link>
+            </div>
             <div className="flex items-center gap-2 sm:gap-3">
               <div
                 className={`inline-flex rounded-lg border p-1 ${isDark ? "border-white/20 bg-white/5" : "border-zinc-300 bg-white"}`}
@@ -170,20 +179,63 @@ export default function Home() {
             </div>
           </section>
 
+          <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
+            <div
+              className={`relative overflow-hidden rounded-3xl border p-8 text-center sm:p-10 ${isDark ? "border-white/15 bg-gradient-to-br from-emerald-950/60 to-zinc-950/80" : "border-emerald-200/80 bg-gradient-to-br from-emerald-50 to-white"}`}
+            >
+              <h2
+                className={`text-2xl font-extrabold tracking-tight sm:text-3xl ${isDark ? "text-white" : "text-zinc-900"}`}
+              >
+                {t.discoveryCta.title}
+              </h2>
+              <p
+                className={`mx-auto mt-3 max-w-2xl text-sm sm:text-base ${isDark ? "text-zinc-400" : "text-zinc-600"}`}
+              >
+                {t.discoveryCta.subtitle}
+              </p>
+              <Link
+                href="/discovery"
+                className="mt-6 inline-flex items-center justify-center rounded-xl bg-emerald-700 px-8 py-3 text-base font-semibold text-white shadow-xl shadow-emerald-900/35 transition hover:-translate-y-0.5 hover:bg-emerald-600"
+              >
+                {t.discoveryCta.button}
+              </Link>
+            </div>
+          </section>
+
           <section className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
-            <div className="mb-5 flex items-center justify-between">
+            <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <h2
                 className={`text-2xl font-bold tracking-tight ${isDark ? "text-white" : "text-zinc-900"}`}
               >
                 {t.featured.title}
               </h2>
+              <Link
+                href="/discovery"
+                className={`text-sm font-semibold transition hover:underline ${isDark ? "text-emerald-400" : "text-emerald-700"}`}
+              >
+                {t.nav.discover} →
+              </Link>
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {t.featured.projects.map((project) => (
                 <article
                   key={project.name}
-                  className={`group rounded-2xl border p-5 shadow-lg backdrop-blur-md transition hover:-translate-y-1 hover:border-emerald-500/60 ${isDark ? "border-white/15 bg-white/10 shadow-black/20 hover:bg-white/15" : "border-zinc-200 bg-white/95 shadow-zinc-200/70 hover:bg-white"}`}
+                  className={`group overflow-hidden rounded-2xl border shadow-lg backdrop-blur-md transition hover:-translate-y-1 hover:border-emerald-500/60 ${isDark ? "border-white/15 bg-white/10 shadow-black/20 hover:bg-white/15" : "border-zinc-200 bg-white/95 shadow-zinc-200/70 hover:bg-white"}`}
                 >
+                  <div className="relative aspect-[16/10] w-full overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      fill
+                      className="object-cover transition duration-500 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    <div
+                      className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 to-transparent opacity-90"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <div className="p-5">
                   <div className="flex items-start justify-between gap-2">
                     <h3
                       className={`text-base font-semibold ${isDark ? "text-white" : "text-zinc-900"}`}
@@ -215,6 +267,7 @@ export default function Home() {
                         {project.daysRemaining} {t.featured.daysLeft}
                       </span>
                     </div>
+                  </div>
                   </div>
                 </article>
               ))}
