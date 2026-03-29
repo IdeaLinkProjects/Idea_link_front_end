@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "title": "IdealLink | የኢትዮጵያ የህዝብ ገንዘብ ማሰባሰቢያ",
+    "description": "ኢትዮጵያዊ ፈጠራ ባለቤቶችን ከኢንቨስተሮች ጋር በዘመናዊ መንገድ የሚያገናኝ መድረክ።"
+  },
+  "brand": {
+    "ideal": "Ideal",
+    "link": "Link"
+  },
+  "nav": {
+    "login": "ግባ",
+    "register": "ተመዝገብ",
+    "themeLight": "ብርሃን",
+    "themeDark": "ጨለማ",
+    "langEnglish": "EN",
+    "langAmharic": "AM"
+  },
+  "hero": {
+    "badge": "ለኢትዮጵያ ፈጠራ የተገነባ",
+    "title": "ኢትዮጵያዊ ፈጠራ ባለቤቶችን ከኢንቨስተሮች ጋር እናገናኛለን",
+    "subtitle": "ተፅዕኖ ያላቸውን ሀሳቦች ያግኙ፣ አካባቢያዊ ፈጠራን ይደግፉ፣ የኢትዮጵያን ወደፊት እድገት አብረን እንገንባ።",
+    "registerInnovator": "እንደ ፈጠራ ባለቤት ተመዝገብ",
+    "registerInvestor": "እንደ ኢንቨስተር ተመዝገብ"
+  },
+  "statistics": [
+    { "label": "የተፈጠሩ ፕሮጀክቶች", "value": "50+" },
+    { "label": "የተደገፈ ገንዘብ (ብር)", "value": "2.5M+" },
+    { "label": "የተመዘገቡ ተጠቃሚዎች", "value": "200+" }
+  ],
+  "featured": {
+    "title": "የተመረጡ ፕሮጀክቶች",
+    "funded": "የተደገፈ",
+    "daysLeft": "ቀናት ቀርተዋል",
+    "projects": [
+      {
+        "name": "ለኦሮሚያ እርሻዎች የፀሐይ ኃይል መስኖ",
+        "categoryIcon": "🌱",
+        "fundedPercent": 72,
+        "daysRemaining": 14
+      },
+      {
+        "name": "የአገር ውስጥ ጨርቃ ጨርቅ ምርት ኤክስፖርት ገበያ",
+        "categoryIcon": "🧵",
+        "fundedPercent": 54,
+        "daysRemaining": 21
+      },
+      {
+        "name": "በአማርኛ የሚሰራ የትምህርት መተግበሪያ",
+        "categoryIcon": "📱",
+        "fundedPercent": 88,
+        "daysRemaining": 7
+      }
+    ]
+  },
+  "footer": {
+    "about": "ስለ እኛ",
+    "contact": "አድራሻ",
+    "privacy": "ግላዊነት",
+    "terms": "ውሎች"
+  }
+}

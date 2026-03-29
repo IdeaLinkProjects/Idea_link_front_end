@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "title": "IdealLink | Ethiopian Crowdfunding Platform",
+    "description": "Connecting Ethiopian innovators with investors through a modern crowdfunding platform."
+  },
+  "brand": {
+    "ideal": "Ideal",
+    "link": "Link"
+  },
+  "nav": {
+    "login": "Login",
+    "register": "Register",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "langEnglish": "EN",
+    "langAmharic": "AM"
+  },
+  "hero": {
+    "badge": "Built for Ethiopian Innovation",
+    "title": "Connecting Ethiopian Innovators with Investors",
+    "subtitle": "Discover impactful ideas, fund local innovation, and grow Ethiopia's future together.",
+    "registerInnovator": "Register as Innovator",
+    "registerInvestor": "Register as Investor"
+  },
+  "statistics": [
+    { "label": "Projects Created", "value": "50+" },
+    { "label": "ETB Pledged", "value": "2.5M+" },
+    { "label": "Registered Users", "value": "200+" }
+  ],
+  "featured": {
+    "title": "Featured Projects",
+    "funded": "funded",
+    "daysLeft": "days left",
+    "projects": [
+      {
+        "name": "Solar Irrigation for Oromia Farms",
+        "categoryIcon": "🌱",
+        "fundedPercent": 72,
+        "daysRemaining": 14
+      },
+      {
+        "name": "Local Textile Export Marketplace",
+        "categoryIcon": "🧵",
+        "fundedPercent": 54,
+        "daysRemaining": 21
+      },
+      {
+        "name": "Smart Learning App in Amharic",
+        "categoryIcon": "📱",
+        "fundedPercent": 88,
+        "daysRemaining": 7
+      }
+    ]
+  },
+  "footer": {
+    "about": "About",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  }
+}
