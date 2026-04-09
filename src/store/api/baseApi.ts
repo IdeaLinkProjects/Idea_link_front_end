@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { getAccessToken } from "@/lib/auth/tokenStorage";
 
 function normalizeBaseUrl(raw: string): string {
   const trimmed = raw.trim();
@@ -15,6 +16,8 @@ export const baseApi = createApi({
     prepareHeaders: (headers) => {
       headers.set("Accept", "application/json");
       headers.set("Content-Type", "application/json");
+      const token = getAccessToken();
+      if (token) headers.set("Authorization", `Bearer ${token}`);
       return headers;
     },
   }),

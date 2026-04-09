@@ -408,6 +408,12 @@
     "loginHere": "እዚህ ይግቡ",
     "successTitle": "መለያዎ ተፈጥሯል።",
     "successBody": "በኢሜይልዎ ይግቡ።",
+    "verifyTitle": "ኢሜይልዎን ያረጋግጡ",
+    "verifyBody": "ወደ {email} የላክነውን ኮድ ያስገቡ።",
+    "otpLabel": "የማረጋገጫ ኮድ",
+    "otpPlaceholder": "ኮድ ያስገቡ",
+    "verifySubmit": "አረጋግጥ እና ቀጥል",
+    "verifying": "በማረጋገጥ ላይ…",
     "errors": {
       "firstName": "የመጀመሪያ ስም ያስፈልጋል",
       "lastName": "የአባት ስም ያስፈልጋል",
@@ -416,7 +422,9 @@
       "phoneInvalid": "ትክክለኛ ስልክ ያስገቡ (9–15 አኃዞች)",
       "password": "የይለፍ ቃል ቢያንስ 8 ቁምፊዎች መሆን አለበት",
       "confirmPassword": "የይለፍ ቃሎቹ አይጣጣሙም",
-      "confirmPasswordRequired": "እባክዎ የይለፍ ቃልዎን ያረጋግጡ"
+      "confirmPasswordRequired": "እባክዎ የይለፍ ቃልዎን ያረጋግጡ",
+      "otpRequired": "የማረጋገጫ ኮድ ያስገቡ",
+      "otpInvalid": "ትክክለኛ ኮድ ያስገቡ (አኃዞች ብቻ)"
     }
   },
   "loginPage": {
@@ -430,6 +438,8 @@
     "hidePassword": "የይለፍ ቃል ደብቅ",
     "rememberMe": "አስታውሰኝ",
     "signIn": "ግባ",
+    "signingIn": "በመግባት ላይ…",
+    "registerOrVerifyHint": "ለመቀጠል እባክዎ ይመዝገቡ ወይም መለያዎን ያረጋግጡ።",
     "forgotPassword": "የይለፍ ቃል ረሳሁ?",
     "noAccount": "መለያ የለዎትም?",
     "registerHere": "እዚህ ይመዝገቡ",

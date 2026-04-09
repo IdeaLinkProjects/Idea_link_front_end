@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { RequireAuth } from "@/components/auth/RequireAuth";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { clearAuthTokens } from "@/lib/auth/tokenStorage";
 import { type ReactNode, useState } from "react";
 import { messages } from "@/locales";
 
@@ -46,6 +48,7 @@ export function InvestorLayout({ children }: InvestorLayoutProps) {
   const userDisplay = `${t.userFirstName} ${t.userRoleSuffix}`;
 
   return (
+    <RequireAuth>
     <div className={`relative min-h-screen ${pageBg}`}>
       {mobileNavOpen ? (
         <button
@@ -122,16 +125,21 @@ export function InvestorLayout({ children }: InvestorLayoutProps) {
             >
               {userDisplay}
             </span>
-            <Link
-              href="/"
+            <button
+              type="button"
+              onClick={() => {
+                clearAuthTokens();
+                void router.push("/login");
+              }}
               className="rounded-lg bg-emerald-700 px-3 py-2 text-sm font-semibold text-white shadow-md shadow-emerald-950/30 transition hover:bg-emerald-600"
             >
               {t.logout}
-            </Link>
+            </button>
           </div>
         </header>
         <div className="p-4 sm:p-6 lg:p-8">{children}</div>
       </div>
     </div>
+    </RequireAuth>
   );
 }

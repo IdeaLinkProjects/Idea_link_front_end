@@ -408,6 +408,12 @@
     "loginHere": "Login here",
     "successTitle": "Your account was created.",
     "successBody": "You can now sign in with your email.",
+    "verifyTitle": "Verify your email",
+    "verifyBody": "Enter the code we sent to {email}.",
+    "otpLabel": "Verification code",
+    "otpPlaceholder": "Enter code",
+    "verifySubmit": "Verify and continue",
+    "verifying": "Verifying…",
     "errors": {
       "firstName": "First name is required",
       "lastName": "Last name is required",
@@ -416,7 +422,9 @@
       "phoneInvalid": "Enter a valid phone number (9–15 digits)",
       "password": "Password must be at least 8 characters",
       "confirmPassword": "Passwords do not match",
-      "confirmPasswordRequired": "Please confirm your password"
+      "confirmPasswordRequired": "Please confirm your password",
+      "otpRequired": "Enter the verification code",
+      "otpInvalid": "Enter a valid code (digits only)"
     }
   },
   "loginPage": {
@@ -430,6 +438,8 @@
     "hidePassword": "Hide password",
     "rememberMe": "Remember me",
     "signIn": "Sign In",
+    "signingIn": "Signing in…",
+    "registerOrVerifyHint": "Please register or verify your account to continue.",
     "forgotPassword": "Forgot Password?",
     "noAccount": "Don't have an account?",
     "registerHere": "Register here",

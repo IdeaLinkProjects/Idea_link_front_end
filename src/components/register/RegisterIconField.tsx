@@ -48,12 +48,12 @@ export function RegisterIconField({
 
   return (
     <div>
-      <label htmlFor={id} className={`mb-1 block text-xs font-medium ${registerLabelClass()}`}>
+      <label htmlFor={id} className={`mb-1 block text-sm font-medium ${registerLabelClass()}`}>
         {label}
       </label>
       <div className="relative">
         <Icon
-          className={`pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 ${registerIconMutedClass()}`}
+          className={`pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 ${registerIconMutedClass()}`}
           aria-hidden
         />
         <input
@@ -76,11 +76,11 @@ export function RegisterIconField({
             aria-pressed={visible}
             tabIndex={0}
           >
-            {visible ? <EyeOff className="h-4 w-4" strokeWidth={2} aria-hidden /> : <Eye className="h-4 w-4" strokeWidth={2} aria-hidden />}
+            {visible ? <EyeOff className="h-5 w-5" strokeWidth={2} aria-hidden /> : <Eye className="h-5 w-5" strokeWidth={2} aria-hidden />}
           </button>
         ) : null}
       </div>
-      {err ? <p className="mt-0.5 text-[11px] leading-tight text-red-400">{err}</p> : null}
+      {err ? <p className="mt-0.5 text-xs leading-tight text-red-400">{err}</p> : null}
     </div>
   );
 }

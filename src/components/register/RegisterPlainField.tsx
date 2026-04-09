@@ -31,7 +31,7 @@ export function RegisterPlainField({
   const err = errors[errorKey];
   return (
     <div>
-      <label htmlFor={id} className={`mb-1 block text-xs font-medium ${registerLabelClass()}`}>
+      <label htmlFor={id} className={`mb-1 block text-sm font-medium ${registerLabelClass()}`}>
         {label}
       </label>
       <input
@@ -43,7 +43,7 @@ export function RegisterPlainField({
         placeholder={placeholder}
         className={registerPlainInputClass(submitted, err, validWhenSubmitted)}
       />
-      {err ? <p className="mt-0.5 text-[11px] leading-tight text-red-400">{err}</p> : null}
+      {err ? <p className="mt-0.5 text-xs leading-tight text-red-400">{err}</p> : null}
     </div>
   );
 }

@@ -1,13 +1,16 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { type FormEvent, useMemo, useState } from "react";
+import { type FormEvent, type SetStateAction, useCallback, useMemo, useState } from "react";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
+import { persistAuthTokens } from "@/lib/auth/tokenStorage";
 import { createInitialLoginForm, type LoginFormState } from "@/lib/login/types";
 import { persistRememberedEmail } from "@/lib/login/rememberEmailStorage";
 import { resolvePostLoginPath } from "@/lib/login/resolvePostLoginPath";
 import { validateLoginForm } from "@/lib/login/validateLoginForm";
 import { messages } from "@/locales";
+import { useLoginMutation } from "@/store";
 import { RegisterPromoPanel } from "@/components/register/RegisterPromoPanel";
 import { LoginForm } from "./LoginForm";
 
@@ -17,21 +20,47 @@ export function LoginPage() {
   const t = messages[locale].loginPage;
   const registerPromo = messages[locale].registerPage;
 
-  const [form, setForm] = useState<LoginFormState>(() => createInitialLoginForm());
+  const [login, { isLoading: isLoggingIn }] = useLoginMutation();
+  const [form, setFormInternal] = useState<LoginFormState>(() => createInitialLoginForm());
   const [submitted, setSubmitted] = useState(false);
+  const [generalError, setGeneralError] = useState<string | null>(null);
+
+  const setForm = useCallback(
+    (updater: SetStateAction<LoginFormState>) => {
+      setGeneralError(null);
+      setFormInternal(updater);
+    },
+    [],
+  );
 
   const errors = useMemo(() => {
     if (!submitted) return {};
     return validateLoginForm(form.email, form.password, t);
   }, [submitted, form.email, form.password, t]);
 
-  const handleSubmit = (ev: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
+    setGeneralError(null);
     const nextErrors = validateLoginForm(form.email, form.password, t);
     setSubmitted(true);
     if (Object.keys(nextErrors).length > 0) return;
-    persistRememberedEmail(form.email, form.remember);
-    void router.push(resolvePostLoginPath(form.email));
+
+    const email = form.email.trim();
+    try {
+      const data = await login({ email, password: form.password }).unwrap();
+      const access = data.accessToken?.trim();
+      const refresh = data.refreshToken?.trim();
+      if (access && refresh) {
+        persistAuthTokens(access, refresh);
+        persistRememberedEmail(form.email, form.remember);
+        void router.push(resolvePostLoginPath(email));
+        return;
+      }
+      setGeneralError(t.registerOrVerifyHint);
+    } catch (err) {
+      const message = extractApiErrorMessage(err, "Sign in failed. Please try again.");
+      setGeneralError(message);
+    }
   };
 
   return (
@@ -58,7 +87,16 @@ export function LoginPage() {
                 {t.title}
               </h1>
 
-              <LoginForm t={t} form={form} setForm={setForm} errors={errors} submitted={submitted} onSubmit={handleSubmit} />
+              <LoginForm
+                t={t}
+                form={form}
+                setForm={setForm}
+                errors={errors}
+                submitted={submitted}
+                generalError={generalError}
+                isSubmitting={isLoggingIn}
+                onSubmit={handleSubmit}
+              />
             </div>
           </div>
         </div>

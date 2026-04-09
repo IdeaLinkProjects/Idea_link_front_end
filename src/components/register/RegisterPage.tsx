@@ -1,27 +1,36 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { type FormEvent, type SetStateAction, useCallback, useMemo, useState } from "react";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
+import { persistAuthTokens } from "@/lib/auth/tokenStorage";
+import { resolvePostLoginPath } from "@/lib/login/resolvePostLoginPath";
 import { registerApiMessageToFieldErrors } from "@/lib/register/parseRegisterApiError";
 import { createEmptyRegisterForm, type RegisterFormState } from "@/lib/register/types";
 import { validateRegisterForm, type RegisterFormErrors } from "@/lib/register/validateRegisterForm";
 import { messages } from "@/locales";
-import { useRegisterMutation } from "@/store";
-import { RegisterForm } from "./RegisterForm";
+import { useRegisterMutation, useVerifyEmailMutation } from "@/store";
+import { RegisterForm, type RegisterPhase } from "./RegisterForm";
 import { RegisterPromoPanel } from "./RegisterPromoPanel";
-import { SuccessMessage } from "./SuccessMessage";
+
+const OTP_REGEX = /^\d{4,8}$/;
 
 export function RegisterPage() {
+  const router = useRouter();
   const { locale } = useAppPreferences();
   const t = messages[locale].registerPage;
 
   const [registerUser, { isLoading: isRegistering }] = useRegisterMutation();
+  const [verifyEmail, { isLoading: isVerifying }] = useVerifyEmailMutation();
   const [form, setFormInternal] = useState<RegisterFormState>(() => createEmptyRegisterForm());
+  const [phase, setPhase] = useState<RegisterPhase>("register");
+  const [otpCode, setOtpCode] = useState("");
+  const [verifySubmitted, setVerifySubmitted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [serverFieldErrors, setServerFieldErrors] = useState<RegisterFormErrors>({});
   const [generalError, setGeneralError] = useState<string | null>(null);
+  const [verifyGeneralError, setVerifyGeneralError] = useState<string | null>(null);
 
   const clearApiErrors = useCallback(() => {
     setServerFieldErrors({});
@@ -45,6 +54,14 @@ export function RegisterPage() {
     [serverFieldErrors, clientErrorsVisible],
   );
 
+  const otpError = useMemo(() => {
+    if (!verifySubmitted) return undefined;
+    const c = otpCode.trim();
+    if (!c) return t.errors.otpRequired;
+    if (!OTP_REGEX.test(c)) return t.errors.otpInvalid;
+    return undefined;
+  }, [verifySubmitted, otpCode, t]);
+
   const handleSubmit = async (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     clearApiErrors();
@@ -62,7 +79,10 @@ export function RegisterPage() {
         password: form.password,
         confirmPassword: form.confirmPassword,
       }).unwrap();
-      setSuccess(true);
+      setVerifyGeneralError(null);
+      setVerifySubmitted(false);
+      setOtpCode("");
+      setPhase("verify");
     } catch (err) {
       const message = extractApiErrorMessage(err, "Registration failed. Please try again.");
       const { fieldErrors, generalMessage } = registerApiMessageToFieldErrors(message);
@@ -74,6 +94,32 @@ export function RegisterPage() {
       }
     }
   };
+
+  const handleVerifySubmit = async (ev: FormEvent<HTMLFormElement>) => {
+    ev.preventDefault();
+    setVerifyGeneralError(null);
+    const c = otpCode.trim();
+    let nextOtpError: string | undefined;
+    if (!c) nextOtpError = t.errors.otpRequired;
+    else if (!OTP_REGEX.test(c)) nextOtpError = t.errors.otpInvalid;
+    setVerifySubmitted(true);
+    if (nextOtpError) return;
+
+    const email = form.email.trim();
+    try {
+      const auth = await verifyEmail({
+        email,
+        otpCode: otpCode.trim(),
+      }).unwrap();
+      persistAuthTokens(auth.accessToken, auth.refreshToken);
+      void router.push(resolvePostLoginPath(email));
+    } catch (err) {
+      const message = extractApiErrorMessage(err, "Verification failed. Please try again.");
+      setVerifyGeneralError(message);
+    }
+  };
+
+  const heading = phase === "verify" ? t.verifyTitle : t.title;
 
   return (
     <>
@@ -96,23 +142,27 @@ export function RegisterPage() {
               </div>
 
               <h1 className="mt-2 text-center text-lg font-bold tracking-tight text-zinc-900 sm:text-xl lg:text-left dark:text-white">
-                {t.title}
+                {heading}
               </h1>
 
-              {success ? (
-                <SuccessMessage t={t} signInLabel={messages[locale].loginPage.signIn} />
-              ) : (
-                <RegisterForm
-                  t={t}
-                  form={form}
-                  setForm={setForm}
-                  errors={errors}
-                  submitted={submitted}
-                  generalError={generalError}
-                  isSubmitting={isRegistering}
-                  onSubmit={handleSubmit}
-                />
-              )}
+              <RegisterForm
+                t={t}
+                phase={phase}
+                form={form}
+                setForm={setForm}
+                errors={errors}
+                submitted={submitted}
+                generalError={generalError}
+                isSubmitting={isRegistering}
+                onSubmit={handleSubmit}
+                otpCode={otpCode}
+                setOtpCode={setOtpCode}
+                verifySubmitted={verifySubmitted}
+                otpError={otpError}
+                verifyGeneralError={verifyGeneralError}
+                isVerifying={isVerifying}
+                onVerifySubmit={handleVerifySubmit}
+              />
             </div>
           </div>
         </div>

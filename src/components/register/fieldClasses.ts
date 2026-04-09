@@ -27,8 +27,8 @@ export function registerIconInputClass(
   options?: { trailingToggle?: boolean },
 ): string {
   return clsx(
-    "w-full rounded-lg border py-2 pl-10 text-[13px] leading-snug outline-none transition",
-    options?.trailingToggle ? "pr-10" : "pr-3",
+    "w-full rounded-lg border py-2.5 pl-11 text-sm leading-snug outline-none transition",
+    options?.trailingToggle ? "pr-11" : "pr-3.5",
     registerFieldBase(),
     registerFieldBorder(submitted, error, showValidHighlight),
   );
@@ -40,7 +40,7 @@ export function registerPlainInputClass(
   showValidHighlight: boolean,
 ): string {
   return clsx(
-    "w-full rounded-lg border px-3 py-2 text-[13px] leading-snug outline-none transition",
+    "w-full rounded-lg border px-3.5 py-2.5 text-sm leading-snug outline-none transition",
     registerFieldBase(),
     registerFieldBorder(submitted, error, showValidHighlight),
   );
