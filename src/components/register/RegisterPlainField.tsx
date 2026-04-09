@@ -13,7 +13,6 @@ type RegisterPlainFieldProps = {
   errors: RegisterFormErrors;
   submitted: boolean;
   validWhenSubmitted: boolean;
-  isDark: boolean;
 };
 
 export function RegisterPlainField({
@@ -28,12 +27,11 @@ export function RegisterPlainField({
   errors,
   submitted,
   validWhenSubmitted,
-  isDark,
 }: RegisterPlainFieldProps) {
   const err = errors[errorKey];
   return (
     <div>
-      <label htmlFor={id} className={`mb-1.5 block text-sm font-medium ${registerLabelClass(isDark)}`}>
+      <label htmlFor={id} className={`mb-1 block text-xs font-medium ${registerLabelClass()}`}>
         {label}
       </label>
       <input
@@ -43,9 +41,9 @@ export function RegisterPlainField({
         value={value}
         onChange={(e) => onValueChange(e.target.value)}
         placeholder={placeholder}
-        className={registerPlainInputClass(isDark, submitted, err, validWhenSubmitted)}
+        className={registerPlainInputClass(submitted, err, validWhenSubmitted)}
       />
-      {submitted && err ? <p className="mt-1.5 text-sm text-red-400">{err}</p> : null}
+      {err ? <p className="mt-0.5 text-[11px] leading-tight text-red-400">{err}</p> : null}
     </div>
   );
 }

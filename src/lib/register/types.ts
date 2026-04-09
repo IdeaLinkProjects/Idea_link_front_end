@@ -1,25 +1,19 @@
 export type RegisterFormState = {
+  firstName: string;
+  lastName: string;
   email: string;
+  phone: string;
   password: string;
-  fullName: string;
-  nationalId: string;
-  horizon: string;
-  tolerance: string;
-  priorInvest: string;
-  terms: boolean;
-  licenseFile: File | null;
+  confirmPassword: string;
 };
 
 export function createEmptyRegisterForm(): RegisterFormState {
   return {
+    firstName: "",
+    lastName: "",
     email: "",
+    phone: "",
     password: "",
-    fullName: "",
-    nationalId: "",
-    horizon: "",
-    tolerance: "",
-    priorInvest: "",
-    terms: false,
-    licenseFile: null,
+    confirmPassword: "",
   };
 }

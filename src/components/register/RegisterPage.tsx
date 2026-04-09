@@ -1,57 +1,78 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { type FormEvent, useMemo, useState } from "react";
+import { type FormEvent, type SetStateAction, useCallback, useMemo, useState } from "react";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
-import { type RegisterRole } from "@/lib/register/constants";
-import { saveDemoUserRole } from "@/lib/register/demoRoleStorage";
-import { registerRoleFromQuery } from "@/lib/register/routerRole";
+import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
+import { registerApiMessageToFieldErrors } from "@/lib/register/parseRegisterApiError";
 import { createEmptyRegisterForm, type RegisterFormState } from "@/lib/register/types";
-import { validateRegisterForm } from "@/lib/register/validateRegisterForm";
+import { validateRegisterForm, type RegisterFormErrors } from "@/lib/register/validateRegisterForm";
 import { messages } from "@/locales";
+import { useRegisterMutation } from "@/store";
 import { RegisterForm } from "./RegisterForm";
-import { RoleSelector } from "./RoleSelector";
+import { RegisterPromoPanel } from "./RegisterPromoPanel";
 import { SuccessMessage } from "./SuccessMessage";
 
 export function RegisterPage() {
-  const router = useRouter();
-  const { locale, isDark } = useAppPreferences();
+  const { locale } = useAppPreferences();
   const t = messages[locale].registerPage;
 
-  const urlRole = registerRoleFromQuery(router);
-
-  const [pickedRole, setPickedRole] = useState<RegisterRole | null>(null);
-  const [ignoreUrlRole, setIgnoreUrlRole] = useState(false);
-  const effectiveRole = ignoreUrlRole ? pickedRole : (pickedRole ?? urlRole);
-
-  const [form, setForm] = useState<RegisterFormState>(() => createEmptyRegisterForm());
+  const [registerUser, { isLoading: isRegistering }] = useRegisterMutation();
+  const [form, setFormInternal] = useState<RegisterFormState>(() => createEmptyRegisterForm());
   const [submitted, setSubmitted] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [serverFieldErrors, setServerFieldErrors] = useState<RegisterFormErrors>({});
+  const [generalError, setGeneralError] = useState<string | null>(null);
 
-  const errors = useMemo(
-    () => validateRegisterForm(form, effectiveRole, t),
-    [form, effectiveRole, t],
+  const clearApiErrors = useCallback(() => {
+    setServerFieldErrors({});
+    setGeneralError(null);
+  }, []);
+
+  const setForm = useCallback(
+    (updater: SetStateAction<RegisterFormState>) => {
+      clearApiErrors();
+      setFormInternal(updater);
+    },
+    [clearApiErrors],
   );
 
-  const handleSelectRole = (role: RegisterRole) => {
-    setPickedRole(role);
-    setIgnoreUrlRole(true);
-  };
+  const clientErrorsVisible = useMemo(
+    () => (submitted ? validateRegisterForm(form, t) : {}),
+    [submitted, form, t],
+  );
+  const errors = useMemo(
+    () => ({ ...serverFieldErrors, ...clientErrorsVisible }),
+    [serverFieldErrors, clientErrorsVisible],
+  );
 
-  const handleChangeRole = () => {
-    setPickedRole(null);
-    setIgnoreUrlRole(true);
-    setSubmitted(false);
-    setForm((prev) => ({ ...prev, licenseFile: null }));
-  };
-
-  const handleSubmit = (ev: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
-    const nextErrors = validateRegisterForm(form, effectiveRole, t);
+    clearApiErrors();
     setSubmitted(true);
-    if (Object.keys(nextErrors).length > 0) return;
-    if (effectiveRole) saveDemoUserRole(effectiveRole);
-    setSuccess(true);
+
+    const nextClientErrors = validateRegisterForm(form, t);
+    if (Object.keys(nextClientErrors).length > 0) return;
+
+    try {
+      await registerUser({
+        firstName: form.firstName.trim(),
+        lastName: form.lastName.trim(),
+        email: form.email.trim(),
+        phone: form.phone.replace(/\s/g, ""),
+        password: form.password,
+        confirmPassword: form.confirmPassword,
+      }).unwrap();
+      setSuccess(true);
+    } catch (err) {
+      const message = extractApiErrorMessage(err, "Registration failed. Please try again.");
+      const { fieldErrors, generalMessage } = registerApiMessageToFieldErrors(message);
+      if (Object.keys(fieldErrors).length > 0) {
+        setServerFieldErrors(fieldErrors);
+        setGeneralError(generalMessage);
+      } else {
+        setGeneralError(message);
+      }
+    }
   };
 
   return (
@@ -61,46 +82,40 @@ export function RegisterPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <div
-        className={`relative min-h-screen overflow-hidden ${isDark ? "bg-zinc-950 text-zinc-100" : "bg-zinc-50 text-zinc-900"}`}
-      >
-        <div
-          className={`pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full blur-3xl ${isDark ? "bg-emerald-500/25" : "bg-emerald-400/25"}`}
-        />
-        <div
-          className={`pointer-events-none absolute top-40 -right-20 h-80 w-80 rounded-full blur-3xl ${isDark ? "bg-emerald-700/20" : "bg-emerald-600/20"}`}
-        />
+      <div className="flex min-h-dvh flex-col bg-zinc-100 text-zinc-900 max-lg:overflow-y-auto dark:bg-zinc-950 dark:text-zinc-100 lg:h-dvh lg:max-h-dvh lg:overflow-hidden">
+        <div className="mx-auto flex min-h-0 w-full max-w-6xl flex-1 flex-col lg:max-w-none lg:flex-row xl:max-w-[1400px]">
+          <RegisterPromoPanel t={t} className="order-2 w-full shrink-0 lg:order-1 lg:min-h-0 lg:w-1/2 xl:w-[46%]" />
 
-        <main className="relative z-10 mx-auto min-h-screen w-full max-w-2xl px-4 py-10 pb-16 sm:px-6">
-          <div className="text-center">
-            <Link href="/" className="text-2xl font-extrabold tracking-tight">
-              <span className="text-emerald-500">Ideal</span>
-              <span className="text-emerald-300">Link</span>
-            </Link>
+          <div className="order-1 flex min-h-0 w-full flex-1 flex-col justify-center px-4 py-6 sm:px-6 lg:order-2 lg:w-1/2 lg:px-8 lg:py-5 xl:w-[54%] xl:px-10">
+            <div className="mx-auto w-full max-w-[22rem] sm:max-w-md">
+              <div className="text-center lg:text-left">
+                <Link href="/" className="inline-block text-xl font-extrabold tracking-tight transition hover:opacity-90 sm:text-2xl">
+                  <span className="text-emerald-500">Ideal</span>
+                  <span className="text-emerald-300">Link</span>
+                </Link>
+              </div>
+
+              <h1 className="mt-2 text-center text-lg font-bold tracking-tight text-zinc-900 sm:text-xl lg:text-left dark:text-white">
+                {t.title}
+              </h1>
+
+              {success ? (
+                <SuccessMessage t={t} signInLabel={messages[locale].loginPage.signIn} />
+              ) : (
+                <RegisterForm
+                  t={t}
+                  form={form}
+                  setForm={setForm}
+                  errors={errors}
+                  submitted={submitted}
+                  generalError={generalError}
+                  isSubmitting={isRegistering}
+                  onSubmit={handleSubmit}
+                />
+              )}
+            </div>
           </div>
-
-          <h1 className={`mt-4 text-center text-2xl font-bold tracking-tight sm:text-3xl ${isDark ? "text-white" : "text-zinc-900"}`}>
-            {t.title}
-          </h1>
-
-          {success ? (
-            <SuccessMessage t={t} isDark={isDark} signInLabel={messages[locale].loginPage.signIn} />
-          ) : !effectiveRole ? (
-            <RoleSelector t={t} isDark={isDark} onSelectRole={handleSelectRole} />
-          ) : (
-            <RegisterForm
-              t={t}
-              isDark={isDark}
-              role={effectiveRole}
-              form={form}
-              setForm={setForm}
-              errors={errors}
-              submitted={submitted}
-              onSubmit={handleSubmit}
-              onChangeRole={handleChangeRole}
-            />
-          )}
-        </main>
+        </div>
       </div>
     </>
   );

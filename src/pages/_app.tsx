@@ -1,11 +1,15 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import { Provider } from "react-redux";
 import { AppPreferencesProvider } from "@/context/AppPreferencesContext";
+import { store } from "@/store";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <AppPreferencesProvider>
-      <Component {...pageProps} />
-    </AppPreferencesProvider>
+    <Provider store={store}>
+      <AppPreferencesProvider>
+        <Component {...pageProps} />
+      </AppPreferencesProvider>
+    </Provider>
   );
 }

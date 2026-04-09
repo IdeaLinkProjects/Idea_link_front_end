@@ -1,5 +1,4 @@
 import { messages } from "@/locales";
-import { REGISTER_LICENSE_MAX_BYTES, REGISTER_ROLE, type RegisterRole } from "./constants";
 import { emailOk } from "./email";
 import type { RegisterFormState } from "./types";
 
@@ -8,31 +7,25 @@ export type RegisterPageMessages = (typeof messages)["en"]["registerPage"];
 export type RegisterFieldError =
   | "email"
   | "password"
-  | "fullName"
-  | "nationalId"
-  | "terms"
-  | "license"
-  | "risk";
+  | "firstName"
+  | "lastName"
+  | "phone"
+  | "confirmPassword";
 
 export type RegisterFormErrors = Partial<Record<RegisterFieldError, string>>;
 
-export function validateRegisterForm(
-  form: RegisterFormState,
-  role: RegisterRole | null,
-  t: RegisterPageMessages,
-): RegisterFormErrors {
+const PHONE_REGEX = /^\+?[0-9]{9,15}$/;
+
+export function validateRegisterForm(form: RegisterFormState, t: RegisterPageMessages): RegisterFormErrors {
   const e: RegisterFormErrors = {};
+  if (!form.firstName.trim()) e.firstName = t.errors.firstName;
+  if (!form.lastName.trim()) e.lastName = t.errors.lastName;
   if (!emailOk(form.email)) e.email = t.errors.email;
+  const phoneDigits = form.phone.replace(/\s/g, "");
+  if (!phoneDigits) e.phone = t.errors.phone;
+  else if (!PHONE_REGEX.test(phoneDigits)) e.phone = t.errors.phoneInvalid;
   if (form.password.length < 8) e.password = t.errors.password;
-  if (!form.fullName.trim()) e.fullName = t.errors.fullName;
-  if (!form.nationalId.trim()) e.nationalId = t.errors.nationalId;
-  if (!form.terms) e.terms = t.errors.terms;
-  if (role === REGISTER_ROLE.INNOVATOR) {
-    if (!form.licenseFile) e.license = t.errors.license;
-    else if (form.licenseFile.size > REGISTER_LICENSE_MAX_BYTES) e.license = t.errors.licenseSize;
-  }
-  if (role === REGISTER_ROLE.INVESTOR) {
-    if (!form.horizon || !form.tolerance || !form.priorInvest) e.risk = t.errors.risk;
-  }
+  if (!form.confirmPassword) e.confirmPassword = t.errors.confirmPasswordRequired;
+  else if (form.confirmPassword !== form.password) e.confirmPassword = t.errors.confirmPassword;
   return e;
 }

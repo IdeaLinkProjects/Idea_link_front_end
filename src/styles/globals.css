@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Manual theme from AppPreferencesContext (`data-theme` on <html>) — enables `dark:` utilities */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 :root {
   --background: #fafafa;
   --foreground: #0a0a0a;
