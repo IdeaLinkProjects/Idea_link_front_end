@@ -1,13 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { useEffect, useMemo, useState } from "react";
-import am from "@/locales/am.json";
-import en from "@/locales/en.json";
-
-type Locale = "en" | "am";
-
-const messages = { en, am } as const;
+import { type Locale, messages } from "@/locales";
 
 type ProjectBundle = {
   goalEtb: number;
@@ -48,16 +44,7 @@ export default function ProjectInvestPage() {
   const router = useRouter();
   const id = typeof router.query.id === "string" ? router.query.id : "";
 
-  const [locale] = useState<Locale>(() => {
-    if (typeof window === "undefined") return "en";
-    const s = window.localStorage.getItem("ideal-link-locale");
-    return s === "am" || s === "en" ? s : "en";
-  });
-  const [theme] = useState<"dark" | "light">(() => {
-    if (typeof window === "undefined") return "dark";
-    const s = window.localStorage.getItem("ideal-link-theme");
-    return s === "light" || s === "dark" ? s : "dark";
-  });
+  const { locale, isDark } = useAppPreferences();
 
   const [step, setStep] = useState<Step>(1);
   const [amount, setAmount] = useState(5000);
@@ -72,7 +59,6 @@ export default function ProjectInvestPage() {
   const d = t.discovery;
   const p = t.projectDetail;
   const inv = t.investmentFlow;
-  const isDark = theme === "dark";
 
   const idea = useMemo(() => d.ideas.find((i) => i.id === id), [d.ideas, id]);
 

@@ -1,43 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import am from "@/locales/am.json";
-import en from "@/locales/en.json";
-
-type Locale = "en" | "am";
-
-const messages = {
-  en,
-  am,
-} as const;
+import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { messages } from "@/locales";
 
 export default function Home() {
-  const [theme, setTheme] = useState<"dark" | "light">(() => {
-    if (typeof window === "undefined") {
-      return "dark";
-    }
-    const storedTheme = window.localStorage.getItem("ideal-link-theme");
-    return storedTheme === "light" || storedTheme === "dark" ? storedTheme : "dark";
-  });
-  const [locale, setLocale] = useState<Locale>(() => {
-    if (typeof window === "undefined") {
-      return "en";
-    }
-    const storedLocale = window.localStorage.getItem("ideal-link-locale");
-    return storedLocale === "am" || storedLocale === "en" ? storedLocale : "en";
-  });
-
-  useEffect(() => {
-    window.localStorage.setItem("ideal-link-theme", theme);
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]);
-  useEffect(() => {
-    window.localStorage.setItem("ideal-link-locale", locale);
-    document.documentElement.setAttribute("lang", locale);
-  }, [locale]);
-
-  const isDark = theme === "dark";
+  const { locale, setLocale, theme, setTheme, isDark } = useAppPreferences();
   const t = messages[locale];
 
   return (

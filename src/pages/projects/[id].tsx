@@ -2,15 +2,11 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { useCallback, useMemo, useState, type FormEvent } from "react";
-import am from "@/locales/am.json";
-import en from "@/locales/en.json";
+import { type Locale, messages } from "@/locales";
 
-type Locale = "en" | "am";
-
-const messages = { en, am } as const;
-
-type CategoryKey = keyof typeof en.discovery.categories;
+type CategoryKey = keyof typeof messages.en.discovery.categories;
 
 type TabKey = "overview" | "risks" | "updates" | "documents" | "qa";
 
@@ -57,16 +53,7 @@ export default function ProjectDetailPage() {
   const router = useRouter();
   const id = typeof router.query.id === "string" ? router.query.id : "";
 
-  const [locale] = useState<Locale>(() => {
-    if (typeof window === "undefined") return "en";
-    const s = window.localStorage.getItem("ideal-link-locale");
-    return s === "am" || s === "en" ? s : "en";
-  });
-  const [theme] = useState<"dark" | "light">(() => {
-    if (typeof window === "undefined") return "dark";
-    const s = window.localStorage.getItem("ideal-link-theme");
-    return s === "light" || s === "dark" ? s : "dark";
-  });
+  const { locale, isDark } = useAppPreferences();
 
   const [tab, setTab] = useState<TabKey>("overview");
   const [calcAmount, setCalcAmount] = useState(5000);
@@ -77,7 +64,6 @@ export default function ProjectDetailPage() {
   const t = messages[locale];
   const d = t.discovery;
   const p = t.projectDetail;
-  const isDark = theme === "dark";
 
   const idea = useMemo(() => d.ideas.find((i) => i.id === id), [d.ideas, id]);
 

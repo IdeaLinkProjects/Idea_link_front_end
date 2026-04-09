@@ -3,12 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { InnovatorLayout } from "@/components/innovator/InnovatorLayout";
-import am from "@/locales/am.json";
-import en from "@/locales/en.json";
-
-type Locale = "en" | "am";
-
-const messages = { en, am } as const;
+import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { type Locale, messages } from "@/locales";
 
 type TabKey = "overview" | "updates" | "documents" | "investors" | "messages";
 
@@ -27,20 +23,6 @@ function formatEtb(n: number, locale: Locale): string {
   return new Intl.NumberFormat(locale === "am" ? "am-ET" : "en-ET", {
     maximumFractionDigits: 0,
   }).format(n);
-}
-
-function useLocaleTheme() {
-  const [locale] = useState<Locale>(() => {
-    if (typeof window === "undefined") return "en";
-    const s = window.localStorage.getItem("ideal-link-locale");
-    return s === "am" || s === "en" ? s : "en";
-  });
-  const [theme] = useState<"dark" | "light">(() => {
-    if (typeof window === "undefined") return "dark";
-    const s = window.localStorage.getItem("ideal-link-theme");
-    return s === "light" || s === "dark" ? s : "dark";
-  });
-  return { locale, theme };
 }
 
 function RichEditor({
@@ -148,9 +130,8 @@ function TabButton({
 
 export default function InnovatorProjectManagePage() {
   const router = useRouter();
-  const { locale, theme } = useLocaleTheme();
+  const { locale, isDark } = useAppPreferences();
   const d = messages[locale].innovatorProjectManage;
-  const isDark = theme === "dark";
 
   const cardClass = isDark
     ? "border-white/15 bg-white/10 shadow-lg shadow-black/20"

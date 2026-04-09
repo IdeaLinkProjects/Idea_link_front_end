@@ -3,12 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import type { FormEvent } from "react";
-import am from "@/locales/am.json";
-import en from "@/locales/en.json";
-
-type Locale = "en" | "am";
-
-const messages = { en, am } as const;
+import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { messages } from "@/locales";
 
 const emailOk = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
@@ -52,20 +48,9 @@ function EyeOffIcon({ className }: { className?: string }) {
 
 export default function LoginPage() {
   const router = useRouter();
-  const [locale] = useState<Locale>(() => {
-    if (typeof window === "undefined") return "en";
-    const s = window.localStorage.getItem("ideal-link-locale");
-    return s === "am" || s === "en" ? s : "en";
-  });
-
-  const [theme] = useState<"dark" | "light">(() => {
-    if (typeof window === "undefined") return "dark";
-    const s = window.localStorage.getItem("ideal-link-theme");
-    return s === "light" || s === "dark" ? s : "dark";
-  });
+  const { locale, isDark } = useAppPreferences();
 
   const t = messages[locale].loginPage;
-  const isDark = theme === "dark";
 
   const [email, setEmail] = useState(() => {
     if (typeof window === "undefined") return "";

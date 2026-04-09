@@ -1,13 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { useMemo, useState } from "react";
 import { InnovatorLayout } from "@/components/innovator/InnovatorLayout";
-import am from "@/locales/am.json";
-import en from "@/locales/en.json";
-
-type Locale = "en" | "am";
-
-const messages = { en, am } as const;
+import { messages } from "@/locales";
 
 const MIN_GOAL_ETB = 25_000;
 const MAX_SHORT = 200;
@@ -26,19 +22,9 @@ function parsePositiveInt(raw: string): number | null {
 }
 
 export default function InnovatorNewProjectPage() {
-  const [locale] = useState<Locale>(() => {
-    if (typeof window === "undefined") return "en";
-    const s = window.localStorage.getItem("ideal-link-locale");
-    return s === "am" || s === "en" ? s : "en";
-  });
-  const [theme] = useState<"dark" | "light">(() => {
-    if (typeof window === "undefined") return "dark";
-    const s = window.localStorage.getItem("ideal-link-theme");
-    return s === "light" || s === "dark" ? s : "dark";
-  });
+  const { locale, isDark } = useAppPreferences();
 
   const t = messages[locale].innovatorProjectWizard;
-  const isDark = theme === "dark";
 
   const [step, setStep] = useState<Step>(1);
   const [submitted, setSubmitted] = useState(false);

@@ -1,19 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useState } from "react";
-import am from "@/locales/am.json";
-import en from "@/locales/en.json";
-
-type Locale = "en" | "am";
-
-const messages = { en, am } as const;
+import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { messages } from "@/locales";
 
 export default function ForgotPasswordPage() {
-  const [locale] = useState<Locale>(() => {
-    if (typeof window === "undefined") return "en";
-    const s = window.localStorage.getItem("ideal-link-locale");
-    return s === "am" || s === "en" ? s : "en";
-  });
+  const { locale } = useAppPreferences();
 
   const login = messages[locale].loginPage;
   const title = locale === "am" ? "የይለፍ ቃል ዳግም ማስቀጠል" : "Reset password";

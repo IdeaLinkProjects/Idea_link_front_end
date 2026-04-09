@@ -1,12 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { type ReactNode, useState } from "react";
-import am from "@/locales/am.json";
-import en from "@/locales/en.json";
-
-type Locale = "en" | "am";
-
-const messages = { en, am } as const;
+import { messages } from "@/locales";
 
 const MESSAGE_BADGE = 3;
 
@@ -16,20 +12,10 @@ type InnovatorLayoutProps = {
 
 export function InnovatorLayout({ children }: InnovatorLayoutProps) {
   const router = useRouter();
-  const [locale] = useState<Locale>(() => {
-    if (typeof window === "undefined") return "en";
-    const s = window.localStorage.getItem("ideal-link-locale");
-    return s === "am" || s === "en" ? s : "en";
-  });
-  const [theme] = useState<"dark" | "light">(() => {
-    if (typeof window === "undefined") return "dark";
-    const s = window.localStorage.getItem("ideal-link-theme");
-    return s === "light" || s === "dark" ? s : "dark";
-  });
+  const { locale, isDark } = useAppPreferences();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const t = messages[locale].innovatorDashboard;
-  const isDark = theme === "dark";
 
   const nav: Array<{
     href: string;
