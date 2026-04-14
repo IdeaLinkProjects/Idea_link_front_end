@@ -33,7 +33,7 @@ export function RegisterPromoPanel({ t, className }: RegisterPromoPanelProps) {
   return (
     <aside
       className={clsx(
-        "relative flex min-h-0 flex-col justify-start overflow-hidden border-b border-zinc-200/80 bg-gradient-to-br from-emerald-50 via-white to-teal-50/80 px-6 py-6 dark:border-white/10 dark:from-emerald-950 dark:via-zinc-950 dark:to-zinc-950 lg:h-full lg:min-h-0 lg:flex-1 lg:border-b-0 lg:border-r",
+        "relative hidden min-h-0 flex-col justify-start overflow-hidden border-b border-zinc-200/80 bg-gradient-to-br from-emerald-50 via-white to-teal-50/80 px-6 py-6 dark:border-white/10 dark:from-emerald-950 dark:via-zinc-950 dark:to-zinc-950 lg:flex lg:h-full lg:min-h-0 lg:flex-1 lg:border-b-0 lg:border-r",
         className,
       )}
       aria-label="About IdealLink"
