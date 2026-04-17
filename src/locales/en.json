@@ -450,6 +450,23 @@
       "password": "Password is required"
     }
   },
+  "kycPage": {
+    "metaTitle": "Verify identity | IdealLink",
+    "title": "Identity verification",
+    "subtitle": "Enter your fan number and upload your ID document to complete KYC.",
+    "fanNumber": "Fan number",
+    "fanNumberPlaceholder": "Enter your fan number",
+    "documentFile": "Document file",
+    "submit": "Upload and verify",
+    "submitting": "Uploading…",
+    "uploadSuccess": "KYC document submitted successfully.",
+    "uploadError": "KYC upload failed. Please try again.",
+    "continueToApp": "Continue to dashboard",
+    "errors": {
+      "fanNumberRequired": "Please enter your fan number.",
+      "fileRequired": "Please choose a file to upload."
+    }
+  },
   "innovatorDashboard": {
     "metaTitle": "Innovator Dashboard | IdealLink",
     "userFirstName": "John",

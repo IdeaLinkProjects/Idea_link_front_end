@@ -4,8 +4,6 @@ import { useRouter } from "next/router";
 import { type FormEvent, type SetStateAction, useCallback, useMemo, useState } from "react";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
-import { persistAuthTokens } from "@/lib/auth/tokenStorage";
-import { resolvePostLoginPath } from "@/lib/login/resolvePostLoginPath";
 import { registerApiMessageToFieldErrors } from "@/lib/register/parseRegisterApiError";
 import { createEmptyRegisterForm, type RegisterFormState } from "@/lib/register/types";
 import { validateRegisterForm, type RegisterFormErrors } from "@/lib/register/validateRegisterForm";
@@ -105,14 +103,12 @@ export function RegisterPage() {
     setVerifySubmitted(true);
     if (nextOtpError) return;
 
-    const email = form.email.trim();
     try {
-      const auth = await verifyEmail({
-        email,
+      await verifyEmail({
+        email: form.email.trim(),
         otpCode: otpCode.trim(),
       }).unwrap();
-      persistAuthTokens(auth.accessToken, auth.refreshToken);
-      void router.push(resolvePostLoginPath(email));
+      void router.push("/login");
     } catch (err) {
       const message = extractApiErrorMessage(err, "Verification failed. Please try again.");
       setVerifyGeneralError(message);

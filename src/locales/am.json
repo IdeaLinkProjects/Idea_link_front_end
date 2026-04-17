@@ -450,6 +450,23 @@
       "password": "የይለፍ ቃል ያስፈልጋል"
     }
   },
+  "kycPage": {
+    "metaTitle": "መለያ ማረጋገጫ | IdealLink",
+    "title": "የማንነት ማረጋገጫ",
+    "subtitle": "KYC ለማጠናቀቅ የFan ቁጥርዎን እና የመለያ ሰነድ ፋይል ያስገቡ።",
+    "fanNumber": "የFan ቁጥር",
+    "fanNumberPlaceholder": "የFan ቁጥርዎን ያስገቡ",
+    "documentFile": "የሰነድ ፋይል",
+    "submit": "መጫን እና ማረጋገጫ",
+    "submitting": "በመጫን ላይ…",
+    "uploadSuccess": "የKYC ሰነድ በተሳካ ሁኔታ ቀርቧል።",
+    "uploadError": "የKYC መጫን አልተሳካም። እባክዎ እንደገና ይሞክሩ።",
+    "continueToApp": "ወደ ዳሽቦርድ ቀጥል",
+    "errors": {
+      "fanNumberRequired": "እባክዎ የFan ቁጥርዎን ያስገቡ።",
+      "fileRequired": "እባክዎ የሚጫን ፋይል ይምረጡ።"
+    }
+  },
   "innovatorDashboard": {
     "metaTitle": "የፈጠራ ባለቤት ዳሽቦርድ | IdealLink",
     "userFirstName": "ጆን",

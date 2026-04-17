@@ -53,7 +53,7 @@ export function LoginPage() {
       if (access && refresh) {
         persistAuthTokens(access, refresh);
         persistRememberedEmail(form.email, form.remember);
-        void router.push(resolvePostLoginPath(email));
+        void router.push(resolvePostLoginPath(email, data.userInfo));
         return;
       }
       setGeneralError(t.registerOrVerifyHint);
