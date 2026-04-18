@@ -44,7 +44,7 @@ export function RegisterIconField({
   const inputType = passwordToggle ? (visible ? "text" : "password") : type;
 
   const toggleBtnClass =
-    "absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md p-1 text-zinc-400 outline-none transition hover:bg-zinc-100 hover:text-zinc-700 focus-visible:ring-2 focus-visible:ring-emerald-500/50 dark:text-zinc-500 dark:hover:bg-white/10 dark:hover:text-zinc-200";
+    "absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md p-1 text-zinc-400 outline-none transition hover:bg-zinc-100 hover:text-zinc-700 focus-visible:ring-2 focus-visible:ring-primary-500/50 dark:text-zinc-500 dark:hover:bg-white/10 dark:hover:text-zinc-200";
 
   return (
     <div>

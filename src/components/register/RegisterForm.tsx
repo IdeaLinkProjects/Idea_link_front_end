@@ -91,7 +91,7 @@ export function RegisterForm({
         <button
           type="submit"
           disabled={isVerifying}
-          className="w-full rounded-lg bg-emerald-700 py-3 text-base font-semibold text-white shadow-lg shadow-emerald-950/40 transition hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-lg bg-primary-950 py-3 text-base font-semibold text-white shadow-lg shadow-primary-950/40 transition hover:bg-primary-900 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isVerifying ? t.verifying : t.verifySubmit}
         </button>
@@ -100,7 +100,7 @@ export function RegisterForm({
           {t.alreadyHave}{" "}
           <Link
             href="/login"
-            className="font-semibold text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300"
+            className="font-semibold text-primary-700 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
           >
             {t.loginHere}
           </Link>
@@ -129,14 +129,14 @@ export function RegisterForm({
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full rounded-lg bg-emerald-700 py-3 text-base font-semibold text-white shadow-lg shadow-emerald-950/40 transition hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-lg bg-primary-950 py-3 text-base font-semibold text-white shadow-lg shadow-primary-950/40 transition hover:bg-primary-900 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSubmitting ? t.creatingAccount : t.createAccount}
       </button>
 
       <p className="text-center text-xs leading-tight text-zinc-600 dark:text-zinc-400">
         {t.alreadyHave}{" "}
-        <Link href="/login" className="font-semibold text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300">
+        <Link href="/login" className="font-semibold text-primary-700 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300">
           {t.loginHere}
         </Link>
       </p>

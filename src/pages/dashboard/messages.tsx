@@ -1,9 +1,9 @@
 import Head from "next/head";
-import { InnovatorLayout } from "@/components/innovator/InnovatorLayout";
+import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { messages } from "@/locales";
 
-export default function InnovatorMessagesPage() {
+export default function DashboardMessagesPage() {
   const { locale, isDark } = useAppPreferences();
 
   const t = messages[locale].innovatorDashboard;
@@ -16,7 +16,7 @@ export default function InnovatorMessagesPage() {
       <Head>
         <title>{t.messagesMetaTitle}</title>
       </Head>
-      <InnovatorLayout>
+      <DashboardLayout>
         <div className="mx-auto max-w-3xl space-y-6">
           <div>
             <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{t.messagesPageTitle}</h1>
@@ -33,13 +33,13 @@ export default function InnovatorMessagesPage() {
                     </div>
                     <span className={`shrink-0 text-xs ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>{m.time}</span>
                   </div>
-                  <span className="mt-2 inline-block text-sm font-semibold text-emerald-500">{t.reply}</span>
+                  <span className="mt-2 inline-block text-sm font-semibold text-primary-500">{t.reply}</span>
                 </li>
               ))}
             </ul>
           </div>
         </div>
-      </InnovatorLayout>
+      </DashboardLayout>
     </>
   );
 }

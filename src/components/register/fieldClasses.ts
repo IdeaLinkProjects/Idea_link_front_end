@@ -14,9 +14,9 @@ function registerFieldBorder(
   return clsx(
     !showError &&
       !showOk &&
-      "border-zinc-200 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/25 dark:border-white/20 dark:focus:border-emerald-500 dark:focus:ring-emerald-500/30",
+      "border-zinc-200 focus:border-primary-600 focus:ring-2 focus:ring-primary-600/25 dark:border-white/20 dark:focus:border-primary-500 dark:focus:ring-primary-500/30",
     showError && "border-red-500 ring-2 ring-red-500/20",
-    showOk && "border-emerald-500 ring-1 ring-emerald-500/30",
+    showOk && "border-primary-500 ring-1 ring-primary-500/30",
   );
 }
 

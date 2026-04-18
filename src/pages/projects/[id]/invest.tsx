@@ -175,7 +175,7 @@ export default function ProjectInvestPage() {
         className={`flex min-h-screen flex-col items-center justify-center gap-4 px-4 ${isDark ? "bg-zinc-950 text-zinc-200" : "bg-zinc-50 text-zinc-800"}`}
       >
         <p>{p.notFound}</p>
-        <Link href="/discovery" className="text-emerald-500 underline">
+        <Link href="/discovery" className="text-primary-500 underline">
           {p.backDiscovery}
         </Link>
       </div>
@@ -198,12 +198,12 @@ export default function ProjectInvestPage() {
           className={`border-b px-4 py-4 sm:px-6 ${isDark ? "border-white/10 bg-zinc-950/90" : "border-zinc-200 bg-white/90"}`}
         >
           <div className="mx-auto flex max-w-lg items-center justify-between gap-3">
-            <Link href={projectHref} className="text-sm font-semibold text-emerald-500 hover:underline">
+            <Link href={projectHref} className="text-sm font-semibold text-primary-500 hover:underline">
               ← {inv.backToProject}
             </Link>
             <Link href="/" className="text-lg font-bold">
-              <span className="text-emerald-500">{t.brand.ideal}</span>
-              <span className="text-emerald-300">{t.brand.link}</span>
+              <span className="text-primary-500">{t.brand.ideal}</span>
+              <span className="text-primary-300">{t.brand.link}</span>
             </Link>
           </div>
         </header>
@@ -212,15 +212,15 @@ export default function ProjectInvestPage() {
           {step === "success" ? (
             <div className="space-y-6">
               <div className={`rounded-2xl border p-6 text-center ${card}`}>
-                <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-2xl text-white">
+                <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-primary-950 text-2xl text-white">
                   ✓
                 </div>
-                <h1 className="text-2xl font-extrabold text-emerald-500">{inv.successTitle}</h1>
+                <h1 className="text-2xl font-extrabold text-primary-500">{inv.successTitle}</h1>
                 <p className={`mt-2 text-sm ${muted}`}>{inv.successBody}</p>
               </div>
 
               <div className={`rounded-2xl border p-6 ${card}`}>
-                <h2 className="text-sm font-bold uppercase tracking-wide text-emerald-500">{inv.receiptTitle}</h2>
+                <h2 className="text-sm font-bold uppercase tracking-wide text-primary-500">{inv.receiptTitle}</h2>
                 <dl className={`mt-4 space-y-2 text-sm ${muted}`}>
                   <div className="flex justify-between gap-4">
                     <dt>{inv.receiptProject}</dt>
@@ -228,7 +228,7 @@ export default function ProjectInvestPage() {
                   </div>
                   <div className="flex justify-between gap-4">
                     <dt>{inv.receiptAmount}</dt>
-                    <dd className={`font-mono font-semibold ${isDark ? "text-emerald-400" : "text-emerald-700"}`}>{formatEtb(amount, locale)} ETB</dd>
+                    <dd className={`font-mono font-semibold ${isDark ? "text-primary-400" : "text-primary-700"}`}>{formatEtb(amount, locale)} ETB</dd>
                   </div>
                   <div className="flex justify-between gap-4">
                     <dt>{inv.receiptEquity}</dt>
@@ -242,16 +242,16 @@ export default function ProjectInvestPage() {
               </div>
 
               <div>
-                <p className={`mb-3 text-xs font-bold uppercase tracking-wide text-emerald-500`}>{inv.nextSteps}</p>
+                <p className={`mb-3 text-xs font-bold uppercase tracking-wide text-primary-500`}>{inv.nextSteps}</p>
                 <div className="flex flex-col gap-2">
                   <Link
-                    href="/investor/portfolio"
-                    className="rounded-xl bg-emerald-700 py-3 text-center text-sm font-semibold text-white hover:bg-emerald-600"
+                    href="/dashboard/portfolio"
+                    className="rounded-xl bg-primary-950 py-3 text-center text-sm font-semibold text-white hover:bg-primary-900"
                   >
                     {inv.viewPortfolio}
                   </Link>
                   <Link
-                    href="/investor/messages"
+                    href="/dashboard/messages"
                     className={`rounded-xl border py-3 text-center text-sm font-semibold ${isDark ? "border-white/20 hover:bg-white/10" : "border-zinc-300 hover:bg-zinc-100"}`}
                   >
                     {inv.messageInnovator}
@@ -272,11 +272,11 @@ export default function ProjectInvestPage() {
               <h1 className="text-xl font-extrabold leading-tight sm:text-2xl">{inv.step1Heading.replace("{project}", idea.name)}</h1>
 
               <div className={`mt-6 space-y-2 rounded-xl border p-4 text-sm ${isDark ? "border-white/10 bg-white/5" : "border-zinc-200 bg-zinc-50"}`}>
-                <p className="font-semibold text-emerald-500">{inv.fundedStatus.replace("{pct}", String(pct))}</p>
+                <p className="font-semibold text-primary-500">{inv.fundedStatus.replace("{pct}", String(pct))}</p>
                 <p className={`tabular-nums ${muted}`}>
                   {inv.raisedOfGoal.replace("{raised}", formatEtb(bundle.raisedEtb, locale)).replace("{goal}", formatEtb(bundle.goalEtb, locale))}
                 </p>
-                <p className="font-medium text-emerald-400">
+                <p className="font-medium text-primary-400">
                   {inv.availableRemaining.replace("{amount}", formatEtb(remaining, locale))}
                 </p>
               </div>
@@ -297,7 +297,7 @@ export default function ProjectInvestPage() {
                   step={500}
                   value={amount}
                   onChange={(e) => setAmount(Number(e.target.value) || 0)}
-                  className={`mt-2 w-full rounded-xl border px-4 py-3 text-lg font-semibold tabular-nums outline-none focus:ring-2 focus:ring-emerald-500/50 ${
+                  className={`mt-2 w-full rounded-xl border px-4 py-3 text-lg font-semibold tabular-nums outline-none focus:ring-2 focus:ring-primary-500/50 ${
                     isDark ? "border-white/15 bg-zinc-900 text-white" : "border-zinc-300 bg-white text-zinc-900"
                   }`}
                   aria-invalid={step1ErrorMin || step1ErrorMax}
@@ -324,14 +324,14 @@ export default function ProjectInvestPage() {
                     type="button"
                     disabled={remaining < bundle.minInvestmentEtb}
                     onClick={() => addIncrement(inc.v)}
-                    className="rounded-lg border border-emerald-600/50 px-3 py-2 text-sm font-semibold text-emerald-500 transition hover:bg-emerald-950/40 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="rounded-lg border border-primary-600/50 px-3 py-2 text-sm font-semibold text-primary-500 transition hover:bg-primary-950/40 disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     {inc.label}
                   </button>
                 ))}
               </div>
 
-              <p className="mt-6 rounded-xl border border-emerald-500/30 bg-emerald-950/20 px-4 py-3 text-center text-sm font-semibold text-emerald-200">
+              <p className="mt-6 rounded-xl border border-primary-500/30 bg-primary-950/20 px-4 py-3 text-center text-sm font-semibold text-primary-200">
                 {inv.equityLive.replace("{invest}", formatEtb(amount, locale)).replace("{equity}", equityPct.toFixed(2))}
               </p>
 
@@ -339,7 +339,7 @@ export default function ProjectInvestPage() {
                 type="button"
                 onClick={goReview}
                 disabled={remaining < bundle.minInvestmentEtb}
-                className="mt-8 w-full rounded-xl bg-emerald-700 py-3.5 text-center text-sm font-bold text-white shadow-lg shadow-emerald-950/30 transition hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-50"
+                className="mt-8 w-full rounded-xl bg-primary-950 py-3.5 text-center text-sm font-bold text-white shadow-lg shadow-primary-950/30 transition hover:bg-primary-900 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {inv.reviewButton}
               </button>
@@ -351,7 +351,7 @@ export default function ProjectInvestPage() {
               <h1 className="text-xl font-extrabold sm:text-2xl">{inv.step2Heading}</h1>
 
               <div className={`mt-6 rounded-xl border p-4 ${isDark ? "border-white/10 bg-white/5" : "border-zinc-200 bg-zinc-50"}`}>
-                <p className="text-xs font-bold uppercase tracking-wide text-emerald-500">{inv.summaryTitle}</p>
+                <p className="text-xs font-bold uppercase tracking-wide text-primary-500">{inv.summaryTitle}</p>
                 <dl className={`mt-3 space-y-2 text-sm ${muted}`}>
                   <div className="flex justify-between">
                     <dt>{inv.summaryAmount}</dt>
@@ -359,7 +359,7 @@ export default function ProjectInvestPage() {
                   </div>
                   <div className="flex justify-between">
                     <dt>{inv.summaryEquity}</dt>
-                    <dd className={`font-semibold ${isDark ? "text-emerald-400" : "text-emerald-700"}`}>{equityPct.toFixed(2)}%</dd>
+                    <dd className={`font-semibold ${isDark ? "text-primary-400" : "text-primary-700"}`}>{equityPct.toFixed(2)}%</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>{inv.summaryDate}</dt>
@@ -369,7 +369,7 @@ export default function ProjectInvestPage() {
               </div>
 
               <section className="mt-8">
-                <h2 className="text-sm font-bold text-emerald-500">{inv.risksSectionTitle}</h2>
+                <h2 className="text-sm font-bold text-primary-500">{inv.risksSectionTitle}</h2>
                 <ul className={`mt-3 list-disc space-y-2 pl-5 text-sm ${muted}`}>
                   {riskBullets.map((line, i) => (
                     <li key={i}>{line}</li>
@@ -383,7 +383,7 @@ export default function ProjectInvestPage() {
                     type="checkbox"
                     checked={chkDisclosed}
                     onChange={(e) => setChkDisclosed(e.target.checked)}
-                    className="mt-0.5 h-4 w-4 rounded border-zinc-500 text-emerald-600 focus:ring-emerald-500"
+                    className="mt-0.5 h-4 w-4 rounded border-zinc-500 text-primary-600 focus:ring-primary-500"
                   />
                   <span>{inv.chkDisclosed}</span>
                 </label>
@@ -392,7 +392,7 @@ export default function ProjectInvestPage() {
                     type="checkbox"
                     checked={chkSimulated}
                     onChange={(e) => setChkSimulated(e.target.checked)}
-                    className="mt-0.5 h-4 w-4 rounded border-zinc-500 text-emerald-600 focus:ring-emerald-500"
+                    className="mt-0.5 h-4 w-4 rounded border-zinc-500 text-primary-600 focus:ring-primary-500"
                   />
                   <span>{inv.chkSimulated}</span>
                 </label>
@@ -401,7 +401,7 @@ export default function ProjectInvestPage() {
                     type="checkbox"
                     checked={chkReturns}
                     onChange={(e) => setChkReturns(e.target.checked)}
-                    className="mt-0.5 h-4 w-4 rounded border-zinc-500 text-emerald-600 focus:ring-emerald-500"
+                    className="mt-0.5 h-4 w-4 rounded border-zinc-500 text-primary-600 focus:ring-primary-500"
                   />
                   <span>{inv.chkReturns}</span>
                 </label>
@@ -411,7 +411,7 @@ export default function ProjectInvestPage() {
               </div>
 
               <div className={`mt-8 rounded-xl border p-4 ${isDark ? "border-white/10" : "border-zinc-200"}`}>
-                <h3 className="text-sm font-bold text-emerald-500">{inv.termsSummaryTitle}</h3>
+                <h3 className="text-sm font-bold text-primary-500">{inv.termsSummaryTitle}</h3>
                 <p className={`mt-2 text-sm leading-relaxed ${muted}`}>{inv.termsSummaryBody}</p>
               </div>
 
@@ -419,7 +419,7 @@ export default function ProjectInvestPage() {
                 <button
                   type="button"
                   onClick={goConfirm}
-                  className="flex-1 rounded-xl bg-emerald-700 py-3.5 text-sm font-bold text-white hover:bg-emerald-600"
+                  className="flex-1 rounded-xl bg-primary-950 py-3.5 text-sm font-bold text-white hover:bg-primary-900"
                 >
                   {inv.confirmInvestment}
                 </button>

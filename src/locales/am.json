@@ -468,6 +468,61 @@
       "fileRequired": "እባክዎ የሚጫን ፋይል ይምረጡ።"
     }
   },
+  "commonDashboard": {
+    "homeMetaTitle": "ዳሽቦርድ | IdealLink",
+    "userFirstName": "አሌክስ",
+    "userRoleSuffix": "",
+    "logout": "ውጣ",
+    "navDashboard": "ዳሽቦርድ",
+    "navBrowse": "ፕሮጀክቶችን ያስሱ",
+    "navProjects": "የእኔ ፕሮጀክቶች",
+    "navPortfolio": "ፖርትፎሊዮ",
+    "navMessages": "መልዕክቶች",
+    "navProfile": "መገለጫ",
+    "openMenu": "ምናሌ ክፈት",
+    "closeMenu": "ምናሌ ዝጋ",
+    "sectionCampaigns": "የእርስዎ ዘመቻዎች",
+    "sectionInvesting": "ኢንቨስትመንት እና ፍለጋ",
+    "navSearchPlaceholder": "ፕሮጀክቶች፣ መልዕክቶችን ይፈልጉ…",
+    "navNotifications": "ማስታወቂያዎች",
+    "navProfileMenu": "የመለያ ምናሌ",
+    "navProfileDropdown": "መገለጫ",
+    "navSettings": "ቅንብሮች",
+    "navCompany": "የእኔ ኩባንያ",
+    "navPayment": "ክፍያ"
+  },
+  "companyPage": {
+    "metaTitle": "የእኔ ኩባንያ | IdealLink",
+    "title": "የእኔ ኩባንያ",
+    "subtitle": "የድርጅት መገለጫ፣ ቡድን እና የማረጋገጫ ዝርዝሮች ይዘረዘራሉ።",
+    "placeholder": "የኩባንያ ዝርዝሮች እና የቡድን አስተዳደር እዚህ ይገኛሉ።"
+  },
+  "paymentPage": {
+    "metaTitle": "ክፍያ | IdealLink",
+    "title": "ክፍያ",
+    "subtitle": "የክፍያ ዘዴዎች፣ ግብዣዎች እና የግብዣ ታሪክ።",
+    "placeholder": "የክፍያ ቅንብሮች እና ታሪክ እዚህ ይገኛሉ።"
+  },
+  "settingsPage": {
+    "metaTitle": "ቅንብሮች | IdealLink",
+    "title": "ቅንብሮች",
+    "subtitle": "መልክ፣ ቋንቋ እና ማስታወቂያዎችን ያቀናብሩ።",
+    "sectionAppearance": "መልክ",
+    "sectionNotifications": "ማስታወቂያዎች",
+    "languageTitle": "ቋንቋ",
+    "languageDescription": "ለሜኑ እና ይዘት የበይነመረብ ቋንቋ።",
+    "themeTitle": "ገጽታ",
+    "themeDescription": "በመላው መተግበሪያ ብርሃን ወይም ጨለማ።",
+    "langEn": "English",
+    "langAm": "አማርኛ",
+    "themeLight": "ብርሃን",
+    "themeDark": "ጨለማ",
+    "notificationsDescription": "ማስታወቂያዎችን ይቆጣጠሩ (ለአሁን በዚህ መሳሪያ ይቀመጣል)።",
+    "notifyEmailLabel": "የኢሜይል ማዘመኖች",
+    "notifyEmailHint": "የመዋዕለ ንዋይ ክንውኖች እና የፕሮጀክት ዜና",
+    "notifyMessagesLabel": "የመልዕክት ማስታወቂያዎች",
+    "notifyMessagesHint": "አንድ ሰው መልዕክት ሲላክልዎ"
+  },
   "innovatorDashboard": {
     "metaTitle": "የፈጠራ ባለቤት ዳሽቦርድ | IdealLink",
     "userFirstName": "ጆን",
@@ -701,7 +756,7 @@
       "avgFundedPct": 72
     },
     "diversification": [
-      { "category": "ግብርና", "percent": 35, "color": "#16a34a" },
+      { "category": "ግብርና", "percent": 35, "color": "#022c22" },
       { "category": "ንግድ", "percent": 28, "color": "#ca8a04" },
       { "category": "ትምህርት", "percent": 22, "color": "#2563eb" },
       { "category": "ኃይል", "percent": 15, "color": "#9333ea" }

@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
-import { InnovatorLayout } from "@/components/innovator/InnovatorLayout";
+import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { type Locale, messages } from "@/locales";
 
@@ -75,7 +75,7 @@ function RichEditor({
       </div>
       <div
         ref={editorRef}
-        className="min-h-[160px] px-3 py-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6"
+        className="min-h-[160px] px-3 py-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary-500/60 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:list-decimal [&_ol]:pl-6"
         contentEditable
         suppressContentEditableWarning
       />
@@ -90,7 +90,7 @@ function Toast({ message, show }: { message: string; show: boolean }) {
   if (!show || !message) return null;
   return (
     <div
-      className="fixed bottom-6 left-1/2 z-[100] max-w-md -translate-x-1/2 rounded-xl border border-emerald-500/40 bg-emerald-950 px-4 py-3 text-center text-sm font-medium text-emerald-100 shadow-lg shadow-black/40"
+      className="fixed bottom-6 left-1/2 z-[100] max-w-md -translate-x-1/2 rounded-xl border border-primary-500/40 bg-primary-950 px-4 py-3 text-center text-sm font-medium text-primary-100 shadow-lg shadow-black/40"
       role="status"
     >
       {message}
@@ -112,8 +112,8 @@ function TabButton({
   isDark: boolean;
 }) {
   const base =
-    "whitespace-nowrap rounded-xl px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 ";
-  const on = isDark ? "bg-emerald-900/50 text-emerald-200" : "bg-emerald-100 text-emerald-900";
+    "whitespace-nowrap rounded-xl px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 ";
+  const on = isDark ? "bg-primary-900/50 text-primary-200" : "bg-primary-100 text-primary-900";
   const off = isDark ? "text-zinc-400 hover:bg-white/10 hover:text-white" : "text-zinc-600 hover:bg-zinc-100";
   return (
     <button
@@ -345,13 +345,13 @@ export default function InnovatorProjectManagePage() {
       <Head>
         <title>{d.metaTitle}</title>
       </Head>
-      <InnovatorLayout>
+      <DashboardLayout>
         <div className="mx-auto max-w-6xl space-y-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <Link
-                href="/innovator/projects"
-                className={`text-sm font-semibold text-emerald-500 hover:text-emerald-400 ${isDark ? "" : "text-emerald-700 hover:text-emerald-800"}`}
+                href="/dashboard/projects"
+                className={`text-sm font-semibold text-primary-500 hover:text-primary-400 ${isDark ? "" : "text-primary-700 hover:text-primary-800"}`}
               >
                 ← {d.backToProjects}
               </Link>
@@ -359,7 +359,7 @@ export default function InnovatorProjectManagePage() {
                 <h1 className={`text-2xl font-bold tracking-tight sm:text-3xl ${isDark ? "text-white" : "text-zinc-900"}`}>
                   {d.projectTitle}
                 </h1>
-                <span className="w-fit rounded-full border border-emerald-500/50 bg-emerald-950/40 px-3 py-1 text-xs font-bold uppercase tracking-wide text-emerald-300">
+                <span className="w-fit rounded-full border border-primary-500/50 bg-primary-950/40 px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary-300">
                   {statusBadge}
                 </span>
               </div>
@@ -391,7 +391,7 @@ export default function InnovatorProjectManagePage() {
           {activeTab === "overview" ? (
             <div className="grid gap-4 lg:grid-cols-2">
               <section className={`rounded-2xl border p-5 ${cardClass}`}>
-                <h2 className={`text-sm font-bold uppercase tracking-wide ${isDark ? "text-emerald-400" : "text-emerald-800"}`}>
+                <h2 className={`text-sm font-bold uppercase tracking-wide ${isDark ? "text-primary-400" : "text-primary-800"}`}>
                   {d.overview.fundingTitle}
                 </h2>
                 <p className={`mt-2 text-3xl font-extrabold ${isDark ? "text-white" : "text-zinc-900"}`}>
@@ -402,20 +402,20 @@ export default function InnovatorProjectManagePage() {
                 </p>
                 <div className={`mt-4 h-3 overflow-hidden rounded-full ${isDark ? "bg-zinc-700" : "bg-zinc-200"}`}>
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-emerald-800 to-emerald-500 transition-[width]"
+                    className="h-full rounded-full bg-gradient-to-r from-primary-950 to-primary-600 transition-[width]"
                     style={{ width: `${pct}%` }}
                   />
                 </div>
               </section>
 
               <section className={`rounded-2xl border p-5 ${cardClass}`}>
-                <h2 className={`text-sm font-bold uppercase tracking-wide ${isDark ? "text-emerald-400" : "text-emerald-800"}`}>
+                <h2 className={`text-sm font-bold uppercase tracking-wide ${isDark ? "text-primary-400" : "text-primary-800"}`}>
                   {d.overview.countdownTitle}
                 </h2>
                 <p className={`mt-3 text-2xl font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>
                   {d.overview.daysRemaining.replace("{n}", String(d.daysRemaining))}
                 </p>
-                <h2 className={`mt-6 text-sm font-bold uppercase tracking-wide ${isDark ? "text-emerald-400" : "text-emerald-800"}`}>
+                <h2 className={`mt-6 text-sm font-bold uppercase tracking-wide ${isDark ? "text-primary-400" : "text-primary-800"}`}>
                   {d.overview.investorCountTitle}
                 </h2>
                 <p className={`mt-2 text-xl font-semibold ${isDark ? "text-zinc-200" : "text-zinc-800"}`}>
@@ -424,7 +424,7 @@ export default function InnovatorProjectManagePage() {
               </section>
 
               <section className={`rounded-2xl border p-5 lg:col-span-2 ${cardClass}`}>
-                <h2 className={`mb-4 text-sm font-bold uppercase tracking-wide ${isDark ? "text-emerald-400" : "text-emerald-800"}`}>
+                <h2 className={`mb-4 text-sm font-bold uppercase tracking-wide ${isDark ? "text-primary-400" : "text-primary-800"}`}>
                   {d.overview.milestonesTitle}
                 </h2>
                 <ol className="grid gap-3 sm:grid-cols-2">
@@ -434,8 +434,8 @@ export default function InnovatorProjectManagePage() {
                       className={`flex gap-3 rounded-xl border p-4 ${
                         m.done
                           ? isDark
-                            ? "border-emerald-500/30 bg-emerald-950/30"
-                            : "border-emerald-200 bg-emerald-50/80"
+                            ? "border-primary-500/30 bg-primary-950/30"
+                            : "border-primary-200 bg-primary-50/80"
                           : isDark
                             ? "border-white/10 bg-white/5"
                             : "border-zinc-200 bg-zinc-50"
@@ -443,7 +443,7 @@ export default function InnovatorProjectManagePage() {
                     >
                       <span
                         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-                          m.done ? "bg-emerald-600 text-white" : isDark ? "bg-zinc-700 text-zinc-300" : "bg-zinc-200 text-zinc-600"
+                          m.done ? "bg-primary-950 text-white" : isDark ? "bg-zinc-700 text-zinc-300" : "bg-zinc-200 text-zinc-600"
                         }`}
                         aria-hidden
                       >
@@ -451,7 +451,7 @@ export default function InnovatorProjectManagePage() {
                       </span>
                       <div>
                         <p className={`font-semibold ${isDark ? "text-white" : "text-zinc-900"}`}>{m.title}</p>
-                        <p className={`mt-1 text-xs font-medium uppercase ${m.done ? "text-emerald-500" : isDark ? "text-zinc-500" : "text-zinc-500"}`}>
+                        <p className={`mt-1 text-xs font-medium uppercase ${m.done ? "text-primary-500" : isDark ? "text-zinc-500" : "text-zinc-500"}`}>
                           {m.done ? d.overview.complete : d.overview.pending}
                         </p>
                       </div>
@@ -461,13 +461,13 @@ export default function InnovatorProjectManagePage() {
               </section>
 
               <section className={`rounded-2xl border p-5 lg:col-span-2 ${cardClass}`}>
-                <h2 className={`mb-4 text-sm font-bold uppercase tracking-wide ${isDark ? "text-emerald-400" : "text-emerald-800"}`}>
+                <h2 className={`mb-4 text-sm font-bold uppercase tracking-wide ${isDark ? "text-primary-400" : "text-primary-800"}`}>
                   {d.overview.quickActionsTitle}
                 </h2>
                 <div className="flex flex-wrap gap-3">
                   <button
                     type="button"
-                    className="rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-emerald-600"
+                    className="rounded-xl bg-primary-950 px-4 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-primary-900"
                     onClick={() => quickGo("updates")}
                   >
                     {d.overview.actionPostUpdate}
@@ -502,7 +502,7 @@ export default function InnovatorProjectManagePage() {
                   <h2 className={`text-lg font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{d.updates.writeUpdate}</h2>
                   <button
                     type="button"
-                    className="rounded-xl bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600"
+                    className="rounded-xl bg-primary-950 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-900"
                     onClick={() => {
                       if (showWritePanel) {
                         setWriteOpen(false);
@@ -541,7 +541,7 @@ export default function InnovatorProjectManagePage() {
                       </button>
                       <button
                         type="button"
-                        className="rounded-xl bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600"
+                        className="rounded-xl bg-primary-950 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-900"
                         onClick={publishUpdate}
                       >
                         {d.updates.publish}
@@ -557,7 +557,7 @@ export default function InnovatorProjectManagePage() {
                   {updates.map((u, idx) => (
                     <li key={u.id} className="flex gap-4 pb-8 last:pb-0">
                       <div className="flex flex-col items-center">
-                        <span className={`h-3 w-3 rounded-full ${isDark ? "bg-emerald-400" : "bg-emerald-600"}`} />
+                        <span className={`h-3 w-3 rounded-full ${isDark ? "bg-primary-400" : "bg-primary-950"}`} />
                         {idx < updates.length - 1 ? (
                           <span className={`mt-1 w-px flex-1 min-h-[3rem] ${isDark ? "bg-white/15" : "bg-zinc-200"}`} />
                         ) : null}
@@ -574,7 +574,7 @@ export default function InnovatorProjectManagePage() {
                         ) : null}
                         {u.html ? (
                           <div
-                            className={`mt-2 max-w-none text-sm leading-relaxed [&_a]:text-emerald-500 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-6 ${isDark ? "text-zinc-300" : "text-zinc-700"}`}
+                            className={`mt-2 max-w-none text-sm leading-relaxed [&_a]:text-primary-500 [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-6 ${isDark ? "text-zinc-300" : "text-zinc-700"}`}
                             dangerouslySetInnerHTML={{ __html: u.html }}
                           />
                         ) : null}
@@ -603,7 +603,7 @@ export default function InnovatorProjectManagePage() {
                     multiple
                     onChange={onDocChange}
                   />
-                  <span className="text-sm font-semibold text-emerald-500">{d.documents.chooseFiles}</span>
+                  <span className="text-sm font-semibold text-primary-500">{d.documents.chooseFiles}</span>
                 </label>
               </section>
 
@@ -641,7 +641,7 @@ export default function InnovatorProjectManagePage() {
                             <a
                               href={row.objectUrl}
                               download={row.name}
-                              className="rounded-lg bg-emerald-700 px-3 py-1.5 text-sm font-semibold text-white hover:bg-emerald-600"
+                              className="rounded-lg bg-primary-950 px-3 py-1.5 text-sm font-semibold text-white hover:bg-primary-900"
                             >
                               {d.documents.download}
                             </a>
@@ -671,7 +671,7 @@ export default function InnovatorProjectManagePage() {
                 <h2 className={`text-lg font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{d.investors.title}</h2>
                 <button
                   type="button"
-                  className="rounded-xl bg-emerald-700 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-600"
+                  className="rounded-xl bg-primary-950 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-900"
                   onClick={exportCsv}
                 >
                   {d.investors.exportCsv}
@@ -718,8 +718,8 @@ export default function InnovatorProjectManagePage() {
                         className={`w-full px-4 py-3 text-left text-sm transition ${
                           th.id === activeThread?.id
                             ? isDark
-                              ? "bg-emerald-900/40 text-white"
-                              : "bg-emerald-100 text-emerald-950"
+                              ? "bg-primary-900/40 text-white"
+                              : "bg-primary-100 text-primary-950"
                             : isDark
                               ? "text-zinc-300 hover:bg-white/5"
                               : "text-zinc-700 hover:bg-zinc-100"
@@ -741,7 +741,7 @@ export default function InnovatorProjectManagePage() {
                         <div
                           className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm ${
                             m.from === "me"
-                              ? "rounded-br-md bg-emerald-700 text-white"
+                              ? "rounded-br-md bg-primary-950 text-white"
                               : isDark
                                 ? "rounded-bl-md bg-white/10 text-zinc-100"
                                 : "rounded-bl-md bg-zinc-200 text-zinc-900"
@@ -761,7 +761,7 @@ export default function InnovatorProjectManagePage() {
                 </div>
                 <div className={`border-t p-3 ${isDark ? "border-white/10 bg-zinc-900/80" : "border-zinc-200 bg-zinc-50"}`}>
                   {attachName ? (
-                    <p className={`mb-2 text-xs font-medium ${isDark ? "text-emerald-400" : "text-emerald-800"}`}>
+                    <p className={`mb-2 text-xs font-medium ${isDark ? "text-primary-400" : "text-primary-800"}`}>
                       {d.messages.attach}: {attachName}
                       <button type="button" className="ml-2 underline" onClick={() => setAttachName(null)}>
                         {d.messages.removeAttachment}
@@ -770,7 +770,7 @@ export default function InnovatorProjectManagePage() {
                   ) : null}
                   <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
                     <textarea
-                      className={`min-h-[72px] flex-1 resize-none rounded-xl border px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/60 ${
+                      className={`min-h-[72px] flex-1 resize-none rounded-xl border px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-primary-500/60 ${
                         isDark ? "border-white/15 bg-zinc-900 text-zinc-100" : "border-zinc-300 bg-white text-zinc-900"
                       }`}
                       placeholder={d.messages.composePlaceholder}
@@ -800,7 +800,7 @@ export default function InnovatorProjectManagePage() {
                       </button>
                       <button
                         type="button"
-                        className="rounded-xl bg-emerald-700 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-600"
+                        className="rounded-xl bg-primary-950 px-3 py-2 text-sm font-semibold text-white hover:bg-primary-900"
                         onClick={sendMessage}
                       >
                         {d.messages.send}
@@ -814,7 +814,7 @@ export default function InnovatorProjectManagePage() {
 
           <Toast message={toast} show={Boolean(toast)} />
         </div>
-      </InnovatorLayout>
+      </DashboardLayout>
     </>
   );
 }

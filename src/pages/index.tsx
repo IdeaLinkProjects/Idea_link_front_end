@@ -20,13 +20,13 @@ export default function Home() {
         className={`relative min-h-screen overflow-hidden ${isDark ? "bg-zinc-950 text-zinc-100" : "bg-zinc-50 text-zinc-900"}`}
       >
         <div
-          className={`pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full blur-3xl ${isDark ? "bg-emerald-500/30" : "bg-emerald-400/30"}`}
+          className={`pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full blur-3xl ${isDark ? "bg-primary-500/30" : "bg-primary-400/30"}`}
         />
         <div
-          className={`pointer-events-none absolute top-20 -right-16 h-80 w-80 rounded-full blur-3xl ${isDark ? "bg-emerald-700/25" : "bg-emerald-600/25"}`}
+          className={`pointer-events-none absolute top-20 -right-16 h-80 w-80 rounded-full blur-3xl ${isDark ? "bg-primary-950/25" : "bg-primary-600/25"}`}
         />
         <div
-          className={`pointer-events-none absolute bottom-10 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full blur-3xl ${isDark ? "bg-emerald-300/15" : "bg-emerald-500/15"}`}
+          className={`pointer-events-none absolute bottom-10 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full blur-3xl ${isDark ? "bg-primary-300/15" : "bg-primary-500/15"}`}
         />
 
         <header
@@ -35,12 +35,12 @@ export default function Home() {
           <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
             <div className="flex min-w-0 flex-1 items-center gap-4 sm:flex-initial">
               <Link href="/" className="text-2xl font-extrabold tracking-tight">
-                <span className="text-emerald-500">{t.brand.ideal}</span>
-                <span className="text-emerald-300">{t.brand.link}</span>
+                <span className="text-primary-500">{t.brand.ideal}</span>
+                <span className="text-primary-300">{t.brand.link}</span>
               </Link>
               <Link
                 href="/discovery"
-                className={`rounded-lg px-2 py-1.5 text-xs font-semibold transition sm:px-3 sm:py-2 sm:text-sm ${isDark ? "text-emerald-300 hover:bg-white/10" : "text-emerald-800 hover:bg-emerald-100"}`}
+                className={`rounded-lg px-2 py-1.5 text-xs font-semibold transition sm:px-3 sm:py-2 sm:text-sm ${isDark ? "text-primary-300 hover:bg-white/10" : "text-primary-800 hover:bg-primary-100"}`}
               >
                 {t.nav.discover}
               </Link>
@@ -52,14 +52,14 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => setLocale("en")}
-                  className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${locale === "en" ? "bg-emerald-700 text-white" : isDark ? "text-zinc-200 hover:bg-white/10" : "text-zinc-700 hover:bg-zinc-100"}`}
+                  className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${locale === "en" ? "bg-primary-950 text-white dark:bg-primary-500" : isDark ? "text-zinc-200 hover:bg-white/10" : "text-zinc-700 hover:bg-zinc-100"}`}
                 >
                   {t.nav.langEnglish}
                 </button>
                 <button
                   type="button"
                   onClick={() => setLocale("am")}
-                  className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${locale === "am" ? "bg-emerald-700 text-white" : isDark ? "text-zinc-200 hover:bg-white/10" : "text-zinc-700 hover:bg-zinc-100"}`}
+                  className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${locale === "am" ? "bg-primary-950 text-white dark:bg-primary-500" : isDark ? "text-zinc-200 hover:bg-white/10" : "text-zinc-700 hover:bg-zinc-100"}`}
                 >
                   {t.nav.langAmharic}
                 </button>
@@ -83,7 +83,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/register"
-                className="rounded-lg bg-emerald-700 px-3 py-2 text-sm font-semibold text-white shadow-lg shadow-emerald-900/40 transition hover:-translate-y-0.5 hover:bg-emerald-600 sm:px-4"
+                className="rounded-lg bg-primary-950 px-3 py-2 text-sm font-semibold text-white shadow-lg shadow-primary-900/40 transition hover:-translate-y-0.5 hover:bg-primary-900 dark:bg-primary-500 dark:hover:bg-primary-400 sm:px-4"
               >
                 {t.nav.register}
               </Link>
@@ -94,7 +94,7 @@ export default function Home() {
         <main className="relative z-10">
           <section className="mx-auto w-full max-w-6xl px-4 pt-14 pb-10 text-center sm:px-6 lg:px-8 lg:pt-20">
             <p
-              className={`mx-auto mb-5 inline-flex items-center gap-2 rounded-full border px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] ${isDark ? "border-white/15 bg-white/10 text-zinc-200" : "border-emerald-300 bg-emerald-100 text-emerald-800"}`}
+              className={`mx-auto mb-5 inline-flex items-center gap-2 rounded-full border px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] ${isDark ? "border-primary-500/35 bg-primary-950/50 text-primary-200" : "border-primary-300 bg-primary-100 text-primary-800"}`}
             >
               {t.hero.badge}
             </p>
@@ -112,13 +112,13 @@ export default function Home() {
             <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
               <Link
                 href="/register?role=innovator"
-                className="rounded-xl bg-emerald-700 px-6 py-3 text-center text-base font-semibold text-white shadow-xl shadow-emerald-900/40 transition hover:-translate-y-1 hover:bg-emerald-600"
+                className="rounded-xl bg-primary-950 px-6 py-3 text-center text-base font-semibold text-white shadow-xl shadow-primary-900/40 transition hover:-translate-y-1 hover:bg-primary-900 dark:bg-primary-500 dark:hover:bg-primary-400"
               >
                 {t.hero.registerInnovator}
               </Link>
               <Link
                 href="/register?role=investor"
-                className={`rounded-xl border px-6 py-3 text-center text-base font-semibold shadow-xl transition hover:-translate-y-1 ${isDark ? "border-emerald-500/40 bg-emerald-900/50 text-emerald-100 shadow-emerald-950/40 hover:bg-emerald-800/70" : "border-emerald-600/30 bg-emerald-100 text-emerald-900 shadow-emerald-700/20 hover:bg-emerald-200"}`}
+                className={`rounded-xl border px-6 py-3 text-center text-base font-semibold shadow-xl transition hover:-translate-y-1 ${isDark ? "border-primary-500/40 bg-primary-900/50 text-primary-100 shadow-primary-950/40 hover:bg-primary-800/70" : "border-primary-600/30 bg-primary-100 text-primary-900 shadow-primary-700/20 hover:bg-primary-200"}`}
               >
                 {t.hero.registerInvestor}
               </Link>
@@ -149,7 +149,7 @@ export default function Home() {
 
           <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
             <div
-              className={`relative overflow-hidden rounded-3xl border p-8 text-center sm:p-10 ${isDark ? "border-white/15 bg-gradient-to-br from-emerald-950/60 to-zinc-950/80" : "border-emerald-200/80 bg-gradient-to-br from-emerald-50 to-white"}`}
+              className={`relative overflow-hidden rounded-3xl border p-8 text-center sm:p-10 ${isDark ? "border-white/15 bg-gradient-to-br from-primary-950/60 to-zinc-950/80" : "border-primary-200/80 bg-gradient-to-br from-primary-50 to-white"}`}
             >
               <h2
                 className={`text-2xl font-extrabold tracking-tight sm:text-3xl ${isDark ? "text-white" : "text-zinc-900"}`}
@@ -163,7 +163,7 @@ export default function Home() {
               </p>
               <Link
                 href="/discovery"
-                className="mt-6 inline-flex items-center justify-center rounded-xl bg-emerald-700 px-8 py-3 text-base font-semibold text-white shadow-xl shadow-emerald-900/35 transition hover:-translate-y-0.5 hover:bg-emerald-600"
+                className="mt-6 inline-flex items-center justify-center rounded-xl bg-primary-950 px-8 py-3 text-base font-semibold text-white shadow-xl shadow-primary-900/35 transition hover:-translate-y-0.5 hover:bg-primary-900 dark:bg-primary-500 dark:hover:bg-primary-400"
               >
                 {t.discoveryCta.button}
               </Link>
@@ -179,7 +179,7 @@ export default function Home() {
               </h2>
               <Link
                 href="/discovery"
-                className={`text-sm font-semibold transition hover:underline ${isDark ? "text-emerald-400" : "text-emerald-700"}`}
+                className={`text-sm font-semibold transition hover:underline ${isDark ? "text-primary-400" : "text-primary-700"}`}
               >
                 {t.nav.discover} →
               </Link>
@@ -188,7 +188,7 @@ export default function Home() {
               {t.featured.projects.map((project) => (
                 <article
                   key={project.name}
-                  className={`group overflow-hidden rounded-2xl border shadow-lg backdrop-blur-md transition hover:-translate-y-1 hover:border-emerald-500/60 ${isDark ? "border-white/15 bg-white/10 shadow-black/20 hover:bg-white/15" : "border-zinc-200 bg-white/95 shadow-zinc-200/70 hover:bg-white"}`}
+                  className={`group overflow-hidden rounded-2xl border shadow-lg backdrop-blur-md transition hover:-translate-y-1 hover:border-primary-500/60 ${isDark ? "border-white/15 bg-white/10 shadow-black/20 hover:bg-white/15" : "border-zinc-200 bg-white/95 shadow-zinc-200/70 hover:bg-white"}`}
                 >
                   <div className="relative aspect-[16/10] w-full overflow-hidden">
                     <Image
@@ -219,7 +219,7 @@ export default function Home() {
                       className={`h-2.5 w-full overflow-hidden rounded-full ${isDark ? "bg-zinc-700" : "bg-zinc-200"}`}
                     >
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-emerald-700 to-emerald-500 transition-all duration-700"
+                        className="h-full rounded-full bg-gradient-to-r from-primary-950 to-primary-600 transition-all duration-700"
                         style={{
                           width: `${project.fundedPercent}%`,
                         }}

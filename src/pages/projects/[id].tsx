@@ -192,7 +192,7 @@ export default function ProjectDetailPage() {
         className={`flex min-h-screen flex-col items-center justify-center gap-4 px-4 ${isDark ? "bg-zinc-950 text-zinc-200" : "bg-zinc-50 text-zinc-800"}`}
       >
         <p>{p.notFound}</p>
-        <Link href="/discovery" className="text-emerald-500 underline">
+        <Link href="/discovery" className="text-primary-500 underline">
           {p.backDiscovery}
         </Link>
       </div>
@@ -205,8 +205,8 @@ export default function ProjectDetailPage() {
     `rounded-lg px-3 py-2 text-sm font-semibold transition ${
       tab === k
         ? isDark
-          ? "bg-emerald-900/50 text-emerald-200"
-          : "bg-emerald-100 text-emerald-900"
+          ? "bg-primary-900/50 text-primary-200"
+          : "bg-primary-100 text-primary-900"
         : isDark
           ? "text-zinc-400 hover:bg-white/10 hover:text-white"
           : "text-zinc-600 hover:bg-zinc-100"
@@ -226,12 +226,12 @@ export default function ProjectDetailPage() {
           className={`sticky top-0 z-50 border-b backdrop-blur-xl ${isDark ? "border-white/10 bg-zinc-950/90" : "border-zinc-200 bg-white/90"}`}
         >
           <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
-            <Link href="/discovery" className="text-sm font-semibold text-emerald-500 hover:underline">
+            <Link href="/discovery" className="text-sm font-semibold text-primary-500 hover:underline">
               ← {p.backDiscovery}
             </Link>
             <Link href="/" className="text-lg font-bold">
-              <span className="text-emerald-500">{t.brand.ideal}</span>
-              <span className="text-emerald-300">{t.brand.link}</span>
+              <span className="text-primary-500">{t.brand.ideal}</span>
+              <span className="text-primary-300">{t.brand.link}</span>
             </Link>
           </div>
         </header>
@@ -242,14 +242,14 @@ export default function ProjectDetailPage() {
           <div className="mx-auto flex max-w-6xl flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <p className="text-sm font-bold text-emerald-500">{p.fundedLine.replace("{pct}", String(pct))}</p>
+                <p className="text-sm font-bold text-primary-500">{p.fundedLine.replace("{pct}", String(pct))}</p>
                 <p className={`text-sm font-semibold tabular-nums ${muted}`}>
                   {p.raisedGoalLine.replace("{raised}", formatEtb(bundle.raisedEtb, locale)).replace("{goal}", formatEtb(bundle.goalEtb, locale))}
                 </p>
               </div>
               <div className={`mt-2 h-2.5 overflow-hidden rounded-full ${isDark ? "bg-zinc-800" : "bg-zinc-200"}`}>
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-emerald-800 to-emerald-500"
+                  className="h-full rounded-full bg-gradient-to-r from-primary-950 to-primary-600"
                   style={{ width: `${pct}%` }}
                 />
               </div>
@@ -258,7 +258,7 @@ export default function ProjectDetailPage() {
             <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
               <Link
                 href={`/projects/${id}/invest`}
-                className="rounded-xl bg-emerald-700 px-6 py-3 text-center text-sm font-bold text-white shadow-lg shadow-emerald-950/30 transition hover:bg-emerald-600"
+                className="rounded-xl bg-primary-950 px-6 py-3 text-center text-sm font-bold text-white shadow-lg shadow-primary-950/30 transition hover:bg-primary-900"
               >
                 {p.investCta}
               </Link>
@@ -290,7 +290,7 @@ export default function ProjectDetailPage() {
               <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
                 <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 font-medium ${card}`}>
                   <span>{bundle.innovatorName}</span>
-                  <span className="rounded-full bg-emerald-600/20 px-2 py-0.5 text-xs font-bold text-emerald-500">
+                  <span className="rounded-full bg-primary-950/20 px-2 py-0.5 text-xs font-bold text-primary-500">
                     {p.verifiedInnovator}
                   </span>
                 </span>
@@ -333,25 +333,25 @@ export default function ProjectDetailPage() {
                 {tab === "overview" ? (
                   <>
                     <section className={`rounded-2xl border p-6 ${card}`}>
-                      <h2 className="text-lg font-bold text-emerald-500">{p.overview.problemTitle}</h2>
+                      <h2 className="text-lg font-bold text-primary-500">{p.overview.problemTitle}</h2>
                       <p className={`mt-3 leading-relaxed ${muted}`}>{bundle.problem}</p>
                     </section>
                     <section className={`rounded-2xl border p-6 ${card}`}>
-                      <h2 className="text-lg font-bold text-emerald-500">{p.overview.solutionTitle}</h2>
+                      <h2 className="text-lg font-bold text-primary-500">{p.overview.solutionTitle}</h2>
                       <p className={`mt-3 leading-relaxed ${muted}`}>{bundle.solution}</p>
                     </section>
                     <section className={`rounded-2xl border p-6 ${card}`}>
-                      <h2 className="text-lg font-bold text-emerald-500">{p.overview.teamTitle}</h2>
+                      <h2 className="text-lg font-bold text-primary-500">{p.overview.teamTitle}</h2>
                       <p className={`mt-3 leading-relaxed ${muted}`}>{bundle.team}</p>
                     </section>
                     <section className={`rounded-2xl border p-6 ${card}`}>
-                      <h2 className="text-lg font-bold text-emerald-500">{p.overview.timelineTitle}</h2>
+                      <h2 className="text-lg font-bold text-primary-500">{p.overview.timelineTitle}</h2>
                       <ol className="mt-4 space-y-3">
                         {bundle.timeline.map((row, i) => (
                           <li key={i} className="flex gap-3">
                             <span
                               className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-                                row.done ? "bg-emerald-600 text-white" : isDark ? "bg-zinc-700 text-zinc-300" : "bg-zinc-200 text-zinc-600"
+                                row.done ? "bg-primary-950 text-white" : isDark ? "bg-zinc-700 text-zinc-300" : "bg-zinc-200 text-zinc-600"
                               }`}
                             >
                               {row.done ? "✓" : i + 1}
@@ -365,7 +365,7 @@ export default function ProjectDetailPage() {
                       </ol>
                     </section>
                     <section className={`rounded-2xl border p-6 ${card}`}>
-                      <h2 className="text-lg font-bold text-emerald-500">{p.overview.fundsTitle}</h2>
+                      <h2 className="text-lg font-bold text-primary-500">{p.overview.fundsTitle}</h2>
                       <ul className="mt-4 space-y-3">
                         {bundle.funds.map((f, i) => (
                           <li key={i}>
@@ -374,7 +374,7 @@ export default function ProjectDetailPage() {
                               <span className="tabular-nums">{f.percent}%</span>
                             </div>
                             <div className={`mt-1 h-2 overflow-hidden rounded-full ${isDark ? "bg-zinc-800" : "bg-zinc-100"}`}>
-                              <div className="h-full rounded-full bg-emerald-600" style={{ width: `${f.percent}%` }} />
+                              <div className="h-full rounded-full bg-primary-950" style={{ width: `${f.percent}%` }} />
                             </div>
                           </li>
                         ))}
@@ -386,16 +386,16 @@ export default function ProjectDetailPage() {
                 {tab === "risks" ? (
                   <div className="space-y-6">
                     <section className={`rounded-2xl border p-6 ${card}`}>
-                      <h2 className="text-lg font-bold text-emerald-500">{p.risks.disclosureTitle}</h2>
+                      <h2 className="text-lg font-bold text-primary-500">{p.risks.disclosureTitle}</h2>
                       <p className={`mt-3 leading-relaxed ${muted}`}>{bundle.risksDisclosure}</p>
                     </section>
                     <section className={`rounded-2xl border p-6 ${card}`}>
-                      <h2 className="text-lg font-bold text-emerald-500">{p.risks.levelTitle}</h2>
-                      <p className="mt-3 text-2xl font-extrabold text-emerald-500">{bundle.riskLevel}</p>
+                      <h2 className="text-lg font-bold text-primary-500">{p.risks.levelTitle}</h2>
+                      <p className="mt-3 text-2xl font-extrabold text-primary-500">{bundle.riskLevel}</p>
                       <p className={`mt-2 leading-relaxed ${muted}`}>{bundle.riskLevelExplanation}</p>
                     </section>
                     <section className={`rounded-2xl border p-6 ${card}`}>
-                      <h2 className="text-lg font-bold text-emerald-500">{p.risks.considerationsTitle}</h2>
+                      <h2 className="text-lg font-bold text-primary-500">{p.risks.considerationsTitle}</h2>
                       <p className={`mt-3 leading-relaxed ${muted}`}>{bundle.investorConsiderations}</p>
                     </section>
                   </div>
@@ -405,7 +405,7 @@ export default function ProjectDetailPage() {
                   <ul className="space-y-4">
                     {bundle.updates.map((u, i) => (
                       <li key={i} className={`rounded-2xl border p-6 ${card}`}>
-                        <p className="text-xs font-bold uppercase tracking-wide text-emerald-500">{u.date}</p>
+                        <p className="text-xs font-bold uppercase tracking-wide text-primary-500">{u.date}</p>
                         <h3 className="mt-2 text-lg font-bold">{u.title}</h3>
                         <p className={`mt-2 leading-relaxed ${muted}`}>{u.body}</p>
                       </li>
@@ -435,7 +435,7 @@ export default function ProjectDetailPage() {
                             <button
                               type="button"
                               onClick={onDocPreview}
-                              className="rounded-lg bg-emerald-700 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-600"
+                              className="rounded-lg bg-primary-950 px-3 py-2 text-sm font-semibold text-white hover:bg-primary-900"
                             >
                               {p.download}
                             </button>
@@ -469,7 +469,7 @@ export default function ProjectDetailPage() {
                       ))}
                     </ul>
                     <form onSubmit={onSubmitQuestion} className={`rounded-2xl border p-6 ${card}`}>
-                      <h3 className="font-bold text-emerald-500">{p.askQuestion}</h3>
+                      <h3 className="font-bold text-primary-500">{p.askQuestion}</h3>
                       <label htmlFor="qa-input" className="sr-only">
                         {p.yourQuestion}
                       </label>
@@ -479,13 +479,13 @@ export default function ProjectDetailPage() {
                         onChange={(e) => setQaDraft(e.target.value)}
                         rows={4}
                         placeholder={p.questionPlaceholder}
-                        className={`mt-3 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-500/40 ${
+                        className={`mt-3 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-primary-500/40 ${
                           isDark ? "border-white/15 bg-zinc-900 text-zinc-100" : "border-zinc-300 bg-white text-zinc-900"
                         }`}
                       />
                       <button
                         type="submit"
-                        className="mt-3 rounded-xl bg-emerald-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-emerald-600"
+                        className="mt-3 rounded-xl bg-primary-950 px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary-900"
                       >
                         {p.submitQuestion}
                       </button>
@@ -497,7 +497,7 @@ export default function ProjectDetailPage() {
 
             <aside className="mt-10 space-y-6 lg:mt-0">
               <div className={`rounded-2xl border p-5 ${card}`}>
-                <h2 className="text-sm font-bold uppercase tracking-wide text-emerald-500">{p.calculatorTitle}</h2>
+                <h2 className="text-sm font-bold uppercase tracking-wide text-primary-500">{p.calculatorTitle}</h2>
                 <label htmlFor="calc-amt" className={`mt-3 block text-xs font-medium ${muted}`}>
                   {p.calculatorAmountLabel}
                 </label>
@@ -508,18 +508,18 @@ export default function ProjectDetailPage() {
                   step={500}
                   value={calcAmount}
                   onChange={(e) => setCalcAmount(Number(e.target.value) || 0)}
-                  className={`mt-1 w-full rounded-xl border px-3 py-2 text-sm tabular-nums outline-none focus:ring-2 focus:ring-emerald-500/40 ${
+                  className={`mt-1 w-full rounded-xl border px-3 py-2 text-sm tabular-nums outline-none focus:ring-2 focus:ring-primary-500/40 ${
                     isDark ? "border-white/15 bg-zinc-900" : "border-zinc-300 bg-white"
                   }`}
                 />
                 <p className={`mt-1 text-xs ${muted}`}>{p.calculatorHint}</p>
                 <p className="mt-4 text-sm font-medium">
-                  {p.calculatorEquityLabel}: <span className="text-lg font-extrabold text-emerald-500">{equityPreview.toFixed(2)}%</span>
+                  {p.calculatorEquityLabel}: <span className="text-lg font-extrabold text-primary-500">{equityPreview.toFixed(2)}%</span>
                 </p>
               </div>
 
               <div className={`rounded-2xl border p-5 ${card}`}>
-                <h2 className="text-sm font-bold uppercase tracking-wide text-emerald-500">{p.quickStatsTitle}</h2>
+                <h2 className="text-sm font-bold uppercase tracking-wide text-primary-500">{p.quickStatsTitle}</h2>
                 <ul className="mt-4 space-y-3 text-sm">
                   <li className="flex justify-between">
                     <span className={muted}>{p.statInvestors}</span>
@@ -537,12 +537,12 @@ export default function ProjectDetailPage() {
               </div>
 
               <div className={`rounded-2xl border p-5 ${card}`}>
-                <h2 className="text-sm font-bold uppercase tracking-wide text-emerald-500">{p.similarTitle}</h2>
+                <h2 className="text-sm font-bold uppercase tracking-wide text-primary-500">{p.similarTitle}</h2>
                 <ul className="mt-4 space-y-4">
                   {similarIdeas.map((s) => (
                     <li key={s.id}>
                       <Link href={`/projects/${s.id}`} className="group block">
-                        <p className="font-semibold group-hover:text-emerald-500">{s.name}</p>
+                        <p className="font-semibold group-hover:text-primary-500">{s.name}</p>
                         <p className={`text-xs ${muted}`}>
                           {s.fundedPercent}% · {s.categoryIcon}
                         </p>
@@ -557,7 +557,7 @@ export default function ProjectDetailPage() {
 
         {toast ? (
           <div
-            className="fixed bottom-6 left-1/2 z-[100] max-w-md -translate-x-1/2 rounded-xl border border-emerald-500/40 bg-emerald-950 px-4 py-3 text-center text-sm font-medium text-emerald-100 shadow-lg"
+            className="fixed bottom-6 left-1/2 z-[100] max-w-md -translate-x-1/2 rounded-xl border border-primary-500/40 bg-primary-950 px-4 py-3 text-center text-sm font-medium text-primary-100 shadow-lg"
             role="status"
           >
             {toast}

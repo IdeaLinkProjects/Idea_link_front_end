@@ -47,10 +47,10 @@ export default function DiscoveryPage() {
         className={`relative min-h-screen overflow-hidden ${isDark ? "bg-zinc-950 text-zinc-100" : "bg-zinc-50 text-zinc-900"}`}
       >
         <div
-          className={`pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full blur-3xl ${isDark ? "bg-emerald-500/25" : "bg-emerald-400/25"}`}
+          className={`pointer-events-none absolute -top-24 -left-16 h-72 w-72 rounded-full blur-3xl ${isDark ? "bg-primary-500/25" : "bg-primary-400/25"}`}
         />
         <div
-          className={`pointer-events-none absolute top-32 -right-24 h-96 w-96 rounded-full blur-3xl ${isDark ? "bg-emerald-700/20" : "bg-emerald-600/20"}`}
+          className={`pointer-events-none absolute top-32 -right-24 h-96 w-96 rounded-full blur-3xl ${isDark ? "bg-primary-950/20" : "bg-primary-600/20"}`}
         />
 
         <header
@@ -58,8 +58,8 @@ export default function DiscoveryPage() {
         >
           <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
             <Link href="/" className="text-2xl font-extrabold tracking-tight">
-              <span className="text-emerald-500">{t.brand.ideal}</span>
-              <span className="text-emerald-300">{t.brand.link}</span>
+              <span className="text-primary-500">{t.brand.ideal}</span>
+              <span className="text-primary-300">{t.brand.link}</span>
             </Link>
             <nav className="order-3 flex w-full basis-full items-center gap-1 sm:order-none sm:w-auto sm:basis-auto sm:gap-2">
               <Link
@@ -69,7 +69,7 @@ export default function DiscoveryPage() {
                 {t.nav.home}
               </Link>
               <span
-                className={`rounded-lg px-3 py-2 text-sm font-semibold ${isDark ? "bg-white/10 text-emerald-300" : "bg-emerald-100 text-emerald-800"}`}
+                className={`rounded-lg px-3 py-2 text-sm font-semibold ${isDark ? "bg-white/10 text-primary-300" : "bg-primary-100 text-primary-800"}`}
               >
                 {t.nav.discover}
               </span>
@@ -81,14 +81,14 @@ export default function DiscoveryPage() {
                 <button
                   type="button"
                   onClick={() => setLocale("en")}
-                  className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${locale === "en" ? "bg-emerald-700 text-white" : isDark ? "text-zinc-200 hover:bg-white/10" : "text-zinc-700 hover:bg-zinc-100"}`}
+                  className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${locale === "en" ? "bg-primary-950 text-white" : isDark ? "text-zinc-200 hover:bg-white/10" : "text-zinc-700 hover:bg-zinc-100"}`}
                 >
                   {t.nav.langEnglish}
                 </button>
                 <button
                   type="button"
                   onClick={() => setLocale("am")}
-                  className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${locale === "am" ? "bg-emerald-700 text-white" : isDark ? "text-zinc-200 hover:bg-white/10" : "text-zinc-700 hover:bg-zinc-100"}`}
+                  className={`rounded-md px-2.5 py-1 text-xs font-semibold transition ${locale === "am" ? "bg-primary-950 text-white" : isDark ? "text-zinc-200 hover:bg-white/10" : "text-zinc-700 hover:bg-zinc-100"}`}
                 >
                   {t.nav.langAmharic}
                 </button>
@@ -112,7 +112,7 @@ export default function DiscoveryPage() {
               </Link>
               <Link
                 href="/register"
-                className="rounded-lg bg-emerald-700 px-3 py-2 text-sm font-semibold text-white shadow-lg shadow-emerald-900/40 transition hover:-translate-y-0.5 hover:bg-emerald-600"
+                className="rounded-lg bg-primary-950 px-3 py-2 text-sm font-semibold text-white shadow-lg shadow-primary-900/40 transition hover:-translate-y-0.5 hover:bg-primary-900"
               >
                 {t.nav.register}
               </Link>
@@ -144,7 +144,7 @@ export default function DiscoveryPage() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={d.searchPlaceholder}
-                className={`w-full rounded-xl border px-4 py-3 text-sm outline-none transition focus:ring-2 focus:ring-emerald-600/40 ${isDark ? "border-white/20 bg-zinc-950/60 text-zinc-100 placeholder:text-zinc-500" : "border-zinc-300 bg-white text-zinc-900 placeholder:text-zinc-400"}`}
+                className={`w-full rounded-xl border px-4 py-3 text-sm outline-none transition focus:ring-2 focus:ring-primary-600/40 ${isDark ? "border-white/20 bg-zinc-950/60 text-zinc-100 placeholder:text-zinc-500" : "border-zinc-300 bg-white text-zinc-900 placeholder:text-zinc-400"}`}
               />
             </label>
 
@@ -158,7 +158,7 @@ export default function DiscoveryPage() {
                 <button
                   type="button"
                   onClick={() => setCategory("all")}
-                  className={`rounded-full border px-3 py-1.5 text-sm font-medium transition ${category === "all" ? "border-emerald-600 bg-emerald-700 text-white shadow-md shadow-emerald-900/30" : chipBase}`}
+                  className={`rounded-full border px-3 py-1.5 text-sm font-medium transition ${category === "all" ? "border-primary-500 bg-primary-950 text-white shadow-md shadow-primary-900/30" : chipBase}`}
                 >
                   {d.allCategories}
                 </button>
@@ -167,7 +167,7 @@ export default function DiscoveryPage() {
                     key={key}
                     type="button"
                     onClick={() => setCategory(key)}
-                    className={`rounded-full border px-3 py-1.5 text-sm font-medium transition ${category === key ? "border-emerald-600 bg-emerald-700 text-white shadow-md shadow-emerald-900/30" : chipBase}`}
+                    className={`rounded-full border px-3 py-1.5 text-sm font-medium transition ${category === key ? "border-primary-500 bg-primary-950 text-white shadow-md shadow-primary-900/30" : chipBase}`}
                   >
                     {label}
                   </button>
@@ -195,7 +195,7 @@ export default function DiscoveryPage() {
                 return (
                   <article
                     key={idea.id}
-                    className={`group flex flex-col overflow-hidden rounded-2xl border shadow-lg backdrop-blur-sm transition hover:-translate-y-1 hover:border-emerald-500/50 ${isDark ? "border-white/15 bg-white/10 shadow-black/25" : "border-zinc-200 bg-white/95 shadow-zinc-200/60"}`}
+                    className={`group flex flex-col overflow-hidden rounded-2xl border shadow-lg backdrop-blur-sm transition hover:-translate-y-1 hover:border-primary-500/50 ${isDark ? "border-white/15 bg-white/10 shadow-black/25" : "border-zinc-200 bg-white/95 shadow-zinc-200/60"}`}
                   >
                     <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden">
                       <Image
@@ -236,7 +236,7 @@ export default function DiscoveryPage() {
                         className={`h-2.5 w-full overflow-hidden rounded-full ${isDark ? "bg-zinc-700" : "bg-zinc-200"}`}
                       >
                         <div
-                          className="h-full rounded-full bg-gradient-to-r from-emerald-700 to-emerald-500 transition-all duration-700"
+                          className="h-full rounded-full bg-gradient-to-r from-primary-950 to-primary-600 transition-all duration-700"
                           style={{ width: `${idea.fundedPercent}%` }}
                         />
                       </div>
@@ -258,7 +258,7 @@ export default function DiscoveryPage() {
                     </div>
                     <Link
                       href={`/projects/${idea.id}`}
-                      className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-emerald-700 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-emerald-600"
+                      className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-primary-950 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-primary-900"
                     >
                       {d.viewDetails}
                     </Link>

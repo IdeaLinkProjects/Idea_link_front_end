@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { useEffect, useMemo, useState } from "react";
-import { InvestorLayout } from "@/components/investor/InvestorLayout";
+import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { type Locale, messages } from "@/locales";
 
 type RowStatus = "funding" | "active" | "completed";
@@ -88,8 +88,8 @@ export default function InvestorPortfolioPage() {
     }
     if (s === "active") {
       return isDark
-        ? "border-emerald-500/40 bg-emerald-950/50 text-emerald-300"
-        : "border-emerald-200 bg-emerald-50 text-emerald-900";
+        ? "border-primary-500/40 bg-primary-950/50 text-primary-300"
+        : "border-primary-200 bg-primary-50 text-primary-900";
     }
     return isDark ? "border-amber-500/40 bg-amber-950/40 text-amber-200" : "border-amber-200 bg-amber-50 text-amber-900";
   };
@@ -128,7 +128,7 @@ export default function InvestorPortfolioPage() {
         aria-label={ip.sortAria.replace("{column}", label)}
       >
         {label}
-        {sortKey === col ? <span className="text-emerald-500">{sortAsc ? "↑" : "↓"}</span> : null}
+        {sortKey === col ? <span className="text-primary-500">{sortAsc ? "↑" : "↓"}</span> : null}
       </button>
     </th>
   );
@@ -138,7 +138,7 @@ export default function InvestorPortfolioPage() {
       <Head>
         <title>{t.portfolioMetaTitle}</title>
       </Head>
-      <InvestorLayout>
+      <DashboardLayout>
         <div className="mx-auto max-w-7xl space-y-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div>
@@ -148,7 +148,7 @@ export default function InvestorPortfolioPage() {
             <button
               type="button"
               onClick={exportCsv}
-              className="rounded-xl border border-emerald-600/50 px-4 py-2.5 text-sm font-semibold text-emerald-500 transition hover:bg-emerald-950/30"
+              className="rounded-xl border border-primary-600/50 px-4 py-2.5 text-sm font-semibold text-primary-500 transition hover:bg-primary-950/30"
             >
               {ip.exportCsv}
             </button>
@@ -165,16 +165,16 @@ export default function InvestorPortfolioPage() {
             ].map((s) => (
               <div
                 key={s.label}
-                className={`rounded-2xl border p-5 ${isDark ? "border-emerald-500/30 bg-gradient-to-br from-emerald-950/50 to-zinc-900/80" : "border-emerald-200/80 bg-gradient-to-br from-emerald-50 to-white"}`}
+                className={`rounded-2xl border p-5 ${isDark ? "border-primary-500/30 bg-gradient-to-br from-primary-950/50 to-zinc-900/80" : "border-primary-200/80 bg-gradient-to-br from-primary-50 to-white"}`}
               >
-                <p className={`text-sm font-medium ${isDark ? "text-emerald-400/90" : "text-emerald-800"}`}>{s.label}</p>
+                <p className={`text-sm font-medium ${isDark ? "text-primary-400/90" : "text-primary-800"}`}>{s.label}</p>
                 <p className={`mt-2 text-2xl font-extrabold tabular-nums ${isDark ? "text-white" : "text-zinc-900"}`}>{s.value}</p>
               </div>
             ))}
           </div>
 
           <div className={`rounded-2xl border p-6 ${cardClass}`}>
-            <h2 className={`text-sm font-bold uppercase tracking-wide text-emerald-500`}>{ip.diversificationTitle}</h2>
+            <h2 className={`text-sm font-bold uppercase tracking-wide text-primary-500`}>{ip.diversificationTitle}</h2>
             <div className="mt-4 flex h-4 w-full overflow-hidden rounded-full">
               {ip.diversification.map((seg) => (
                 <div
@@ -198,15 +198,15 @@ export default function InvestorPortfolioPage() {
           </div>
 
           <div className={`rounded-2xl border p-6 ${cardClass}`}>
-            <h2 className={`text-sm font-bold uppercase tracking-wide text-emerald-500`}>{ip.metricsTitle}</h2>
+            <h2 className={`text-sm font-bold uppercase tracking-wide text-primary-500`}>{ip.metricsTitle}</h2>
             <div className="mt-6 grid gap-6 md:grid-cols-3">
               <div>
                 <p className={`text-xs font-semibold uppercase ${muted}`}>{ip.successRateLabel}</p>
-                <p className="mt-1 text-3xl font-extrabold text-emerald-500">{ip.performance.successRatePct}%</p>
+                <p className="mt-1 text-3xl font-extrabold text-primary-500">{ip.performance.successRatePct}%</p>
               </div>
               <div>
                 <p className={`text-xs font-semibold uppercase ${muted}`}>{ip.avgReturnLabel}</p>
-                <p className="mt-1 text-3xl font-extrabold text-emerald-500">+{ip.performance.avgSimulatedReturnPct}%</p>
+                <p className="mt-1 text-3xl font-extrabold text-primary-500">+{ip.performance.avgSimulatedReturnPct}%</p>
               </div>
               <div className="md:col-span-1">
                 <p className={`text-xs font-semibold uppercase ${muted}`}>{ip.riskBreakdownTitle}</p>
@@ -218,7 +218,7 @@ export default function InvestorPortfolioPage() {
                         <span className="tabular-nums">{r.percent}%</span>
                       </div>
                       <div className={`mt-1 h-2 overflow-hidden rounded-full ${isDark ? "bg-zinc-800" : "bg-zinc-100"}`}>
-                        <div className="h-full rounded-full bg-emerald-600" style={{ width: `${r.percent}%` }} />
+                        <div className="h-full rounded-full bg-primary-950" style={{ width: `${r.percent}%` }} />
                       </div>
                     </li>
                   ))}
@@ -238,8 +238,8 @@ export default function InvestorPortfolioPage() {
                   className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
                     filter === f
                       ? isDark
-                        ? "bg-emerald-900/50 text-emerald-200"
-                        : "bg-emerald-100 text-emerald-900"
+                        ? "bg-primary-900/50 text-primary-200"
+                        : "bg-primary-100 text-primary-900"
                       : isDark
                         ? "text-zinc-400 hover:bg-white/10"
                         : "text-zinc-600 hover:bg-zinc-100"
@@ -276,12 +276,12 @@ export default function InvestorPortfolioPage() {
                           {statusLabel(r.status)}
                         </span>
                       </td>
-                      <td className="px-3 py-3 font-mono tabular-nums text-emerald-500">{formatEtb(r.currentValueEtb, locale)}</td>
+                      <td className="px-3 py-3 font-mono tabular-nums text-primary-500">{formatEtb(r.currentValueEtb, locale)}</td>
                       <td className="px-3 py-3">
                         <button
                           type="button"
                           onClick={() => setSelectedId(r.id)}
-                          className="text-sm font-semibold text-emerald-500 hover:underline"
+                          className="text-sm font-semibold text-primary-500 hover:underline"
                         >
                           {ip.actionDetails}
                         </button>
@@ -319,16 +319,16 @@ export default function InvestorPortfolioPage() {
                 </button>
               </div>
               <div className="flex-1 overflow-y-auto px-4 py-6">
-                <p className={`text-sm font-semibold text-emerald-500`}>{selectedRow.name}</p>
+                <p className={`text-sm font-semibold text-primary-500`}>{selectedRow.name}</p>
                 <p className={`mt-1 text-xs ${muted}`}>
                   {formatEtb(selectedRow.amountEtb, locale)} ETB · {selectedRow.equityPct.toFixed(2)}% · {statusLabel(selectedRow.status)}
                 </p>
 
                 <section className="mt-8">
-                  <h3 className="text-xs font-bold uppercase tracking-wide text-emerald-500">{ip.perfTimeline}</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-wide text-primary-500">{ip.perfTimeline}</h3>
                   <ul className="mt-3 space-y-3">
                     {detail.timeline.map((ev, i) => (
-                      <li key={i} className={`flex gap-3 border-l-2 pl-3 ${ev.tone === "positive" ? "border-emerald-500" : "border-zinc-500"}`}>
+                      <li key={i} className={`flex gap-3 border-l-2 pl-3 ${ev.tone === "positive" ? "border-primary-500" : "border-zinc-500"}`}>
                         <div>
                           <p className={`text-xs font-semibold ${muted}`}>{ev.date}</p>
                           <p className="text-sm font-medium">{ev.label}</p>
@@ -339,11 +339,11 @@ export default function InvestorPortfolioPage() {
                 </section>
 
                 <section className="mt-8">
-                  <h3 className="text-xs font-bold uppercase tracking-wide text-emerald-500">{ip.updatesTitle}</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-wide text-primary-500">{ip.updatesTitle}</h3>
                   <ul className="mt-3 space-y-4">
                     {detail.updates.map((u, i) => (
                       <li key={i} className={`rounded-xl border p-3 ${isDark ? "border-white/10 bg-white/5" : "border-zinc-200 bg-zinc-50"}`}>
-                        <p className="text-xs text-emerald-500">{u.date}</p>
+                        <p className="text-xs text-primary-500">{u.date}</p>
                         <p className="mt-1 font-semibold">{u.title}</p>
                         <p className={`mt-1 text-sm ${muted}`}>{u.body}</p>
                       </li>
@@ -352,14 +352,14 @@ export default function InvestorPortfolioPage() {
                 </section>
 
                 <section className="mt-8">
-                  <h3 className="text-xs font-bold uppercase tracking-wide text-emerald-500">{ip.commTitle}</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-wide text-primary-500">{ip.commTitle}</h3>
                   <ul className="mt-3 space-y-3">
                     {detail.messages.map((m, i) => (
                       <li
                         key={i}
-                        className={`rounded-xl border px-3 py-2 text-sm ${m.from === "you" ? (isDark ? "border-emerald-500/30 bg-emerald-950/30" : "border-emerald-200 bg-emerald-50") : isDark ? "border-white/10 bg-white/5" : "border-zinc-200 bg-zinc-50"}`}
+                        className={`rounded-xl border px-3 py-2 text-sm ${m.from === "you" ? (isDark ? "border-primary-500/30 bg-primary-950/30" : "border-primary-200 bg-primary-50") : isDark ? "border-white/10 bg-white/5" : "border-zinc-200 bg-zinc-50"}`}
                       >
-                        <p className="text-xs font-bold text-emerald-500">{m.from === "you" ? ip.you : ip.innovator}</p>
+                        <p className="text-xs font-bold text-primary-500">{m.from === "you" ? ip.you : ip.innovator}</p>
                         <p className="mt-1">{m.text}</p>
                         <p className={`mt-1 text-xs ${muted}`}>{m.time}</p>
                       </li>
@@ -367,9 +367,9 @@ export default function InvestorPortfolioPage() {
                   </ul>
                 </section>
 
-                <section className={`mt-8 rounded-xl border p-4 ${isDark ? "border-emerald-500/30 bg-emerald-950/20" : "border-emerald-200 bg-emerald-50"}`}>
-                  <h3 className="text-xs font-bold uppercase tracking-wide text-emerald-600">{ip.simReturnsTitle}</h3>
-                  <p className="mt-2 text-2xl font-extrabold text-emerald-500">
+                <section className={`mt-8 rounded-xl border p-4 ${isDark ? "border-primary-500/30 bg-primary-950/20" : "border-primary-200 bg-primary-50"}`}>
+                  <h3 className="text-xs font-bold uppercase tracking-wide text-primary-600">{ip.simReturnsTitle}</h3>
+                  <p className="mt-2 text-2xl font-extrabold text-primary-500">
                     {ip.simReturnPct.replace("{pct}", String(detail.simulatedReturnPct))}
                   </p>
                   <p className={`mt-2 text-xs leading-relaxed ${muted}`}>{ip.simReturnsBody}</p>
@@ -378,12 +378,12 @@ export default function InvestorPortfolioPage() {
                 <div className="mt-8 flex flex-col gap-2">
                   <Link
                     href={`/projects/${selectedRow.projectSlug}`}
-                    className="rounded-xl bg-emerald-700 py-3 text-center text-sm font-semibold text-white hover:bg-emerald-600"
+                    className="rounded-xl bg-primary-950 py-3 text-center text-sm font-semibold text-white hover:bg-primary-900"
                   >
                     {ip.viewProject}
                   </Link>
                   <Link
-                    href="/investor/messages"
+                    href="/dashboard/messages"
                     className={`rounded-xl border py-3 text-center text-sm font-semibold ${isDark ? "border-white/20 hover:bg-white/10" : "border-zinc-300 hover:bg-zinc-100"}`}
                   >
                     {ip.messageInnovator}
@@ -393,7 +393,7 @@ export default function InvestorPortfolioPage() {
             </div>
           </div>
         ) : null}
-      </InvestorLayout>
+      </DashboardLayout>
     </>
   );
 }

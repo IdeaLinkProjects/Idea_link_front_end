@@ -2,7 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { useMemo, useState } from "react";
-import { InnovatorLayout } from "@/components/innovator/InnovatorLayout";
+import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { messages } from "@/locales";
 
 const MIN_GOAL_ETB = 25_000;
@@ -56,8 +56,8 @@ export default function InnovatorNewProjectPage() {
     : "border-zinc-200 bg-white shadow-md shadow-zinc-200/60";
   const labelClass = isDark ? "text-zinc-300" : "text-zinc-700";
   const inputClass = isDark
-    ? "border-white/20 bg-zinc-950/60 text-zinc-100 placeholder:text-zinc-500 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/30"
-    : "border-zinc-200 bg-white text-zinc-900 placeholder:text-zinc-400 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/25";
+    ? "border-white/20 bg-zinc-950/60 text-zinc-100 placeholder:text-zinc-500 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/30"
+    : "border-zinc-200 bg-white text-zinc-900 placeholder:text-zinc-400 focus:border-primary-600 focus:ring-2 focus:ring-primary-600/25";
   const errBorder = "border-red-500 ring-2 ring-red-500/20";
 
   const categoryLabel = useMemo(() => {
@@ -158,20 +158,20 @@ export default function InnovatorNewProjectPage() {
         <Head>
           <title>{t.metaTitle}</title>
         </Head>
-        <InnovatorLayout>
+        <DashboardLayout>
           <div className="mx-auto max-w-lg space-y-6 text-center">
             <div className={`rounded-2xl border p-8 ${cardClass}`}>
-              <p className={`text-lg font-semibold ${isDark ? "text-emerald-300" : "text-emerald-800"}`}>{t.successTitle}</p>
+              <p className={`text-lg font-semibold ${isDark ? "text-primary-300" : "text-primary-800"}`}>{t.successTitle}</p>
               <p className={`mt-2 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.successBody}</p>
               <Link
-                href="/innovator/projects"
-                className="mt-6 inline-flex rounded-xl bg-emerald-700 px-6 py-3 font-semibold text-white shadow-lg hover:bg-emerald-600"
+                href="/dashboard/projects"
+                className="mt-6 inline-flex rounded-xl bg-primary-950 px-6 py-3 font-semibold text-white shadow-lg hover:bg-primary-900"
               >
                 {t.viewProjects}
               </Link>
             </div>
           </div>
-        </InnovatorLayout>
+        </DashboardLayout>
       </>
     );
   }
@@ -182,9 +182,9 @@ export default function InnovatorNewProjectPage() {
         <title>{t.metaTitle}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <InnovatorLayout>
+      <DashboardLayout>
         <div className="mx-auto max-w-3xl space-y-8">
-          <Link href="/innovator/projects" className="inline-flex text-sm font-semibold text-emerald-500 hover:text-emerald-400">
+          <Link href="/dashboard/projects" className="inline-flex text-sm font-semibold text-primary-500 hover:text-primary-400">
             ← {t.backToProjects}
           </Link>
 
@@ -214,12 +214,12 @@ export default function InnovatorNewProjectPage() {
                     className={`flex items-center gap-3 rounded-xl border px-4 py-3 ${
                       active
                         ? isDark
-                          ? "border-emerald-500/50 bg-emerald-950/40"
-                          : "border-emerald-300 bg-emerald-50"
+                          ? "border-primary-500/50 bg-primary-950/40"
+                          : "border-primary-300 bg-primary-50"
                         : done
                           ? isDark
-                            ? "border-emerald-700/40 bg-emerald-950/20"
-                            : "border-emerald-200 bg-white"
+                            ? "border-primary-950/40 bg-primary-950/20"
+                            : "border-primary-200 bg-white"
                           : isDark
                             ? "border-white/10 bg-zinc-900/40"
                             : "border-zinc-200 bg-white"
@@ -228,9 +228,9 @@ export default function InnovatorNewProjectPage() {
                     <div
                       className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
                         done
-                          ? "bg-emerald-600 text-white"
+                          ? "bg-primary-950 text-white"
                           : active
-                            ? "bg-emerald-700 text-white"
+                            ? "bg-primary-950 text-white"
                             : isDark
                               ? "bg-zinc-800 text-zinc-500"
                               : "bg-zinc-100 text-zinc-500"
@@ -321,7 +321,7 @@ export default function InnovatorNewProjectPage() {
                   <button
                     type="button"
                     onClick={goNext}
-                    className="rounded-xl bg-emerald-700 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-emerald-600"
+                    className="rounded-xl bg-primary-950 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-primary-900"
                   >
                     {t.next}
                   </button>
@@ -374,9 +374,9 @@ export default function InnovatorNewProjectPage() {
                     max={MAX_EQUITY}
                     value={equity}
                     onChange={(e) => setEquity(Number(e.target.value))}
-                    className="w-full accent-emerald-600"
+                    className="w-full accent-primary-950"
                   />
-                  <p className={`mt-1 text-sm ${isDark ? "text-emerald-300/90" : "text-emerald-800"}`}>{t.equityPreview.replace("{pct}", String(equity))}</p>
+                  <p className={`mt-1 text-sm ${isDark ? "text-primary-300/90" : "text-primary-800"}`}>{t.equityPreview.replace("{pct}", String(equity))}</p>
                   {errors.equity ? <p className="mt-1 text-sm text-red-400">{errors.equity}</p> : null}
                 </div>
                 <div>
@@ -417,7 +417,7 @@ export default function InnovatorNewProjectPage() {
                   <button
                     type="button"
                     onClick={goNext}
-                    className="rounded-xl bg-emerald-700 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-emerald-600"
+                    className="rounded-xl bg-primary-950 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-primary-900"
                   >
                     {t.next}
                   </button>
@@ -436,7 +436,7 @@ export default function InnovatorNewProjectPage() {
                     [riskRegulatory, setRiskRegulatory, t.riskRegulatory] as const,
                   ].map(([checked, setC, lab], idx) => (
                     <label key={idx} className={`flex cursor-pointer gap-3 rounded-lg border p-3 ${isDark ? "border-white/10 bg-white/5" : "border-zinc-200 bg-white"}`}>
-                      <input type="checkbox" checked={checked} onChange={(e) => setC(e.target.checked)} className="mt-1 h-4 w-4 rounded border-zinc-500 text-emerald-600" />
+                      <input type="checkbox" checked={checked} onChange={(e) => setC(e.target.checked)} className="mt-1 h-4 w-4 rounded border-zinc-500 text-primary-600" />
                       <span className={`text-sm ${isDark ? "text-zinc-300" : "text-zinc-700"}`}>{lab}</span>
                     </label>
                   ))}
@@ -463,7 +463,7 @@ export default function InnovatorNewProjectPage() {
                         key={lvl}
                         className={`flex cursor-pointer items-center gap-2 rounded-lg border px-4 py-2 text-sm ${
                           riskLevel === lvl
-                            ? "border-emerald-600 bg-emerald-700 text-white"
+                            ? "border-primary-500 bg-primary-950 text-white"
                             : isDark
                               ? "border-white/15 bg-zinc-950/40 text-zinc-200"
                               : "border-zinc-200 bg-white text-zinc-800"
@@ -478,7 +478,7 @@ export default function InnovatorNewProjectPage() {
                 </div>
 
                 <div className={`rounded-xl border p-4 ${isDark ? "border-white/15 bg-black/20" : "border-zinc-200 bg-zinc-50"}`}>
-                  <h3 className={`mb-3 text-sm font-bold uppercase tracking-wide ${isDark ? "text-emerald-300" : "text-emerald-800"}`}>{t.reviewTitle}</h3>
+                  <h3 className={`mb-3 text-sm font-bold uppercase tracking-wide ${isDark ? "text-primary-300" : "text-primary-800"}`}>{t.reviewTitle}</h3>
                   <dl className="space-y-2 text-sm">
                     <div className="flex flex-col gap-0.5 sm:flex-row sm:justify-between">
                       <dt className={isDark ? "text-zinc-500" : "text-zinc-500"}>{t.titleLabel}</dt>
@@ -553,7 +553,7 @@ export default function InnovatorNewProjectPage() {
                   <button
                     type="button"
                     onClick={handleSubmit}
-                    className="rounded-xl bg-emerald-700 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-emerald-600"
+                    className="rounded-xl bg-primary-950 px-6 py-3 text-sm font-semibold text-white shadow-lg hover:bg-primary-900"
                   >
                     {t.submitReview}
                   </button>
@@ -562,7 +562,7 @@ export default function InnovatorNewProjectPage() {
             ) : null}
           </div>
         </div>
-      </InnovatorLayout>
+      </DashboardLayout>
     </>
   );
 }

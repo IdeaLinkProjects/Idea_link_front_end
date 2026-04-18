@@ -1,7 +1,6 @@
-const DEMO_ROLE_KEY = "ideal-link-demo-role";
 const KYC_SKIPPED_KEY = "ideal-link-kyc-skipped";
 
-export type PostLoginPath = "/investor" | "/innovator" | "/kyc";
+export type PostLoginPath = "/dashboard" | "/kyc";
 
 function readKycSkipped(): boolean {
   if (typeof window === "undefined") return false;
@@ -14,12 +13,9 @@ export function persistKycSkipped(): void {
   window.localStorage.setItem(KYC_SKIPPED_KEY, "1");
 }
 
-export function resolveDashboardPath(email: string): "/investor" | "/innovator" {
-  const emailLower = email.trim().toLowerCase();
-  const storedRole = typeof window !== "undefined" ? window.localStorage.getItem(DEMO_ROLE_KEY) : null;
-  const goInvestor =
-    storedRole === "investor" || emailLower.startsWith("investor@") || emailLower.includes("+investor@");
-  return goInvestor ? "/investor" : "/innovator";
+export function resolveDashboardPath(_email?: string): "/dashboard" {
+  void _email;
+  return "/dashboard";
 }
 
 export function resolvePostLoginPath(

@@ -37,7 +37,7 @@ export function LoginForm({
   const passwordErr = errors.password;
 
   const toggleBtnClass =
-    "absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md p-1 text-zinc-400 outline-none transition hover:bg-zinc-100 hover:text-zinc-700 focus-visible:ring-2 focus-visible:ring-emerald-500/50 dark:text-zinc-500 dark:hover:bg-white/10 dark:hover:text-zinc-200";
+    "absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md p-1 text-zinc-400 outline-none transition hover:bg-zinc-100 hover:text-zinc-700 focus-visible:ring-2 focus-visible:ring-primary-500/50 dark:text-zinc-500 dark:hover:bg-white/10 dark:hover:text-zinc-200";
 
   return (
     <form
@@ -116,7 +116,7 @@ export function LoginForm({
           type="checkbox"
           checked={form.remember}
           onChange={(e) => setForm((prev) => ({ ...prev, remember: e.target.checked }))}
-          className="h-[1.125rem] w-[1.125rem] rounded border-zinc-500 bg-transparent text-emerald-600 focus:ring-emerald-600"
+          className="h-[1.125rem] w-[1.125rem] rounded border-zinc-500 bg-transparent text-primary-950 focus:ring-primary-950"
         />
         <span>{t.rememberMe}</span>
       </label>
@@ -124,20 +124,20 @@ export function LoginForm({
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full rounded-lg bg-emerald-700 py-3 text-base font-semibold text-white shadow-lg shadow-emerald-950/40 transition hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-lg bg-primary-950 py-3 text-base font-semibold text-white shadow-lg shadow-primary-950/40 transition hover:bg-primary-900 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSubmitting ? t.signingIn : t.signIn}
       </button>
 
       <div className="text-center">
-        <Link href="/forgot-password" className="text-xs font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300">
+        <Link href="/forgot-password" className="text-xs font-medium text-primary-700 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300">
           {t.forgotPassword}
         </Link>
       </div>
 
       <p className="border-t border-zinc-100 pt-6 text-center text-xs leading-tight text-zinc-600 dark:border-white/10 dark:text-zinc-400">
         {t.noAccount}{" "}
-        <Link href="/register" className="font-semibold text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300">
+        <Link href="/register" className="font-semibold text-primary-700 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300">
           {t.registerHere}
         </Link>
       </p>

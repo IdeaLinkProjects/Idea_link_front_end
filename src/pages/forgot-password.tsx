@@ -20,12 +20,12 @@ export default function ForgotPasswordPage() {
       </Head>
       <div className="min-h-screen bg-zinc-50 px-4 py-16 text-center text-zinc-800">
         <Link href="/" className="text-lg font-bold">
-          <span className="text-emerald-600">Ideal</span>
-          <span className="text-emerald-500">Link</span>
+          <span className="text-primary-600">Ideal</span>
+          <span className="text-primary-500">Link</span>
         </Link>
         <h1 className="mt-8 text-2xl font-bold">{title}</h1>
         <p className="mx-auto mt-4 max-w-md text-sm text-zinc-600">{body}</p>
-        <Link href="/login" className="mt-8 inline-block font-semibold text-emerald-700 hover:underline">
+        <Link href="/login" className="mt-8 inline-block font-semibold text-primary-700 hover:underline">
           ← {login.title}
         </Link>
       </div>

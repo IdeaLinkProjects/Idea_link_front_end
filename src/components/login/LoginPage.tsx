@@ -78,8 +78,8 @@ export function LoginPage() {
             <div className="mx-auto w-full max-w-[22rem] sm:max-w-md">
               <div className="text-center lg:text-left">
                 <Link href="/" className="inline-block text-xl font-extrabold tracking-tight transition hover:opacity-90 sm:text-2xl">
-                  <span className="text-emerald-500">Ideal</span>
-                  <span className="text-emerald-300">Link</span>
+                  <span className="text-primary-500">Ideal</span>
+                  <span className="text-primary-300">Link</span>
                 </Link>
               </div>
 

@@ -1,10 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
-import { InnovatorLayout } from "@/components/innovator/InnovatorLayout";
+import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { messages } from "@/locales";
 
-export default function InnovatorProjectsPage() {
+export default function DashboardProjectsPage() {
   const { locale, isDark } = useAppPreferences();
 
   const t = messages[locale].innovatorDashboard;
@@ -17,7 +17,7 @@ export default function InnovatorProjectsPage() {
       <Head>
         <title>{t.projectsMetaTitle}</title>
       </Head>
-      <InnovatorLayout>
+      <DashboardLayout>
         <div className="mx-auto max-w-6xl space-y-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
@@ -25,8 +25,8 @@ export default function InnovatorProjectsPage() {
               <p className={`mt-1 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.projectsPageSubtitle}</p>
             </div>
             <Link
-              href="/innovator/projects/new"
-              className="inline-flex justify-center rounded-xl bg-emerald-700 px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-emerald-600"
+              href="/dashboard/projects/new"
+              className="inline-flex justify-center rounded-xl bg-primary-950 px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-primary-900"
             >
               {t.createProject}
             </Link>
@@ -42,7 +42,7 @@ export default function InnovatorProjectsPage() {
                 </div>
                 <div className={`mt-3 h-2 overflow-hidden rounded-full ${isDark ? "bg-zinc-700" : "bg-zinc-200"}`}>
                   <div
-                    className="h-full rounded-full bg-gradient-to-r from-emerald-700 to-emerald-500"
+                    className="h-full rounded-full bg-gradient-to-r from-primary-950 to-primary-600"
                     style={{ width: `${project.percent}%` }}
                   />
                 </div>
@@ -50,8 +50,8 @@ export default function InnovatorProjectsPage() {
                   {project.percent}% · {project.investors} {t.investors} · {project.daysRemaining} {t.daysLeft}
                 </p>
                 <Link
-                  href={`/innovator/projects/${project.slug}`}
-                  className={`mt-4 inline-flex w-full justify-center rounded-xl px-4 py-2.5 text-center text-sm font-semibold transition ${isDark ? "bg-emerald-900/50 text-emerald-200 hover:bg-emerald-900/70" : "bg-emerald-600 text-white hover:bg-emerald-700"}`}
+                  href={`/dashboard/projects/${project.slug}`}
+                  className={`mt-4 inline-flex w-full justify-center rounded-xl px-4 py-2.5 text-center text-sm font-semibold transition ${isDark ? "bg-primary-900/50 text-primary-200 hover:bg-primary-900/70" : "bg-primary-950 text-white hover:bg-primary-950"}`}
                 >
                   {t.manageProject}
                 </Link>
@@ -59,7 +59,7 @@ export default function InnovatorProjectsPage() {
             ))}
           </div>
         </div>
-      </InnovatorLayout>
+      </DashboardLayout>
     </>
   );
 }

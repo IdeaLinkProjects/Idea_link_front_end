@@ -110,8 +110,8 @@ export function KycPage() {
             <div className="mx-auto w-full max-w-[22rem] sm:max-w-md">
               <div className="text-center lg:text-left">
                 <Link href="/" className="inline-block text-xl font-extrabold tracking-tight transition hover:opacity-90 sm:text-2xl">
-                  <span className="text-emerald-500">Ideal</span>
-                  <span className="text-emerald-300">Link</span>
+                  <span className="text-primary-500">Ideal</span>
+                  <span className="text-primary-300">Link</span>
                 </Link>
               </div>
 
@@ -135,7 +135,7 @@ export function KycPage() {
                 placeholder={t.fanNumberPlaceholder}
                 autoComplete="off"
                 required
-                className="mt-1.5 block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 dark:border-zinc-600 dark:bg-zinc-950 dark:text-zinc-100"
+                className="mt-1.5 block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-zinc-600 dark:bg-zinc-950 dark:text-zinc-100"
               />
             </div>
 
@@ -148,7 +148,7 @@ export function KycPage() {
                 type="file"
                 accept="image/*,.pdf"
                 onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-                className="mt-1.5 block w-full text-sm text-zinc-600 file:mr-4 file:rounded-md file:border-0 file:bg-emerald-600 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-white hover:file:bg-emerald-500 dark:text-zinc-400"
+                className="mt-1.5 block w-full text-sm text-zinc-600 file:mr-4 file:rounded-md file:border-0 file:bg-primary-950 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-white hover:file:bg-primary-900 dark:text-zinc-400"
               />
             </div>
 
@@ -158,7 +158,7 @@ export function KycPage() {
               </p>
             ) : null}
             {successMessage ? (
-              <p className="text-sm text-emerald-700 dark:text-emerald-400" role="status">
+              <p className="text-sm text-primary-700 dark:text-primary-400" role="status">
                 {successMessage}
               </p>
             ) : null}
@@ -166,7 +166,7 @@ export function KycPage() {
             <button
               type="submit"
               disabled={isUploading}
-              className="flex w-full justify-center rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-60"
+              className="flex w-full justify-center rounded-lg bg-primary-950 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-900 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {isUploading ? t.submitting : t.submit}
             </button>
@@ -184,7 +184,7 @@ export function KycPage() {
               {showPhoneVerification ? (
                 <form
                   onSubmit={handleVerifyPhone}
-                  className="mt-6 space-y-4 rounded-2xl border border-dashed border-emerald-300 bg-emerald-50/60 p-4 text-sm text-zinc-800 dark:border-emerald-700 dark:bg-emerald-900/20 dark:text-zinc-50"
+                  className="mt-6 space-y-4 rounded-2xl border border-dashed border-primary-300 bg-primary-50/60 p-4 text-sm text-zinc-800 dark:border-primary-700 dark:bg-primary-900/20 dark:text-zinc-50"
                 >
                   <p className="font-medium">Phone verification</p>
                   <p className="text-xs text-zinc-600 dark:text-zinc-300">
@@ -204,7 +204,7 @@ export function KycPage() {
                         setOtpCode(e.target.value);
                         setOtpError(null);
                       }}
-                      className="mt-1.5 block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 dark:border-zinc-600 dark:bg-zinc-950 dark:text-zinc-100"
+                      className="mt-1.5 block w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-zinc-600 dark:bg-zinc-950 dark:text-zinc-100"
                     />
                   </div>
 
@@ -228,7 +228,7 @@ export function KycPage() {
                     <button
                       type="submit"
                       disabled={isVerifyingPhone}
-                      className="inline-flex flex-1 justify-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="inline-flex flex-1 justify-center rounded-lg bg-primary-950 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary-900 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {isVerifyingPhone ? "Sending…" : "Send code"}
                     </button>
