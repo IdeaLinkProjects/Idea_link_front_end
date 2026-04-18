@@ -462,6 +462,7 @@
     "uploadSuccess": "KYC document submitted successfully.",
     "uploadError": "KYC upload failed. Please try again.",
     "continueToApp": "Continue to dashboard",
+    "skipForNow": "Skip for now",
     "errors": {
       "fanNumberRequired": "Please enter your fan number.",
       "fileRequired": "Please choose a file to upload."

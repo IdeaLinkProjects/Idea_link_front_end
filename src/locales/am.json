@@ -462,6 +462,7 @@
     "uploadSuccess": "የKYC ሰነድ በተሳካ ሁኔታ ቀርቧል።",
     "uploadError": "የKYC መጫን አልተሳካም። እባክዎ እንደገና ይሞክሩ።",
     "continueToApp": "ወደ ዳሽቦርድ ቀጥል",
+    "skipForNow": "ለአሁን ዝለል",
     "errors": {
       "fanNumberRequired": "እባክዎ የFan ቁጥርዎን ያስገቡ።",
       "fileRequired": "እባክዎ የሚጫን ፋይል ይምረጡ።"

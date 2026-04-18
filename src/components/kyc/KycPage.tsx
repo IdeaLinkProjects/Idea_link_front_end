@@ -5,7 +5,7 @@ import { type FormEvent, useCallback, useState } from "react";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 import { readRememberedEmail } from "@/lib/login/rememberEmailStorage";
-import { resolvePostLoginPath } from "@/lib/login/resolvePostLoginPath";
+import { persistKycSkipped, resolveDashboardPath } from "@/lib/login/resolvePostLoginPath";
 import { messages } from "@/locales";
 import { useUploadKycMutation, useVerifyPhoneOtpMutation } from "@/store";
 import { RegisterPromoPanel } from "@/components/register/RegisterPromoPanel";
@@ -81,7 +81,7 @@ export function KycPage() {
 
       try {
         await verifyPhoneOtp({ otpCode: trimmed }).unwrap();
-        void router.push(resolvePostLoginPath(readRememberedEmail()));
+        void router.push(resolveDashboardPath(readRememberedEmail()));
       } catch (err) {
         const message = extractApiErrorMessage(err, "Phone verification failed. Please try again.");
         setOtpError(message);
@@ -89,6 +89,11 @@ export function KycPage() {
     },
     [otpCode, verifyPhoneOtp, router],
   );
+
+  const handleSkipToDashboard = useCallback(() => {
+    persistKycSkipped();
+    void router.push(resolveDashboardPath(readRememberedEmail()));
+  }, [router]);
 
   return (
     <>
@@ -165,6 +170,14 @@ export function KycPage() {
             >
               {isUploading ? t.submitting : t.submit}
             </button>
+
+            <button
+              type="button"
+              onClick={handleSkipToDashboard}
+              className="mx-auto block w-auto px-1 py-1 text-xs font-medium text-zinc-500 underline-offset-2 transition hover:text-zinc-700 hover:underline dark:text-zinc-400 dark:hover:text-zinc-200"
+            >
+              {t.skipForNow}
+            </button>
                 </form>
               ) : null}
 
@@ -201,7 +214,7 @@ export function KycPage() {
                     </p>
                   ) : null}
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                     <button
                       type="button"
                       onClick={() => {
@@ -218,6 +231,13 @@ export function KycPage() {
                       className="inline-flex flex-1 justify-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                       {isVerifyingPhone ? "Sending…" : "Send code"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleSkipToDashboard}
+                      className="inline-flex w-full justify-center px-1 py-0.5 text-xs font-medium text-zinc-500 underline-offset-2 transition hover:text-zinc-700 hover:underline dark:text-zinc-400 dark:hover:text-zinc-200 sm:ml-auto sm:w-auto sm:shrink-0"
+                    >
+                      {t.skipForNow}
                     </button>
                   </div>
                 </form>
