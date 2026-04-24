@@ -78,7 +78,7 @@ export function DashboardProfileView() {
     );
   }
 
-  const showCompleteSection = !innovatorComplete || !investorComplete;
+  const showProfileActionSection = true;
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 pb-4">
@@ -116,9 +116,6 @@ export function DashboardProfileView() {
                 </span>
               </div>
               <p className={`mt-2 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{email}</p>
-              <p className={`mt-1 text-xs ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>
-                {t.userIdLabel}: <span className="font-mono tabular-nums text-zinc-400 dark:text-zinc-400">{status.userId}</span>
-              </p>
 
               <div className="mt-4 flex flex-wrap justify-center gap-2 sm:justify-start">
                 {status.currentRoles?.length ? (
@@ -182,33 +179,29 @@ export function DashboardProfileView() {
           ) : null}
         </div>
       )}
-      {showCompleteSection ? (
+      {showProfileActionSection ? (
         <div
           className={`rounded-2xl border p-6 sm:p-8 ${isDark ? "border-primary-500/20 bg-gradient-to-br from-primary-950/40 to-zinc-950/80" : "border-primary-200 bg-gradient-to-br from-primary-50/80 to-white"}`}
         >
           <h2 className={`text-lg font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{t.completeProfilesTitle}</h2>
           <p className={`mt-1 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.completeProfilesHint}</p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            {!innovatorComplete ? (
-              <Link
-                href="/dashboard/profile/complete-innovator"
-                className={`inline-flex flex-1 items-center justify-center rounded-xl px-5 py-3 text-center text-sm font-semibold text-white shadow-lg transition hover:opacity-95 sm:flex-none ${
-                  isDark ? "bg-violet-600 hover:bg-violet-500" : "bg-violet-600 hover:bg-violet-700"
-                }`}
-              >
-                {t.completeInnovatorCta}
-              </Link>
-            ) : null}
-            {!investorComplete ? (
-              <Link
-                href="/dashboard/profile/complete-investor"
-                className={`inline-flex flex-1 items-center justify-center rounded-xl px-5 py-3 text-center text-sm font-semibold text-white shadow-lg transition hover:opacity-95 sm:flex-none ${
-                  isDark ? "bg-amber-600 hover:bg-amber-500" : "bg-amber-600 hover:bg-amber-700"
-                }`}
-              >
-                {t.completeInvestorCta}
-              </Link>
-            ) : null}
+            <Link
+              href="/dashboard/profile/complete-innovator"
+              className={`inline-flex flex-1 items-center justify-center rounded-xl px-5 py-3 text-center text-sm font-semibold text-white shadow-lg transition hover:opacity-95 sm:flex-none ${
+                isDark ? "bg-primary-600 hover:bg-primary-500" : "bg-primary-600 hover:bg-primary-700"
+              }`}
+            >
+              {innovatorComplete ? t.editInnovatorCta : t.completeInnovatorCta}
+            </Link>
+            <Link
+              href="/dashboard/profile/complete-investor"
+              className={`inline-flex flex-1 items-center justify-center rounded-xl px-5 py-3 text-center text-sm font-semibold text-white shadow-lg transition hover:opacity-95 sm:flex-none ${
+                isDark ? "bg-primary-600 hover:bg-primary-500" : "bg-primary-600 hover:bg-primary-700"
+              }`}
+            >
+              {investorComplete ? t.editInvestorCta : t.completeInvestorCta}
+            </Link>
           </div>
         </div>
       ) : null}

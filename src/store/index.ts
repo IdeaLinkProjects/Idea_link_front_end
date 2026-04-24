@@ -9,9 +9,14 @@ export {
   useGetUserRolesStatusQuery,
   useGetInnovatorProfileQuery,
   useGetInvestorProfileQuery,
+  useCompleteInvestorProfileMutation,
+  useCompleteInnovatorProfileMutation,
 } from "./api/profileApi";
 export type {
+  CompleteInnovatorProfileRequestBody,
+  CompleteInvestorProfileRequestBody,
   InnovatorProfileResponse,
+  InnovatorPreviousProject,
   InvestorProfileResponse,
   RolePrerequisites,
   UserRolesStatusResponse,

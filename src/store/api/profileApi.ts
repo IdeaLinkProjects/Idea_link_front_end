@@ -26,6 +26,7 @@ export type InnovatorProfileResponse = {
   experienceYears: number | null;
   linkedinUrl: string | null;
   websiteUrl: string | null;
+  previousProjects?: InnovatorPreviousProject[];
 };
 
 export type InvestorProfileResponse = {
@@ -34,6 +35,33 @@ export type InvestorProfileResponse = {
   preferredCategories: string[];
   accreditationVerified: boolean;
   investmentExperience: string;
+};
+
+export type CompleteInvestorProfileRequestBody = {
+  riskTolerance: string;
+  maxInvestmentLimit: number;
+  investmentExperience: string;
+  preferredCategories: string[];
+};
+
+export type InnovatorPreviousProject = {
+  projectName: string;
+  outcome: string;
+  year: number;
+  description: string;
+};
+
+export type CompleteInnovatorProfileRequestBody = {
+  bio: string;
+  experienceYears: number;
+  linkedinUrl: string;
+  websiteUrl: string;
+  companyRole: string;
+  previousProjects: InnovatorPreviousProject[];
+};
+
+export type CompleteProfileResponse = {
+  message?: string;
 };
 
 export const profileApi = baseApi.injectEndpoints({
@@ -59,8 +87,30 @@ export const profileApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Profile"],
     }),
+    completeInvestorProfile: build.mutation<CompleteProfileResponse, CompleteInvestorProfileRequestBody>({
+      query: (body) => ({
+        url: "profile/investor",
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Profile"],
+    }),
+    completeInnovatorProfile: build.mutation<CompleteProfileResponse, CompleteInnovatorProfileRequestBody>({
+      query: (body) => ({
+        url: "profile/innovator",
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Profile"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetUserRolesStatusQuery, useGetInnovatorProfileQuery, useGetInvestorProfileQuery } = profileApi;
+export const {
+  useGetUserRolesStatusQuery,
+  useGetInnovatorProfileQuery,
+  useGetInvestorProfileQuery,
+  useCompleteInvestorProfileMutation,
+  useCompleteInnovatorProfileMutation,
+} = profileApi;

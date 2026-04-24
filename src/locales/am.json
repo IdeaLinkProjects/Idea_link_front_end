@@ -543,6 +543,8 @@
     "completeProfilesHint": "ሙሉ ተሞክሮ ለማግኘት ሁለቱንም ያስገቡ።",
     "completeInnovatorCta": "የፈጠራ ባለቤት መገለጫ ያጠናቅቁ",
     "completeInvestorCta": "የኢንቨስተር መገለጫ ያጠናቅቁ",
+    "editInnovatorCta": "የፈጠራ ባለቤት መገለጫ ያርትዑ",
+    "editInvestorCta": "የኢንቨስተር መገለጫ ያርትዑ",
     "completeInnovatorPageTitle": "የፈጠራ ባለቤት መገለጫ",
     "completeInnovatorPageBody": "የፈጠራ ባለቤት ዝርዝሮችዎን ለመጨመር የድር ወይም ሞባይል ፍሰቱን ይከተሉ። ያለውን ሲጨርሱ ወደዚህ ይመለሱ።",
     "completeInvestorPageTitle": "የኢንቨስተር መገለጫ",
