@@ -50,7 +50,7 @@ export function DashboardCompanyTeamSection({
   onSaveMember,
 }: Props) {
   return (
-    <section className={`rounded-3xl border p-6 sm:p-8 ${isDark ? "border-white/10 bg-gradient-to-br from-zinc-900/80 to-zinc-950/90 shadow-xl shadow-black/20" : "border-zinc-200 bg-gradient-to-br from-white to-zinc-50 shadow-md shadow-zinc-200/60"}`}>
+    <section className={`rounded-3xl border p-6 sm:p-8 ${isDark ? "border-white/10 bg-gradient-to-br from-zinc-900/80 to-zinc-950/90 shadow-xl shadow-black/20" : "border-slate-300 bg-gradient-to-br from-white via-slate-50 to-primary-50/25 shadow-md shadow-slate-200/70"}`}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className={`text-xl font-bold tracking-tight ${isDark ? "text-white" : "text-zinc-900"}`}>Team members</h2>
@@ -58,7 +58,7 @@ export function DashboardCompanyTeamSection({
         </div>
       </div>
 
-      <div className={`mt-5 rounded-2xl border p-4 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-zinc-200 bg-zinc-50/80"}`}>
+      <div className={`mt-5 rounded-2xl border p-4 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-slate-300 bg-white/85 shadow-sm shadow-slate-200/40"}`}>
         <h3 className={`text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>Add member</h3>
         <div className="mt-3 grid gap-3 md:grid-cols-3">
           <input
@@ -98,7 +98,7 @@ export function DashboardCompanyTeamSection({
         {errorMessage ? <p className="text-sm text-red-600 dark:text-red-400">{errorMessage}</p> : null}
         {teamMembers.length ? (
           teamMembers.map((member) => (
-            <div key={member.id} className={`rounded-2xl border p-4 transition ${isDark ? "border-white/10 bg-white/[0.03] hover:bg-white/[0.05]" : "border-zinc-200 bg-white hover:bg-zinc-50/90"}`}>
+            <div key={member.id} className={`rounded-2xl border p-4 transition ${isDark ? "border-white/10 bg-white/[0.03] hover:bg-white/[0.05]" : "border-slate-300 bg-white/95 hover:bg-slate-50"}`}>
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <p className={`text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{member.fullName}</p>

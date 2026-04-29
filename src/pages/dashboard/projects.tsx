@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { messages } from "@/locales";
 
@@ -19,18 +20,18 @@ export default function DashboardProjectsPage() {
       </Head>
       <DashboardLayout>
         <div className="mx-auto max-w-6xl space-y-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{t.projectsPageTitle}</h1>
-              <p className={`mt-1 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.projectsPageSubtitle}</p>
-            </div>
-            <Link
-              href="/dashboard/projects/new"
-              className="inline-flex justify-center rounded-xl bg-primary-950 px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-primary-900"
-            >
-              {t.createProject}
-            </Link>
-          </div>
+          <DashboardPageHeader
+            title={t.projectsPageTitle}
+            subtitle={t.projectsPageSubtitle}
+            actions={
+              <Link
+                href="/dashboard/projects/new"
+                className="inline-flex justify-center rounded-xl bg-primary-950 px-5 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-primary-900"
+              >
+                {t.createProject}
+              </Link>
+            }
+          />
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {t.mockProjects.map((project) => (
               <article key={project.slug} className={`rounded-2xl border p-5 ${cardClass}`}>

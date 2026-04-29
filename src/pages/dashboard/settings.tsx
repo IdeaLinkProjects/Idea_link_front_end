@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader";
 import { type AppTheme, useAppPreferences } from "@/context/AppPreferencesContext";
 import type { Locale } from "@/locales";
 import { messages } from "@/locales";
@@ -119,11 +120,8 @@ export default function DashboardSettingsPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <DashboardLayout>
-        <div className="mx-auto max-w-3xl space-y-10">
-          <div>
-            <h1 className={`text-2xl font-bold tracking-tight ${isDark ? "text-white" : "text-zinc-900"}`}>{t.title}</h1>
-            <p className={`mt-1 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.subtitle}</p>
-          </div>
+        <div className="mx-auto w-full max-w-6xl space-y-10">
+          <DashboardPageHeader title={t.title} subtitle={t.subtitle} />
 
           <section>
             <h2 className={`mb-4 text-sm font-bold uppercase tracking-wide ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>

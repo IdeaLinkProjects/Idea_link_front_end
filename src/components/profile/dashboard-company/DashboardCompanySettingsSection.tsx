@@ -31,7 +31,7 @@ export function DashboardCompanySettingsSection({
   onUpdateField,
 }: Props) {
   return (
-    <section className={`rounded-3xl border p-6 sm:p-8 ${isDark ? "border-white/10 bg-gradient-to-br from-zinc-900/80 to-zinc-950/90 shadow-xl shadow-black/20" : "border-zinc-200 bg-gradient-to-br from-white to-zinc-50 shadow-md shadow-zinc-200/60"}`}>
+    <section className={`rounded-3xl border p-6 sm:p-8 ${isDark ? "border-white/10 bg-gradient-to-br from-zinc-900/80 to-zinc-950/90 shadow-xl shadow-black/20" : "border-slate-300 bg-gradient-to-br from-white via-slate-50 to-primary-50/25 shadow-md shadow-slate-200/70"}`}>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className={`text-xl font-bold tracking-tight ${isDark ? "text-white" : "text-zinc-900"}`}>Company settings</h2>
@@ -55,7 +55,7 @@ export function DashboardCompanySettingsSection({
         <form onSubmit={onSave} className="mt-6 space-y-4">
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className={`mb-1 block text-sm font-medium ${isDark ? "text-zinc-200" : "text-zinc-700"}`}>Company name</label>
+              <label className={`mb-1 block text-sm font-medium ${isDark ? "text-zinc-200" : "text-slate-700"}`}>Company name</label>
               <input
                 type="text"
                 value={draft.name}
@@ -65,7 +65,7 @@ export function DashboardCompanySettingsSection({
               />
             </div>
             <div>
-              <label className={`mb-1 block text-sm font-medium ${isDark ? "text-zinc-200" : "text-zinc-700"}`}>Industry</label>
+              <label className={`mb-1 block text-sm font-medium ${isDark ? "text-zinc-200" : "text-slate-700"}`}>Industry</label>
               <input
                 type="text"
                 value={draft.industry}

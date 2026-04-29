@@ -4,8 +4,8 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root {
-  --background: #fafafa;
-  --foreground: #0a0a0a;
+  --background: #f8fafc;
+  --foreground: #0f172a;
 }
 
 /*
@@ -34,7 +34,10 @@
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at top left, rgba(16, 185, 129, 0.05), transparent 45%),
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.04), transparent 50%),
+    var(--background);
   color: var(--foreground);
   font-family:
     "Inter",
@@ -47,5 +50,9 @@ body {
 @layer base {
   * {
     @apply border-zinc-200;
+  }
+
+  ::selection {
+    @apply bg-primary-200 text-zinc-950;
   }
 }

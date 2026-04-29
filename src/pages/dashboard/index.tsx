@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { useMemo } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader";
 import { messages } from "@/locales";
 
 export default function DashboardHomePage() {
@@ -38,14 +39,7 @@ export default function DashboardHomePage() {
       </Head>
       <DashboardLayout>
         <div className="mx-auto max-w-6xl space-y-12">
-          <div>
-            <h1 className={`text-2xl font-bold tracking-tight sm:text-3xl ${isDark ? "text-white" : "text-zinc-900"}`}>
-              {ti.welcome.replace("{name}", welcomeName)}
-            </h1>
-            <p className={`mt-1 text-sm sm:text-base ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
-              {ti.today.replace("{date}", dateLabel)}
-            </p>
-          </div>
+          <DashboardPageHeader title={ti.welcome.replace("{name}", welcomeName)} subtitle={ti.today.replace("{date}", dateLabel)} />
 
           <section className="space-y-6">
             <h2 className={`text-lg font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{shell.sectionCampaigns}</h2>

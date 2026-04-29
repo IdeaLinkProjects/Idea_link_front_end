@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { messages } from "@/locales";
 
@@ -17,11 +18,8 @@ export default function DashboardMessagesPage() {
         <title>{t.messagesMetaTitle}</title>
       </Head>
       <DashboardLayout>
-        <div className="mx-auto max-w-3xl space-y-6">
-          <div>
-            <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{t.messagesPageTitle}</h1>
-            <p className={`mt-1 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.messagesPageSubtitle}</p>
-          </div>
+        <div className="mx-auto w-full max-w-6xl space-y-6">
+          <DashboardPageHeader title={t.messagesPageTitle} subtitle={t.messagesPageSubtitle} />
           <div className={`rounded-2xl border ${cardClass}`}>
             <ul className={`divide-y ${isDark ? "divide-white/10" : "divide-zinc-200"}`}>
               {t.mockMessages.map((m) => (

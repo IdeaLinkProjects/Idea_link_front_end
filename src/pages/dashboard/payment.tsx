@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { messages } from "@/locales";
 
@@ -18,11 +19,8 @@ export default function DashboardPaymentPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <DashboardLayout>
-        <div className="mx-auto max-w-3xl space-y-6">
-          <div>
-            <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{t.title}</h1>
-            <p className={`mt-1 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.subtitle}</p>
-          </div>
+        <div className="mx-auto w-full max-w-6xl space-y-6">
+          <DashboardPageHeader title={t.title} subtitle={t.subtitle} />
           <div className={`rounded-2xl border p-8 ${cardClass}`}>
             <p className={`text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.placeholder}</p>
           </div>

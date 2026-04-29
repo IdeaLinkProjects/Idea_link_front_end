@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader";
 import { messages } from "@/locales";
 
 const MIN_GOAL_ETB = 25_000;
@@ -183,19 +184,17 @@ export default function InnovatorNewProjectPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <DashboardLayout>
-        <div className="mx-auto max-w-3xl space-y-8">
+        <div className="mx-auto w-full max-w-6xl space-y-8">
           <Link href="/dashboard/projects" className="inline-flex text-sm font-semibold text-primary-500 hover:text-primary-400">
             ← {t.backToProjects}
           </Link>
 
-          <div>
-            <h1 className={`text-2xl font-bold tracking-tight ${isDark ? "text-white" : "text-zinc-900"}`}>{t.heading}</h1>
-            <p className={`mt-1 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
-              {t.progressIntro
-                .replace("{step}", String(step))
-                .replace("{label}", step === 1 ? t.stepBasics : step === 2 ? t.stepFunding : t.stepRisks)}
-            </p>
-          </div>
+          <DashboardPageHeader
+            title={t.heading}
+            subtitle={t.progressIntro
+              .replace("{step}", String(step))
+              .replace("{label}", step === 1 ? t.stepBasics : step === 2 ? t.stepFunding : t.stepRisks)}
+          />
 
           <nav aria-label="Progress">
             <p className={`mb-3 text-center text-sm font-medium sm:text-left ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>

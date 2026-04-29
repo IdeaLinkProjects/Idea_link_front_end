@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { RequireAuth } from "@/components/auth/RequireAuth";
+import { IdealLinkLogo } from "@/components/brand/IdealLinkLogo";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { clearAuthTokens } from "@/lib/auth/tokenStorage";
 import { type ReactNode, useEffect, useRef, useState } from "react";
@@ -39,13 +40,15 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     },
   ];
 
-  const pageBg = isDark ? "bg-zinc-950 text-zinc-100" : "bg-zinc-50 text-zinc-900";
-  const topBar = isDark ? "border-white/10 bg-zinc-950/90 backdrop-blur-xl" : "border-zinc-200 bg-white/90 backdrop-blur-xl";
-  const sidebarBg = isDark ? "border-white/10 bg-zinc-950/95" : "border-zinc-200 bg-white";
+  const pageBg = isDark
+    ? "bg-gradient-to-br from-zinc-950 via-emerald-950/25 to-zinc-900 text-zinc-100"
+    : "bg-slate-100 text-slate-900";
+  const topBar = isDark ? "border-white/10 bg-zinc-950/90 backdrop-blur-xl" : "border-slate-200/90 bg-white/85 shadow-sm backdrop-blur-xl";
+  const sidebarBg = isDark ? "border-white/10 bg-zinc-950/95" : "border-slate-200/90 bg-white/90 shadow-sm";
   const navInactive = isDark
     ? "text-zinc-400 hover:bg-white/10 hover:text-white"
-    : "text-zinc-600 hover:bg-primary-50 hover:text-zinc-900";
-  const navActive = isDark ? "bg-primary-900/40 text-primary-300" : "bg-primary-100 text-primary-900";
+    : "text-black hover:bg-primary-100 hover:text-black";
+  const navActive = isDark ? "bg-primary-900/40 text-primary-300" : "bg-primary-100 text-primary-900 shadow-sm";
 
   const avatarInitials = t.userFirstName.trim().slice(0, 2).toUpperCase() || "?";
 
@@ -75,10 +78,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r transition-transform duration-200 lg:translate-x-0 ${sidebarBg} ${mobileNavOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
           <div className={`flex h-16 shrink-0 items-center justify-between border-b px-4 ${isDark ? "border-white/10" : "border-zinc-200"}`}>
-            <Link href="/" className="text-lg font-extrabold tracking-tight" onClick={() => setMobileNavOpen(false)}>
-              <span className="text-primary-500">Ideal</span>
-              <span className="text-primary-400">Link</span>
-            </Link>
+            <IdealLinkLogo
+              className="inline-flex items-center transition hover:opacity-90"
+              width={128}
+              height={36}
+              imageClassName="h-9 w-auto"
+              onClick={() => setMobileNavOpen(false)}
+            />
             <button
               type="button"
               className={`rounded-lg p-2 lg:hidden ${isDark ? "hover:bg-white/10" : "hover:bg-zinc-100"}`}
@@ -111,7 +117,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             </div>
           </nav>
           <div
-            className={`shrink-0 border-t p-3 ${isDark ? "border-white/10 bg-zinc-950/80" : "border-zinc-200 bg-zinc-50/80"}`}
+            className={`shrink-0 border-t p-3 ${isDark ? "border-white/10 bg-zinc-950/80" : "border-slate-200 bg-white/90"}`}
           >
             <button
               type="button"
@@ -119,7 +125,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 clearAuthTokens();
                 void router.push("/login");
               }}
-              className="w-full rounded-xl border px-3 py-2.5 text-sm font-semibold transition hover:opacity-90 dark:border-white/15 dark:bg-white/5 dark:text-zinc-100 dark:hover:bg-white/10 border-zinc-300 bg-white text-zinc-800 hover:bg-zinc-50"
+              className="w-full rounded-xl border px-3 py-2.5 text-sm font-semibold transition hover:opacity-90 dark:border-white/15 dark:bg-white/5 dark:text-zinc-100 dark:hover:bg-white/10 border-slate-300 bg-white text-slate-800 hover:bg-slate-50"
             >
               {t.logout}
             </button>
@@ -160,7 +166,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   className={`w-full rounded-xl border py-2 pl-9 pr-3 text-sm outline-none transition focus:ring-2 focus:ring-primary-500/30 ${
                     isDark
                       ? "border-white/10 bg-zinc-900/80 text-zinc-100 placeholder:text-zinc-500"
-                      : "border-zinc-200 bg-zinc-50/80 text-zinc-900 placeholder:text-zinc-500"
+                      : "border-slate-300 bg-white text-slate-900 placeholder:text-slate-500"
                   }`}
                   autoComplete="off"
                 />
@@ -170,7 +176,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <div className="flex shrink-0 items-center gap-1 sm:gap-2">
               <button
                 type="button"
-                className={`relative rounded-full p-2 ${isDark ? "text-zinc-300 hover:bg-white/10" : "text-zinc-600 hover:bg-zinc-100"}`}
+                className={`relative rounded-full p-2 ${isDark ? "text-zinc-300 hover:bg-white/10" : "text-slate-600 hover:bg-slate-100"}`}
                 aria-label={t.navNotifications}
               >
                 <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
@@ -191,7 +197,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-bold ring-2 transition ${
                     isDark
                       ? "bg-primary-900/50 text-primary-200 ring-white/10 hover:bg-primary-900/70"
-                      : "bg-primary-100 text-primary-900 ring-zinc-200 hover:bg-primary-200"
+                      : "bg-primary-100 text-primary-900 ring-slate-300 hover:bg-primary-200"
                   }`}
                   aria-expanded={profileMenuOpen}
                   aria-haspopup="menu"
@@ -203,22 +209,22 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   <div
                     role="menu"
                     className={`absolute right-0 top-full z-50 mt-2 min-w-[10rem] overflow-hidden rounded-xl border py-1 shadow-lg ${
-                      isDark ? "border-white/10 bg-zinc-900" : "border-zinc-200 bg-white"
+                      isDark ? "border-white/10 bg-zinc-900" : "border-slate-200 bg-white shadow-lg shadow-slate-200/60"
                     }`}
                   >
                     <Link
                       href="/dashboard/profile"
                       role="menuitem"
-                      className={`block px-4 py-2.5 text-sm font-medium ${isDark ? "text-zinc-100 hover:bg-white/10" : "text-zinc-800 hover:bg-zinc-50"}`}
+                      className={`block px-4 py-2.5 text-sm font-medium ${isDark ? "text-zinc-100 hover:bg-white/10" : "text-slate-800 hover:bg-slate-50"}`}
                       onClick={() => setProfileMenuOpen(false)}
                     >
                       {t.navProfileDropdown}
                     </Link>
-                    <div className={isDark ? "border-t border-white/10" : "border-t border-zinc-200"} role="none" />
+                    <div className={isDark ? "border-t border-white/10" : "border-t border-slate-200"} role="none" />
                     <Link
                       href="/dashboard/settings"
                       role="menuitem"
-                      className={`block px-4 py-2.5 text-sm font-medium ${isDark ? "text-zinc-100 hover:bg-white/10" : "text-zinc-800 hover:bg-zinc-50"}`}
+                      className={`block px-4 py-2.5 text-sm font-medium ${isDark ? "text-zinc-100 hover:bg-white/10" : "text-slate-800 hover:bg-slate-50"}`}
                       onClick={() => setProfileMenuOpen(false)}
                     >
                       {t.navSettings}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { useEffect, useMemo, useState } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
+import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader";
 import { type Locale, messages } from "@/locales";
 
 type RowStatus = "funding" | "active" | "completed";
@@ -140,19 +141,19 @@ export default function InvestorPortfolioPage() {
       </Head>
       <DashboardLayout>
         <div className="mx-auto max-w-7xl space-y-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-            <div>
-              <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{t.portfolioPageTitle}</h1>
-              <p className={`mt-1 text-sm ${muted}`}>{ip.pageSubtitle}</p>
-            </div>
-            <button
-              type="button"
-              onClick={exportCsv}
-              className="rounded-xl border border-primary-600/50 px-4 py-2.5 text-sm font-semibold text-primary-500 transition hover:bg-primary-950/30"
-            >
-              {ip.exportCsv}
-            </button>
-          </div>
+          <DashboardPageHeader
+            title={t.portfolioPageTitle}
+            subtitle={ip.pageSubtitle}
+            actions={
+              <button
+                type="button"
+                onClick={exportCsv}
+                className="rounded-xl border border-primary-600/50 px-4 py-2.5 text-sm font-semibold text-primary-500 transition hover:bg-primary-950/30"
+              >
+                {ip.exportCsv}
+              </button>
+            }
+          />
 
           <div className="grid gap-4 sm:grid-cols-3">
             {[

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { type FormEvent, useEffect, useMemo, useState } from "react";
+import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader";
 import { DashboardProfileCompanyCard } from "@/components/profile/DashboardProfileCompanyCard";
 import { DashboardCompanyDeleteModal } from "@/components/profile/dashboard-company/DashboardCompanyDeleteModal";
 import { DashboardCompanySettingsSection } from "@/components/profile/dashboard-company/DashboardCompanySettingsSection";
@@ -63,9 +64,8 @@ export function DashboardCompanyView() {
   const [editingMember, setEditingMember] = useState<TeamMemberDraft | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  const cardClass = isDark
-    ? "border-white/15 bg-white/10 shadow-lg shadow-black/20"
-    : "border-zinc-200 bg-white shadow-md shadow-zinc-200/60";
+  const cardClass =
+    "border-slate-200 bg-white/95 shadow-md shadow-slate-200/70 dark:border-white/15 dark:bg-white/10 dark:shadow-lg dark:shadow-black/20";
 
   const isCompanyNotFound = useMemo(() => {
     if (!companyQuery.isError) return false;
@@ -296,15 +296,12 @@ export function DashboardCompanyView() {
   return (
     <>
       <div className="mx-auto max-w-6xl space-y-6 pb-4">
-        <div className={`rounded-3xl border px-6 py-7 sm:px-8 ${isDark ? "border-white/10 bg-gradient-to-br from-zinc-900 to-zinc-950" : "border-zinc-200 bg-gradient-to-br from-white to-zinc-50"}`}>
-          <h1 className={`text-2xl font-bold tracking-tight sm:text-3xl ${isDark ? "text-white" : "text-zinc-900"}`}>{t.title}</h1>
-          <p className={`mt-2 text-sm sm:text-base ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.subtitle}</p>
-        </div>
+        <DashboardPageHeader title={t.title} subtitle={t.subtitle} />
 
         {isCompanyNotFound ? (
-          <section className={`rounded-3xl border p-6 sm:p-8 ${isDark ? "border-white/10 bg-gradient-to-br from-zinc-900/80 to-zinc-950/90" : "border-zinc-200 bg-gradient-to-br from-white to-zinc-50"}`}>
-            <h2 className={`text-xl font-bold tracking-tight ${isDark ? "text-white" : "text-zinc-900"}`}>No company yet</h2>
-            <p className={`mt-2 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
+          <section className="rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-primary-50/30 p-6 shadow-sm shadow-slate-200/60 sm:p-8 dark:border-white/10 dark:from-zinc-900/80 dark:via-zinc-900/85 dark:to-zinc-950/90 dark:shadow-none">
+            <h2 className="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">No company yet</h2>
+            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
               You don&apos;t have a company profile yet. Create one to manage team members and settings.
             </p>
             <Link
@@ -315,7 +312,7 @@ export function DashboardCompanyView() {
             </Link>
           </section>
         ) : (
-          <DashboardCompanyTabsNav isDark={isDark} activeTab={activeTab} onTabChange={setActiveTab} />
+          <DashboardCompanyTabsNav activeTab={activeTab} onTabChange={setActiveTab} />
         )}
 
         {!isCompanyNotFound && activeTab === "overview" ? (

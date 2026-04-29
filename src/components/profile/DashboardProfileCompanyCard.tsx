@@ -74,7 +74,7 @@ export function DashboardProfileCompanyCard({ data, error, isLoading, isDark, ca
         className={`absolute inset-0 ${
           isDark
             ? "bg-gradient-to-br from-emerald-950/50 via-zinc-950 to-zinc-950"
-            : "bg-gradient-to-br from-emerald-50 via-white to-zinc-50"
+            : "bg-gradient-to-br from-emerald-50 via-white to-slate-50"
         }`}
         aria-hidden
       />
@@ -133,50 +133,50 @@ export function DashboardProfileCompanyCard({ data, error, isLoading, isDark, ca
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <div className={`rounded-2xl border p-4 ${isDark ? "border-white/10 bg-white/[0.04]" : "border-zinc-200 bg-white/80"}`}>
+          <div className={`rounded-2xl border p-4 ${isDark ? "border-white/10 bg-white/[0.04]" : "border-slate-300 bg-white/90 shadow-sm shadow-slate-200/40"}`}>
             <p className={`text-xs ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>{t.companyStage}</p>
             <p className={`mt-1 text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{data.stage || "—"}</p>
           </div>
-          <div className={`rounded-2xl border p-4 ${isDark ? "border-white/10 bg-white/[0.04]" : "border-zinc-200 bg-white/80"}`}>
+          <div className={`rounded-2xl border p-4 ${isDark ? "border-white/10 bg-white/[0.04]" : "border-slate-300 bg-white/90 shadow-sm shadow-slate-200/40"}`}>
             <p className={`text-xs ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>{t.companySize}</p>
             <p className={`mt-1 text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{data.companiesize || "—"}</p>
           </div>
-          <div className={`rounded-2xl border p-4 ${isDark ? "border-white/10 bg-white/[0.04]" : "border-zinc-200 bg-white/80"}`}>
+          <div className={`rounded-2xl border p-4 ${isDark ? "border-white/10 bg-white/[0.04]" : "border-slate-300 bg-white/90 shadow-sm shadow-slate-200/40"}`}>
             <p className={`text-xs ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>{t.companyFounder}</p>
             <p className={`mt-1 text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{founderName}</p>
           </div>
-          <div className={`rounded-2xl border p-4 ${isDark ? "border-white/10 bg-white/[0.04]" : "border-zinc-200 bg-white/80"}`}>
+          <div className={`rounded-2xl border p-4 ${isDark ? "border-white/10 bg-white/[0.04]" : "border-slate-300 bg-white/90 shadow-sm shadow-slate-200/40"}`}>
             <p className={`text-xs ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>{t.companyHeadquarters}</p>
             <p className={`mt-1 text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{data.headquarters || "—"}</p>
           </div>
         </div>
 
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <div className={`rounded-2xl border p-4 ${isDark ? "border-primary-500/20 bg-primary-900/20" : "border-primary-200 bg-primary-50/80"}`}>
+          <div className={`rounded-2xl border p-4 ${isDark ? "border-primary-500/20 bg-primary-900/20" : "border-primary-300 bg-primary-50/80"}`}>
             <p className={`text-xs ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.companyTotalCampaigns}</p>
             <p className={`mt-1 text-xl font-bold tabular-nums ${isDark ? "text-white" : "text-zinc-900"}`}>{campaignStats?.totalCampaigns ?? 0}</p>
           </div>
-          <div className={`rounded-2xl border p-4 ${isDark ? "border-primary-500/20 bg-primary-900/20" : "border-primary-200 bg-primary-50/80"}`}>
+          <div className={`rounded-2xl border p-4 ${isDark ? "border-primary-500/20 bg-primary-900/20" : "border-primary-300 bg-primary-50/80"}`}>
             <p className={`text-xs ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.companySuccessRate}</p>
             <p className={`mt-1 text-xl font-bold tabular-nums ${isDark ? "text-white" : "text-zinc-900"}`}>{successRate}</p>
           </div>
-          <div className={`rounded-2xl border p-4 ${isDark ? "border-primary-500/20 bg-primary-900/20" : "border-primary-200 bg-primary-50/80"}`}>
+          <div className={`rounded-2xl border p-4 ${isDark ? "border-primary-500/20 bg-primary-900/20" : "border-primary-300 bg-primary-50/80"}`}>
             <p className={`text-xs ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.companyTotalRaised}</p>
             <p className={`mt-1 text-xl font-bold tabular-nums ${isDark ? "text-white" : "text-zinc-900"}`}>{formatCompactCurrency(campaignStats?.totalRaised)}</p>
           </div>
-          <div className={`rounded-2xl border p-4 ${isDark ? "border-primary-500/20 bg-primary-900/20" : "border-primary-200 bg-primary-50/80"}`}>
+          <div className={`rounded-2xl border p-4 ${isDark ? "border-primary-500/20 bg-primary-900/20" : "border-primary-300 bg-primary-50/80"}`}>
             <p className={`text-xs ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.companyTeamMembers}</p>
             <p className={`mt-1 text-xl font-bold tabular-nums ${isDark ? "text-white" : "text-zinc-900"}`}>{teamMembers.length}</p>
           </div>
         </div>
 
         <div className="mt-6 grid gap-4 lg:grid-cols-2">
-          <div className={`rounded-2xl border p-5 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-zinc-200 bg-white/90"}`}>
+          <div className={`rounded-2xl border p-5 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-slate-300 bg-white/95 shadow-sm shadow-slate-200/40"}`}>
             <h3 className={`text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>Team</h3>
             <div className="mt-3 space-y-3">
               {teamMembers.length ? (
                 teamMembers.slice(0, 4).map((member) => (
-                  <div key={member.id} className={`rounded-xl border p-3 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-zinc-200 bg-zinc-50/80"}`}>
+                  <div key={member.id} className={`rounded-xl border p-3 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-slate-300 bg-slate-50/90"}`}>
                     <p className={`text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{member.fullName}</p>
                     <p className={`text-xs ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{member.role || "—"}</p>
                   </div>
@@ -187,12 +187,12 @@ export function DashboardProfileCompanyCard({ data, error, isLoading, isDark, ca
             </div>
           </div>
 
-          <div className={`rounded-2xl border p-5 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-zinc-200 bg-white/90"}`}>
+          <div className={`rounded-2xl border p-5 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-slate-300 bg-white/95 shadow-sm shadow-slate-200/40"}`}>
             <h3 className={`text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>Recent campaigns</h3>
             <div className="mt-3 space-y-3">
               {recentCampaigns.length ? (
                 recentCampaigns.slice(0, 3).map((campaign) => (
-                  <div key={campaign.id} className={`rounded-xl border p-3 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-zinc-200 bg-zinc-50/80"}`}>
+                  <div key={campaign.id} className={`rounded-xl border p-3 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-slate-300 bg-slate-50/90"}`}>
                     <div className="flex items-start justify-between gap-3">
                       <p className={`text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{campaign.title}</p>
                       <span className={`rounded-full px-2 py-0.5 text-[11px] ${isDark ? "bg-white/10 text-zinc-300" : "bg-zinc-200 text-zinc-700"}`}>{campaign.status}</span>
