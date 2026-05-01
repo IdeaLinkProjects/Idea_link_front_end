@@ -5,6 +5,13 @@ export { baseApi } from "./api/baseApi";
 export { authApi, useLoginMutation, useRegisterMutation, useVerifyEmailMutation } from "./api/authApi";
 export { kycApi, useUploadKycMutation, useVerifyPhoneOtpMutation } from "./api/kycApi";
 export {
+  campaignsApi,
+  useCreateCampaignMutation,
+  useGetMyCampaignsQuery,
+  useUploadCampaignDocumentMutation,
+  useUploadCampaignImageMutation,
+} from "./api/Campaigns";
+export {
   profileApi,
   useGetUserRolesStatusQuery,
   useGetInnovatorProfileQuery,
@@ -20,6 +27,16 @@ export {
   useCompleteInvestorProfileMutation,
   useCompleteInnovatorProfileMutation,
 } from "./api/profileApi";
+export type {
+  CampaignDocument,
+  CreateCampaignRequestBody,
+  MyCampaign,
+  MyCampaignCompany,
+  MyCampaignsRequestBody,
+  MyCampaignsResponse,
+  UploadCampaignDocumentArg,
+  UploadCampaignImageResponse,
+} from "./api/Campaigns";
 export type {
   CompanyCampaignStats,
   CompanyFounder,
