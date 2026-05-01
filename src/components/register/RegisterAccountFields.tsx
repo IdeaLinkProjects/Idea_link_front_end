@@ -1,12 +1,10 @@
-import { Lock, LockKeyhole, Mail, Phone } from "lucide-react";
+import { Lock, LockKeyhole, Mail } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
 import { emailOk } from "@/lib/register/email";
 import type { RegisterFormState } from "@/lib/register/types";
 import type { RegisterFormErrors, RegisterPageMessages } from "@/lib/register/validateRegisterForm";
 import { RegisterIconField } from "./RegisterIconField";
 import { RegisterPlainField } from "./RegisterPlainField";
-
-const PHONE_REGEX = /^\+?[0-9]{9,15}$/;
 
 type RegisterAccountFieldsProps = {
   t: RegisterPageMessages;
@@ -17,7 +15,6 @@ type RegisterAccountFieldsProps = {
 };
 
 export function RegisterAccountFields({ t, form, setForm, errors, submitted }: RegisterAccountFieldsProps) {
-  const phoneDigits = form.phone.replace(/\s/g, "");
   return (
     <>
       <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-3 [&>div]:min-w-0">
@@ -61,20 +58,6 @@ export function RegisterAccountFields({ t, form, setForm, errors, submitted }: R
         submitted={submitted}
         validWhenSubmitted={emailOk(form.email)}
         Icon={Mail}
-      />
-      <RegisterIconField
-        id="reg-phone"
-        label={t.phone}
-        type="tel"
-        autoComplete="tel"
-        placeholder={t.phonePlaceholder}
-        value={form.phone}
-        onValueChange={(phone) => setForm((prev) => ({ ...prev, phone }))}
-        errorKey="phone"
-        errors={errors}
-        submitted={submitted}
-        validWhenSubmitted={phoneDigits.length > 0 && PHONE_REGEX.test(phoneDigits)}
-        Icon={Phone}
       />
       <RegisterIconField
         id="reg-password"

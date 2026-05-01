@@ -9,7 +9,6 @@ function normalizeApiFieldKey(raw: string): RegisterFieldError | null {
     firstname: "firstName",
     lastname: "lastName",
     email: "email",
-    phone: "phone",
     password: "password",
     confirmpassword: "confirmPassword",
   };

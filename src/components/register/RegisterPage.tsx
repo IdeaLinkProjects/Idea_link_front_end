@@ -73,7 +73,6 @@ export function RegisterPage() {
         firstName: form.firstName.trim(),
         lastName: form.lastName.trim(),
         email: form.email.trim(),
-        phone: form.phone.replace(/\s/g, ""),
         password: form.password,
         confirmPassword: form.confirmPassword,
       }).unwrap();
