@@ -6,10 +6,17 @@ export { authApi, useLoginMutation, useRegisterMutation, useVerifyEmailMutation 
 export { kycApi, useUploadKycMutation, useVerifyPhoneOtpMutation } from "./api/kycApi";
 export {
   campaignsApi,
+  useGetCampaignByIdQuery,
   useCreateCampaignMutation,
+  useDeleteCampaignDocumentMutation,
+  useLazyGetCampaignDocumentByIdQuery,
+  useDeleteCampaignMutation,
   useGetMyCampaignsQuery,
+  useUpdateCampaignMutation,
   useUploadCampaignDocumentMutation,
   useUploadCampaignImageMutation,
+  useGetCampaignTagsQuery,
+  useLazySearchCampaignTagsQuery,
 } from "./api/Campaigns";
 export {
   profileApi,
@@ -30,12 +37,16 @@ export {
 export type {
   CampaignDocument,
   CreateCampaignRequestBody,
+  DeleteCampaignDocumentArg,
   MyCampaign,
   MyCampaignCompany,
   MyCampaignsRequestBody,
   MyCampaignsResponse,
+  UpdateCampaignArg,
+  UpdateCampaignRequestBody,
   UploadCampaignDocumentArg,
   UploadCampaignImageResponse,
+  CampaignTag,
 } from "./api/Campaigns";
 export type {
   CompanyCampaignStats,

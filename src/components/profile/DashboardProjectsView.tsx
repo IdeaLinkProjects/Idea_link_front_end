@@ -50,7 +50,7 @@ export function DashboardProjectsView() {
     <div className="mx-auto max-w-6xl space-y-6">
       <DashboardPageHeader
         title={t.projectsPageTitle}
-        subtitle="Manage and monitor all campaigns from your account."
+        subtitle={t.projectsPageSubtitle}
         actions={
           <Link
             href="/dashboard/projects/new"
@@ -162,12 +162,12 @@ export function DashboardProjectsView() {
                     <div className="flex items-center justify-between">
                       <p className={`text-sm font-semibold ${isDark ? "text-primary-200" : "text-primary-900"}`}>{progress}% funded</p>
                       <Link
-                        href={`/dashboard/projects/${campaign.id}`}
+                        href={`/dashboard/campaigns/${campaign.id}`}
                         className={`rounded-xl px-3 py-2 text-xs font-semibold transition ${
                           isDark ? "bg-primary-900/50 text-primary-200 hover:bg-primary-900/70" : "bg-primary-950 text-white hover:bg-primary-900"
                         }`}
                       >
-                        Manage campaign
+                        {t.manageProject}
                       </Link>
                     </div>
                   </div>

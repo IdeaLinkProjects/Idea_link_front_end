@@ -1,12 +1,27 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { CampaignTagPicker } from "@/components/profile/create-campaign/CampaignTagPicker";
 import { CreateCampaignHeroUpload } from "@/components/profile/create-campaign/CreateCampaignHeroUpload";
 import { CreateCampaignKeyedSection } from "@/components/profile/create-campaign/CreateCampaignKeyedSection";
-import { useCreateCampaignForm } from "@/components/profile/create-campaign/useCreateCampaignForm";
+import { useEditCampaignForm } from "@/components/profile/create-campaign/useEditCampaignForm";
+import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 
-export function CreateCampaignView() {
+function normalizeStatus(status: string) {
+  return status.trim().toLowerCase();
+}
+
+type CampaignEditViewProps = {
+  campaignId: number;
+};
+
+export function CampaignEditView({ campaignId }: CampaignEditViewProps) {
+  const router = useRouter();
   const {
-    t,
+    tEdit,
+    tFields,
+    campaignQuery,
+    isBootstrapping,
     isDark,
     form,
     updateField,
@@ -29,54 +44,105 @@ export function CreateCampaignView() {
     dangerBtnClass,
     backLinkClass,
     primaryActionClass,
-  } = useCreateCampaignForm();
+  } = useEditCampaignForm(campaignId);
+
+  useEffect(() => {
+    const c = campaignQuery.data;
+    if (!c) return;
+    if (normalizeStatus(c.status) !== "draft") {
+      void router.replace(`/dashboard/campaigns/${campaignId}`);
+    }
+  }, [campaignQuery.data, router, campaignId]);
 
   const labelClass = `mb-1 block text-sm font-medium ${isDark ? "text-zinc-200" : "text-zinc-700"}`;
 
+  if (isBootstrapping) {
+    return (
+      <div className="mx-auto max-w-5xl animate-pulse space-y-4">
+        <div className={`h-10 max-w-xs rounded-xl ${isDark ? "bg-zinc-800" : "bg-zinc-200"}`} />
+        <div className={`h-64 rounded-3xl ${isDark ? "bg-zinc-800" : "bg-zinc-200"}`} />
+      </div>
+    );
+  }
+
+  if (campaignQuery.isError || form == null) {
+    return (
+      <section className={`mx-auto max-w-xl rounded-3xl border p-6 ${cardClass}`}>
+        <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-zinc-900"}`}>{tEdit.errors.loadFailed}</h2>
+        <p className={`mt-2 text-sm ${isDark ? "text-zinc-300" : "text-zinc-600"}`}>
+          {extractApiErrorMessage(campaignQuery.error, tEdit.errors.loadRetry)}
+        </p>
+        <div className="mt-4 flex gap-2">
+          <button
+            type="button"
+            onClick={() => campaignQuery.refetch()}
+            className="rounded-xl bg-primary-950 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-900"
+          >
+            {tEdit.retry}
+          </button>
+          <Link
+            href={`/dashboard/campaigns/${campaignId}`}
+            className={`rounded-xl border px-4 py-2 text-sm font-semibold ${
+              isDark ? "border-zinc-600 text-zinc-200 hover:bg-white/10" : "border-zinc-300 text-zinc-700 hover:bg-zinc-100"
+            }`}
+          >
+            {tEdit.backToDetail}
+          </Link>
+        </div>
+      </section>
+    );
+  }
+
+  if (campaignQuery.data && normalizeStatus(campaignQuery.data.status) !== "draft") {
+    return <p className="sr-only">{tEdit.redirecting}</p>;
+  }
+
   return (
     <div className="mx-auto max-w-5xl space-y-6">
-      <Link href="/dashboard/projects" className={backLinkClass}>
-        {t.backToCampaigns}
-      </Link>
+      <div className="flex flex-wrap items-center gap-3">
+        <Link href={`/dashboard/campaigns/${campaignId}`} className={backLinkClass}>
+          {tEdit.backToDetail}
+        </Link>
+      </div>
 
       <section className={`rounded-3xl border p-6 shadow-sm sm:p-8 ${cardClass}`}>
         <div className="mb-6 flex flex-col gap-2">
-          <h1 className={`text-2xl font-bold tracking-tight ${isDark ? "text-white" : "text-zinc-900"}`}>{t.heading}</h1>
-          <p className={`text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.subtitle}</p>
+          <h1 className={`text-2xl font-bold tracking-tight ${isDark ? "text-white" : "text-zinc-900"}`}>{tEdit.heading}</h1>
+          <p className={`text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{tEdit.subtitle}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid gap-4 md:grid-cols-2">
             <div className="md:col-span-2">
-              <label htmlFor="campaign-title" className={labelClass}>
-                {t.campaignTitle}
+              <label htmlFor="edit-campaign-title" className={labelClass}>
+                {tFields.campaignTitle}
               </label>
               <input
-                id="campaign-title"
+                id="edit-campaign-title"
                 type="text"
                 value={form.title}
                 onChange={(e) => updateField("title", e.target.value)}
-                placeholder={t.titlePlaceholder}
+                placeholder={tFields.titlePlaceholder}
                 className={inputClass}
               />
             </div>
 
             <div className="md:col-span-2">
-              <label htmlFor="campaign-short-description" className={labelClass}>
-                {t.shortDescription}
+              <label htmlFor="edit-campaign-short-description" className={labelClass}>
+                {tFields.shortDescription}
               </label>
               <textarea
-                id="campaign-short-description"
+                id="edit-campaign-short-description"
                 rows={3}
                 value={form.shortDescription}
                 onChange={(e) => updateField("shortDescription", e.target.value)}
-                placeholder={t.shortDescriptionPlaceholder}
+                placeholder={tFields.shortDescriptionPlaceholder}
                 className={inputClass}
               />
             </div>
 
             <CreateCampaignHeroUpload
-              t={t}
+              t={tFields}
               isDark={isDark}
               sectionCardClass={`md:col-span-2 ${sectionCardClass}`}
               primaryActionClass={primaryActionClass}
@@ -91,25 +157,25 @@ export function CreateCampaignView() {
             />
 
             <div className="md:col-span-2">
-              <label htmlFor="campaign-hero-image" className={labelClass}>
-                {t.heroImageUrl}
+              <label htmlFor="edit-campaign-hero-image" className={labelClass}>
+                {tFields.heroImageUrl}
               </label>
               <input
-                id="campaign-hero-image"
+                id="edit-campaign-hero-image"
                 type="url"
                 value={form.heroImageUrl}
                 onChange={(e) => updateField("heroImageUrl", e.target.value)}
-                placeholder={t.urlPlaceholder}
+                placeholder={tFields.urlPlaceholder}
                 className={inputClass}
               />
             </div>
 
             <div>
-              <label htmlFor="campaign-funding-goal" className={labelClass}>
-                {t.fundingGoal}
+              <label htmlFor="edit-campaign-funding-goal" className={labelClass}>
+                {tFields.fundingGoal}
               </label>
               <input
-                id="campaign-funding-goal"
+                id="edit-campaign-funding-goal"
                 type="number"
                 min="1"
                 value={form.fundingGoal}
@@ -119,11 +185,11 @@ export function CreateCampaignView() {
             </div>
 
             <div>
-              <label htmlFor="campaign-equity" className={labelClass}>
-                {t.equityOffered}
+              <label htmlFor="edit-campaign-equity" className={labelClass}>
+                {tFields.equityOffered}
               </label>
               <input
-                id="campaign-equity"
+                id="edit-campaign-equity"
                 type="number"
                 min="0.0001"
                 max="1"
@@ -135,25 +201,18 @@ export function CreateCampaignView() {
             </div>
 
             <div>
-              <label htmlFor="campaign-valuation" className={labelClass}>
-                {t.valuation}
+              <label htmlFor="edit-campaign-valuation" className={labelClass}>
+                {tFields.valuation}
               </label>
-              <input
-                id="campaign-valuation"
-                type="number"
-                min="1"
-                value={form.valuation}
-                onChange={(e) => updateField("valuation", e.target.value)}
-                className={inputClass}
-              />
+              <input id="edit-campaign-valuation" type="number" min="1" value={form.valuation} onChange={(e) => updateField("valuation", e.target.value)} className={inputClass} />
             </div>
 
             <div>
-              <label htmlFor="campaign-min-investment" className={labelClass}>
-                {t.minInvestment}
+              <label htmlFor="edit-campaign-min-investment" className={labelClass}>
+                {tFields.minInvestment}
               </label>
               <input
-                id="campaign-min-investment"
+                id="edit-campaign-min-investment"
                 type="number"
                 min="1"
                 value={form.minInvestment}
@@ -163,43 +222,32 @@ export function CreateCampaignView() {
             </div>
 
             <div>
-              <label htmlFor="campaign-start-date" className={labelClass}>
-                {t.startDate}
+              <label htmlFor="edit-campaign-start-date" className={labelClass}>
+                {tFields.startDate}
               </label>
-              <input
-                id="campaign-start-date"
-                type="datetime-local"
-                value={form.startDate}
-                onChange={(e) => updateField("startDate", e.target.value)}
-                className={inputClass}
-              />
+              <input id="edit-campaign-start-date" type="datetime-local" value={form.startDate} onChange={(e) => updateField("startDate", e.target.value)} className={inputClass} />
             </div>
 
             <div>
-              <label htmlFor="campaign-end-date" className={labelClass}>
-                {t.endDate}
+              <label htmlFor="edit-campaign-end-date" className={labelClass}>
+                {tFields.endDate}
               </label>
-              <input
-                id="campaign-end-date"
-                type="datetime-local"
-                value={form.endDate}
-                onChange={(e) => updateField("endDate", e.target.value)}
-                className={inputClass}
-              />
+              <input id="edit-campaign-end-date" type="datetime-local" value={form.endDate} onChange={(e) => updateField("endDate", e.target.value)} className={inputClass} />
             </div>
 
             <div className="md:col-span-2">
               <CampaignTagPicker
+                fieldId="edit-campaign-tags-search"
                 selectedIds={form.selectedTagIds}
                 onChange={(ids) => updateField("selectedTagIds", ids)}
                 isDark={isDark}
                 inputClass={inputClass}
                 t={{
-                  tagsLabel: t.tagsLabel,
-                  tagsSearchPlaceholder: t.tagsSearchPlaceholder,
-                  tagsLoading: t.tagsLoading,
-                  tagsEmpty: t.tagsEmpty,
-                  tagRemoveAria: t.tagRemoveAriaPattern,
+                  tagsLabel: tFields.tagsLabel,
+                  tagsSearchPlaceholder: tFields.tagsSearchPlaceholder,
+                  tagsLoading: tFields.tagsLoading,
+                  tagsEmpty: tFields.tagsEmpty,
+                  tagRemoveAria: tFields.tagRemoveAriaPattern,
                 }}
               />
             </div>
@@ -207,7 +255,7 @@ export function CreateCampaignView() {
 
           <CreateCampaignKeyedSection
             variant="story"
-            t={t}
+            t={tFields}
             isDark={isDark}
             rows={story.rows}
             sectionCardClass={sectionCardClass}
@@ -221,7 +269,7 @@ export function CreateCampaignView() {
 
           <CreateCampaignKeyedSection
             variant="risks"
-            t={t}
+            t={tFields}
             isDark={isDark}
             rows={risks.rows}
             sectionCardClass={sectionCardClass}
@@ -237,19 +285,15 @@ export function CreateCampaignView() {
 
           <div className="flex items-center justify-end gap-2">
             <Link
-              href="/dashboard/projects"
+              href={`/dashboard/campaigns/${campaignId}`}
               className={`rounded-xl border px-4 py-2 text-sm font-semibold ${
                 isDark ? "border-zinc-600 text-zinc-300 hover:bg-zinc-800" : "border-zinc-300 text-zinc-700 hover:bg-zinc-100"
               }`}
             >
-              {t.cancel}
+              {tFields.cancel}
             </Link>
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="rounded-xl bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-500 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {isLoading ? t.submitting : t.submit}
+            <button type="submit" disabled={isLoading} className={primaryActionClass}>
+              {isLoading ? tEdit.submitting : tEdit.submit}
             </button>
           </div>
         </form>

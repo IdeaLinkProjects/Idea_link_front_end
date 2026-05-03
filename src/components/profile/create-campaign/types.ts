@@ -13,7 +13,7 @@ export type CreateCampaignForm = {
   minInvestment: string;
   startDate: string;
   endDate: string;
-  tagIdsText: string;
+  selectedTagIds: number[];
 };
 
 export const initialCreateCampaignForm: CreateCampaignForm = {
@@ -26,7 +26,7 @@ export const initialCreateCampaignForm: CreateCampaignForm = {
   minInvestment: "100",
   startDate: "",
   endDate: "",
-  tagIdsText: "",
+  selectedTagIds: [],
 };
 
 export const emptyStoryRisksRow: StoryRisksItem = { key: "", value: "" };

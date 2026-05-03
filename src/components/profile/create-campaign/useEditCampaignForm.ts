@@ -1,19 +1,36 @@
 import { useRouter } from "next/router";
-import { type ChangeEvent, type FormEvent, useMemo, useRef, useState } from "react";
+import { type ChangeEvent, type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { rowsToStoryRisksJson } from "@/components/profile/create-campaign/rowsToJson";
-import { type CreateCampaignForm, initialCreateCampaignForm } from "@/components/profile/create-campaign/types";
-import { copyTextToClipboard, toIsoFromLocalDateTime } from "@/components/profile/create-campaign/utils";
+import { type CreateCampaignForm, emptyStoryRisksRow } from "@/components/profile/create-campaign/types";
+import { copyTextToClipboard, isoToDatetimeLocal, toIsoFromLocalDateTime } from "@/components/profile/create-campaign/utils";
 import { useKeyedRows } from "@/components/profile/create-campaign/useKeyedRows";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 import { messages } from "@/locales";
-import { useCreateCampaignMutation, useUploadCampaignImageMutation } from "@/store";
+import { useGetCampaignByIdQuery, useGetCampaignTagsQuery, useUpdateCampaignMutation, useUploadCampaignImageMutation } from "@/store";
 
-export function useCreateCampaignForm() {
+function entriesFromJson(input: unknown): Array<[string, string]> {
+  if (!input) return [];
+  if (typeof input === "string") {
+    try {
+      return Object.entries(JSON.parse(input) as Record<string, string>);
+    } catch {
+      return [];
+    }
+  }
+  if (typeof input === "object") return Object.entries(input as Record<string, string>);
+  return [];
+}
+
+export function useEditCampaignForm(campaignId: number) {
   const router = useRouter();
   const { locale, isDark } = useAppPreferences();
-  const t = messages[locale].createCampaignPage;
-  const [createCampaign, { isLoading }] = useCreateCampaignMutation();
+  const tEdit = messages[locale].campaignEditPage;
+  const tFields = messages[locale].createCampaignPage;
+
+  const campaignQuery = useGetCampaignByIdQuery(campaignId);
+  const { data: tagCatalog = [] } = useGetCampaignTagsQuery();
+  const [updateCampaign, { isLoading }] = useUpdateCampaignMutation();
   const [uploadCampaignImage, { isLoading: isHeroImageUploading }] = useUploadCampaignImageMutation();
 
   const heroImageFileInputRef = useRef<HTMLInputElement>(null);
@@ -21,7 +38,11 @@ export function useCreateCampaignForm() {
   const [heroUploadError, setHeroUploadError] = useState<string | null>(null);
   const [copiedHeroUrl, setCopiedHeroUrl] = useState(false);
 
-  const [form, setForm] = useState<CreateCampaignForm>(initialCreateCampaignForm);
+  const didInitRef = useRef(false);
+  /** `undefined` until campaign loaded; `null` if campaign has no tag names; otherwise names pending ID resolution */
+  const tagNamesToResolveRef = useRef<string[] | null | undefined>(undefined);
+  const resolvedCampaignTagsRef = useRef(false);
+  const [form, setForm] = useState<CreateCampaignForm | null>(null);
   const storyKeyed = useKeyedRows();
   const risksKeyed = useKeyedRows();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -48,8 +69,61 @@ export function useCreateCampaignForm() {
     return { inputClass, cardClass, sectionCardClass, secondaryBtnClass, dangerBtnClass, backLinkClass, primaryActionClass };
   }, [isDark]);
 
+  useEffect(() => {
+    const c = campaignQuery.data;
+    if (!c || didInitRef.current) return;
+
+    didInitRef.current = true;
+
+    const storyRows = entriesFromJson(c.storyJson);
+    const riskRows = entriesFromJson(c.risksJson);
+
+    storyKeyed.setRows(storyRows.length ? storyRows.map(([key, value]) => ({ key, value })) : [{ ...emptyStoryRisksRow }]);
+    risksKeyed.setRows(riskRows.length ? riskRows.map(([key, value]) => ({ key, value })) : [{ ...emptyStoryRisksRow }]);
+
+    tagNamesToResolveRef.current = c.tags?.length ? [...c.tags] : null;
+    resolvedCampaignTagsRef.current = false;
+
+    setForm({
+      title: c.title ?? "",
+      shortDescription: c.shortDescription ?? "",
+      heroImageUrl: c.heroImageUrl ?? "",
+      fundingGoal: String(c.fundingGoal ?? ""),
+      equityOffered: String(c.equityOffered ?? ""),
+      valuation: String(c.valuation ?? ""),
+      minInvestment: String(c.minInvestment ?? ""),
+      startDate: isoToDatetimeLocal(c.startDate),
+      endDate: isoToDatetimeLocal(c.endDate),
+      selectedTagIds: [],
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- run once when GET /campaigns/:id resolves
+  }, [campaignQuery.data]);
+
+  useEffect(() => {
+    if (resolvedCampaignTagsRef.current) return;
+    if (tagNamesToResolveRef.current === undefined) return;
+
+    if (tagNamesToResolveRef.current === null) {
+      resolvedCampaignTagsRef.current = true;
+      return;
+    }
+
+    if (!tagCatalog.length) return;
+
+    const lower = (s: string) => s.trim().toLowerCase();
+    const names = tagNamesToResolveRef.current;
+    const ids: number[] = [];
+    for (const n of names) {
+      const tag = tagCatalog.find((t) => lower(t.name) === lower(n));
+      if (tag) ids.push(tag.id);
+    }
+    setForm((prev) => (prev ? { ...prev, selectedTagIds: ids } : prev));
+    tagNamesToResolveRef.current = null;
+    resolvedCampaignTagsRef.current = true;
+  }, [tagCatalog]);
+
   function updateField<K extends keyof CreateCampaignForm>(field: K, value: CreateCampaignForm[K]) {
-    setForm((prev) => ({ ...prev, [field]: value }));
+    setForm((prev) => (prev ? { ...prev, [field]: value } : prev));
   }
 
   async function handleHeroImageFileChange(ev: ChangeEvent<HTMLInputElement>) {
@@ -61,27 +135,27 @@ export function useCreateCampaignForm() {
 
     if (!file) return;
     if (!file.type.startsWith("image/")) {
-      setHeroUploadError(t.errors.notImageFile);
+      setHeroUploadError(tFields.errors.notImageFile);
       return;
     }
 
-    const formData = new FormData();
-    formData.append("image", file);
+    const fd = new FormData();
+    fd.append("image", file);
 
     try {
-      const res = await uploadCampaignImage(formData).unwrap();
+      const res = await uploadCampaignImage(fd).unwrap();
       if (!res.success) {
-        setHeroUploadError(t.errors.uploadDidNotSucceed);
+        setHeroUploadError(tFields.errors.uploadDidNotSucceed);
         return;
       }
       const url = res.file?.url?.trim();
       if (!url) {
-        setHeroUploadError(t.errors.noUrlReturned);
+        setHeroUploadError(tFields.errors.noUrlReturned);
         return;
       }
       setUploadedHeroImageUrl(url);
     } catch (err) {
-      setHeroUploadError(extractApiErrorMessage(err, t.errors.imageUploadFailed));
+      setHeroUploadError(extractApiErrorMessage(err, tFields.errors.imageUploadFailed));
     }
   }
 
@@ -97,13 +171,14 @@ export function useCreateCampaignForm() {
   async function handleSubmit(ev: FormEvent<HTMLFormElement>) {
     ev.preventDefault();
     setErrorMessage(null);
+    if (!form) return;
 
     if (!form.title.trim()) {
-      setErrorMessage(t.errors.titleRequired);
+      setErrorMessage(tFields.errors.titleRequired);
       return;
     }
     if (!form.shortDescription.trim()) {
-      setErrorMessage(t.errors.shortDescriptionRequired);
+      setErrorMessage(tFields.errors.shortDescriptionRequired);
       return;
     }
 
@@ -113,30 +188,30 @@ export function useCreateCampaignForm() {
     const minInvestment = Number(form.minInvestment);
 
     if (!Number.isFinite(fundingGoal) || fundingGoal <= 0) {
-      setErrorMessage(t.errors.fundingGoal);
+      setErrorMessage(tFields.errors.fundingGoal);
       return;
     }
     if (!Number.isFinite(equityOffered) || equityOffered <= 0 || equityOffered > 1) {
-      setErrorMessage(t.errors.equityOffered);
+      setErrorMessage(tFields.errors.equityOffered);
       return;
     }
     if (!Number.isFinite(valuation) || valuation <= 0) {
-      setErrorMessage(t.errors.valuation);
+      setErrorMessage(tFields.errors.valuation);
       return;
     }
     if (!Number.isFinite(minInvestment) || minInvestment <= 0) {
-      setErrorMessage(t.errors.minInvestment);
+      setErrorMessage(tFields.errors.minInvestment);
       return;
     }
 
     const startDateIso = toIsoFromLocalDateTime(form.startDate);
     const endDateIso = toIsoFromLocalDateTime(form.endDate);
     if (!startDateIso || !endDateIso) {
-      setErrorMessage(t.errors.datesRequired);
+      setErrorMessage(tFields.errors.datesRequired);
       return;
     }
     if (new Date(endDateIso).getTime() <= new Date(startDateIso).getTime()) {
-      setErrorMessage(t.errors.endAfterStart);
+      setErrorMessage(tFields.errors.endAfterStart);
       return;
     }
 
@@ -144,29 +219,37 @@ export function useCreateCampaignForm() {
     const risksJson = rowsToStoryRisksJson(risksKeyed.rows);
 
     try {
-      const created = await createCampaign({
-        title: form.title.trim(),
-        shortDescription: form.shortDescription.trim(),
-        heroImageUrl: form.heroImageUrl.trim(),
-        storyJson,
-        risksJson,
-        fundingGoal,
-        equityOffered,
-        valuation,
-        minInvestment,
-        startDate: startDateIso,
-        endDate: endDateIso,
-        tagIds: form.selectedTagIds,
+      await updateCampaign({
+        id: campaignId,
+        body: {
+          title: form.title.trim(),
+          shortDescription: form.shortDescription.trim(),
+          heroImageUrl: form.heroImageUrl.trim(),
+          storyJson,
+          risksJson,
+          fundingGoal,
+          equityOffered,
+          valuation,
+          minInvestment,
+          startDate: startDateIso,
+          endDate: endDateIso,
+          tagIds: form.selectedTagIds,
+        },
       }).unwrap();
 
-      await router.push(`/dashboard/projects/${created.id}/documents`);
+      await router.push(`/dashboard/campaigns/${campaignId}`);
     } catch (err) {
-      setErrorMessage(extractApiErrorMessage(err, t.errors.createFailed));
+      setErrorMessage(extractApiErrorMessage(err, tEdit.errors.saveFailed));
     }
   }
 
+  const isBootstrapping = campaignQuery.isLoading || campaignQuery.isFetching || form == null;
+
   return {
-    t,
+    tEdit,
+    tFields,
+    campaignQuery,
+    isBootstrapping,
     isDark,
     form,
     updateField,
