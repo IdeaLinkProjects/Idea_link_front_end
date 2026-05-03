@@ -1,3 +1,5 @@
+import { KYC_STATUS } from "@/constants/kycStatus";
+
 const KYC_SKIPPED_KEY = "ideal-link-kyc-skipped";
 
 export type PostLoginPath = "/dashboard" | "/kyc";
@@ -18,7 +20,7 @@ export function resolvePostLoginPath(
   userInfo?: { kycStatus?: string } | null,
 ): PostLoginPath {
   const kycStatus = userInfo?.kycStatus?.trim();
-  if ((!kycStatus || kycStatus === "NOT_SUBMITTED")) {
+  if (!kycStatus || kycStatus === KYC_STATUS.NOT_SUBMITTED) {
     return "/kyc";
   }
   return resolveDashboardPath(email);

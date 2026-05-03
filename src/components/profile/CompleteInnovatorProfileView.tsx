@@ -3,7 +3,12 @@ import { type FormEvent, useEffect, useState } from "react";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 import { messages } from "@/locales";
-import { useCompleteInnovatorProfileMutation, useGetInnovatorProfileQuery } from "@/store";
+import {
+  useCompleteInnovatorProfileMutation,
+  useCreateInnovatorProfileMutation,
+  useGetInnovatorProfileQuery,
+  useGetUserRolesStatusQuery,
+} from "@/store";
 
 type DraftProject = {
   projectName: string;
@@ -13,24 +18,30 @@ type DraftProject = {
 };
 
 const emptyProject: DraftProject = {
-  projectName: "string",
+  projectName: "",
   outcome: "FAILED",
-  year: "0",
-  description: "string",
+  year: String(new Date().getFullYear()),
+  description: "",
 };
 
 export function CompleteInnovatorProfileView() {
   const { locale, isDark } = useAppPreferences();
   const p = messages[locale].dashboardProfilePage;
-  const [completeInnovatorProfile, { isLoading }] = useCompleteInnovatorProfileMutation();
-  const { data: innovatorProfile } = useGetInnovatorProfileQuery();
+  const { data: rolesStatus, isLoading: rolesStatusLoading } = useGetUserRolesStatusQuery();
+  const profileAlreadyComplete = rolesStatus?.innovatorPrerequisites?.innovatorProfileComplete === true;
 
-  const [bio, setBio] = useState("string");
-  const [experienceYears, setExperienceYears] = useState("50");
-  const [linkedinUrl, setLinkedinUrl] = useState("https://linkedin.com/in/example");
-  const [websiteUrl, setWebsiteUrl] = useState("https://example.com");
-  const [companyRole, setCompanyRole] = useState("string");
-  const [projects, setProjects] = useState<DraftProject[]>([emptyProject]);
+  const [createInnovatorProfile, { isLoading: isCreating }] = useCreateInnovatorProfileMutation();
+  const [completeInnovatorProfile, { isLoading: isUpdating }] = useCompleteInnovatorProfileMutation();
+  const { data: innovatorProfile } = useGetInnovatorProfileQuery(undefined, {
+    skip: rolesStatusLoading || !profileAlreadyComplete,
+  });
+
+  const [bio, setBio] = useState("");
+  const [experienceYears, setExperienceYears] = useState("0");
+  const [linkedinUrl, setLinkedinUrl] = useState("");
+  const [websiteUrl, setWebsiteUrl] = useState("");
+  const [companyRole, setCompanyRole] = useState("");
+  const [projects, setProjects] = useState<DraftProject[]>([{ ...emptyProject }]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [prefilledFromApi, setPrefilledFromApi] = useState(false);
@@ -38,19 +49,19 @@ export function CompleteInnovatorProfileView() {
   useEffect(() => {
     if (!innovatorProfile || prefilledFromApi) return;
 
-    setBio(innovatorProfile.bio || "string");
+    setBio(innovatorProfile.bio ?? "");
     setExperienceYears(String(innovatorProfile.experienceYears ?? 0));
-    setLinkedinUrl(innovatorProfile.linkedinUrl || "");
-    setWebsiteUrl(innovatorProfile.websiteUrl || "");
-    setCompanyRole(innovatorProfile.companyRole || "string");
+    setLinkedinUrl(innovatorProfile.linkedinUrl ?? "");
+    setWebsiteUrl(innovatorProfile.websiteUrl ?? "");
+    setCompanyRole(innovatorProfile.companyRole ?? "");
 
     if (innovatorProfile.previousProjects?.length) {
       setProjects(
         innovatorProfile.previousProjects.map((project) => ({
-          projectName: project.projectName || "string",
+          projectName: project.projectName ?? "",
           outcome: project.outcome || "FAILED",
-          year: String(project.year ?? 0),
-          description: project.description || "string",
+          year: String(project.year ?? new Date().getFullYear()),
+          description: project.description ?? "",
         })),
       );
     }
@@ -99,17 +110,24 @@ export function CompleteInnovatorProfileView() {
       return;
     }
 
-    try {
-      const res = await completeInnovatorProfile({
-        bio: bio.trim(),
-        experienceYears: years,
-        linkedinUrl: linkedinUrl.trim(),
-        websiteUrl: websiteUrl.trim(),
-        companyRole: companyRole.trim(),
-        previousProjects: mappedProjects,
-      }).unwrap();
+    const payload = {
+      bio: bio.trim(),
+      experienceYears: years,
+      linkedinUrl: linkedinUrl.trim(),
+      websiteUrl: websiteUrl.trim(),
+      companyRole: companyRole.trim(),
+      previousProjects: mappedProjects,
+    };
 
-      setSuccessMessage(res.message ?? "Innovator profile updated successfully.");
+    try {
+      const res = profileAlreadyComplete
+        ? await completeInnovatorProfile(payload).unwrap()
+        : await createInnovatorProfile(payload).unwrap();
+
+      setSuccessMessage(
+        res.message ??
+          (profileAlreadyComplete ? "Innovator profile updated successfully." : "Innovator profile created successfully."),
+      );
     } catch (err) {
       setErrorMessage(extractApiErrorMessage(err, "Could not save innovator profile. Please try again."));
     }
@@ -264,10 +282,14 @@ export function CompleteInnovatorProfileView() {
 
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={isCreating || isUpdating || rolesStatusLoading}
             className="w-full rounded-lg bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-500 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isLoading ? "Saving..." : "Save innovator profile"}
+            {isCreating || isUpdating
+              ? p.savingProfile
+              : profileAlreadyComplete
+                ? p.saveInnovatorProfileCta
+                : p.submitInnovatorProfileCta}
           </button>
         </form>
       </div>

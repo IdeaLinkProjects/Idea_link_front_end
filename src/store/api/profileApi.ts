@@ -5,7 +5,8 @@ export type RolePrerequisites = {
   fanVerified: boolean;
   innovatorProfileComplete: boolean | null;
   investorProfileComplete: boolean | null;
-  kycVerified: boolean;
+  /** e.g. NOT_SUBMITTED, PENDING, VERIFIED — see `KYC_STATUS` in `@/constants/kycStatus`. */
+  kycStatus: string;
   phoneVerified: boolean;
 };
 
@@ -274,10 +275,26 @@ export const profileApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Profile"],
     }),
+    createInvestorProfile: build.mutation<CompleteProfileResponse, CompleteInvestorProfileRequestBody>({
+      query: (body) => ({
+        url: "profile/investor",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Profile"],
+    }),
     completeInvestorProfile: build.mutation<CompleteProfileResponse, CompleteInvestorProfileRequestBody>({
       query: (body) => ({
         url: "profile/investor",
         method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Profile"],
+    }),
+    createInnovatorProfile: build.mutation<CompleteProfileResponse, CompleteInnovatorProfileRequestBody>({
+      query: (body) => ({
+        url: "profile/innovator",
+        method: "POST",
         body,
       }),
       invalidatesTags: ["Profile"],
@@ -306,6 +323,8 @@ export const {
   useUpdateCompanyTeamMemberMutation,
   useUpdateCompanyMutation,
   useDeleteCompanyMutation,
+  useCreateInvestorProfileMutation,
   useCompleteInvestorProfileMutation,
+  useCreateInnovatorProfileMutation,
   useCompleteInnovatorProfileMutation,
 } = profileApi;

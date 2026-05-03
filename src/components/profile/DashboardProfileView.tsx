@@ -3,6 +3,7 @@ import { DashboardProfileInnovatorCard } from "@/components/profile/DashboardPro
 import { DashboardProfileInvestorCard } from "@/components/profile/DashboardProfileInvestorCard";
 import { DashboardProfilePrereqChips } from "@/components/profile/DashboardProfilePrereqChips";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { KYC_STATUS, resolveAccountKycStatus } from "@/constants/kycStatus";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 import { messages } from "@/locales";
 import {
@@ -78,11 +79,44 @@ export function DashboardProfileView() {
     );
   }
 
+  const accountKycStatus = resolveAccountKycStatus(
+    status.innovatorPrerequisites.kycStatus,
+    status.investorPrerequisites.kycStatus,
+  );
+
   const showProfileActionSection = true;
 
   return (
     <div className="mx-auto max-w-4xl space-y-8 pb-4">
       <p className={`text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.pageSubtitle}</p>
+
+      {accountKycStatus === KYC_STATUS.NOT_SUBMITTED ? (
+        <div
+          className={`rounded-2xl border p-5 sm:p-6 ${isDark ? "border-amber-500/25 bg-amber-950/30" : "border-amber-200 bg-amber-50/90"}`}
+        >
+          <h2 className={`text-base font-bold ${isDark ? "text-amber-100" : "text-amber-950"}`}>{t.kycNotSubmittedTitle}</h2>
+          <p className={`mt-2 text-sm leading-relaxed ${isDark ? "text-amber-200/90" : "text-amber-950/80"}`}>
+            {t.kycNotSubmittedDescription}
+          </p>
+          <Link
+            href="/kyc"
+            className={`mt-4 inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95 ${
+              isDark ? "bg-primary-600 hover:bg-primary-500" : "bg-primary-600 hover:bg-primary-700"
+            }`}
+          >
+            {t.kycVerifyCta}
+          </Link>
+        </div>
+      ) : null}
+
+      {accountKycStatus === KYC_STATUS.PENDING ? (
+        <div
+          className={`rounded-2xl border p-5 sm:p-6 ${isDark ? "border-sky-500/20 bg-sky-950/25" : "border-sky-200 bg-sky-50/90"}`}
+          role="status"
+        >
+          <p className={`text-sm font-medium leading-relaxed ${isDark ? "text-sky-100" : "text-sky-950"}`}>{t.kycPendingNotice}</p>
+        </div>
+      ) : null}
 
       <section className={`relative overflow-hidden rounded-3xl border ${isDark ? "border-white/10" : "border-zinc-200/80"}`}>
         <div
@@ -114,6 +148,15 @@ export function DashboardProfileView() {
                 >
                   {t.memberBadge}
                 </span>
+                {accountKycStatus === KYC_STATUS.VERIFIED ? (
+                  <span
+                    className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                      isDark ? "bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-500/30" : "bg-emerald-100 text-emerald-900 ring-1 ring-emerald-200"
+                    }`}
+                  >
+                    {t.kycVerifiedBadge}
+                  </span>
+                ) : null}
               </div>
               <p className={`mt-2 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{email}</p>
 
@@ -128,7 +171,14 @@ export function DashboardProfileView() {
                     </span>
                   ))
                 ) : (
-                  <span className={`text-xs ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>{t.noRoles}</span>
+                  <div
+                    className={`w-full max-w-xl rounded-xl border px-4 py-3 text-left sm:px-5 sm:py-4 ${
+                      isDark ? "border-white/10 bg-black/20 text-zinc-300" : "border-zinc-200/90 bg-white/60 text-zinc-700"
+                    }`}
+                  >
+                    <p className={`text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{t.noRolesTitle}</p>
+                    <p className={`mt-1.5 text-sm leading-relaxed ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.noRolesDescription}</p>
+                  </div>
                 )}
               </div>
             </div>

@@ -3,18 +3,29 @@ import { type FormEvent, useEffect, useMemo, useState } from "react";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 import { messages } from "@/locales";
-import { useCompleteInvestorProfileMutation, useGetInvestorProfileQuery } from "@/store";
+import {
+  useCompleteInvestorProfileMutation,
+  useCreateInvestorProfileMutation,
+  useGetInvestorProfileQuery,
+  useGetUserRolesStatusQuery,
+} from "@/store";
 
 export function CompleteInvestorProfileView() {
   const { locale, isDark } = useAppPreferences();
   const p = messages[locale].dashboardProfilePage;
-  const [completeInvestorProfile, { isLoading }] = useCompleteInvestorProfileMutation();
-  const { data: investorProfile } = useGetInvestorProfileQuery();
+  const { data: rolesStatus, isLoading: rolesStatusLoading } = useGetUserRolesStatusQuery();
+  const profileAlreadyComplete = rolesStatus?.investorPrerequisites?.investorProfileComplete === true;
+
+  const [createInvestorProfile, { isLoading: isCreating }] = useCreateInvestorProfileMutation();
+  const [completeInvestorProfile, { isLoading: isUpdating }] = useCompleteInvestorProfileMutation();
+  const { data: investorProfile } = useGetInvestorProfileQuery(undefined, {
+    skip: rolesStatusLoading || !profileAlreadyComplete,
+  });
 
   const [riskTolerance, setRiskTolerance] = useState("CONSERVATIVE");
   const [maxInvestmentLimit, setMaxInvestmentLimit] = useState("100");
   const [investmentExperience, setInvestmentExperience] = useState("BEGINNER");
-  const [preferredCategories, setPreferredCategories] = useState("string");
+  const [preferredCategories, setPreferredCategories] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [prefilledFromApi, setPrefilledFromApi] = useState(false);
@@ -25,7 +36,7 @@ export function CompleteInvestorProfileView() {
     setRiskTolerance(investorProfile.riskTolerance || "CONSERVATIVE");
     setMaxInvestmentLimit(String(investorProfile.maxInvestmentLimit ?? 100));
     setInvestmentExperience(investorProfile.investmentExperience || "BEGINNER");
-    setPreferredCategories(investorProfile.preferredCategories?.join(", ") || "string");
+    setPreferredCategories(investorProfile.preferredCategories?.join(", ") ?? "");
     setPrefilledFromApi(true);
   }, [investorProfile, prefilledFromApi]);
 
@@ -53,15 +64,22 @@ export function CompleteInvestorProfileView() {
       return;
     }
 
-    try {
-      const res = await completeInvestorProfile({
-        riskTolerance,
-        maxInvestmentLimit: amount,
-        investmentExperience,
-        preferredCategories: categoryList,
-      }).unwrap();
+    const payload = {
+      riskTolerance,
+      maxInvestmentLimit: amount,
+      investmentExperience,
+      preferredCategories: categoryList,
+    };
 
-      setSuccessMessage(res.message ?? "Investor profile updated successfully.");
+    try {
+      const res = profileAlreadyComplete
+        ? await completeInvestorProfile(payload).unwrap()
+        : await createInvestorProfile(payload).unwrap();
+
+      setSuccessMessage(
+        res.message ??
+          (profileAlreadyComplete ? "Investor profile updated successfully." : "Investor profile created successfully."),
+      );
     } catch (err) {
       setErrorMessage(extractApiErrorMessage(err, "Could not save investor profile. Please try again."));
     }
@@ -149,10 +167,14 @@ export function CompleteInvestorProfileView() {
 
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={isCreating || isUpdating || rolesStatusLoading}
             className="w-full rounded-lg bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-500 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {isLoading ? "Saving..." : "Save investor profile"}
+            {isCreating || isUpdating
+              ? p.savingProfile
+              : profileAlreadyComplete
+                ? p.saveInvestorProfileCta
+                : p.submitInvestorProfileCta}
           </button>
         </form>
       </div>

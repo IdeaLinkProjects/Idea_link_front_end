@@ -24,7 +24,9 @@ export {
   useUpdateCompanyTeamMemberMutation,
   useUpdateCompanyMutation,
   useDeleteCompanyMutation,
+  useCreateInvestorProfileMutation,
   useCompleteInvestorProfileMutation,
+  useCreateInnovatorProfileMutation,
   useCompleteInnovatorProfileMutation,
 } from "./api/profileApi";
 export type {

@@ -175,26 +175,6 @@ export function DashboardCompanySettingsSection({
                 Registered company
               </label>
             </div>
-            <div>
-              <label className={`mb-1 block text-sm font-medium ${isDark ? "text-zinc-200" : "text-zinc-700"}`}>Logo URL</label>
-              <input
-                type="url"
-                value={draft.logoUrl}
-                onChange={(e) => onUpdateField("logoUrl", e.target.value)}
-                placeholder="Logo URL"
-                className="w-full rounded-xl border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100"
-              />
-            </div>
-            <div className="md:col-span-2">
-              <label className={`mb-1 block text-sm font-medium ${isDark ? "text-zinc-200" : "text-zinc-700"}`}>Cover image URL</label>
-              <input
-                type="url"
-                value={draft.coverImageUrl}
-                onChange={(e) => onUpdateField("coverImageUrl", e.target.value)}
-                placeholder="Cover image URL"
-                className="w-full rounded-xl border border-zinc-300 bg-white px-3 py-2.5 text-sm text-zinc-900 focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100"
-              />
-            </div>
           </div>
 
           <div>

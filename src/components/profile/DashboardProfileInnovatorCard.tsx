@@ -96,6 +96,40 @@ export function DashboardProfileInnovatorCard({ data, error, isLoading, isDark, 
           </div>
         </div>
       </dl>
+
+      <div className={`mt-6 border-t pt-6 ${isDark ? "border-white/10" : "border-zinc-200"}`}>
+        <h3 className={`text-xs font-semibold uppercase tracking-wide ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>{t.previousProjectsTitle}</h3>
+        {data.previousProjects && data.previousProjects.length > 0 ? (
+          <ul className="mt-3 space-y-3">
+            {data.previousProjects.map((project, idx) => (
+              <li
+                key={`${project.projectName}-${project.year}-${idx}`}
+                className={`rounded-xl border p-4 ${isDark ? "border-white/10 bg-white/[0.04]" : "border-zinc-200 bg-zinc-50/80"}`}
+              >
+                <p className={`text-sm font-semibold ${isDark ? "text-white" : "text-zinc-900"}`}>{project.projectName || "—"}</p>
+                <p className={`mt-1 flex flex-wrap gap-x-3 gap-y-0.5 text-xs ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
+                  <span>
+                    <span className="font-medium text-zinc-500 dark:text-zinc-500">{t.previousProjectYear}:</span> {project.year ?? "—"}
+                  </span>
+                  <span>
+                    <span className="font-medium text-zinc-500 dark:text-zinc-500">{t.previousProjectOutcome}:</span> {project.outcome || "—"}
+                  </span>
+                </p>
+                {project.description ? (
+                  <div className="mt-3">
+                    <p className={`text-xs font-semibold uppercase tracking-wide ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>
+                      {t.previousProjectDescription}
+                    </p>
+                    <p className={`mt-1 text-sm leading-relaxed ${isDark ? "text-zinc-300" : "text-zinc-700"}`}>{project.description}</p>
+                  </div>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className={`mt-3 text-sm ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>{t.previousProjectsEmpty}</p>
+        )}
+      </div>
     </div>
   );
 }

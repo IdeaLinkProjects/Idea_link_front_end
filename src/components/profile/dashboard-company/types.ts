@@ -8,8 +8,6 @@ export type CompanyFormDraft = {
   taxIdentificationNumber: string;
   businessLicenseNumber: string;
   isRegisteredCompany: boolean;
-  logoUrl: string;
-  coverImageUrl: string;
   foundedYear: string;
   headquarters: string;
   companiesize: string;
@@ -39,8 +37,6 @@ export const emptyDraft: CompanyFormDraft = {
   taxIdentificationNumber: "",
   businessLicenseNumber: "",
   isRegisteredCompany: false,
-  logoUrl: "",
-  coverImageUrl: "",
   foundedYear: "",
   headquarters: "",
   companiesize: "",
