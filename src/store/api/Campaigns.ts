@@ -30,6 +30,8 @@ export type MyCampaign = {
   title: string;
   shortDescription: string;
   heroImageUrl: string | null;
+  storyJson?: Record<string, string> | string | null;
+  risksJson?: Record<string, string> | string | null;
   fundingGoal: number;
   equityOffered: number;
   valuation: number;
@@ -77,6 +79,18 @@ export type CreateCampaignRequestBody = {
   tagIds: number[];
 };
 
+export type UpdateCampaignRequestBody = CreateCampaignRequestBody;
+
+export type UpdateCampaignArg = {
+  id: number;
+  body: UpdateCampaignRequestBody;
+};
+
+export type DeleteCampaignDocumentArg = {
+  campaignId: number;
+  documentId: number;
+};
+
 export type UploadCampaignImageResponse = {
   file: {
     size: number;
@@ -92,6 +106,12 @@ export type UploadCampaignDocumentArg = {
   formData: FormData;
 };
 
+export type CampaignTag = {
+  id: number;
+  name: string;
+  campaignCount: number;
+};
+
 export const campaignsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getMyCampaigns: build.query<MyCampaignsResponse, MyCampaignsRequestBody>({
@@ -104,6 +124,13 @@ export const campaignsApi = baseApi.injectEndpoints({
         },
       }),
       providesTags: ["Profile"],
+    }),
+    getCampaignById: build.query<MyCampaign, number>({
+      query: (id) => ({
+        url: `campaigns/${id}`,
+        method: "GET",
+      }),
+      providesTags: (_result, _err, id) => [{ type: "Profile", id: `campaign-${id}` }, "Profile"],
     }),
     createCampaign: build.mutation<MyCampaign, CreateCampaignRequestBody>({
       query: (body) => ({
@@ -126,7 +153,48 @@ export const campaignsApi = baseApi.injectEndpoints({
         method: "POST",
         body: formData,
       }),
-      invalidatesTags: ["Profile"],
+      invalidatesTags: (_r, _e, { campaignId }) => [{ type: "Profile", id: `campaign-${campaignId}` }, "Profile"],
+    }),
+    updateCampaign: build.mutation<MyCampaign, UpdateCampaignArg>({
+      query: ({ id, body }) => ({
+        url: `campaigns/${id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: (_r, _e, { id }) => [{ type: "Profile", id: `campaign-${id}` }, "Profile"],
+    }),
+    deleteCampaign: build.mutation<unknown, number>({
+      query: (id) => ({
+        url: `campaigns/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_r, _e, id) => [{ type: "Profile", id: `campaign-${id}` }, "Profile"],
+    }),
+    deleteCampaignDocument: build.mutation<unknown, DeleteCampaignDocumentArg>({
+      query: ({ campaignId, documentId }) => ({
+        url: `campaigns/${campaignId}/documents/${documentId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_r, _e, { campaignId }) => [{ type: "Profile", id: `campaign-${campaignId}` }, "Profile"],
+    }),
+    getCampaignDocumentById: build.query<CampaignDocument, DeleteCampaignDocumentArg>({
+      query: ({ campaignId, documentId }) => ({
+        url: `campaigns/${campaignId}/documents/${documentId}`,
+        method: "GET",
+      }),
+    }),
+    getCampaignTags: build.query<CampaignTag[], void>({
+      query: () => ({
+        url: "campaign-tags",
+        method: "GET",
+      }),
+    }),
+    searchCampaignTags: build.query<CampaignTag[], { query: string; limit?: number }>({
+      query: ({ query, limit = 10 }) => ({
+        url: "campaign-tags/search",
+        method: "GET",
+        params: { query, limit },
+      }),
     }),
   }),
   overrideExisting: false,
@@ -134,7 +202,14 @@ export const campaignsApi = baseApi.injectEndpoints({
 
 export const {
   useGetMyCampaignsQuery,
+  useGetCampaignByIdQuery,
   useCreateCampaignMutation,
+  useUpdateCampaignMutation,
+  useDeleteCampaignMutation,
   useUploadCampaignImageMutation,
   useUploadCampaignDocumentMutation,
+  useDeleteCampaignDocumentMutation,
+  useGetCampaignTagsQuery,
+  useLazyGetCampaignDocumentByIdQuery,
+  useLazySearchCampaignTagsQuery,
 } = campaignsApi;

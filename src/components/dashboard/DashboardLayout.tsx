@@ -29,7 +29,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     badge?: number;
   }> = [
     { href: "/dashboard", label: t.navDashboard, match: (p) => p === "/dashboard" },
-    { href: "/dashboard/projects", label: t.navProjects, match: (p) => p.startsWith("/dashboard/projects") },
+    {
+      href: "/dashboard/projects",
+      label: t.navProjects,
+      match: (p) => p.startsWith("/dashboard/projects") || p.startsWith("/dashboard/campaigns"),
+    },
     { href: "/dashboard/company", label: t.navCompany, match: (p) => p.startsWith("/dashboard/company") },
     { href: "/dashboard/payment", label: t.navPayment, match: (p) => p.startsWith("/dashboard/payment") },
     {
