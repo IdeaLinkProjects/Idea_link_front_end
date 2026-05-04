@@ -157,14 +157,14 @@ export const campaignsApi = baseApi.injectEndpoints({
     }),
     filterCampaigns: build.query<MyCampaignsResponse, CampaignFilterRequestBody>({
       query: (body) => ({
-        url: "public/filter",
+        url: "public/campaign/filter",
         method: "POST",
         body,
       }),
     }),
     getCampaignById: build.query<MyCampaign, number>({
       query: (id) => ({
-        url: `campaigns/${id}`,
+        url: `public/campaign/${id}`,
         method: "GET",
       }),
       providesTags: (_result, _err, id) => [{ type: "Profile", id: `campaign-${id}` }, "Profile"],

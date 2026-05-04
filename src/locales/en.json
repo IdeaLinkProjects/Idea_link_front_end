@@ -143,6 +143,33 @@
     "categoryLabel": "Category",
     "postedLabel": "Posted",
     "postedFallback": "Date on file",
+    "sectionTitleFallback": "Section {n}",
+    "timelineStart": "Campaign start",
+    "timelineEnd": "Campaign end",
+    "companyTitle": "Company",
+    "industryLabel": "Industry",
+    "websiteLabel": "Website",
+    "totalCampaignsLabel": "Campaigns by this company",
+    "statusLabel": "Status",
+    "valuationLabel": "Pre-money valuation",
+    "statComments": "Comments",
+    "openDocument": "Open",
+    "tagsLabel": "Tags",
+    "storyTitle": "Campaign story",
+    "structuredRisksTitle": "Risk factors",
+    "documentTypes": {
+      "PITCH_DECK": "Pitch deck",
+      "TERM_SHEET": "Term sheet",
+      "TEAM_AGREEMENT": "Team agreement",
+      "FINANCIAL_STATEMENTS": "Financial statements",
+      "RISK_DISCLOSURE": "Risk disclosure",
+      "TAX_CLEARANCE": "Tax clearance"
+    },
+    "verificationLabels": {
+      "VERIFIED": "Verified",
+      "PENDING": "Pending review",
+      "REJECTED": "Rejected"
+    },
     "fundedLine": "{pct}% funded",
     "raisedGoalLine": "{raised} / {goal} ETB",
     "daysRemainingLine": "{n} days remaining",
@@ -187,7 +214,7 @@
       "considerationsTitle": "Investor considerations"
     },
     "fallback": {
-      "problem": "{name} targets a clear need in its sector. Review the summary and documents, and use Q&A to ask the innovator for detail.",
+      "problem": "{name} targets a clear need in its sector. Review the summary and documents before investing.",
       "solution": "The campaign describes how funds will be used to deliver outcomes. Confirm assumptions with the team before investing.",
       "team": "Core team bios and roles will appear here when the innovator completes their profile.",
       "risksDisclosure": "All crowdfunding involves risk of partial or total loss. Read all materials carefully.",

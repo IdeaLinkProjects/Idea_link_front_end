@@ -1,3 +1,4 @@
+import { formatEtb } from "@/lib/format/formatEtb";
 import type { Locale, messages } from "@/locales";
 import type { MyCampaign } from "@/store";
 
@@ -35,14 +36,7 @@ export type PublicProjectBundle = {
   investorConsiderations: string;
   updates: { date: string; title: string; body: string }[];
   documents: { name: string; kind: string; sizeLabel: string }[];
-  qa: { q: string; a?: string; author: string; date: string }[];
 };
-
-function formatEtb(n: number, locale: Locale): string {
-  return new Intl.NumberFormat(locale === "am" ? "am-ET" : "en-ET", { maximumFractionDigits: 0 }).format(
-    Number.isFinite(n) ? n : 0,
-  );
-}
 
 function daysRemaining(iso: string): number {
   const end = new Date(iso).getTime();
@@ -144,6 +138,5 @@ export function myCampaignToPublicBundle(c: MyCampaign, locale: Locale, p: Proje
       kind: doc.documentType,
       sizeLabel: `${Math.round((doc.fileSize ?? 0) / 1024)} KB`,
     })),
-    qa: [],
   };
 }
