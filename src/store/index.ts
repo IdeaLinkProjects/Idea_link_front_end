@@ -18,6 +18,9 @@ export {
   useUploadCampaignImageMutation,
   useGetCampaignTagsQuery,
   useLazySearchCampaignTagsQuery,
+  useGetCampaignUpdatesQuery,
+  useCreateCampaignUpdateMutation,
+  useDeleteCampaignUpdateMutation,
 } from "./api/Campaigns";
 export {
   profileApi,
@@ -40,8 +43,11 @@ export {
 export { CAMPAIGN_FILTER_STATUS_OPTIONS } from "./api/Campaigns";
 export type {
   CampaignDocument,
+  CampaignUpdate,
   CreateCampaignRequestBody,
+  CreateCampaignUpdateBody,
   DeleteCampaignDocumentArg,
+  DeleteCampaignUpdateArg,
   MyCampaign,
   MyCampaignCompany,
   MyCampaignsRequestBody,

@@ -1,4 +1,4 @@
-export type CampaignDetailTabKey = "overview" | "files" | "settings";
+export type CampaignDetailTabKey = "overview" | "files" | "updates" | "settings";
 
 type CampaignTabsNavProps = {
   activeTab: CampaignDetailTabKey;
@@ -6,6 +6,7 @@ type CampaignTabsNavProps = {
   labels: {
     overview: string;
     files: string;
+    updates: string;
     settings: string;
   };
 };
@@ -14,6 +15,7 @@ export function CampaignTabsNav({ activeTab, onTabChange, labels }: CampaignTabs
   const tabs: Array<{ key: CampaignDetailTabKey; label: string }> = [
     { key: "overview", label: labels.overview },
     { key: "files", label: labels.files },
+    { key: "updates", label: labels.updates },
     { key: "settings", label: labels.settings },
   ];
 

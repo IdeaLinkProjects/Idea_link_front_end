@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import type { CampaignDetailTabKey } from "@/components/profile/campaign-detail/CampaignTabsNav";
 import { CampaignTabsNav } from "@/components/profile/campaign-detail/CampaignTabsNav";
+import { CampaignUpdatesPanel } from "@/components/profile/campaign-detail/CampaignUpdatesPanel";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
@@ -223,7 +224,12 @@ export function CampaignDetailView({ campaignId }: CampaignDetailViewProps) {
       <CampaignTabsNav
         activeTab={activeTab}
         onTabChange={setActiveTab}
-        labels={{ overview: t.tabs.overview, files: t.tabs.files, settings: t.tabs.settings }}
+        labels={{
+          overview: t.tabs.overview,
+          files: t.tabs.files,
+          updates: t.tabs.updates,
+          settings: t.tabs.settings,
+        }}
       />
 
       {notice ? (
@@ -398,6 +404,19 @@ export function CampaignDetailView({ campaignId }: CampaignDetailViewProps) {
             </div>
           </section>
         </div>
+      ) : null}
+
+      {activeTab === "updates" ? (
+        <CampaignUpdatesPanel
+          campaignId={campaign.id}
+          locale={locale}
+          isDark={isDark}
+          t={t.updates}
+          errors={t.errors}
+          cancelAction={t.cancelAction}
+          confirmDelete={t.confirmDelete}
+          deleting={t.deleting}
+        />
       ) : null}
 
       {activeTab === "files" ? (

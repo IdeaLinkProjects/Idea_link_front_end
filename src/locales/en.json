@@ -1302,6 +1302,7 @@
     "tabs": {
       "overview": "Overview",
       "files": "Files",
+      "updates": "Updates",
       "settings": "Settings"
     },
     "backToCampaigns": "← Back to campaigns",
@@ -1364,11 +1365,48 @@
     "documentDeleted": "Document deleted.",
     "untitledDocument": "Untitled document",
     "noTags": "No tags available.",
+    "updates": {
+      "addUpdate": "Add update",
+      "addUpdateHint": "Share milestones and news with people following this campaign.",
+      "cancelCompose": "Cancel",
+      "composeTitle": "Post an update",
+      "composeSubtitle": "Share news with investors. Add a title, optional pinned highlight, and structured content.",
+      "listTitle": "Published updates",
+      "listSubtitle": "Newest activity first. Pinned items stay at the top.",
+      "titleLabel": "Update title",
+      "titlePlaceholder": "e.g. Q2 milestone reached",
+      "titleRequired": "Please enter a title for this update.",
+      "pinnedLabel": "Pin this update to the top of the list",
+      "contentHeading": "Content sections",
+      "contentHint": "Use short labels (e.g. Summary) and the text you want to show.",
+      "addField": "Add section",
+      "fieldGroupLabel": "Section {n}",
+      "fieldKey": "Label",
+      "fieldKeyPlaceholder": "Section heading",
+      "fieldValue": "Text",
+      "fieldValuePlaceholder": "Details for backers",
+      "removeField": "Remove section",
+      "submit": "Publish update",
+      "submitting": "Publishing…",
+      "retry": "Retry",
+      "emptyList": "No updates yet. Use Add update to publish your first note.",
+      "delete": "Remove",
+      "pinnedBadge": "Pinned",
+      "postedLabel": "Posted",
+      "noContentBody": "No extra content blocks for this update.",
+      "createSuccess": "Update published.",
+      "deleteSuccess": "Update removed.",
+      "confirmDeleteTitle": "Remove this update?",
+      "confirmDeleteBody": "Backers will no longer see this entry."
+    },
     "errors": {
       "deleteCampaignFailed": "Could not delete campaign. Please try again.",
       "deleteDocumentFailed": "Could not delete document. Please try again.",
       "openDocumentFailed": "Could not load this document. Please try again.",
-      "openDocumentNoUrl": "No download link was returned for this document."
+      "openDocumentNoUrl": "No download link was returned for this document.",
+      "loadUpdatesFailed": "Could not load updates. Please try again.",
+      "createUpdateFailed": "Could not publish this update. Please try again.",
+      "deleteUpdateFailed": "Could not remove this update. Please try again."
     }
   },
   "campaignEditPage": {

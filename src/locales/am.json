@@ -1302,6 +1302,7 @@
     "tabs": {
       "overview": "አጠቃላይ እይታ",
       "files": "ፋይሎች",
+      "updates": "ዝማኔዎች",
       "settings": "ቅንብሮች"
     },
     "backToCampaigns": "← ወደ ዘመቻዎች ተመለስ",
@@ -1364,11 +1365,48 @@
     "documentDeleted": "ሰንድ ተሰርዟል።",
     "untitledDocument": "ስም የሌለው ሰነድ",
     "noTags": "መለያዎች የሉም።",
+    "updates": {
+      "addUpdate": "ዝማኔ ጨምር",
+      "addUpdateHint": "ይህን ዘመቻ የሚከተሉ ሰዎች ከእርስዎ ጋር የሚያደርጉትን ዜና እና ግቦች ያጋሩ።",
+      "cancelCompose": "ይተው",
+      "composeTitle": "ዝማኔ ይለጥፉ",
+      "composeSubtitle": "ለኢንቨስተሮች ዜና ያጋሩ። ርዕስ፣ በላይ ለመጠቆም (pin) እና የተዋቀረ ይዘት ይጨምሩ።",
+      "listTitle": "የታተሙ ዝማኔዎች",
+      "listSubtitle": "አዲስ ነገር በመጀመሪያ። የተጠቆሙ (pinned) በላይ ይቆያሉ።",
+      "titleLabel": "የዝማኔ ርዕስ",
+      "titlePlaceholder": "ለምሳሌ፦ የካርታ ሩብ 2 ግብ ተጠናቋል",
+      "titleRequired": "እባክዎ ለዚህ ዝማኔ ርዕስ ያስገቡ።",
+      "pinnedLabel": "ይህን ዝማኔ በዝርዝሩ ላይ በላይኛው ይጠቅሱ",
+      "contentHeading": "የይዘት ክፍሎች",
+      "contentHint": "አጭር መለያዎች (ለምሳላ አጠቃላይ) እና ለኢንቨስተሮች የሚታየው ጽሑፍ ይጠቀሙ።",
+      "addField": "ክፍል ጨምር",
+      "fieldGroupLabel": "ክፍል {n}",
+      "fieldKey": "መለያ",
+      "fieldKeyPlaceholder": "የክፍል ርዕስ",
+      "fieldValue": "ጽሑፍ",
+      "fieldValuePlaceholder": "ዝርዝር",
+      "removeField": "ክፍል አስወግድ",
+      "submit": "ዝማኔ አስቀምጥ",
+      "submitting": "በመቀመጥ ላይ…",
+      "retry": "ደግመው ይሞክሩ",
+      "emptyList": "እስካሁን ዝማኔ የለም። የመጀመሪያዎን ለማስቀመጥ «ዝማኔ ጨምር» ይጫኑ።",
+      "delete": "አስወግድ",
+      "pinnedBadge": "የተጠቆመ",
+      "postedLabel": "የታተመበት",
+      "noContentBody": "ለዚህ ዝማኔ ተጨማሪ የይዘት ክፍሎች የሉም።",
+      "createSuccess": "ዝማኔ ተቀምጧል።",
+      "deleteSuccess": "ዝማኔ ተወግዷል።",
+      "confirmDeleteTitle": "ይህን ዝማኔ ያስወግዱ?",
+      "confirmDeleteBody": "ኢንቨስተሮች ይህን ግብዣ ከእንግዲህ አይመለከቱም።"
+    },
     "errors": {
       "deleteCampaignFailed": "ዘመቻ ማስወገድ አልተቻለም። እንደገና ይሞክሩ።",
       "deleteDocumentFailed": "ሰንድ ማስወገድ አልተቻለም። እንደገና ይሞክሩ።",
       "openDocumentFailed": "ይህን ሰነድ መጫን አልተቻለም። እንደገና ይሞክሩ።",
-      "openDocumentNoUrl": "ለዚህ ሰነድ ምንም የማውረድ አገናኝ አልተመለሰም።"
+      "openDocumentNoUrl": "ለዚህ ሰነድ ምንም የማውረድ አገናኝ አልተመለሰም።",
+      "loadUpdatesFailed": "ዝማኔዎች መጫን አልተቻለም። እንደገና ይሞክሩ።",
+      "createUpdateFailed": "ዝማኔ ማስቀመጥ አልተቻለም። እንደገና ይሞክሩ።",
+      "deleteUpdateFailed": "ዝማኔ ማስወገድ አልተቻለም። እንደገና ይሞክሩ።"
     }
   },
   "campaignEditPage": {

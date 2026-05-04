@@ -142,6 +142,27 @@ export type CampaignFilterRequestBody = {
   filters: CampaignFilterFilters;
 };
 
+export type CampaignUpdate = {
+  id: number;
+  campaignId: number;
+  campaignTitle: string;
+  title: string;
+  content: Record<string, string>;
+  isPinned: boolean;
+  postedAt: string;
+};
+
+export type CreateCampaignUpdateBody = {
+  title: string;
+  content: Record<string, string>;
+  isPinned: boolean;
+};
+
+export type DeleteCampaignUpdateArg = {
+  campaignId: number;
+  updateId: number;
+};
+
 export const campaignsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getMyCampaigns: build.query<MyCampaignsResponse, MyCampaignsRequestBody>({
@@ -233,6 +254,28 @@ export const campaignsApi = baseApi.injectEndpoints({
         params: { query, limit },
       }),
     }),
+    getCampaignUpdates: build.query<CampaignUpdate[], number>({
+      query: (campaignId) => ({
+        url: `campaigns/${campaignId}/updates`,
+        method: "GET",
+      }),
+      providesTags: (_result, _err, campaignId) => [{ type: "Profile", id: `campaign-${campaignId}-updates` }],
+    }),
+    createCampaignUpdate: build.mutation<CampaignUpdate, { campaignId: number; body: CreateCampaignUpdateBody }>({
+      query: ({ campaignId, body }) => ({
+        url: `campaigns/${campaignId}/updates`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: (_r, _e, { campaignId }) => [{ type: "Profile", id: `campaign-${campaignId}-updates` }],
+    }),
+    deleteCampaignUpdate: build.mutation<unknown, DeleteCampaignUpdateArg>({
+      query: ({ campaignId, updateId }) => ({
+        url: `campaigns/${campaignId}/updates/${updateId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_r, _e, { campaignId }) => [{ type: "Profile", id: `campaign-${campaignId}-updates` }],
+    }),
   }),
   overrideExisting: false,
 });
@@ -250,4 +293,7 @@ export const {
   useGetCampaignTagsQuery,
   useLazyGetCampaignDocumentByIdQuery,
   useLazySearchCampaignTagsQuery,
+  useGetCampaignUpdatesQuery,
+  useCreateCampaignUpdateMutation,
+  useDeleteCampaignUpdateMutation,
 } = campaignsApi;
