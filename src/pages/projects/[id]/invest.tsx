@@ -2,8 +2,10 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { myCampaignToDiscoveryIdea, myCampaignToPublicBundle, type DiscoveryIdeaView } from "@/lib/campaign/fromMyCampaign";
 import { useEffect, useMemo, useState } from "react";
 import { type Locale, messages } from "@/locales";
+import { useGetCampaignByIdQuery } from "@/store";
 
 type ProjectBundle = {
   goalEtb: number;
@@ -60,9 +62,36 @@ export default function ProjectInvestPage() {
   const p = t.projectDetail;
   const inv = t.investmentFlow;
 
-  const idea = useMemo(() => d.ideas.find((i) => i.id === id), [d.ideas, id]);
+  const campaignIdNum = useMemo(() => {
+    const n = Number.parseInt(id, 10);
+    return Number.isInteger(n) && n > 0 ? n : null;
+  }, [id]);
+
+  const { data: apiCampaign, isLoading: apiLoading, isError: apiError } = useGetCampaignByIdQuery(campaignIdNum!, {
+    skip: campaignIdNum == null,
+  });
+
+  const idea = useMemo((): DiscoveryIdeaView | null => {
+    if (campaignIdNum != null && apiCampaign) {
+      return myCampaignToDiscoveryIdea(apiCampaign, locale);
+    }
+    return (d.ideas as unknown as DiscoveryIdeaView[]).find((i) => i.id === id) ?? null;
+  }, [campaignIdNum, apiCampaign, d.ideas, id, locale]);
 
   const bundle = useMemo((): ProjectBundle => {
+    if (campaignIdNum != null && apiCampaign) {
+      const full = myCampaignToPublicBundle(apiCampaign, locale, p);
+      return {
+        goalEtb: full.goalEtb,
+        raisedEtb: full.raisedEtb,
+        equityOfferedPct: full.equityOfferedPct,
+        minInvestmentEtb: full.minInvestmentEtb,
+        risksDisclosure: full.risksDisclosure,
+        riskLevel: full.riskLevel,
+        riskLevelExplanation: full.riskLevelExplanation,
+        investorConsiderations: full.investorConsiderations,
+      };
+    }
     const raw = p.projects[id as keyof typeof p.projects];
     if (raw && typeof raw === "object" && "goalEtb" in raw) {
       const r = raw as unknown as ProjectBundle;
@@ -101,10 +130,14 @@ export default function ProjectInvestPage() {
       riskLevelExplanation: p.fallback.risksLevelExpl,
       investorConsiderations: p.fallback.risksConsiderations,
     };
-  }, [d, idea, id, p]);
+  }, [campaignIdNum, apiCampaign, locale, d, idea, id, p]);
 
   const remaining = Math.max(0, bundle.goalEtb - bundle.raisedEtb);
-  const pct = idea ? idea.fundedPercent : Math.min(100, Math.round((bundle.raisedEtb / bundle.goalEtb) * 100));
+  const pct = idea
+    ? idea.fundedPercent
+    : bundle.goalEtb > 0
+      ? Math.min(100, Math.round((bundle.raisedEtb / bundle.goalEtb) * 100))
+      : 0;
 
   useEffect(() => {
     setStep(1);
@@ -169,13 +202,34 @@ export default function ProjectInvestPage() {
     return null;
   }
 
+  if (campaignIdNum != null && apiLoading && !apiCampaign) {
+    return (
+      <div className={`flex min-h-screen items-center justify-center px-4 ${isDark ? "bg-zinc-950 text-zinc-200" : "bg-zinc-50 text-zinc-800"}`}>
+        <p className="text-sm font-medium">…</p>
+      </div>
+    );
+  }
+
+  if (campaignIdNum != null && !apiLoading && !apiCampaign && apiError) {
+    return (
+      <div
+        className={`flex min-h-screen flex-col items-center justify-center gap-4 px-4 ${isDark ? "bg-zinc-950 text-zinc-200" : "bg-zinc-50 text-zinc-800"}`}
+      >
+        <p>{p.notFound}</p>
+        <Link href="/" className="text-primary-500 underline">
+          {p.backDiscovery}
+        </Link>
+      </div>
+    );
+  }
+
   if (!idea) {
     return (
       <div
         className={`flex min-h-screen flex-col items-center justify-center gap-4 px-4 ${isDark ? "bg-zinc-950 text-zinc-200" : "bg-zinc-50 text-zinc-800"}`}
       >
         <p>{p.notFound}</p>
-        <Link href="/discovery" className="text-primary-500 underline">
+        <Link href="/" className="text-primary-500 underline">
           {p.backDiscovery}
         </Link>
       </div>
@@ -257,7 +311,7 @@ export default function ProjectInvestPage() {
                     {inv.messageInnovator}
                   </Link>
                   <Link
-                    href="/discovery"
+                    href="/"
                     className={`rounded-xl border py-3 text-center text-sm font-semibold ${isDark ? "border-white/20 hover:bg-white/10" : "border-zinc-300 hover:bg-zinc-100"}`}
                   >
                     {inv.browseMore}

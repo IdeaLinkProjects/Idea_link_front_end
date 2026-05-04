@@ -12,6 +12,7 @@ export {
   useLazyGetCampaignDocumentByIdQuery,
   useDeleteCampaignMutation,
   useGetMyCampaignsQuery,
+  useFilterCampaignsQuery,
   useUpdateCampaignMutation,
   useUploadCampaignDocumentMutation,
   useUploadCampaignImageMutation,
@@ -36,6 +37,7 @@ export {
   useCreateInnovatorProfileMutation,
   useCompleteInnovatorProfileMutation,
 } from "./api/profileApi";
+export { CAMPAIGN_FILTER_STATUS_OPTIONS } from "./api/Campaigns";
 export type {
   CampaignDocument,
   CreateCampaignRequestBody,
@@ -49,6 +51,8 @@ export type {
   UploadCampaignDocumentArg,
   UploadCampaignImageResponse,
   CampaignTag,
+  CampaignFilterRequestBody,
+  CampaignFilterFilters,
 } from "./api/Campaigns";
 export type {
   CompanyCampaignStats,

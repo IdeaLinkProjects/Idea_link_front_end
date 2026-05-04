@@ -137,7 +137,7 @@ export default function DashboardHomePage() {
             </div>
 
             <Link
-              href="/discovery"
+              href="/"
               className="flex w-full items-center justify-center rounded-2xl bg-primary-950 px-6 py-4 text-center text-base font-semibold text-white shadow-xl shadow-primary-950/40 transition hover:bg-primary-900 sm:py-4"
             >
               {iv.browseProjects}

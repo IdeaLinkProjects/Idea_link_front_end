@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { CampaignTag } from "@/store";
 import { useGetCampaignTagsQuery, useLazySearchCampaignTagsQuery } from "@/store";
 
 const SEARCH_DEBOUNCE_MS = 280;
@@ -53,8 +54,8 @@ export function CampaignTagPicker({ fieldId = "campaign-tags-search", selectedId
 
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
 
-  const suggestions = useMemo(() => {
-    const excludeSelected = (list: { id: number; name: string }[]) => list.filter((x) => !selectedSet.has(x.id));
+  const suggestions = useMemo((): CampaignTag[] => {
+    const excludeSelected = (list: CampaignTag[]) => list.filter((x) => !selectedSet.has(x.id));
 
     if (debouncedSearch) {
       return excludeSelected(searchHits);

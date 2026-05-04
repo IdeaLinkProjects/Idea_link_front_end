@@ -112,6 +112,36 @@ export type CampaignTag = {
   campaignCount: number;
 };
 
+/** Values sent to POST /public/filter — must match backend campaign status enum. */
+export const CAMPAIGN_FILTER_STATUS_OPTIONS = ["ACTIVE", "FUNDED", "FUNDS_RELEASED"] as const;
+
+export type CampaignFilterPagination = {
+  page: number;
+  size: number;
+};
+
+/** Body for POST /campaigns/filter — optional date/range fields sent only when set. */
+export type CampaignFilterFilters = {
+  keyword: string;
+  statuses: string[];
+  tagIds: number[];
+  activeNow: boolean;
+  funded: boolean;
+  startDateFrom?: string;
+  startDateTo?: string;
+  endDateFrom?: string;
+  endDateTo?: string;
+  minFundingGoal?: number;
+  maxFundingGoal?: number;
+  minInvestment?: number;
+  maxInvestment?: number;
+};
+
+export type CampaignFilterRequestBody = {
+  pagination: CampaignFilterPagination;
+  filters: CampaignFilterFilters;
+};
+
 export const campaignsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getMyCampaigns: build.query<MyCampaignsResponse, MyCampaignsRequestBody>({
@@ -125,9 +155,16 @@ export const campaignsApi = baseApi.injectEndpoints({
       }),
       providesTags: ["Profile"],
     }),
+    filterCampaigns: build.query<MyCampaignsResponse, CampaignFilterRequestBody>({
+      query: (body) => ({
+        url: "public/campaign/filter",
+        method: "POST",
+        body,
+      }),
+    }),
     getCampaignById: build.query<MyCampaign, number>({
       query: (id) => ({
-        url: `campaigns/${id}`,
+        url: `public/campaign/${id}`,
         method: "GET",
       }),
       providesTags: (_result, _err, id) => [{ type: "Profile", id: `campaign-${id}` }, "Profile"],
@@ -202,6 +239,7 @@ export const campaignsApi = baseApi.injectEndpoints({
 
 export const {
   useGetMyCampaignsQuery,
+  useFilterCampaignsQuery,
   useGetCampaignByIdQuery,
   useCreateCampaignMutation,
   useUpdateCampaignMutation,
