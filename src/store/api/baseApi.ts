@@ -9,6 +9,6 @@ export const baseApi = createApi({
     baseUrl,
     prepareHeaders: (headers, api) => prepareAuthorizedApiHeaders(headers, api),
   }),
-  tagTypes: ["Auth", "Kyc", "Profile"],
+  tagTypes: ["Auth", "Kyc", "Profile", "Notifications"],
   endpoints: () => ({}),
 });

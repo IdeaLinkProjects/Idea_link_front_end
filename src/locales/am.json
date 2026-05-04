@@ -485,7 +485,29 @@
     "navProfileDropdown": "መገለጫ",
     "navSettings": "ቅንብሮች",
     "navCompany": "የእኔ ኩባንያ",
-    "navPayment": "ክፍያ"
+    "navPayment": "ክፍያ",
+    "notificationsMenu": {
+      "title": "ማስታወቂያዎች",
+      "unreadSummary": "{n} ያልተነበቡ",
+      "unreadCountAria": "{n} ያልተነበቡ",
+      "allCaughtUp": "ሁሉንም አይተዋል።",
+      "markAllRead": "ሁሉንም እንደተነበቡ ምልክት",
+      "markingAll": "በመምልከት ላይ…",
+      "loading": "በመጫን ላይ…",
+      "loadError": "ማስታወቂያዎችን ማምጣት አልተሳካም።",
+      "retry": "እንደገና ሞክር",
+      "empty": "እስካሁን ምንም ማስታወቂያ የለም።",
+      "prev": "ቀዳሚ",
+      "next": "ቀጣይ",
+      "pageOf": "ገጽ {current} ከ {total}",
+      "justNow": "አሁን",
+      "minutesAgo": "ከ {n} ደቂቃ በፊት",
+      "hoursAgo": "ከ {n} ሰዓት በፊት",
+      "yesterday": "ትላንት",
+      "openAction": "ክፈት",
+      "deleteAria": "ማስታወቂያ አስወግድ",
+      "manageInSettings": "የማስታወቂያ ምርጫዎች"
+    }
   },
   "companyPage": {
     "metaTitle": "የእኔ ኩባንያ | IdealLink",

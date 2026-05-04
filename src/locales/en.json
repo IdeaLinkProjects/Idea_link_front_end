@@ -485,7 +485,29 @@
     "navProfileDropdown": "Profile",
     "navSettings": "Settings",
     "navCompany": "My company",
-    "navPayment": "Payment"
+    "navPayment": "Payment",
+    "notificationsMenu": {
+      "title": "Notifications",
+      "unreadSummary": "{n} unread",
+      "unreadCountAria": "{n} unread",
+      "allCaughtUp": "You are all caught up.",
+      "markAllRead": "Mark all read",
+      "markingAll": "Marking…",
+      "loading": "Loading…",
+      "loadError": "Could not load notifications.",
+      "retry": "Retry",
+      "empty": "No notifications yet.",
+      "prev": "Previous",
+      "next": "Next",
+      "pageOf": "Page {current} of {total}",
+      "justNow": "Just now",
+      "minutesAgo": "{n} min ago",
+      "hoursAgo": "{n} h ago",
+      "yesterday": "Yesterday",
+      "openAction": "Open",
+      "deleteAria": "Remove notification",
+      "manageInSettings": "Notification preferences"
+    }
   },
   "companyPage": {
     "metaTitle": "My company | IdealLink",
