@@ -1,10 +1,11 @@
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
-import { useCallback, useMemo, useState, type FormEvent } from "react";
+import { myCampaignToDiscoveryIdea, myCampaignToPublicBundle, type DiscoveryIdeaView } from "@/lib/campaign/fromMyCampaign";
+import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
 import { type Locale, messages } from "@/locales";
+import { useGetCampaignByIdQuery } from "@/store";
 
 type CategoryKey = keyof typeof messages.en.discovery.categories;
 
@@ -65,9 +66,26 @@ export default function ProjectDetailPage() {
   const d = t.discovery;
   const p = t.projectDetail;
 
-  const idea = useMemo(() => d.ideas.find((i) => i.id === id), [d.ideas, id]);
+  const campaignIdNum = useMemo(() => {
+    const n = Number.parseInt(id, 10);
+    return Number.isInteger(n) && n > 0 ? n : null;
+  }, [id]);
+
+  const { data: apiCampaign, isLoading: apiLoading, isError: apiError } = useGetCampaignByIdQuery(campaignIdNum!, {
+    skip: campaignIdNum == null,
+  });
+
+  const idea = useMemo((): DiscoveryIdeaView | null => {
+    if (campaignIdNum != null && apiCampaign) {
+      return myCampaignToDiscoveryIdea(apiCampaign, locale);
+    }
+    return (d.ideas as unknown as DiscoveryIdeaView[]).find((i) => i.id === id) ?? null;
+  }, [campaignIdNum, apiCampaign, d.ideas, id, locale]);
 
   const bundle = useMemo((): ProjectBundle => {
+    if (campaignIdNum != null && apiCampaign) {
+      return myCampaignToPublicBundle(apiCampaign, locale, p);
+    }
     const raw = p.projects[id as keyof typeof p.projects];
     if (raw && typeof raw === "object" && "goalEtb" in raw) {
       return raw as unknown as ProjectBundle;
@@ -105,7 +123,8 @@ export default function ProjectDetailPage() {
     }
     const goalNum = parseGoalEtb(idea.goalEtb);
     const raised = Math.round((goalNum * idea.fundedPercent) / 100);
-    const similar = d.ideas.filter((x) => x.id !== idea.id).slice(0, 3).map((x) => x.id);
+    const mockIdeas = d.ideas as unknown as DiscoveryIdeaView[];
+    const similar = mockIdeas.filter((x) => x.id !== idea.id).slice(0, 3).map((x) => x.id);
     return {
       innovatorName: p.innovatorFallback,
       postedDate: p.postedFallback,
@@ -139,22 +158,34 @@ export default function ProjectDetailPage() {
       documents: [],
       qa: [],
     };
-  }, [d, idea, id, p]);
+  }, [campaignIdNum, apiCampaign, locale, d, idea, id, p]);
 
   const catLabel =
     idea && idea.categoryKey in d.categories ? d.categories[idea.categoryKey as CategoryKey] : idea?.categoryKey ?? "";
 
-  const pct = idea ? idea.fundedPercent : Math.min(100, Math.round((bundle.raisedEtb / bundle.goalEtb) * 100));
+  const pct = idea
+    ? idea.fundedPercent
+    : bundle.goalEtb > 0
+      ? Math.min(100, Math.round((bundle.raisedEtb / bundle.goalEtb) * 100))
+      : 0;
+
+  useEffect(() => {
+    if (bundle.minInvestmentEtb > 0) {
+      setCalcAmount((prev) => (prev < bundle.minInvestmentEtb ? bundle.minInvestmentEtb : prev));
+    }
+  }, [bundle.minInvestmentEtb]);
   const equityPreview = useMemo(() => {
     if (bundle.goalEtb <= 0) return 0;
     const raw = (calcAmount / bundle.goalEtb) * bundle.equityOfferedPct;
     return Math.min(bundle.equityOfferedPct, Math.max(0, raw));
   }, [calcAmount, bundle.goalEtb, bundle.equityOfferedPct]);
 
-  const similarIdeas = useMemo(() => {
-    const ids = bundle.similarIds.length ? bundle.similarIds : d.ideas.filter((x) => x.id !== id).slice(0, 3).map((x) => x.id);
-    return ids.map((sid) => d.ideas.find((i) => i.id === sid)).filter(Boolean) as typeof d.ideas;
-  }, [bundle, d, id]);
+  const similarIdeas = useMemo((): DiscoveryIdeaView[] => {
+    if (campaignIdNum != null && apiCampaign) return [];
+    const ideas = d.ideas as unknown as DiscoveryIdeaView[];
+    const ids = bundle.similarIds.length ? bundle.similarIds : ideas.filter((x) => x.id !== id).slice(0, 3).map((x) => x.id);
+    return ids.map((sid) => ideas.find((i) => i.id === sid)).filter(Boolean) as DiscoveryIdeaView[];
+  }, [apiCampaign, bundle, campaignIdNum, d.ideas, id]);
 
   const showToast = useCallback((msg: string) => {
     setToast(msg);
@@ -186,13 +217,34 @@ export default function ProjectDetailPage() {
     return null;
   }
 
+  if (campaignIdNum != null && apiLoading && !apiCampaign) {
+    return (
+      <div className={`flex min-h-screen items-center justify-center px-4 ${isDark ? "bg-zinc-950 text-zinc-200" : "bg-zinc-50 text-zinc-800"}`}>
+        <p className="text-sm font-medium">…</p>
+      </div>
+    );
+  }
+
+  if (campaignIdNum != null && !apiLoading && !apiCampaign && apiError) {
+    return (
+      <div
+        className={`flex min-h-screen flex-col items-center justify-center gap-4 px-4 ${isDark ? "bg-zinc-950 text-zinc-200" : "bg-zinc-50 text-zinc-800"}`}
+      >
+        <p>{p.notFound}</p>
+        <Link href="/" className="text-primary-500 underline">
+          {p.backDiscovery}
+        </Link>
+      </div>
+    );
+  }
+
   if (!idea) {
     return (
       <div
         className={`flex min-h-screen flex-col items-center justify-center gap-4 px-4 ${isDark ? "bg-zinc-950 text-zinc-200" : "bg-zinc-50 text-zinc-800"}`}
       >
         <p>{p.notFound}</p>
-        <Link href="/discovery" className="text-primary-500 underline">
+        <Link href="/" className="text-primary-500 underline">
           {p.backDiscovery}
         </Link>
       </div>
@@ -226,7 +278,7 @@ export default function ProjectDetailPage() {
           className={`sticky top-0 z-50 border-b backdrop-blur-xl ${isDark ? "border-white/10 bg-zinc-950/90" : "border-zinc-200 bg-white/90"}`}
         >
           <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
-            <Link href="/discovery" className="text-sm font-semibold text-primary-500 hover:underline">
+            <Link href="/" className="text-sm font-semibold text-primary-500 hover:underline">
               ← {p.backDiscovery}
             </Link>
             <Link href="/" className="text-lg font-bold">
@@ -275,14 +327,8 @@ export default function ProjectDetailPage() {
               <div
                 className={`relative mb-6 aspect-[21/9] w-full overflow-hidden rounded-2xl border sm:aspect-[2/1] ${isDark ? "border-white/10" : "border-zinc-200"}`}
               >
-                <Image
-                  src={idea.image}
-                  alt={idea.name}
-                  fill
-                  priority
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 1200px"
-                />
+                {/* eslint-disable-next-line @next/next/no-img-element -- campaign hero URLs come from the API */}
+                <img src={idea.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
               </div>
 
               <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{idea.name}</h1>
@@ -536,21 +582,23 @@ export default function ProjectDetailPage() {
                 </ul>
               </div>
 
-              <div className={`rounded-2xl border p-5 ${card}`}>
-                <h2 className="text-sm font-bold uppercase tracking-wide text-primary-500">{p.similarTitle}</h2>
-                <ul className="mt-4 space-y-4">
-                  {similarIdeas.map((s) => (
-                    <li key={s.id}>
-                      <Link href={`/projects/${s.id}`} className="group block">
-                        <p className="font-semibold group-hover:text-primary-500">{s.name}</p>
-                        <p className={`text-xs ${muted}`}>
-                          {s.fundedPercent}% · {s.categoryIcon}
-                        </p>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {similarIdeas.length > 0 ? (
+                <div className={`rounded-2xl border p-5 ${card}`}>
+                  <h2 className="text-sm font-bold uppercase tracking-wide text-primary-500">{p.similarTitle}</h2>
+                  <ul className="mt-4 space-y-4">
+                    {similarIdeas.map((s) => (
+                      <li key={s.id}>
+                        <Link href={`/projects/${s.id}`} className="group block">
+                          <p className="font-semibold group-hover:text-primary-500">{s.name}</p>
+                          <p className={`text-xs ${muted}`}>
+                            {s.fundedPercent}% · {s.categoryIcon}
+                          </p>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
             </aside>
           </div>
         </main>

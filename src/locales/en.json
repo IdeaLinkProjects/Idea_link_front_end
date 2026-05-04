@@ -12,6 +12,8 @@
     "discover": "Discover",
     "login": "Login",
     "register": "Register",
+    "dashboard": "Dashboard",
+    "language": "Language",
     "themeLight": "Light",
     "themeDark": "Dark",
     "langEnglish": "EN",
@@ -71,7 +73,7 @@
   "discovery": {
     "meta": {
       "title": "Discovery | IdealLink",
-      "description": "Explore crowdfunding projects across Ethiopia—search, filter by category, and find ideas to support."
+      "description": "Explore crowdfunding projects across Ethiopia search, filter by category, and find ideas to support."
     },
     "heading": "Discovery",
     "searchPlaceholder": "Search projects…",
@@ -89,107 +91,48 @@
     "resultsLabel": "projects",
     "noResults": "No projects match your search or category.",
     "goalLabel": "Goal",
-    "ideas": [
-      {
-        "id": "solar-dryer-farmers",
-        "name": "Solar Dryer for Farmers",
-        "description": "Efficient solar dryers cut post-harvest loss for smallholder farmers in sun-rich regions.",
-        "categoryKey": "agriculture",
-        "categoryIcon": "☀️",
-        "fundedPercent": 65,
-        "daysRemaining": 15,
-        "goalEtb": "45,000 ETB",
-        "image": "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80&auto=format&fit=crop"
+    "filterUi": {
+      "sidebarTitle": "Filters",
+      "advancedSearch": "Advanced search",
+      "keywordLabel": "Search",
+      "clearKeyword": "Clear",
+      "statusTitle": "Status",
+      "statusLabels": {
+        "ACTIVE": "Active",
+        "FUNDED": "Funded",
+        "FUNDS_RELEASED": "Funds released"
       },
-      {
-        "id": "solar-irrigation",
-        "name": "Solar Irrigation for Oromia Farms",
-        "description": "Affordable solar-powered irrigation kits for smallholder farmers.",
-        "categoryKey": "agriculture",
-        "categoryIcon": "🌱",
-        "fundedPercent": 72,
-        "daysRemaining": 14,
-        "goalEtb": "500K ETB",
-        "image": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&q=80&auto=format&fit=crop"
-      },
-      {
-        "id": "textile-marketplace",
-        "name": "Local Textile Export Marketplace",
-        "description": "Connects weavers and exporters with transparent pricing.",
-        "categoryKey": "commerce",
-        "categoryIcon": "🧵",
-        "fundedPercent": 54,
-        "daysRemaining": 21,
-        "goalEtb": "1.2M ETB",
-        "image": "https://images.unsplash.com/photo-1615529328331-f8917597711f?w=800&q=80&auto=format&fit=crop"
-      },
-      {
-        "id": "learning-app",
-        "name": "Smart Learning App in Amharic",
-        "description": "Mobile lessons and assessments for grades 5–8.",
-        "categoryKey": "education",
-        "categoryIcon": "📱",
-        "fundedPercent": 88,
-        "daysRemaining": 7,
-        "goalEtb": "750K ETB",
-        "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80&auto=format&fit=crop"
-      },
-      {
-        "id": "clinic-upgrade",
-        "name": "Rural Clinic Lab Equipment",
-        "description": "Basic diagnostics tools for a clinic serving 15,000 people.",
-        "categoryKey": "health",
-        "categoryIcon": "🩺",
-        "fundedPercent": 41,
-        "daysRemaining": 30,
-        "goalEtb": "890K ETB",
-        "image": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80&auto=format&fit=crop"
-      },
-      {
-        "id": "coffee-cooperative",
-        "name": "Sidama Coffee Cooperative Expansion",
-        "description": "Processing facility upgrade and fair-trade certification support.",
-        "categoryKey": "agriculture",
-        "categoryIcon": "☕",
-        "fundedPercent": 63,
-        "daysRemaining": 18,
-        "goalEtb": "2.1M ETB",
-        "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80&auto=format&fit=crop"
-      },
-      {
-        "id": "fintech-savings",
-        "name": "Community Savings Group App",
-        "description": "Digitizes rotating savings groups with SMS fallbacks.",
-        "categoryKey": "technology",
-        "categoryIcon": "💳",
-        "fundedPercent": 35,
-        "daysRemaining": 45,
-        "goalEtb": "600K ETB",
-        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop"
-      },
-      {
-        "id": "minigrid",
-        "name": "Village Mini-Grid Pilot",
-        "description": "Renewable mini-grid for a kebele without grid access.",
-        "categoryKey": "energy",
-        "categoryIcon": "⚡",
-        "fundedPercent": 79,
-        "daysRemaining": 12,
-        "goalEtb": "3.5M ETB",
-        "image": "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80&auto=format&fit=crop"
-      },
-      {
-        "id": "women-mfg",
-        "name": "Women-led Manufacturing Hub",
-        "description": "Shared workspace and tooling for light manufacturing startups.",
-        "categoryKey": "commerce",
-        "categoryIcon": "🏭",
-        "fundedPercent": 22,
-        "daysRemaining": 52,
-        "goalEtb": "1.8M ETB",
-        "image": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80&auto=format&fit=crop"
-      }
-    ]
+      "tagsTitle": "Tags",
+      "tagsEmpty": "No tags available.",
+      "datesTitle": "Campaign dates",
+      "startFrom": "Start from",
+      "startTo": "Start to",
+      "endFrom": "End from",
+      "endTo": "End to",
+      "fundingTitle": "Funding goal (ETB)",
+      "fundingMin": "Min",
+      "fundingMax": "Max",
+      "investmentTitle": "Min investment (ETB)",
+      "investmentMin": "Min",
+      "investmentMax": "Max",
+      "activeNow": "Active now",
+      "funded": "Fully funded",
+      "apply": "Apply filters",
+      "reset": "Reset",
+      "resultsCount": "{count} campaigns",
+      "sortNewest": "Newest",
+      "prev": "Previous",
+      "next": "Next",
+      "pageOf": "Page {page} of {total}",
+      "loadError": "Could not load campaigns.",
+      "retry": "Try again",
+      "raised": "Raised",
+      "investors": "Investors",
+      "company": "Company",
+      "ends": "Ends",
+      "posted": "Posted"
+    },
+    "ideas": []
   },
   "projectDetail": {
     "notFound": "Project not found.",
