@@ -12,10 +12,8 @@ type CreateCampaignHeroUploadProps = {
   isUploading: boolean;
   uploadError: string | null;
   uploadedUrl: string | null;
-  copied: boolean;
   onFileChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
   onPickFile: () => void;
-  onCopyUrl: () => void;
 };
 
 export function CreateCampaignHeroUpload({
@@ -27,10 +25,8 @@ export function CreateCampaignHeroUpload({
   isUploading,
   uploadError,
   uploadedUrl,
-  copied,
   onFileChange,
   onPickFile,
-  onCopyUrl,
 }: CreateCampaignHeroUploadProps) {
   return (
     <div className={`md:col-span-2 ${sectionCardClass}`}>
@@ -57,30 +53,6 @@ export function CreateCampaignHeroUpload({
           <div className="overflow-hidden rounded-lg border border-black/10 dark:border-white/10">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={uploadedUrl} alt={t.heroPreviewAlt} className="max-h-40 w-full object-cover" />
-          </div>
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-start">
-            <input
-              type="text"
-              readOnly
-              value={uploadedUrl}
-              className={`min-w-0 flex-1 truncate rounded-xl border px-3 py-2 font-mono text-xs ${
-                isDark ? "border-white/15 bg-zinc-950 text-zinc-100" : "border-zinc-200 bg-white text-zinc-800"
-              }`}
-              aria-label={t.uploadedUrlAria}
-            />
-            <button
-              type="button"
-              onClick={onCopyUrl}
-              className={`shrink-0 rounded-xl border px-4 py-2 text-sm font-semibold ${
-                copied
-                  ? "border-emerald-500/50 bg-emerald-500/15 text-emerald-200 dark:text-emerald-200"
-                  : isDark
-                    ? "border-zinc-500 text-zinc-200 hover:bg-white/10"
-                    : "border-zinc-300 text-zinc-800 hover:bg-zinc-100"
-              }`}
-            >
-              {copied ? t.copied : t.copy}
-            </button>
           </div>
         </div>
       ) : null}

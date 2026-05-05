@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { type ChangeEvent, type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { rowsToStoryRisksJson } from "@/components/profile/create-campaign/rowsToJson";
 import { type CreateCampaignForm, emptyStoryRisksRow } from "@/components/profile/create-campaign/types";
-import { copyTextToClipboard, isoToDatetimeLocal, toIsoFromLocalDateTime } from "@/components/profile/create-campaign/utils";
+import { isoToDatetimeLocal, toIsoFromLocalDateTime } from "@/components/profile/create-campaign/utils";
 import { useKeyedRows } from "@/components/profile/create-campaign/useKeyedRows";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
@@ -36,7 +36,6 @@ export function useEditCampaignForm(campaignId: number) {
   const heroImageFileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedHeroImageUrl, setUploadedHeroImageUrl] = useState<string | null>(null);
   const [heroUploadError, setHeroUploadError] = useState<string | null>(null);
-  const [copiedHeroUrl, setCopiedHeroUrl] = useState(false);
 
   const didInitRef = useRef(false);
   /** `undefined` until campaign loaded; `null` if campaign has no tag names; otherwise names pending ID resolution */
@@ -130,7 +129,6 @@ export function useEditCampaignForm(campaignId: number) {
     const file = ev.target.files?.[0];
     ev.target.value = "";
     setHeroUploadError(null);
-    setCopiedHeroUrl(false);
     setUploadedHeroImageUrl(null);
 
     if (!file) return;
@@ -154,17 +152,9 @@ export function useEditCampaignForm(campaignId: number) {
         return;
       }
       setUploadedHeroImageUrl(url);
+      setForm((prev) => (prev ? { ...prev, heroImageUrl: url } : prev));
     } catch (err) {
       setHeroUploadError(extractApiErrorMessage(err, tFields.errors.imageUploadFailed));
-    }
-  }
-
-  async function handleCopyUploadedHeroUrl() {
-    if (!uploadedHeroImageUrl) return;
-    const ok = await copyTextToClipboard(uploadedHeroImageUrl);
-    if (ok) {
-      setCopiedHeroUrl(true);
-      window.setTimeout(() => setCopiedHeroUrl(false), 2000);
     }
   }
 
@@ -179,6 +169,10 @@ export function useEditCampaignForm(campaignId: number) {
     }
     if (!form.shortDescription.trim()) {
       setErrorMessage(tFields.errors.shortDescriptionRequired);
+      return;
+    }
+    if (!form.heroImageUrl.trim()) {
+      setErrorMessage(tFields.errors.heroImageRequired);
       return;
     }
 
@@ -262,9 +256,7 @@ export function useEditCampaignForm(campaignId: number) {
     heroImageFileInputRef,
     uploadedHeroImageUrl,
     heroUploadError,
-    copiedHeroUrl,
     handleHeroImageFileChange,
-    handleCopyUploadedHeroUrl,
     ...styles,
   };
 }

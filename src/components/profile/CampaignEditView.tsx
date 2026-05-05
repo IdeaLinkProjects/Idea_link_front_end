@@ -34,9 +34,7 @@ export function CampaignEditView({ campaignId }: CampaignEditViewProps) {
     heroImageFileInputRef,
     uploadedHeroImageUrl,
     heroUploadError,
-    copiedHeroUrl,
     handleHeroImageFileChange,
-    handleCopyUploadedHeroUrl,
     inputClass,
     cardClass,
     sectionCardClass,
@@ -150,25 +148,9 @@ export function CampaignEditView({ campaignId }: CampaignEditViewProps) {
               isUploading={isHeroImageUploading}
               uploadError={heroUploadError}
               uploadedUrl={uploadedHeroImageUrl}
-              copied={copiedHeroUrl}
               onFileChange={handleHeroImageFileChange}
               onPickFile={() => heroImageFileInputRef.current?.click()}
-              onCopyUrl={() => void handleCopyUploadedHeroUrl()}
             />
-
-            <div className="md:col-span-2">
-              <label htmlFor="edit-campaign-hero-image" className={labelClass}>
-                {tFields.heroImageUrl}
-              </label>
-              <input
-                id="edit-campaign-hero-image"
-                type="url"
-                value={form.heroImageUrl}
-                onChange={(e) => updateField("heroImageUrl", e.target.value)}
-                placeholder={tFields.urlPlaceholder}
-                className={inputClass}
-              />
-            </div>
 
             <div>
               <label htmlFor="edit-campaign-funding-goal" className={labelClass}>

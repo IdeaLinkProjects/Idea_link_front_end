@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { type ChangeEvent, type FormEvent, useMemo, useRef, useState } from "react";
 import { rowsToStoryRisksJson } from "@/components/profile/create-campaign/rowsToJson";
 import { type CreateCampaignForm, initialCreateCampaignForm } from "@/components/profile/create-campaign/types";
-import { copyTextToClipboard, toIsoFromLocalDateTime } from "@/components/profile/create-campaign/utils";
+import { toIsoFromLocalDateTime } from "@/components/profile/create-campaign/utils";
 import { useKeyedRows } from "@/components/profile/create-campaign/useKeyedRows";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
@@ -19,7 +19,6 @@ export function useCreateCampaignForm() {
   const heroImageFileInputRef = useRef<HTMLInputElement>(null);
   const [uploadedHeroImageUrl, setUploadedHeroImageUrl] = useState<string | null>(null);
   const [heroUploadError, setHeroUploadError] = useState<string | null>(null);
-  const [copiedHeroUrl, setCopiedHeroUrl] = useState(false);
 
   const [form, setForm] = useState<CreateCampaignForm>(initialCreateCampaignForm);
   const storyKeyed = useKeyedRows();
@@ -56,7 +55,6 @@ export function useCreateCampaignForm() {
     const file = ev.target.files?.[0];
     ev.target.value = "";
     setHeroUploadError(null);
-    setCopiedHeroUrl(false);
     setUploadedHeroImageUrl(null);
 
     if (!file) return;
@@ -80,17 +78,9 @@ export function useCreateCampaignForm() {
         return;
       }
       setUploadedHeroImageUrl(url);
+      setForm((prev) => ({ ...prev, heroImageUrl: url }));
     } catch (err) {
       setHeroUploadError(extractApiErrorMessage(err, t.errors.imageUploadFailed));
-    }
-  }
-
-  async function handleCopyUploadedHeroUrl() {
-    if (!uploadedHeroImageUrl) return;
-    const ok = await copyTextToClipboard(uploadedHeroImageUrl);
-    if (ok) {
-      setCopiedHeroUrl(true);
-      window.setTimeout(() => setCopiedHeroUrl(false), 2000);
     }
   }
 
@@ -104,6 +94,10 @@ export function useCreateCampaignForm() {
     }
     if (!form.shortDescription.trim()) {
       setErrorMessage(t.errors.shortDescriptionRequired);
+      return;
+    }
+    if (!form.heroImageUrl.trim()) {
+      setErrorMessage(t.errors.heroImageRequired);
       return;
     }
 
@@ -179,9 +173,7 @@ export function useCreateCampaignForm() {
     heroImageFileInputRef,
     uploadedHeroImageUrl,
     heroUploadError,
-    copiedHeroUrl,
     handleHeroImageFileChange,
-    handleCopyUploadedHeroUrl,
     ...styles,
   };
 }
