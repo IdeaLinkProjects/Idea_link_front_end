@@ -55,51 +55,53 @@ export function ProjectDetailTabPanels({ isDark, p, bundle, tab, onDocPreview }:
           <p className={`mt-4 text-base leading-relaxed sm:text-[1.05rem] ${muted}`}>{bundle.solution}</p>
         </SectionCard>
         <SectionCard isDark={isDark}>
-          <h2 className={title}>{p.overview.teamTitle}</h2>
-          <p className={`mt-4 whitespace-pre-line text-base leading-relaxed sm:text-[1.05rem] ${muted}`}>{bundle.team}</p>
+          <h2 className={title}>{p.aboutCampaignTitle}</h2>
+          {bundle.storySections.length > 0 ? (
+            <ul className="mt-4 space-y-4">
+              {bundle.storySections.map((section, i) => (
+                <li key={`${section.title}-${i}`} className={`rounded-xl border p-4 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-zinc-200 bg-zinc-50/60"}`}>
+                  <h3 className={`text-base font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{section.title}</h3>
+                  <p className={`mt-2 text-base leading-relaxed ${muted}`}>{section.description}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className={`mt-4 whitespace-pre-line text-base leading-relaxed sm:text-[1.05rem] ${muted}`}>{bundle.problem}</p>
+          )}
         </SectionCard>
         <SectionCard isDark={isDark}>
-          <h2 className={title}>{p.overview.timelineTitle}</h2>
-          <ol className="mt-5 space-y-4">
-            {bundle.timeline.map((row, i) => (
-              <li key={i} className="flex gap-4">
-                <span
-                  className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-sm font-bold shadow-sm ${
-                    row.done
-                      ? "bg-gradient-to-br from-primary-700 to-primary-950 text-white"
-                      : isDark
-                        ? "border border-white/10 bg-zinc-800 text-zinc-300"
-                        : "border border-zinc-200 bg-zinc-100 text-zinc-600"
-                  }`}
+          <h2 className={title}>{p.companyTitle}</h2>
+          {bundle.companyProfile ? (
+            <div className={`mt-4 rounded-xl border p-4 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-zinc-200 bg-zinc-50/60"}`}>
+              <div className="flex items-center gap-3">
+                {bundle.companyProfile.logoUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element -- company logo URL comes from API
+                  <img src={bundle.companyProfile.logoUrl} alt={bundle.companyProfile.name} className="h-12 w-12 rounded-xl object-cover" />
+                ) : (
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl text-xs font-bold ${isDark ? "bg-zinc-800 text-zinc-300" : "bg-zinc-200 text-zinc-700"}`}>
+                    {bundle.companyProfile.name.slice(0, 2).toUpperCase() || "—"}
+                  </div>
+                )}
+                <div className="min-w-0">
+                  <h3 className={`truncate text-base font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{bundle.companyProfile.name}</h3>
+                  <p className={`truncate text-sm ${muted}`}>{bundle.companyProfile.industry || "—"}</p>
+                </div>
+              </div>
+              <p className={`mt-3 text-sm leading-relaxed ${muted}`}>{bundle.companyProfile.description || "—"}</p>
+              {bundle.companyProfile.website ? (
+                <a
+                  href={bundle.companyProfile.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`mt-3 inline-flex text-sm font-semibold ${isDark ? "text-primary-300 hover:text-primary-200" : "text-primary-700 hover:text-primary-800"}`}
                 >
-                  {row.done ? "✓" : i + 1}
-                </span>
-                <div className="min-w-0 pt-0.5">
-                  <p className={`text-base font-semibold ${isDark ? "text-white" : "text-zinc-900"}`}>{row.milestone}</p>
-                  <p className={`mt-0.5 text-sm ${muted}`}>{row.date}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </SectionCard>
-        <SectionCard isDark={isDark} accent="emerald">
-          <h2 className={title}>{p.overview.fundsTitle}</h2>
-          <ul className="mt-5 space-y-4">
-            {bundle.funds.map((f, i) => (
-              <li key={i}>
-                <div className="flex justify-between text-sm font-semibold sm:text-base">
-                  <span className={isDark ? "text-zinc-200" : "text-zinc-800"}>{f.label}</span>
-                  <span className="tabular-nums text-primary-600 dark:text-primary-300">{f.percent}%</span>
-                </div>
-                <div className={`mt-2 h-2.5 overflow-hidden rounded-full ${isDark ? "bg-zinc-800" : "bg-zinc-100"}`}>
-                  <div
-                    className="h-full rounded-full bg-gradient-to-r from-primary-800 to-primary-500"
-                    style={{ width: `${f.percent}%` }}
-                  />
-                </div>
-              </li>
-            ))}
-          </ul>
+                  {bundle.companyProfile.website}
+                </a>
+              ) : null}
+            </div>
+          ) : (
+            <p className={`mt-4 text-base leading-relaxed ${muted}`}>{bundle.team}</p>
+          )}
         </SectionCard>
       </div>
     );
@@ -110,16 +112,18 @@ export function ProjectDetailTabPanels({ isDark, p, bundle, tab, onDocPreview }:
       <div className="mt-8 space-y-6">
         <SectionCard isDark={isDark} accent="amber">
           <h2 className={title}>{p.risks.disclosureTitle}</h2>
-          <p className={`mt-4 text-base leading-relaxed sm:text-[1.05rem] ${muted}`}>{bundle.risksDisclosure}</p>
-        </SectionCard>
-        <SectionCard isDark={isDark}>
-          <h2 className={title}>{p.risks.levelTitle}</h2>
-          <p className="mt-4 text-3xl font-extrabold tracking-tight text-primary-500 sm:text-4xl">{bundle.riskLevel}</p>
-          <p className={`mt-3 text-base leading-relaxed ${muted}`}>{bundle.riskLevelExplanation}</p>
-        </SectionCard>
-        <SectionCard isDark={isDark}>
-          <h2 className={title}>{p.risks.considerationsTitle}</h2>
-          <p className={`mt-4 text-base leading-relaxed sm:text-[1.05rem] ${muted}`}>{bundle.investorConsiderations}</p>
+          {bundle.riskSections.length > 0 ? (
+            <ul className="mt-4 space-y-4">
+              {bundle.riskSections.map((risk, i) => (
+                <li key={`${risk.title}-${i}`} className={`rounded-xl border p-4 ${isDark ? "border-white/10 bg-white/[0.03]" : "border-zinc-200 bg-zinc-50/60"}`}>
+                  <h3 className={`text-base font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{risk.title}</h3>
+                  <p className={`mt-2 text-base leading-relaxed ${muted}`}>{risk.description}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className={`mt-4 text-base leading-relaxed sm:text-[1.05rem] ${muted}`}>{bundle.risksDisclosure}</p>
+          )}
         </SectionCard>
       </div>
     );

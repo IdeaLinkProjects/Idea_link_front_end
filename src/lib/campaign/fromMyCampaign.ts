@@ -16,6 +16,13 @@ export type DiscoveryIdeaView = {
 
 export type PublicProjectBundle = {
   innovatorName: string;
+  companyProfile: {
+    name: string;
+    logoUrl: string | null;
+    description: string;
+    industry: string;
+    website: string;
+  } | null;
   postedDate: string;
   goalEtb: number;
   raisedEtb: number;
@@ -28,8 +35,10 @@ export type PublicProjectBundle = {
   problem: string;
   solution: string;
   team: string;
+  storySections: { title: string; description: string }[];
   timeline: { milestone: string; date: string; done: boolean }[];
   funds: { label: string; percent: number }[];
+  riskSections: { title: string; description: string }[];
   risksDisclosure: string;
   riskLevel: string;
   riskLevelExplanation: string;
@@ -63,6 +72,23 @@ function storyText(c: MyCampaign): string {
   }
   if (typeof raw === "object") return Object.values(raw as Record<string, string>).join("\n\n");
   return "";
+}
+
+function keyedSections(input: Record<string, string> | string | null | undefined): { title: string; description: string }[] {
+  if (!input) return [];
+  const toEntries = (obj: Record<string, string>) =>
+    Object.entries(obj)
+      .map(([title, description]) => ({ title: title.trim(), description: String(description ?? "").trim() }))
+      .filter((row) => row.title && row.description);
+  if (typeof input === "string") {
+    try {
+      return toEntries(JSON.parse(input) as Record<string, string>);
+    } catch {
+      return [];
+    }
+  }
+  if (typeof input === "object") return toEntries(input as Record<string, string>);
+  return [];
 }
 
 function risksText(c: MyCampaign): string {
@@ -102,10 +128,21 @@ type ProjectDetailCopy = (typeof messages.en)["projectDetail"];
 export function myCampaignToPublicBundle(c: MyCampaign, locale: Locale, p: ProjectDetailCopy): PublicProjectBundle {
   const story = storyText(c);
   const risks = risksText(c);
+  const storySections = keyedSections(c.storyJson);
+  const riskSections = keyedSections(c.risksJson);
   const companyBlock = c.company ? `${c.company.name}\n\n${c.company.description}` : p.fallback.team;
 
   return {
     innovatorName: c.company?.name ?? p.innovatorFallback,
+    companyProfile: c.company
+      ? {
+          name: c.company.name ?? "",
+          logoUrl: c.company.logoUrl ?? null,
+          description: c.company.description ?? "",
+          industry: c.company.industry ?? "",
+          website: c.company.website ?? "",
+        }
+      : null,
     postedDate: formatPosted(c.createdAt, locale),
     goalEtb: c.fundingGoal,
     raisedEtb: c.amountRaised,
@@ -118,6 +155,7 @@ export function myCampaignToPublicBundle(c: MyCampaign, locale: Locale, p: Proje
     problem: story || p.fallback.problem.replace("{name}", c.title),
     solution: p.fallback.solution.replace("{name}", c.title),
     team: companyBlock,
+    storySections,
     timeline: [
       { milestone: "Start", date: formatPosted(c.startDate, locale), done: true },
       { milestone: "End", date: formatPosted(c.endDate, locale), done: new Date(c.endDate) < new Date() },
@@ -129,6 +167,7 @@ export function myCampaignToPublicBundle(c: MyCampaign, locale: Locale, p: Proje
       { label: "Reserve", percent: 10 },
     ],
     risksDisclosure: risks || p.fallback.risksDisclosure,
+    riskSections,
     riskLevel: p.fallback.risksLevel,
     riskLevelExplanation: p.fallback.risksLevelExpl,
     investorConsiderations: p.fallback.risksConsiderations,

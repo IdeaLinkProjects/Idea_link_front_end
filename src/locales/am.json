@@ -140,6 +140,7 @@
     "verifiedInnovator": "የተረጋገጠ ፈጠራ ባለቤት",
     "innovatorFallback": "የዘመቻ ባለቤት",
     "innovatorLabel": "ፈጠራ ባለቤት",
+    "aboutCampaignTitle": "ስለዚህ ዘመቻ",
     "categoryLabel": "ምድብ",
     "postedLabel": "የተለጠፈበት",
     "postedFallback": "በመዝገብ ላይ",
@@ -1266,8 +1267,14 @@
     "cancelReplace": "ይተው",
     "allCompleteTitle": "ሁሉም የሚያስፈልጉ ሰነዶች ተሰቅለዋል",
     "allCompleteBody": "ዘመቻዎ አሁን ሙሉ የሰነድ ስብስብ አለው። ዘመቻውን ማየት ወይም ወደ ዝርዝር መመለስ ይችላሉ።",
+    "submitReadyDescription": "KYC ተረጋግጧል። ዘመቻውን አሁን ማስገባት ወይም እንደ ረቂቅ ማስቀመጥ ይችላሉ።",
+    "submitBlockedDescription": "ዘመቻውን ለማስገባት KYC እስኪፀድቅ ድረስ ይጠብቁ ወይም KYC ያስገቡ። እስከዚያ ድረስ እንደ ረቂቅ ማስቀመጥ እና KYC ማዘጋጀት ይችላሉ።",
+    "goToKyc": "ወደ KYC ማረጋገጫ ይሂዱ",
+    "submitCampaign": "ዘመቻ አስገባ",
+    "submittingCampaign": "በማስገባት ላይ…",
+    "submitSuccess": "ዘመቻው በተሳካ ሁኔታ ገብቷል።",
     "viewCampaign": "ዘመቻ ክፈት",
-    "continueToList": "ወደ ዘመቻዎች ተመለስ",
+    "saveDraft": "እንደ ረቂቅ አስቀምጥ",
     "footerHint": "እያንዳንዱ ክፍል አንድ የሚያስፈልግ የሰነድ አይነት ነው። የማመላከቻ ቁጥሩን ይሙሉ፣ ፋይል ያያይዙ፣ ከዚያ ይስቀሉ።",
     "documentType": "የሰነድ አይነት",
     "documentNumber": "የሰነድ ቁጥር",
@@ -1294,7 +1301,8 @@
       "documentNumberRequired": "የሰነድ ቁጥር ያስፈልጋል።",
       "fileRequired": "እባክዎ የሚስቀል ፋይል ይምረጡ።",
       "documentTypeRequired": "የሰነድ አይነት ይምረጡ።",
-      "uploadFailed": "ስቀሉ አልተሳካም። እንደገና ይሞክሩ።"
+      "uploadFailed": "ስቀሉ አልተሳካም። እንደገና ይሞክሩ።",
+      "submitFailed": "ዘመቻውን ማስገባት አልተቻለም። እንደገና ይሞክሩ።"
     }
   },
   "campaignDetailPage": {
@@ -1349,6 +1357,10 @@
     "settingsTabTitle": "የዘመቻ አስተዳዳር",
     "settingsTabSubtitle": "ከመታወቅዎ በፊት ዘመቻውን አርም ወይም ያስወግዱ።",
     "editCampaign": "ዘመቻ አርም",
+    "submitCampaign": "ዘመቻ አስገባ",
+    "submittingCampaign": "በማስገባት ላይ…",
+    "submitCampaignSuccess": "ዘመቻው በተሳካ ሁኔታ ገብቷል።",
+    "submitCampaignBlockedDescription": "KYC እስኪፀድቅ ድረስ ይጠብቁ ወይም KYC ያስገቡ። እስከዚያ ድረስ በረቂቅ ሁኔታ መስራት ይችላሉ።",
     "deleteCampaign": "ዘመቻ ሰርዝ",
     "confirmDeleteCampaignTitle": "ይህን ዘመቻ ሰርዝ?",
     "confirmDeleteCampaignBody": "ይህ ተግባር መመለስ አይቻልም።",
@@ -1368,7 +1380,8 @@
       "deleteCampaignFailed": "ዘመቻ ማስወገድ አልተቻለም። እንደገና ይሞክሩ።",
       "deleteDocumentFailed": "ሰንድ ማስወገድ አልተቻለም። እንደገና ይሞክሩ።",
       "openDocumentFailed": "ይህን ሰነድ መጫን አልተቻለም። እንደገና ይሞክሩ።",
-      "openDocumentNoUrl": "ለዚህ ሰነድ ምንም የማውረድ አገናኝ አልተመለሰም።"
+      "openDocumentNoUrl": "ለዚህ ሰነድ ምንም የማውረድ አገናኝ አልተመለሰም።",
+      "submitCampaignFailed": "ይህን ዘመቻ ማስገባት አልተቻለም። እንደገና ይሞክሩ።"
     }
   },
   "campaignEditPage": {

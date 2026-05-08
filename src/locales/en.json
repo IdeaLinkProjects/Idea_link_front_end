@@ -140,6 +140,7 @@
     "verifiedInnovator": "Verified innovator",
     "innovatorFallback": "Campaign owner",
     "innovatorLabel": "Innovator",
+    "aboutCampaignTitle": "About this campaign",
     "categoryLabel": "Category",
     "postedLabel": "Posted",
     "postedFallback": "Date on file",
@@ -1266,8 +1267,14 @@
     "cancelReplace": "Cancel",
     "allCompleteTitle": "All required documents are uploaded",
     "allCompleteBody": "Your campaign now has the full document set. You can open the campaign or return to your list.",
+    "submitReadyDescription": "Your KYC is verified. You can submit this campaign now or keep it as draft.",
+    "submitBlockedDescription": "Please wait until your KYC is approved or submit your KYC to publish this campaign. You can still save this campaign as a draft and prepare your KYC.",
+    "goToKyc": "Go to KYC verification",
+    "submitCampaign": "Submit campaign",
+    "submittingCampaign": "Submitting…",
+    "submitSuccess": "Campaign submitted successfully.",
     "viewCampaign": "Open campaign",
-    "continueToList": "Back to campaigns",
+    "saveDraft": "Save as draft",
     "footerHint": "Each section is one required document type. Fill in the reference number, attach the file, then upload.",
     "documentType": "Document type",
     "documentNumber": "Document number",
@@ -1294,7 +1301,8 @@
       "documentNumberRequired": "Document number is required.",
       "fileRequired": "Please choose a file to upload.",
       "documentTypeRequired": "Select a document type.",
-      "uploadFailed": "Upload failed. Please try again."
+      "uploadFailed": "Upload failed. Please try again.",
+      "submitFailed": "Could not submit campaign. Please try again."
     }
   },
   "campaignDetailPage": {
@@ -1349,6 +1357,10 @@
     "settingsTabTitle": "Campaign management",
     "settingsTabSubtitle": "Edit or remove this campaign when it is still a draft.",
     "editCampaign": "Edit Campaign",
+    "submitCampaign": "Submit Campaign",
+    "submittingCampaign": "Submitting…",
+    "submitCampaignSuccess": "Campaign submitted successfully.",
+    "submitCampaignBlockedDescription": "Please wait until your KYC is approved or submit your KYC. You can keep working in draft mode until then.",
     "deleteCampaign": "Delete Campaign",
     "confirmDeleteCampaignTitle": "Delete this campaign?",
     "confirmDeleteCampaignBody": "This action cannot be undone.",
@@ -1368,7 +1380,8 @@
       "deleteCampaignFailed": "Could not delete campaign. Please try again.",
       "deleteDocumentFailed": "Could not delete document. Please try again.",
       "openDocumentFailed": "Could not load this document. Please try again.",
-      "openDocumentNoUrl": "No download link was returned for this document."
+      "openDocumentNoUrl": "No download link was returned for this document.",
+      "submitCampaignFailed": "Could not submit this campaign. Please try again."
     }
   },
   "campaignEditPage": {
