@@ -30,6 +30,7 @@ export function resolveProjectBundle(input: {
   if (!idea) {
     return {
       innovatorName: p.innovatorFallback,
+      companyProfile: null,
       postedDate: p.postedFallback,
       goalEtb: 45000,
       raisedEtb: 0,
@@ -42,6 +43,7 @@ export function resolveProjectBundle(input: {
       problem: p.fallback.problem.replace("{name}", "—"),
       solution: p.fallback.solution.replace("{name}", "—"),
       team: p.fallback.team,
+      storySections: [],
       timeline: [{ milestone: "—", date: "—", done: false }],
       funds: [
         { label: "—", percent: 25 },
@@ -49,6 +51,7 @@ export function resolveProjectBundle(input: {
         { label: "—", percent: 25 },
         { label: "—", percent: 25 },
       ],
+      riskSections: [],
       risksDisclosure: p.fallback.risksDisclosure,
       riskLevel: p.fallback.risksLevel,
       riskLevelExplanation: p.fallback.risksLevelExpl,
@@ -65,6 +68,7 @@ export function resolveProjectBundle(input: {
 
   return {
     innovatorName: p.innovatorFallback,
+    companyProfile: null,
     postedDate: p.postedFallback,
     goalEtb: goalNum,
     raisedEtb: raised,
@@ -77,6 +81,7 @@ export function resolveProjectBundle(input: {
     problem: p.fallback.problem.replace("{name}", idea.name),
     solution: p.fallback.solution.replace("{name}", idea.name),
     team: p.fallback.team,
+    storySections: [],
     timeline: [
       { milestone: "Planning", date: "Q1", done: true },
       { milestone: "Execution", date: "Q2–Q3", done: false },
@@ -88,6 +93,7 @@ export function resolveProjectBundle(input: {
       { label: "Marketing", percent: 20 },
       { label: "Reserve", percent: 10 },
     ],
+    riskSections: [],
     risksDisclosure: p.fallback.risksDisclosure,
     riskLevel: p.fallback.risksLevel,
     riskLevelExplanation: p.fallback.risksLevelExpl,

@@ -6,7 +6,6 @@ import { ProjectDetailNotFound, ProjectDetailShell } from "@/components/projects
 import { ProjectDetailTabBar } from "@/components/projects/project-detail/ProjectDetailTabBar";
 import { ProjectDetailTabPanels } from "@/components/projects/project-detail/ProjectDetailTabPanels";
 import { ProjectDetailToast } from "@/components/projects/project-detail/ProjectDetailToast";
-import { ProjectFundingSticky } from "@/components/projects/project-detail/ProjectFundingSticky";
 import { ProjectHeroSection } from "@/components/projects/project-detail/ProjectHeroSection";
 import type { ProjectDetailTabKey } from "@/components/projects/project-detail/types";
 import { useProjectDetailPageData } from "@/components/projects/project-detail/useProjectDetailPageData";
@@ -98,12 +97,22 @@ export default function ProjectDetailPage() {
 
         <PublicSiteHeader backHref="/" backLabel={p.backDiscovery} />
 
-        <ProjectFundingSticky isDark={isDark} locale={locale} p={p} idea={idea} bundle={bundle} pct={pct} investHref={`/projects/${id}/invest`} />
+        <section className="relative z-10 w-full py-6 sm:py-8">
+          <ProjectHeroSection
+            isDark={isDark}
+            locale={locale}
+            p={p}
+            idea={idea}
+            bundle={bundle}
+            catLabel={catLabel}
+            pct={pct}
+            investHref={`/projects/${id}/invest`}
+          />
+        </section>
 
-        <main className="relative z-10 mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:py-12">
+        <main className="relative z-10 mx-auto max-w-6xl px-4 pb-8 sm:px-6 sm:pb-10 lg:pb-12">
           <div className="lg:grid lg:grid-cols-[1fr_300px] lg:gap-10 xl:grid-cols-[1fr_360px]">
             <div className="min-w-0">
-              <ProjectHeroSection isDark={isDark} p={p} idea={idea} bundle={bundle} catLabel={catLabel} />
               <ProjectDetailTabBar isDark={isDark} p={p} tab={tab} onTabChange={setTab} />
               <ProjectDetailTabPanels isDark={isDark} p={p} bundle={bundle} tab={tab} onDocPreview={onDocPreview} />
             </div>

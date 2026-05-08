@@ -6,6 +6,7 @@ import { CampaignTabsNav } from "@/components/profile/campaign-detail/CampaignTa
 import { CampaignUpdatesPanel } from "@/components/profile/campaign-detail/CampaignUpdatesPanel";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { KYC_STATUS, resolveAccountKycStatus } from "@/constants/kycStatus";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 import { messages } from "@/locales";
 import type { CampaignDocument } from "@/store";
@@ -13,7 +14,9 @@ import {
   useDeleteCampaignDocumentMutation,
   useDeleteCampaignMutation,
   useGetCampaignByIdQuery,
+  useGetUserRolesStatusQuery,
   useLazyGetCampaignDocumentByIdQuery,
+  useSubmitCampaignMutation,
 } from "@/store";
 
 type CampaignDetailViewProps = {
@@ -104,9 +107,11 @@ export function CampaignDetailView({ campaignId }: CampaignDetailViewProps) {
   const { locale, isDark } = useAppPreferences();
   const t = messages[locale].campaignDetailPage;
   const query = useGetCampaignByIdQuery(campaignId);
+  const { data: userRolesStatus } = useGetUserRolesStatusQuery();
   const [deleteCampaign, { isLoading: deletingCampaign }] = useDeleteCampaignMutation();
   const [deleteDocument, { isLoading: deletingDocument }] = useDeleteCampaignDocumentMutation();
   const [fetchDocumentById] = useLazyGetCampaignDocumentByIdQuery();
+  const [submitCampaign, { isLoading: isSubmittingCampaign }] = useSubmitCampaignMutation();
 
   const [activeTab, setActiveTab] = useState<CampaignDetailTabKey>("overview");
   const [campaignDeleteOpen, setCampaignDeleteOpen] = useState(false);
@@ -123,8 +128,25 @@ export function CampaignDetailView({ campaignId }: CampaignDetailViewProps) {
   const risksEntries = useMemo(() => toKeyValueEntries(campaign?.risksJson), [campaign?.risksJson]);
 
   const isDraft = campaign ? normalizeStatus(campaign.status) === "draft" : false;
+  const accountKycStatus = resolveAccountKycStatus(
+    userRolesStatus?.innovatorPrerequisites?.kycStatus,
+    userRolesStatus?.investorPrerequisites?.kycStatus,
+  );
+  const canSubmitCampaign = accountKycStatus === KYC_STATUS.VERIFIED;
   const hasInvestors = (campaign?.totalInvestors ?? 0) > 0;
   const canDeleteCampaign = isDraft && !hasInvestors;
+
+  async function handleSubmitCampaign() {
+    if (!campaign || !isDraft) return;
+    setNotice(null);
+    try {
+      await submitCampaign({ campaignId: campaign.id }).unwrap();
+      setNotice({ tone: "ok", text: t.submitCampaignSuccess });
+      await query.refetch();
+    } catch (err) {
+      setNotice({ tone: "err", text: extractApiErrorMessage(err, t.errors.submitCampaignFailed) });
+    }
+  }
 
   async function handleDeleteCampaignConfirmed() {
     if (!campaign) return;
@@ -531,6 +553,24 @@ export function CampaignDetailView({ campaignId }: CampaignDetailViewProps) {
             {isDraft ? (
               <button
                 type="button"
+                onClick={() => void handleSubmitCampaign()}
+                disabled={!canSubmitCampaign || isSubmittingCampaign}
+                className={`rounded-xl px-5 py-2.5 text-sm font-semibold text-white ${
+                  canSubmitCampaign
+                    ? isDark
+                      ? "bg-emerald-600 hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-60"
+                      : "bg-emerald-600 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
+                    : "cursor-not-allowed bg-emerald-600/50 opacity-60"
+                }`}
+                title={!canSubmitCampaign ? t.submitCampaignBlockedDescription : undefined}
+              >
+                {isSubmittingCampaign ? t.submittingCampaign : t.submitCampaign}
+              </button>
+            ) : null}
+
+            {isDraft ? (
+              <button
+                type="button"
                 onClick={() => (canDeleteCampaign ? setCampaignDeleteOpen(true) : null)}
                 disabled={!canDeleteCampaign || deletingCampaign}
                 title={!canDeleteCampaign && hasInvestors ? t.deleteCampaignBlockedInvestors : undefined}
@@ -558,6 +598,9 @@ export function CampaignDetailView({ campaignId }: CampaignDetailViewProps) {
           </div>
 
           {!canDeleteCampaign && isDraft && hasInvestors ? <p className={`text-xs ${isDark ? "text-amber-300" : "text-amber-800"}`}>{t.deleteCampaignBlockedInvestors}</p> : null}
+          {isDraft && !canSubmitCampaign ? (
+            <p className={`text-xs ${isDark ? "text-amber-300" : "text-amber-800"}`}>{t.submitCampaignBlockedDescription}</p>
+          ) : null}
 
           {!isDraft ? (
             <p className={`text-xs ${isDark ? "text-zinc-400" : "text-zinc-600"}`} title={t.draftOnlyTooltip}>

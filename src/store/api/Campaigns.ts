@@ -106,6 +106,10 @@ export type UploadCampaignDocumentArg = {
   formData: FormData;
 };
 
+export type SubmitCampaignArg = {
+  campaignId: number;
+};
+
 export type CampaignTag = {
   id: number;
   name: string;
@@ -213,6 +217,14 @@ export const campaignsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: (_r, _e, { campaignId }) => [{ type: "Profile", id: `campaign-${campaignId}` }, "Profile"],
     }),
+    submitCampaign: build.mutation<unknown, SubmitCampaignArg>({
+      query: ({ campaignId }) => ({
+        url: `campaigns/${campaignId}/submit`,
+        method: "POST",
+        params: { campaignId },
+      }),
+      invalidatesTags: (_r, _e, { campaignId }) => [{ type: "Profile", id: `campaign-${campaignId}` }, "Profile"],
+    }),
     updateCampaign: build.mutation<MyCampaign, UpdateCampaignArg>({
       query: ({ id, body }) => ({
         url: `campaigns/${id}`,
@@ -289,6 +301,7 @@ export const {
   useDeleteCampaignMutation,
   useUploadCampaignImageMutation,
   useUploadCampaignDocumentMutation,
+  useSubmitCampaignMutation,
   useDeleteCampaignDocumentMutation,
   useGetCampaignTagsQuery,
   useLazyGetCampaignDocumentByIdQuery,

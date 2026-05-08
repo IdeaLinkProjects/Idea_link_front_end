@@ -15,6 +15,7 @@ export {
   useFilterCampaignsQuery,
   useUpdateCampaignMutation,
   useUploadCampaignDocumentMutation,
+  useSubmitCampaignMutation,
   useUploadCampaignImageMutation,
   useGetCampaignTagsQuery,
   useLazySearchCampaignTagsQuery,

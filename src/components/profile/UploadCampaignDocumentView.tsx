@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { type ChangeEvent, useCallback, useMemo, useState } from "react";
 import { CheckCircle2, Circle, FileText } from "lucide-react";
 import {
@@ -6,10 +7,16 @@ import {
   type CampaignDocumentType,
 } from "@/constants/documentTypes";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { KYC_STATUS, resolveAccountKycStatus } from "@/constants/kycStatus";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 import { messages } from "@/locales";
 import type { CampaignDocument } from "@/store";
-import { useGetCampaignByIdQuery, useUploadCampaignDocumentMutation } from "@/store";
+import {
+  useGetCampaignByIdQuery,
+  useGetUserRolesStatusQuery,
+  useSubmitCampaignMutation,
+  useUploadCampaignDocumentMutation,
+} from "@/store";
 
 type UploadCampaignDocumentViewProps = {
   campaignId: number;
@@ -54,12 +61,15 @@ function firstDocumentByType(documents: CampaignDocument[] | undefined): Map<Cam
 }
 
 export function UploadCampaignDocumentView({ campaignId }: UploadCampaignDocumentViewProps) {
+  const router = useRouter();
   const { locale, isDark } = useAppPreferences();
   const t = messages[locale].uploadCampaignDocumentPage;
   const labels = t.documentTypeLabels as Record<string, string>;
 
   const { data: campaign, isLoading: campaignLoading } = useGetCampaignByIdQuery(campaignId);
+  const { data: userRolesStatus } = useGetUserRolesStatusQuery();
   const [uploadCampaignDocument, { isLoading: mutationLoading }] = useUploadCampaignDocumentMutation();
+  const [submitCampaign, { isLoading: isSubmittingCampaign }] = useSubmitCampaignMutation();
 
   const [rows, setRows] = useState<Record<CampaignDocumentType, DocRow>>(initialRows);
   const [replacing, setReplacing] = useState<Record<CampaignDocumentType, boolean>>(() =>
@@ -69,6 +79,7 @@ export function UploadCampaignDocumentView({ campaignId }: UploadCampaignDocumen
     }, {} as Record<CampaignDocumentType, boolean>),
   );
   const [uploadingType, setUploadingType] = useState<CampaignDocumentType | null>(null);
+  const [submitNotice, setSubmitNotice] = useState<{ tone: "ok" | "err"; text: string } | null>(null);
   const [fileResetKey, setFileResetKey] = useState<Record<CampaignDocumentType, number>>(() =>
     CAMPAIGN_DOCUMENT_TYPES.reduce((acc, dt) => {
       acc[dt] = 0;
@@ -80,6 +91,11 @@ export function UploadCampaignDocumentView({ campaignId }: UploadCampaignDocumen
   const doneCount = uploadedByType.size;
   const totalCount = CAMPAIGN_DOCUMENT_TYPES.length;
   const allComplete = doneCount >= totalCount && CAMPAIGN_DOCUMENT_TYPES.every((dt) => !replacing[dt]);
+  const accountKycStatus = resolveAccountKycStatus(
+    userRolesStatus?.innovatorPrerequisites?.kycStatus,
+    userRolesStatus?.investorPrerequisites?.kycStatus,
+  );
+  const canSubmitCampaign = accountKycStatus === KYC_STATUS.VERIFIED;
 
   const styles = useMemo(() => {
     const inputClass =
@@ -179,6 +195,17 @@ export function UploadCampaignDocumentView({ campaignId }: UploadCampaignDocumen
     }
   }
 
+  async function handleSubmitCampaign() {
+    setSubmitNotice(null);
+    try {
+      await submitCampaign({ campaignId }).unwrap();
+      setSubmitNotice({ tone: "ok", text: t.submitSuccess });
+      await router.push(`/dashboard/campaigns/${campaignId}`);
+    } catch (err) {
+      setSubmitNotice({ tone: "err", text: extractApiErrorMessage(err, t.errors.submitFailed) });
+    }
+  }
+
   const labelClass = `mb-1 block text-sm font-medium ${isDark ? "text-zinc-200" : "text-zinc-700"}`;
   const progressPct = Math.round((doneCount / totalCount) * 100);
 
@@ -236,15 +263,59 @@ export function UploadCampaignDocumentView({ campaignId }: UploadCampaignDocumen
             <CheckCircle2 className="mx-auto mb-3 h-12 w-12 text-emerald-500" aria-hidden />
             <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-zinc-900"}`}>{t.allCompleteTitle}</h2>
             <p className={`mt-2 text-sm ${isDark ? "text-zinc-300" : "text-zinc-600"}`}>{t.allCompleteBody}</p>
+            {submitNotice ? (
+              <div
+                role="status"
+                className={`mt-4 rounded-xl border px-4 py-3 text-sm font-medium ${
+                  submitNotice.tone === "ok"
+                    ? isDark
+                      ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-200"
+                      : "border-emerald-200 bg-emerald-50 text-emerald-800"
+                    : isDark
+                      ? "border-red-500/40 bg-red-500/10 text-red-200"
+                      : "border-red-200 bg-red-50 text-red-800"
+                }`}
+              >
+                {submitNotice.text}
+              </div>
+            ) : null}
+            <div
+              className={`mt-4 rounded-2xl border p-4 text-left ${
+                canSubmitCampaign
+                  ? isDark
+                    ? "border-emerald-500/30 bg-emerald-500/10"
+                    : "border-emerald-200 bg-emerald-50"
+                  : isDark
+                    ? "border-amber-500/30 bg-amber-500/10"
+                    : "border-amber-200 bg-amber-50"
+              }`}
+            >
+              <p className={`text-sm ${isDark ? "text-zinc-200" : "text-zinc-700"}`}>
+                {canSubmitCampaign ? t.submitReadyDescription : t.submitBlockedDescription}
+              </p>
+              {!canSubmitCampaign ? (
+                <Link href="/kyc" className={`mt-2 inline-flex text-sm font-semibold ${styles.linkMuted}`}>
+                  {t.goToKyc}
+                </Link>
+              ) : null}
+            </div>
             <div className="mt-6 flex flex-col items-center justify-center gap-2 sm:flex-row">
+              <button
+                type="button"
+                onClick={() => void handleSubmitCampaign()}
+                disabled={!canSubmitCampaign || isSubmittingCampaign}
+                className={`${styles.primaryBtn} inline-flex min-w-[10rem] justify-center`}
+              >
+                {isSubmittingCampaign ? t.submittingCampaign : t.submitCampaign}
+              </button>
               <Link
                 href={`/dashboard/campaigns/${campaignId}`}
-                className={`${styles.primaryBtn} inline-flex min-w-[10rem] justify-center`}
+                className={`${styles.secondaryBtnOutline} inline-flex min-w-[10rem] justify-center`}
               >
                 {t.viewCampaign}
               </Link>
               <Link href="/dashboard/projects" className={`${styles.secondaryBtnOutline} inline-flex min-w-[10rem] justify-center`}>
-                {t.continueToList}
+                {t.saveDraft}
               </Link>
             </div>
           </div>
