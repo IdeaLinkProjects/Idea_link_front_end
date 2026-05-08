@@ -146,6 +146,59 @@ export type CampaignFilterRequestBody = {
   filters: CampaignFilterFilters;
 };
 
+export type UserInvestmentsRequestBody = {
+  page: number;
+  size: number;
+};
+
+export type UserInvestmentCampaignCompany = {
+  id: number;
+  name: string;
+};
+
+export type UserInvestmentCampaign = {
+  id: number;
+  title: string;
+  heroImageUrl: string | null;
+  company: UserInvestmentCampaignCompany | null;
+};
+
+export type UserInvestmentPayment = {
+  amount: number;
+  paidAt: string;
+  paymentMethod: string;
+  paymentReference: string;
+  paymentStatus: string;
+};
+
+export type UserInvestment = {
+  id: number;
+  amount: number;
+  netAmount: number;
+  platformFee: number;
+  paymentProcessingFee: number;
+  equityPercentage: number;
+  status: string;
+  escrowStatus: string;
+  investmentDate: string;
+  completedDate: string | null;
+  coolingOffExpiry: string | null;
+  campaign: UserInvestmentCampaign;
+  payment: UserInvestmentPayment | null;
+};
+
+export type UserInvestmentsResponse = {
+  content: UserInvestment[];
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  size: number;
+  totalElements: number;
+  totalPages: number;
+};
+
 export type CampaignUpdate = {
   id: number;
   campaignId: number;
@@ -186,6 +239,14 @@ export const campaignsApi = baseApi.injectEndpoints({
         method: "POST",
         body,
       }),
+    }),
+    getUserInvestments: build.query<UserInvestmentsResponse, UserInvestmentsRequestBody>({
+      query: ({ page, size }) => ({
+        url: "investments/user",
+        method: "GET",
+        params: { page, size },
+      }),
+      providesTags: ["Profile"],
     }),
     getCampaignById: build.query<MyCampaign, number>({
       query: (id) => ({
@@ -289,11 +350,12 @@ export const campaignsApi = baseApi.injectEndpoints({
       invalidatesTags: (_r, _e, { campaignId }) => [{ type: "Profile", id: `campaign-${campaignId}-updates` }],
     }),
   }),
-  overrideExisting: false,
+  overrideExisting: true,
 });
 
 export const {
   useGetMyCampaignsQuery,
+  useGetUserInvestmentsQuery,
   useFilterCampaignsQuery,
   useGetCampaignByIdQuery,
   useCreateCampaignMutation,

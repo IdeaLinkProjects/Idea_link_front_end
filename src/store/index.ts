@@ -12,6 +12,7 @@ export {
   useLazyGetCampaignDocumentByIdQuery,
   useDeleteCampaignMutation,
   useGetMyCampaignsQuery,
+  useGetUserInvestmentsQuery,
   useFilterCampaignsQuery,
   useUpdateCampaignMutation,
   useUploadCampaignDocumentMutation,
@@ -60,6 +61,12 @@ export type {
   CampaignTag,
   CampaignFilterRequestBody,
   CampaignFilterFilters,
+  UserInvestmentsRequestBody,
+  UserInvestmentCampaignCompany,
+  UserInvestmentCampaign,
+  UserInvestmentPayment,
+  UserInvestment,
+  UserInvestmentsResponse,
 } from "./api/Campaigns";
 export type {
   CompanyCampaignStats,

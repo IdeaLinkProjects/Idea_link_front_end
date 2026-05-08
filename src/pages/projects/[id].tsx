@@ -16,6 +16,7 @@ import { messages } from "@/locales";
 export default function ProjectDetailPage() {
   const router = useRouter();
   const id = typeof router.query.id === "string" ? router.query.id : "";
+  const from = typeof router.query.from === "string" ? router.query.from : "";
 
   const { locale, isDark } = useAppPreferences();
   const t = messages[locale];
@@ -53,6 +54,8 @@ export default function ProjectDetailPage() {
   const onDocPreview = useCallback(() => {
     showToast(p.docDemoNote);
   }, [p.docDemoNote, showToast]);
+
+  const showInvestAction = from !== "investments";
 
   if (!router.isReady) {
     return null;
@@ -107,6 +110,7 @@ export default function ProjectDetailPage() {
             catLabel={catLabel}
             pct={pct}
             investHref={`/projects/${id}/invest`}
+            showInvestAction={showInvestAction}
           />
         </section>
 

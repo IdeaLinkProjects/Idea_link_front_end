@@ -13,9 +13,10 @@ type ProjectHeroSectionProps = {
   catLabel: string;
   pct: number;
   investHref: string;
+  showInvestAction?: boolean;
 };
 
-export function ProjectHeroSection({ isDark, locale, p, idea, bundle, catLabel, pct, investHref }: ProjectHeroSectionProps) {
+export function ProjectHeroSection({ isDark, locale, p, idea, bundle, catLabel, pct, investHref, showInvestAction = true }: ProjectHeroSectionProps) {
   const chip = isDark
     ? "inline-flex items-center gap-2 rounded-full border border-white/15 bg-zinc-900/90 px-3.5 py-1.5 text-sm font-medium text-zinc-100 shadow-md backdrop-blur-sm"
     : "inline-flex items-center gap-2 rounded-full border border-zinc-200/90 bg-white/95 px-3.5 py-1.5 text-sm font-medium text-zinc-800 shadow-sm backdrop-blur-sm";
@@ -41,6 +42,7 @@ export function ProjectHeroSection({ isDark, locale, p, idea, bundle, catLabel, 
               bundle={bundle}
               pct={pct}
               investHref={investHref}
+              showInvestAction={showInvestAction}
             />
           </div>
         </div>

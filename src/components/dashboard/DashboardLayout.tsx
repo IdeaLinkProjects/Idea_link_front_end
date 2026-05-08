@@ -7,6 +7,7 @@ import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { clearAuthTokens } from "@/lib/auth/tokenStorage";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { messages } from "@/locales";
+import { useGetUserRolesStatusQuery } from "@/store";
 
 const MESSAGE_BADGE = 3;
 
@@ -14,12 +15,24 @@ type DashboardLayoutProps = {
   children: ReactNode;
 };
 
+function initialsFromFullName(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) {
+    const a = parts[0][0];
+    const b = parts[parts.length - 1][0];
+    if (a && b) return (a + b).toUpperCase();
+  }
+  if (parts.length === 1 && parts[0].length >= 2) return parts[0].slice(0, 2).toUpperCase();
+  return parts[0]?.[0]?.toUpperCase() ?? "?";
+}
+
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const router = useRouter();
   const { locale, isDark } = useAppPreferences();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
+  const { data: userRolesStatus } = useGetUserRolesStatusQuery();
 
   const t = messages[locale].commonDashboard;
 
@@ -55,7 +68,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     : "text-black hover:bg-primary-100 hover:text-black";
   const navActive = isDark ? "bg-primary-900/40 text-primary-300" : "bg-primary-100 text-primary-900 shadow-sm";
 
-  const avatarInitials = t.userFirstName.trim().slice(0, 2).toUpperCase() || "?";
+  const avatarInitials = userRolesStatus?.fullName?.trim()
+    ? initialsFromFullName(userRolesStatus.fullName)
+    : t.userFirstName.trim().slice(0, 2).toUpperCase() || "?";
 
   useEffect(() => {
     if (!profileMenuOpen) return;

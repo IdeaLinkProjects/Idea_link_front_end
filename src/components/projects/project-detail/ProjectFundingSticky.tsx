@@ -14,9 +14,20 @@ type ProjectFundingStickyProps = {
   pct: number;
   investHref: string;
   variant?: "sticky" | "bannerOverlay";
+  showInvestAction?: boolean;
 };
 
-export function ProjectFundingSticky({ isDark, locale, p, idea, bundle, pct, investHref, variant = "sticky" }: ProjectFundingStickyProps) {
+export function ProjectFundingSticky({
+  isDark,
+  locale,
+  p,
+  idea,
+  bundle,
+  pct,
+  investHref,
+  variant = "sticky",
+  showInvestAction = true,
+}: ProjectFundingStickyProps) {
   const isOverlay = variant === "bannerOverlay";
 
   return (
@@ -76,23 +87,25 @@ export function ProjectFundingSticky({ isDark, locale, p, idea, bundle, pct, inv
               </div>
             </div>
 
-            <div className={`flex shrink-0 flex-col ${isOverlay ? "gap-2" : "gap-3"} sm:flex-row sm:items-center lg:flex-col lg:items-stretch xl:flex-row xl:items-center`}>
-              <Link
-                href={investHref}
-                className={`inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary-950 to-primary-700 text-center text-sm font-bold text-white shadow-lg shadow-primary-950/35 transition hover:from-primary-900 hover:to-primary-600 hover:shadow-primary-500/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 ${
-                  isOverlay ? "min-h-[2.75rem] px-6 py-2.5" : "min-h-[3rem] px-8 py-3"
-                }`}
-              >
-                {p.investCta}
-              </Link>
-              <p
-                className={`max-w-[16rem] text-center text-xs font-medium leading-snug ${isOverlay ? "sm:text-center lg:text-center xl:text-center" : "sm:text-left lg:text-center xl:text-left"} ${
-                  isDark ? "text-zinc-300" : "text-zinc-600"
-                }`}
-              >
-                {p.minInvestment.replace("{amount}", formatEtb(bundle.minInvestmentEtb, locale))}
-              </p>
-            </div>
+            {showInvestAction ? (
+              <div className={`flex shrink-0 flex-col ${isOverlay ? "gap-2" : "gap-3"} sm:flex-row sm:items-center lg:flex-col lg:items-stretch xl:flex-row xl:items-center`}>
+                <Link
+                  href={investHref}
+                  className={`inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary-950 to-primary-700 text-center text-sm font-bold text-white shadow-lg shadow-primary-950/35 transition hover:from-primary-900 hover:to-primary-600 hover:shadow-primary-500/25 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-400 ${
+                    isOverlay ? "min-h-[2.75rem] px-6 py-2.5" : "min-h-[3rem] px-8 py-3"
+                  }`}
+                >
+                  {p.investCta}
+                </Link>
+                <p
+                  className={`max-w-[16rem] text-center text-xs font-medium leading-snug ${isOverlay ? "sm:text-center lg:text-center xl:text-center" : "sm:text-left lg:text-center xl:text-left"} ${
+                    isDark ? "text-zinc-300" : "text-zinc-600"
+                  }`}
+                >
+                  {p.minInvestment.replace("{amount}", formatEtb(bundle.minInvestmentEtb, locale))}
+                </p>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
