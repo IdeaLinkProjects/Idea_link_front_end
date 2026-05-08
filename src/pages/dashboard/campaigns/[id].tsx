@@ -14,7 +14,6 @@ export default function CampaignDetailPage() {
   const rawId = router.query.id;
   const campaignId = typeof rawId === "string" ? Number(rawId) : NaN;
   const isValid = Number.isInteger(campaignId) && campaignId > 0;
-
   return (
     <>
       <Head>
