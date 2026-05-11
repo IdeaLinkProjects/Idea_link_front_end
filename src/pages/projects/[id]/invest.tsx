@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { IdealLinkLogo } from "@/components/brand/IdealLinkLogo";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { myCampaignToDiscoveryIdea, myCampaignToPublicBundle, type DiscoveryIdeaView } from "@/lib/campaign/fromMyCampaign";
 import { useEffect, useMemo, useState } from "react";
@@ -255,10 +256,7 @@ export default function ProjectInvestPage() {
             <Link href={projectHref} className="text-sm font-semibold text-primary-500 hover:underline">
               ← {inv.backToProject}
             </Link>
-            <Link href="/" className="text-lg font-bold">
-              <span className="text-primary-500">{t.brand.ideal}</span>
-              <span className="text-primary-300">{t.brand.link}</span>
-            </Link>
+            <IdealLinkLogo className="inline-flex shrink-0 transition hover:opacity-90" width={280} height={76} imageClassName="h-14 w-auto sm:h-16" />
           </div>
         </header>
 

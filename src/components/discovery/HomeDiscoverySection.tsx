@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 import type { Locale } from "@/locales";
@@ -138,7 +139,9 @@ export function HomeDiscoverySection() {
   const totalPages = Math.max(1, data?.totalPages ?? (Math.ceil(totalElements / PAGE_SIZE) || 1));
 
   useEffect(() => {
-    setPage(0);
+    queueMicrotask(() => {
+      setPage(0);
+    });
   }, [
     debouncedKeyword,
     statuses,
@@ -181,18 +184,30 @@ export function HomeDiscoverySection() {
   }, []);
 
   const panel = isDark
-    ? "rounded-2xl border border-white/15 bg-white/[0.04] p-4 shadow-sm"
-    : "rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm";
-  const label = isDark ? "text-xs font-semibold uppercase tracking-wide text-zinc-400" : "text-xs font-semibold uppercase tracking-wide text-zinc-500";
+    ? "rounded-3xl border border-white/12 bg-zinc-900/40 p-5 shadow-xl shadow-black/20 ring-1 ring-white/[0.06] backdrop-blur-md sm:p-6"
+    : "rounded-3xl border border-zinc-200/90 bg-white/90 p-5 shadow-lg shadow-zinc-900/[0.04] ring-1 ring-primary-900/[0.04] backdrop-blur-sm sm:p-6";
+  const panelCompact = isDark
+    ? "rounded-3xl border border-white/12 bg-zinc-900/35 px-4 py-3 shadow-md ring-1 ring-white/[0.05] backdrop-blur-md sm:px-5 sm:py-4"
+    : "rounded-3xl border border-zinc-200/90 bg-white/95 px-4 py-3 shadow-md ring-1 ring-primary-900/[0.03] backdrop-blur-sm sm:px-5 sm:py-4";
+  const label = isDark ? "text-[11px] font-bold uppercase tracking-wider text-zinc-500" : "text-[11px] font-bold uppercase tracking-wider text-zinc-500";
   const input =
-    "w-full rounded-lg border px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-primary-600/40 " +
-    (isDark ? "border-white/20 bg-zinc-950/60 text-zinc-100 placeholder:text-zinc-500" : "border-zinc-300 bg-white text-zinc-900 placeholder:text-zinc-400");
+    "w-full rounded-xl border px-3 py-2.5 text-sm outline-none transition focus:border-primary-500/50 focus:ring-2 focus:ring-primary-500/25 " +
+    (isDark ? "border-white/15 bg-zinc-950/50 text-zinc-100 placeholder:text-zinc-500" : "border-zinc-200 bg-zinc-50/80 text-zinc-900 placeholder:text-zinc-400");
   const muted = isDark ? "text-zinc-400" : "text-zinc-600";
   const linkPrimary = isDark ? "text-primary-300 hover:text-primary-200" : "text-primary-700 hover:text-primary-800";
+  const checkClass = "accent-primary-600 h-4 w-4 shrink-0 rounded border-zinc-400 text-primary-600 focus:ring-primary-500/40";
 
   return (
-    <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
-      <aside className={`w-full shrink-0 space-y-4 lg:sticky lg:top-24 lg:w-80 ${panel}`}>
+    <div className="flex flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-10">
+      <aside className={`w-full shrink-0 space-y-5 lg:sticky lg:top-24 lg:w-80 ${panel}`}>
+        <div className="flex items-center gap-3 border-b border-dashed pb-4 dark:border-white/10">
+          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-600 text-white shadow-md shadow-primary-900/25">
+            <SlidersHorizontal className="h-5 w-5" aria-hidden />
+          </span>
+          <div>
+            <h2 className={`text-base font-bold tracking-tight ${isDark ? "text-white" : "text-zinc-900"}`}>{fu.sidebarTitle}</h2>
+          </div>
+        </div>
         <div>
           <p className={`${label} mb-2`}>{fu.keywordLabel}</p>
           <div className="relative">
@@ -211,7 +226,7 @@ export function HomeDiscoverySection() {
               <button
                 type="button"
                 onClick={() => setKeyword("")}
-                className={`absolute right-2 top-1/2 -translate-y-1/2 rounded px-1.5 py-0.5 text-xs font-medium ${muted} hover:bg-black/10 dark:hover:bg-white/10`}
+                className={`absolute right-2 top-1/2 -translate-y-1/2 rounded-lg px-2 py-1 text-xs font-semibold ${muted} transition hover:bg-zinc-200/80 dark:hover:bg-white/10`}
                 aria-label={fu.clearKeyword}
               >
                 ×
@@ -221,16 +236,21 @@ export function HomeDiscoverySection() {
         </div>
 
         <details className="group" open>
-          <summary className={`cursor-pointer list-none text-sm font-semibold [&::-webkit-details-marker]:hidden ${linkPrimary}`}>
-            {fu.advancedSearch}
+          <summary
+            className={`flex cursor-pointer list-none items-center justify-between gap-2 rounded-xl border px-3 py-2.5 text-sm font-semibold transition [&::-webkit-details-marker]:hidden ${
+              isDark ? "border-white/12 bg-white/[0.04] text-zinc-100 hover:bg-white/[0.07]" : "border-zinc-200 bg-zinc-50/80 text-zinc-800 hover:border-primary-200/80 hover:bg-primary-50/40"
+            }`}
+          >
+            <span>{fu.advancedSearch}</span>
+            <ChevronDown className="h-4 w-4 shrink-0 text-primary-600 transition-transform duration-200 group-open:rotate-180 dark:text-primary-400" aria-hidden />
           </summary>
-          <div className="mt-4 space-y-5 border-t border-dashed pt-4 dark:border-white/10">
+          <div className="mt-4 space-y-5 border-t border-dashed border-zinc-200/80 pt-4 dark:border-white/10">
             <div>
               <p className={`${label} mb-2`}>{fu.statusTitle}</p>
               <div className="flex flex-col gap-1.5">
                 {CAMPAIGN_FILTER_STATUS_OPTIONS.map((s) => (
-                  <label key={s} className={`flex cursor-pointer items-center gap-2 text-sm ${isDark ? "text-zinc-200" : "text-zinc-800"}`}>
-                    <input type="checkbox" checked={statuses.includes(s)} onChange={() => toggleStatus(s)} className="rounded border-zinc-400" />
+                  <label key={s} className={`flex cursor-pointer items-center gap-2.5 rounded-lg py-0.5 text-sm transition hover:bg-black/[0.04] dark:hover:bg-white/[0.04] ${isDark ? "text-zinc-200" : "text-zinc-800"}`}>
+                    <input type="checkbox" checked={statuses.includes(s)} onChange={() => toggleStatus(s)} className={checkClass} />
                     <span>{fu.statusLabels[s]}</span>
                   </label>
                 ))}
@@ -239,7 +259,7 @@ export function HomeDiscoverySection() {
 
             <div>
               <p className={`${label} mb-2`}>{fu.tagsTitle}</p>
-              <div className="max-h-48 space-y-1.5 overflow-y-auto pr-1">
+              <div className="max-h-48 space-y-1.5 overflow-y-auto overflow-x-hidden pr-1 [scrollbar-color:rgba(16,185,129,0.45)_transparent] [scrollbar-width:thin] dark:[scrollbar-color:rgba(16,185,129,0.35)_transparent]">
                 {tagsQuery.isLoading ? (
                   <p className={`text-sm ${muted}`}>…</p>
                 ) : tagsQuery.data?.length ? (
@@ -249,7 +269,7 @@ export function HomeDiscoverySection() {
                       className={`flex cursor-pointer items-center justify-between gap-2 text-sm ${isDark ? "text-zinc-200" : "text-zinc-800"}`}
                     >
                       <span className="flex min-w-0 items-center gap-2">
-                        <input type="checkbox" checked={tagIds.includes(tag.id)} onChange={() => toggleTag(tag.id)} className="rounded border-zinc-400" />
+                        <input type="checkbox" checked={tagIds.includes(tag.id)} onChange={() => toggleTag(tag.id)} className={checkClass} />
                         <span className="truncate">{tag.name}</span>
                       </span>
                       <span className={`shrink-0 text-xs tabular-nums ${muted}`}>({tag.campaignCount})</span>
@@ -315,33 +335,56 @@ export function HomeDiscoverySection() {
               </div>
             </div>
 
-            <label className={`flex cursor-pointer items-center gap-2 text-sm ${isDark ? "text-zinc-200" : "text-zinc-800"}`}>
-              <input type="checkbox" checked={activeNow} onChange={(e) => setActiveNow(e.target.checked)} className="rounded border-zinc-400" />
+            <label className={`flex cursor-pointer items-center gap-2.5 rounded-lg py-0.5 text-sm ${isDark ? "text-zinc-200" : "text-zinc-800"}`}>
+              <input type="checkbox" checked={activeNow} onChange={(e) => setActiveNow(e.target.checked)} className={checkClass} />
               {fu.activeNow}
             </label>
-            <label className={`flex cursor-pointer items-center gap-2 text-sm ${isDark ? "text-zinc-200" : "text-zinc-800"}`}>
-              <input type="checkbox" checked={funded} onChange={(e) => setFunded(e.target.checked)} className="rounded border-zinc-400" />
+            <label className={`flex cursor-pointer items-center gap-2.5 rounded-lg py-0.5 text-sm ${isDark ? "text-zinc-200" : "text-zinc-800"}`}>
+              <input type="checkbox" checked={funded} onChange={(e) => setFunded(e.target.checked)} className={checkClass} />
               {fu.funded}
             </label>
           </div>
         </details>
 
-        <button type="button" onClick={resetFilters} className={`w-full rounded-lg border py-2 text-sm font-semibold transition ${isDark ? "border-white/20 hover:bg-white/10" : "border-zinc-300 hover:bg-zinc-50"}`}>
+        <button
+          type="button"
+          onClick={resetFilters}
+          className={`w-full rounded-xl border py-2.5 text-sm font-semibold transition ${isDark ? "border-white/15 text-zinc-200 hover:border-white/25 hover:bg-white/[0.06]" : "border-zinc-200 text-zinc-700 hover:border-primary-200 hover:bg-primary-50/50 hover:text-primary-900"}`}
+        >
           {fu.reset}
         </button>
       </aside>
 
-      <div className="min-w-0 flex-1">
-        <div className={`mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between ${panel}`}>
-          <p className={`text-sm font-medium ${muted}`}>{fu.resultsCount.replace("{count}", String(totalElements))}</p>
-          <span className={`rounded-md border px-2 py-1 text-xs font-medium ${isDark ? "border-white/15 bg-white/5" : "border-zinc-200 bg-zinc-50"}`}>{fu.sortNewest}</span>
+      <div className="min-w-0 flex-1 space-y-5">
+        <div className={`flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between ${panelCompact}`}>
+          <div className="flex flex-wrap items-center gap-2">
+            <span
+              className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-semibold tabular-nums ${isDark ? "bg-primary-500/15 text-primary-200 ring-1 ring-primary-400/25" : "bg-primary-50 text-primary-900 ring-1 ring-primary-600/15"}`}
+            >
+              {fu.resultsCount.replace("{count}", String(totalElements))}
+            </span>
+            {isFetching && campaigns.length > 0 ? (
+              <span className={`text-xs font-medium ${muted}`}>…</span>
+            ) : null}
+          </div>
+          <span
+            className={`inline-flex w-fit items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-wide ${isDark ? "border-white/12 bg-white/[0.05] text-zinc-300" : "border-zinc-200 bg-zinc-100/80 text-zinc-600"}`}
+          >
+            {fu.sortNewest}
+          </span>
         </div>
 
         {isError ? (
-          <div className={`rounded-2xl border p-6 text-center ${isDark ? "border-red-500/30 bg-red-950/20" : "border-red-200 bg-red-50"}`}>
-            <p className="text-sm font-semibold text-red-700 dark:text-red-300">{fu.loadError}</p>
-            <p className={`mt-1 text-xs ${muted}`}>{extractApiErrorMessage(error, "")}</p>
-            <button type="button" onClick={() => void refetch()} className="mt-3 rounded-lg bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-500">
+          <div
+            className={`rounded-3xl border p-8 text-center shadow-inner ${isDark ? "border-red-500/25 bg-gradient-to-b from-red-950/30 to-red-950/10" : "border-red-200/80 bg-gradient-to-b from-red-50 to-white"}`}
+          >
+            <p className="text-base font-bold text-red-700 dark:text-red-300">{fu.loadError}</p>
+            <p className={`mt-2 text-sm ${muted}`}>{extractApiErrorMessage(error, "")}</p>
+            <button
+              type="button"
+              onClick={() => void refetch()}
+              className="mt-5 rounded-xl bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-primary-900/20 transition hover:bg-primary-500"
+            >
               {fu.retry}
             </button>
           </div>
@@ -350,17 +393,24 @@ export function HomeDiscoverySection() {
         {!isError && (isLoading || isFetching) && campaigns.length === 0 ? (
           <div className={`space-y-4 ${panel}`}>
             {[0, 1, 2].map((i) => (
-              <div key={i} className={`h-28 animate-pulse rounded-xl ${isDark ? "bg-white/10" : "bg-zinc-200"}`} />
+              <div
+                key={i}
+                className={`h-32 animate-pulse rounded-2xl bg-gradient-to-r ${isDark ? "from-white/[0.07] via-white/[0.04] to-white/[0.07]" : "from-zinc-200 via-zinc-100 to-zinc-200"}`}
+              />
             ))}
           </div>
         ) : null}
 
         {!isError && !isLoading && !isFetching && campaigns.length === 0 ? (
-          <p className={`rounded-2xl border p-8 text-center text-sm ${isDark ? "border-white/15 bg-white/5 text-zinc-300" : "border-zinc-200 bg-white text-zinc-600"}`}>{d.noResults}</p>
+          <div
+            className={`rounded-3xl border border-dashed p-10 text-center ${isDark ? "border-white/12 bg-white/[0.02]" : "border-zinc-200 bg-zinc-50/50"}`}
+          >
+            <p className={`mx-auto max-w-md text-sm leading-relaxed ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{d.noResults}</p>
+          </div>
         ) : null}
 
         {!isError && campaigns.length > 0 ? (
-          <div className={`divide-y overflow-hidden rounded-2xl border ${isDark ? "divide-white/10 border-white/15 bg-white/[0.03]" : "divide-zinc-200 border-zinc-200 bg-white"}`}>
+          <div className="flex flex-col gap-4">
             {campaigns.map((c) => (
               <CampaignListRow
                 key={c.id}
@@ -378,14 +428,14 @@ export function HomeDiscoverySection() {
         ) : null}
 
         {!isError && totalElements > PAGE_SIZE ? (
-          <div className={`mt-6 flex flex-wrap items-center justify-between gap-3 ${panel}`}>
-            <p className={`text-sm ${muted}`}>{fu.pageOf.replace("{page}", String(page + 1)).replace("{total}", String(totalPages))}</p>
+          <div className={`flex flex-wrap items-center justify-between gap-4 ${panelCompact}`}>
+            <p className={`text-sm font-medium ${muted}`}>{fu.pageOf.replace("{page}", String(page + 1)).replace("{total}", String(totalPages))}</p>
             <div className="flex gap-2">
               <button
                 type="button"
                 disabled={page <= 0}
                 onClick={() => setPage((p) => Math.max(0, p - 1))}
-                className={`rounded-lg border px-3 py-2 text-sm font-medium disabled:opacity-40 ${isDark ? "border-white/20 hover:bg-white/10" : "border-zinc-300 hover:bg-zinc-50"}`}
+                className={`rounded-xl border px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-35 ${isDark ? "border-white/15 text-zinc-200 hover:bg-white/[0.06]" : "border-zinc-200 text-zinc-700 hover:bg-zinc-100"}`}
               >
                 {fu.prev}
               </button>
@@ -393,7 +443,7 @@ export function HomeDiscoverySection() {
                 type="button"
                 disabled={page >= totalPages - 1}
                 onClick={() => setPage((p) => p + 1)}
-                className={`rounded-lg border px-3 py-2 text-sm font-medium disabled:opacity-40 ${isDark ? "border-white/20 hover:bg-white/10" : "border-zinc-300 hover:bg-zinc-50"}`}
+                className={`rounded-xl border px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:border-zinc-200 disabled:bg-zinc-100 disabled:text-zinc-400 disabled:opacity-100 dark:disabled:border-white/10 dark:disabled:bg-zinc-800 dark:disabled:text-zinc-600 ${isDark ? "border-primary-500/40 bg-primary-600 text-white hover:bg-primary-500 enabled:shadow-md enabled:shadow-primary-950/30" : "border-primary-600 bg-primary-600 text-white hover:bg-primary-500 enabled:shadow-md enabled:shadow-primary-900/15"}`}
               >
                 {fu.next}
               </button>
@@ -429,11 +479,21 @@ function CampaignListRow({
   const companyName = c.company?.name ?? fu.company;
 
   return (
-    <article className="flex flex-col gap-4 p-4 sm:flex-row sm:gap-5 sm:p-5">
-      <div className={`relative h-40 w-full shrink-0 overflow-hidden rounded-xl sm:h-28 sm:w-40 ${isDark ? "bg-zinc-800" : "bg-zinc-100"}`}>
+    <article
+      className={`group/card flex flex-col gap-4 rounded-2xl border p-4 transition duration-200 sm:flex-row sm:gap-5 sm:p-5 ${
+        isDark
+          ? "border-white/[0.08] bg-zinc-900/30 hover:border-primary-500/25 hover:bg-zinc-900/50 hover:shadow-lg hover:shadow-black/20"
+          : "border-zinc-200/90 bg-white hover:border-primary-200 hover:shadow-md hover:shadow-primary-900/[0.06]"
+      }`}
+    >
+      <div
+        className={`relative h-44 w-full shrink-0 overflow-hidden rounded-2xl ring-1 ring-inset ring-black/5 sm:h-32 sm:w-44 dark:ring-white/10 ${
+          isDark ? "bg-zinc-800" : "bg-zinc-100"
+        }`}
+      >
         {c.heroImageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- remote API host varies
-          <img src={c.heroImageUrl} alt="" className="h-full w-full object-cover" />
+          <img src={c.heroImageUrl} alt="" className="h-full w-full object-cover transition duration-300 group-hover/card:scale-[1.03]" />
         ) : (
           <div className={`flex h-full w-full items-center justify-center text-xs ${muted}`}>—</div>
         )}
@@ -441,18 +501,25 @@ function CampaignListRow({
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-start justify-between gap-2">
           <div>
-            <p className={`text-xs ${muted}`}>
+            <p className={`text-[11px] font-semibold uppercase tracking-wider ${muted}`}>
               {fu.posted} {formatDateShort(c.createdAt, locale)}
             </p>
-            <Link href={`/projects/${c.id}`} className={`mt-1 block text-lg font-bold leading-snug hover:underline ${isDark ? "text-white" : "text-zinc-900"}`}>
+            <Link
+              href={`/projects/${c.id}`}
+              className={`mt-1 block text-lg font-bold leading-snug transition group-hover/card:text-primary-600 dark:group-hover/card:text-primary-300 sm:text-xl ${isDark ? "text-white" : "text-zinc-900"} `}
+            >
               {c.title}
             </Link>
           </div>
-          <span className={`shrink-0 rounded-full border px-2 py-0.5 text-xs font-semibold ${isDark ? "border-white/15 bg-white/10 text-zinc-200" : "border-zinc-200 bg-zinc-100 text-zinc-700"}`}>{c.status}</span>
+          <span
+            className={`shrink-0 rounded-full border px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide ${isDark ? "border-primary-500/35 bg-primary-500/15 text-primary-200" : "border-primary-200 bg-primary-50 text-primary-800"}`}
+          >
+            {c.status}
+          </span>
         </div>
 
         <div className={`mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs ${muted}`}>
-          <span>{companyName}</span>
+          <span className="font-medium text-zinc-700 dark:text-zinc-300">{companyName}</span>
           <span>
             {fu.raised}: {formatEtb(c.amountRaised ?? 0, locale)} / {formatEtb(c.fundingGoal ?? 0, locale)} ETB
           </span>
@@ -471,7 +538,7 @@ function CampaignListRow({
             {c.tags.map((tag) => (
               <span
                 key={tag}
-                className={`rounded-full border px-2 py-0.5 text-xs font-medium ${isDark ? "border-primary-500/40 bg-primary-950/40 text-primary-200" : "border-primary-200 bg-primary-50 text-primary-900"}`}
+                className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${isDark ? "border-primary-500/35 bg-primary-950/50 text-primary-200" : "border-primary-200/80 bg-primary-50/90 text-primary-900"}`}
               >
                 {tag}
               </span>
@@ -480,15 +547,21 @@ function CampaignListRow({
         ) : null}
 
         <div className="mt-4">
-          <div className={`h-2 w-full overflow-hidden rounded-full ${isDark ? "bg-zinc-700" : "bg-zinc-200"}`}>
-            <div className="h-full rounded-full bg-gradient-to-r from-primary-950 to-primary-600" style={{ width: `${pct}%` }} />
+          <div className={`h-2 w-full overflow-hidden rounded-full ${isDark ? "bg-zinc-800" : "bg-zinc-200/90"}`}>
+            <div className="h-full rounded-full bg-gradient-to-r from-primary-800 via-primary-600 to-primary-400 shadow-sm shadow-primary-900/20" style={{ width: `${pct}%` }} />
           </div>
-          <div className={`mt-1.5 flex items-center justify-between text-xs ${muted}`}>
-            <span className="font-semibold text-primary-700 dark:text-primary-300">
+          <div className={`mt-2 flex items-center justify-between text-xs ${muted}`}>
+            <span className="font-bold text-primary-700 dark:text-primary-300">
               {pct}% {featured.funded}
             </span>
-            <Link href={`/projects/${c.id}`} className={`text-sm font-semibold ${linkPrimary}`}>
-              {d.viewDetails} →
+            <Link
+              href={`/projects/${c.id}`}
+              className={`inline-flex items-center gap-1 text-sm font-bold transition ${linkPrimary}`}
+            >
+              {d.viewDetails}
+              <span aria-hidden className="transition group-hover/card:translate-x-0.5">
+                →
+              </span>
             </Link>
           </div>
         </div>

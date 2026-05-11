@@ -31,47 +31,33 @@ export default function Home() {
 
         <PublicSiteHeader />
 
-        <main className="relative z-10 mx-auto flex w-full max-w-screen-2xl flex-1 flex-col px-4 py-6 sm:px-5 sm:py-8 lg:px-6">
-          <section
-            className={`relative mb-5 shrink-0 overflow-hidden rounded-2xl border sm:mb-6 ${
-              isDark
-                ? "border-white/[0.08] bg-zinc-900/80 shadow-lg shadow-black/20"
-                : "border-zinc-200/90 bg-white shadow-md shadow-zinc-900/[0.04]"
-            }`}
-          >
+        <main className="relative z-10 mx-auto flex w-full max-w-screen-2xl flex-1 flex-col gap-8 px-4 py-6 sm:px-5 sm:py-8 lg:px-6">
+          <section className="relative shrink-0 overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br from-primary-800 via-primary-600 to-primary-700 shadow-xl shadow-primary-950/30 ring-1 ring-white/10">
             <div
-              className={`pointer-events-none absolute right-0 top-0 h-32 w-48 translate-x-1/4 -translate-y-1/4 rounded-full blur-2xl ${isDark ? "bg-primary-500/15" : "bg-primary-400/20"}`}
+              className="pointer-events-none absolute inset-0 bg-[linear-gradient(105deg,transparent_40%,rgba(255,255,255,0.06)_50%,transparent_60%)]"
               aria-hidden
             />
             <div
-              className={`relative flex flex-col gap-3 border-l-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-5 sm:py-4 lg:px-6 ${
-                isDark ? "border-l-primary-400" : "border-l-primary-600"
-              }`}
-            >
-              <div className="min-w-0">
-                <p
-                  className={`mb-1.5 inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider sm:text-[11px] ${
-                    isDark
-                      ? "border-primary-500/30 bg-primary-950/60 text-primary-200/95"
-                      : "border-primary-200 bg-primary-50 text-primary-900"
-                  }`}
-                >
-                  <span className="text-xs leading-none opacity-90" aria-hidden>
+              className="pointer-events-none absolute -right-4 -top-20 h-56 w-56 rounded-full bg-primary-400/20 blur-3xl"
+              aria-hidden
+            />
+            <div
+              className="pointer-events-none absolute -bottom-16 left-0 h-48 w-48 rounded-full bg-primary-950/35 blur-3xl"
+              aria-hidden
+            />
+            <div className="relative flex flex-col gap-4 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-8 sm:py-8 lg:px-10">
+              <div className="min-w-0 max-w-2xl">
+                <p className="mb-2 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/95 backdrop-blur-sm sm:text-[11px]">
+                  <span className="text-sm leading-none text-primary-100" aria-hidden>
                     ✦
                   </span>
                   {t.hero.badge}
                 </p>
-                <h1
-                  className={`text-2xl font-bold leading-tight tracking-tight sm:text-3xl ${isDark ? "text-white" : "text-zinc-900"}`}
-                >
+                <h1 className="text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-[2.5rem]">
                   {d.heading}
                 </h1>
               </div>
-              <p
-                className={`max-w-full text-sm leading-snug sm:max-w-md sm:text-right sm:leading-relaxed lg:max-w-lg ${
-                  isDark ? "text-zinc-400" : "text-zinc-600"
-                }`}
-              >
+              <p className="max-w-full text-sm leading-relaxed text-white/90 sm:max-w-md sm:text-right sm:text-base lg:max-w-lg">
                 {d.meta.description}
               </p>
             </div>

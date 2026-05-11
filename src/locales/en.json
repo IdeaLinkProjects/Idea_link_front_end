@@ -65,6 +65,12 @@
     "privacy": "Privacy",
     "terms": "Terms"
   },
+  "cookieConsent": {
+    "title": "Cookies on IdealLink",
+    "body": "We use cookies and similar technologies to run the site, remember your preferences, and understand how our service is used. By clicking Accept, you agree to our use of cookies as described in our",
+    "privacyLink": "Privacy policy",
+    "accept": "Accept"
+  },
   "discoveryCta": {
     "title": "Discover ideas worth backing",
     "subtitle": "Browse every live project on IdealLink—filter by category, search by name, and explore progress at a glance.",

@@ -77,7 +77,7 @@ export function LoginPage() {
           <div className="order-1 flex min-h-0 w-full flex-1 flex-col justify-center px-4 py-6 sm:px-6 lg:order-2 lg:w-1/2 lg:px-8 lg:py-5 xl:w-[54%] xl:px-10">
             <div className="mx-auto w-full max-w-[22rem] sm:max-w-md">
               <div className="text-center lg:text-left">
-                <IdealLinkLogo className="inline-flex items-center transition hover:opacity-90" width={140} height={42} imageClassName="h-10 w-auto" priority />
+                <IdealLinkLogo className="inline-flex items-center transition hover:opacity-90" width={300} height={82} imageClassName="h-16 w-auto sm:h-20" priority />
               </div>
 
               <h1 className="mt-2 text-center text-lg font-bold tracking-tight text-zinc-900 sm:text-xl lg:text-left dark:text-white">

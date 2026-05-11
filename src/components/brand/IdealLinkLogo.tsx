@@ -13,8 +13,8 @@ type IdealLinkLogoProps = {
 
 export function IdealLinkLogo({
   href = "/",
-  width = 132,
-  height = 38,
+  width = 280,
+  height = 76,
   className = "",
   imageClassName = "",
   priority = false,
@@ -23,7 +23,7 @@ export function IdealLinkLogo({
   return (
     <Link href={href} className={className} aria-label="IdealLink home" onClick={onClick}>
       <Image
-        src="/idealink-logo.png"
+        src="/logo_idealink.png"
         alt="IdealLink"
         width={width}
         height={height}

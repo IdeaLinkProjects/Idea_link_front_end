@@ -97,12 +97,12 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <aside
           className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r transition-transform duration-200 lg:translate-x-0 ${sidebarBg} ${mobileNavOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
-          <div className={`flex h-16 shrink-0 items-center justify-between border-b px-4 ${isDark ? "border-white/10" : "border-zinc-200"}`}>
+          <div className={`flex h-20 shrink-0 items-center justify-between border-b px-4 ${isDark ? "border-white/10" : "border-zinc-200"}`}>
             <IdealLinkLogo
               className="inline-flex items-center transition hover:opacity-90"
-              width={128}
-              height={36}
-              imageClassName="h-9 w-auto"
+              width={280}
+              height={76}
+              imageClassName="h-14 w-auto sm:h-16"
               onClick={() => setMobileNavOpen(false)}
             />
             <button
