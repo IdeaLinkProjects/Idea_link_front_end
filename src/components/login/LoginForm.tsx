@@ -130,7 +130,14 @@ export function LoginForm({
       </button>
 
       <div className="text-center">
-        <Link href="/forgot-password" className="text-xs font-medium text-primary-700 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300">
+        <Link
+          href={
+            form.email.trim()
+              ? `/forgot-password?email=${encodeURIComponent(form.email.trim())}`
+              : "/forgot-password"
+          }
+          className="text-xs font-medium text-primary-700 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
+        >
           {t.forgotPassword}
         </Link>
       </div>

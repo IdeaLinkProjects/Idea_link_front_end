@@ -376,18 +376,12 @@ export default function InvestorPortfolioPage() {
                   <p className={`mt-2 text-xs leading-relaxed ${muted}`}>{ip.simReturnsBody}</p>
                 </section>
 
-                <div className="mt-8 flex flex-col gap-2">
+                <div className="mt-8">
                   <Link
                     href={`/projects/${selectedRow.projectSlug}`}
-                    className="rounded-xl bg-primary-950 py-3 text-center text-sm font-semibold text-white hover:bg-primary-900"
+                    className="block rounded-xl bg-primary-950 py-3 text-center text-sm font-semibold text-white hover:bg-primary-900"
                   >
                     {ip.viewProject}
-                  </Link>
-                  <Link
-                    href="/dashboard/messages"
-                    className={`rounded-xl border py-3 text-center text-sm font-semibold ${isDark ? "border-white/20 hover:bg-white/10" : "border-zinc-300 hover:bg-zinc-100"}`}
-                  >
-                    {ip.messageInnovator}
                   </Link>
                 </div>
               </div>

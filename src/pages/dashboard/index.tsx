@@ -181,50 +181,20 @@ export default function DashboardHomePage() {
               </div>
             </div>
 
-            <div className="grid gap-6 lg:grid-cols-2">
-              <div>
-                <h3 className={`mb-4 text-base font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{ti.recentMessages}</h3>
-                <div className={`rounded-2xl border ${cardClass}`}>
-                  <ul className={`divide-y ${isDark ? "divide-white/10" : "divide-zinc-200"}`}>
-                    {ti.mockMessages.map((m) => (
-                      <li
-                        key={m.from + m.time}
-                        className={`flex flex-col gap-1 px-4 py-4 sm:flex-row sm:items-center sm:justify-between ${isDark ? "hover:bg-white/5" : "hover:bg-zinc-50"}`}
-                      >
-                        <div>
-                          <p className={`font-semibold ${isDark ? "text-white" : "text-zinc-900"}`}>{m.from}</p>
-                          <p className={`text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{m.preview}</p>
-                        </div>
-                        <div className="flex shrink-0 items-center gap-3">
-                          <span className={`text-xs ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>{m.time}</span>
-                          <Link
-                            href="/dashboard/messages"
-                            className="text-sm font-semibold text-primary-500 hover:text-primary-400"
-                          >
-                            {ti.reply}
-                          </Link>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div>
-                <h3 className={`mb-4 text-base font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{iv.recentInvestmentsTitle}</h3>
-                <div className={`rounded-2xl border ${cardClass}`}>
-                  <ul className={`divide-y ${isDark ? "divide-white/10" : "divide-zinc-200"}`}>
-                    {iv.recentInvestments.map((row, i) => (
-                      <li key={i} className={`px-4 py-4 ${isDark ? "hover:bg-white/5" : "hover:bg-zinc-50"}`}>
-                        <p className={`font-semibold ${isDark ? "text-white" : "text-zinc-900"}`}>{row.project}</p>
-                        <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-sm">
-                          <span className={`font-bold tabular-nums ${isDark ? "text-primary-300" : "text-primary-800"}`}>{row.amountEtb}</span>
-                          <span className={isDark ? "text-zinc-500" : "text-zinc-500"}>{row.date}</span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            <div>
+              <h3 className={`mb-4 text-base font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{iv.recentInvestmentsTitle}</h3>
+              <div className={`rounded-2xl border ${cardClass}`}>
+                <ul className={`divide-y ${isDark ? "divide-white/10" : "divide-zinc-200"}`}>
+                  {iv.recentInvestments.map((row, i) => (
+                    <li key={i} className={`px-4 py-4 ${isDark ? "hover:bg-white/5" : "hover:bg-zinc-50"}`}>
+                      <p className={`font-semibold ${isDark ? "text-white" : "text-zinc-900"}`}>{row.project}</p>
+                      <div className="mt-1 flex flex-wrap items-center justify-between gap-2 text-sm">
+                        <span className={`font-bold tabular-nums ${isDark ? "text-primary-300" : "text-primary-800"}`}>{row.amountEtb}</span>
+                        <span className={isDark ? "text-zinc-500" : "text-zinc-500"}>{row.date}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </section>

@@ -118,7 +118,15 @@ export default function ProjectDetailPage() {
           <div className="lg:grid lg:grid-cols-[1fr_300px] lg:gap-10 xl:grid-cols-[1fr_360px]">
             <div className="min-w-0">
               <ProjectDetailTabBar isDark={isDark} p={p} tab={tab} onTabChange={setTab} />
-              <ProjectDetailTabPanels isDark={isDark} p={p} bundle={bundle} tab={tab} onDocPreview={onDocPreview} />
+              <ProjectDetailTabPanels
+                isDark={isDark}
+                locale={locale}
+                p={p}
+                bundle={bundle}
+                tab={tab}
+                campaignId={campaignIdNum}
+                onDocPreview={onDocPreview}
+              />
             </div>
             <ProjectDetailAside
               isDark={isDark}

@@ -220,6 +220,15 @@
       "levelTitle": "የአደጋ ደረጃ",
       "considerationsTitle": "ለኢንቨስተር ምክር"
     },
+    "updates": {
+      "retry": "እንደገና ይሞክሩ",
+      "refreshHint": "አዲስ አዘምኖችን ለማግኘት እባክዎ ያድሱ።",
+      "refreshLabel": "አዘምኖችን አድስ",
+      "emptyList": "እስካሁን አዘምን የለም። ከፈጠራ ባለቤቱ ዜና ሲደርስ ይመለሱ።",
+      "pinnedBadge": "ተሰቅሏል",
+      "noContentBody": "ለዚህ አዘምን ተጨማሪ ይዘት የለም።",
+      "loadFailed": "አዘምኖችን መጫን አልተሳካም። እባክዎ እንደገና ይሞክሩ።"
+    },
     "fallback": {
       "problem": "{name} በመስኩ ውስጥ ግልጽ ፍላጎት ያነጣጥራል። ማጠቃለያውን እና ሰነዶችን ይመልከቱ።",
       "solution": "ገንዘቡ ውጤቶችን እንዴት እንደሚያመጣ ያብራራል። ከኢንቨስት ከመደረግዎ በፊት ከቡድኑ ያረጋግጡ።",
@@ -423,6 +432,49 @@
       "password": "የይለፍ ቃል ያስፈልጋል"
     }
   },
+  "forgotPasswordPage": {
+    "metaTitle": "የይለፍ ቃል ረሳሁ | IdealLink",
+    "title": "የይለፍ ቃል ረሳሁ",
+    "subtitle": "የመለያዎን ኢሜይል ያስገቡ እና የይለፍ ቃልዎን ለመቀየር አገናኝ እንልክልዎታለን።",
+    "email": "ኢሜይል",
+    "emailPlaceholder": "you@example.com",
+    "sendResetLink": "የይለፍ ቃል ዳግም ማስጀመር አገናኝ ላክ",
+    "sending": "በመላክ ላይ…",
+    "backToLogin": "ወደ መግቢያ ተመለስ",
+    "successTitle": "ኢሜይልዎን ይመልከቱ",
+    "successMessage": "የይለፍ ቃል ዳግም ማስጀመር አገናኝ ወደ ኢሜይልዎ ተልኳል። አዲስ የይለፍ ቃል ለማስቀመጥ በመልዕክቱ ውስጥ ያለውን አገናኝ ይከተሉ።",
+    "ok": "እሺ",
+    "errors": {
+      "email": "ትክክለኛ ኢሜይል ያስገቡ",
+      "submitFailed": "የይለፍ ቃል ዳግም ማስጀመር ኢሜይል ማስላክ አልተሳካም። እባክዎ እንደገና ይሞክሩ።"
+    }
+  },
+  "resetPasswordPage": {
+    "metaTitle": "የይለፍ ቃል ዳግም አስቀምጥ | IdealLink",
+    "title": "አዲስ የይለፍ ቃል ይምረጡ",
+    "subtitle": "ለመለያዎ ጠንካራ የይለፍ ቃል ይምረጡ።",
+    "newPassword": "አዲስ የይለፍ ቃል",
+    "newPasswordPlaceholder": "ቢያንስ 8 ቁምፊ",
+    "confirmPassword": "የይለፍ ቃል ያረጋግጡ",
+    "confirmPasswordPlaceholder": "አዲሱን የይለፍ ቃል እንደገና ያስገቡ",
+    "showPassword": "የይለፍ ቃል አሳይ",
+    "hidePassword": "የይለፍ ቃል ደብቅ",
+    "resetPassword": "የይለፍ ቃል ዳግም አስቀምጥ",
+    "resetting": "በመቀየር ላይ…",
+    "backToLogin": "ወደ መግቢያ ተመለስ",
+    "signIn": "ግባ",
+    "loading": "በመጫን ላይ…",
+    "successTitle": "የይለፍ ቃል ተዘምኗል",
+    "successBody": "የይለፍ ቃልዎ ተቀይሯል። አሁን በአዲሱ የይለፍ ቃል መግባት ይችላሉ።",
+    "invalidTokenTitle": "ልክ ያልሆነ ወይም ጊዜው ያለፈበት አገናኝ",
+    "invalidTokenBody": "ይህ የይለፍ ቃል ዳግም ማስጀመር አገናኝ የለም ወይም ጊዜው አልፏል። ከቅንብሮች አዲስ ይጠይቁ ወይም ይግቡ።",
+    "errors": {
+      "password": "የይለፍ ቃል ቢያንስ 8 ቁምፊ መሆን አለበት",
+      "confirmPasswordRequired": "እባክዎ የይለፍ ቃልዎን ያረጋግጡ",
+      "confirmPassword": "የይለፍ ቃሎች አይዛመዱም",
+      "submitFailed": "የይለፍ ቃል ማስቀመጥ አልተሳካም። እባክዎ እንደገና ይሞክሩ።"
+    }
+  },
   "kycPage": {
     "metaTitle": "መለያ ማረጋገጫ | IdealLink",
     "title": "የማንነት ማረጋገጫ",
@@ -591,8 +643,9 @@
   "settingsPage": {
     "metaTitle": "ቅንብሮች | IdealLink",
     "title": "ቅንብሮች",
-    "subtitle": "መልክ፣ ቋንቋ እና ማስታወቂያዎችን ያቀናብሩ።",
+    "subtitle": "መልክ፣ ቋንቋ እና የመለያ ደህንነትን ያቀናብሩ።",
     "sectionAppearance": "መልክ",
+    "sectionSecurity": "የመለያ ደህንነት",
     "sectionNotifications": "ማስታወቂያዎች",
     "languageTitle": "ቋንቋ",
     "languageDescription": "ለሜኑ እና ይዘት የበይነመረብ ቋንቋ።",
@@ -606,7 +659,16 @@
     "notifyEmailLabel": "የኢሜይል ማዘመኖች",
     "notifyEmailHint": "የመዋዕለ ንዋይ ክንውኖች እና የፕሮጀክት ዜና",
     "notifyMessagesLabel": "የመልዕክት ማስታወቂያዎች",
-    "notifyMessagesHint": "አንድ ሰው መልዕክት ሲላክልዎ"
+    "notifyMessagesHint": "አንድ ሰው መልዕክት ሲላክልዎ",
+    "resetPasswordTitle": "የይለፍ ቃል",
+    "resetPasswordDescription": "ወደ በመገለጫዎ ላይ ያለው ኢሜይል የይለፍ ቃል ዳግም ማስጀመር አገናኝ እንልክልዎታለን።",
+    "resetPasswordCta": "የይለፍ ቃል ዳግም አስጀምር",
+    "resetPasswordSending": "በመላክ ላይ…",
+    "resetPasswordNoEmail": "በመገለጫዎ ላይ ኢሜይል አልተገኘም። እባክዎ ድጋፍን ያግኙ።",
+    "resetPasswordError": "የይለፍ ቃል ዳግም ማስጀመር ኢሜይል ማስላክ አልተሳካም። እባክዎ እንደገና ይሞክሩ።",
+    "resetPasswordSuccessTitle": "ኢሜይልዎን ይመልከቱ",
+    "resetPasswordSuccessMessage": "የይለፍ ቃል ዳግም ማስጀመር አገናኝ ወደ ኢሜይልዎ ተልኳል። አዲስ የይለፍ ቃል ለማስቀመጥ በመልዕክቱ ውስጥ ያለውን አገናኝ ይከተሉ።",
+    "resetPasswordOk": "እሺ"
   },
   "innovatorDashboard": {
     "metaTitle": "የፈጠራ ባለቤት ዳሽቦርድ | IdealLink",

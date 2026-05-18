@@ -1,16 +1,19 @@
 import type { ReactNode } from "react";
 import type { PublicProjectBundle } from "@/lib/campaign/fromMyCampaign";
-import type { messages } from "@/locales";
+import type { Locale, messages } from "@/locales";
 import type { ProjectDetailTabKey } from "./types";
+import { ProjectUpdatesPanel } from "./ProjectUpdatesPanel";
 import { projectDetailCardClass, projectDetailMutedClass, projectDetailSectionTitleClass } from "./projectDetailClassNames";
 
 type ProjectDetailCopy = (typeof messages.en)["projectDetail"];
 
 type ProjectDetailTabPanelsProps = {
   isDark: boolean;
+  locale: Locale;
   p: ProjectDetailCopy;
   bundle: PublicProjectBundle;
   tab: ProjectDetailTabKey;
+  campaignId: number | null;
   onDocPreview: () => void;
 };
 
@@ -39,7 +42,7 @@ function SectionCard({
   return <div className={`rounded-2xl border-l-4 ${border} p-5 sm:p-6 ${card}`}>{children}</div>;
 }
 
-export function ProjectDetailTabPanels({ isDark, p, bundle, tab, onDocPreview }: ProjectDetailTabPanelsProps) {
+export function ProjectDetailTabPanels({ isDark, locale, p, bundle, tab, campaignId, onDocPreview }: ProjectDetailTabPanelsProps) {
   const muted = projectDetailMutedClass(isDark);
   const title = projectDetailSectionTitleClass(isDark);
 
@@ -130,6 +133,10 @@ export function ProjectDetailTabPanels({ isDark, p, bundle, tab, onDocPreview }:
   }
 
   if (tab === "updates") {
+    if (campaignId != null) {
+      return <ProjectUpdatesPanel campaignId={campaignId} locale={locale} isDark={isDark} t={p.updates} />;
+    }
+
     return (
       <ul className="mt-8 space-y-5">
         {bundle.updates.map((u, i) => (

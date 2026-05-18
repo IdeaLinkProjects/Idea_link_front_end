@@ -2,7 +2,14 @@ export { store } from "./store";
 export type { AppDispatch, RootState } from "./store";
 export { useAppDispatch, useAppSelector } from "./hooks";
 export { baseApi } from "./api/baseApi";
-export { authApi, useLoginMutation, useRegisterMutation, useVerifyEmailMutation } from "./api/authApi";
+export {
+  authApi,
+  useLoginMutation,
+  useRegisterMutation,
+  useVerifyEmailMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
+} from "./api/authApi";
 export { kycApi, useUploadKycMutation, useVerifyPhoneOtpMutation } from "./api/kycApi";
 export {
   campaignsApi,
@@ -89,6 +96,10 @@ export type {
   UserRolesStatusResponse,
 } from "./api/profileApi";
 export type {
+  ForgotPasswordRequestBody,
+  ForgotPasswordResponse,
+  ResetPasswordRequestBody,
+  ResetPasswordResponse,
   LoginRequestBody,
   LoginResponse,
   RegisterRequestBody,

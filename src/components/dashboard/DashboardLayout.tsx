@@ -9,8 +9,6 @@ import { type ReactNode, useEffect, useRef, useState } from "react";
 import { messages } from "@/locales";
 import { useGetUserRolesStatusQuery } from "@/store";
 
-const MESSAGE_BADGE = 3;
-
 type DashboardLayoutProps = {
   children: ReactNode;
 };
@@ -50,12 +48,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     },
     { href: "/dashboard/company", label: t.navCompany, match: (p) => p.startsWith("/dashboard/company") },
     { href: "/dashboard/payment", label: t.navPayment, match: (p) => p.startsWith("/dashboard/payment") },
-    {
-      href: "/dashboard/messages",
-      label: t.navMessages,
-      match: (p) => p.startsWith("/dashboard/messages"),
-      badge: MESSAGE_BADGE,
-    },
   ];
 
   const pageBg = isDark

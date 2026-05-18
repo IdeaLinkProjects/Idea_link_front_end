@@ -2,9 +2,12 @@ import Head from "next/head";
 import { useCallback, useEffect, useState } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader";
+import { AlertDialog } from "@/components/ui/AlertDialog";
 import { type AppTheme, useAppPreferences } from "@/context/AppPreferencesContext";
+import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 import type { Locale } from "@/locales";
 import { messages } from "@/locales";
+import { useForgotPasswordMutation, useGetUserRolesStatusQuery } from "@/store";
 
 const NOTIFY_EMAIL_KEY = "ideal-link-settings-notify-email";
 const NOTIFY_MSG_KEY = "ideal-link-settings-notify-messages";
@@ -63,8 +66,13 @@ export default function DashboardSettingsPage() {
   const { locale, setLocale, theme, setTheme, isDark } = useAppPreferences();
   const t = messages[locale].settingsPage;
 
+  const { data: profile } = useGetUserRolesStatusQuery();
+  const [forgotPassword, { isLoading: isResettingPassword }] = useForgotPasswordMutation();
+
   const [notifyEmail, setNotifyEmail] = useState(true);
   const [notifyMessages, setNotifyMessages] = useState(true);
+  const [resetPasswordError, setResetPasswordError] = useState<string | null>(null);
+  const [resetSuccessOpen, setResetSuccessOpen] = useState(false);
 
   useEffect(() => {
     setNotifyEmail(readBool(NOTIFY_EMAIL_KEY, true));
@@ -112,6 +120,21 @@ export default function DashboardSettingsPage() {
 
   const setLang = (value: Locale) => () => setLocale(value);
   const setTh = (value: AppTheme) => () => setTheme(value);
+
+  const onResetPassword = useCallback(async () => {
+    setResetPasswordError(null);
+    const email = profile?.email?.trim();
+    if (!email) {
+      setResetPasswordError(t.resetPasswordNoEmail);
+      return;
+    }
+    try {
+      await forgotPassword({ email }).unwrap();
+      setResetSuccessOpen(true);
+    } catch (err) {
+      setResetPasswordError(extractApiErrorMessage(err, t.resetPasswordError));
+    }
+  }, [forgotPassword, profile?.email, t]);
 
   return (
     <>
@@ -236,29 +259,61 @@ export default function DashboardSettingsPage() {
 
           <section>
             <h2 className={`mb-4 text-sm font-bold uppercase tracking-wide ${isDark ? "text-zinc-500" : "text-zinc-500"}`}>
-              {t.sectionNotifications}
+              {t.sectionSecurity}
             </h2>
-            <div className={`rounded-2xl border px-5 py-2 ${cardClass}`}>
-              <p className={`border-b pb-3 pt-2 text-sm ${isDark ? "border-white/10 text-zinc-400" : "border-zinc-200 text-zinc-600"}`}>
-                {t.notificationsDescription}
-              </p>
-              <ToggleRow
-                label={t.notifyEmailLabel}
-                hint={t.notifyEmailHint}
-                checked={notifyEmail}
-                onCheckedChange={onEmail}
-                isDark={isDark}
-              />
-              <ToggleRow
-                label={t.notifyMessagesLabel}
-                hint={t.notifyMessagesHint}
-                checked={notifyMessages}
-                onCheckedChange={onMessages}
-                isDark={isDark}
-              />
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className={`rounded-2xl border p-5 sm:col-span-2 ${cardClass}`}>
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-start gap-3">
+                    <span
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${isDark ? "bg-primary-900/50 text-primary-300" : "bg-primary-100 text-primary-800"}`}
+                      aria-hidden
+                    >
+                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+                        />
+                      </svg>
+                    </span>
+                    <div className="min-w-0">
+                      <h3 className={`text-base font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{t.resetPasswordTitle}</h3>
+                      <p className={`mt-1 text-xs leading-relaxed sm:max-w-xl ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
+                        {t.resetPasswordDescription}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex shrink-0 flex-col items-stretch gap-2 sm:items-end">
+                    <button
+                      type="button"
+                      onClick={() => void onResetPassword()}
+                      disabled={isResettingPassword}
+                      className="inline-flex items-center justify-center rounded-xl bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 dark:focus-visible:ring-offset-zinc-950"
+                    >
+                      {isResettingPassword ? t.resetPasswordSending : t.resetPasswordCta}
+                    </button>
+                    {resetPasswordError ? (
+                      <p className="text-xs text-red-600 dark:text-red-400" role="alert">
+                        {resetPasswordError}
+                      </p>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
         </div>
+
+        <AlertDialog
+          open={resetSuccessOpen}
+          title={t.resetPasswordSuccessTitle}
+          description={t.resetPasswordSuccessMessage}
+          okLabel={t.resetPasswordOk}
+          onClose={() => setResetSuccessOpen(false)}
+          isDark={isDark}
+        />
       </DashboardLayout>
     </>
   );

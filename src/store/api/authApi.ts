@@ -49,6 +49,24 @@ export type LoginRequestBody = {
   password: string;
 };
 
+export type ForgotPasswordRequestBody = {
+  email: string;
+};
+
+export type ForgotPasswordResponse = {
+  message?: string;
+};
+
+export type ResetPasswordRequestBody = {
+  resetToken: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+
+export type ResetPasswordResponse = {
+  message?: string;
+};
+
 /** Login may omit tokens when the account still needs registration or email verification. */
 export type LoginResponse = {
   accessToken?: string | null;
@@ -85,8 +103,28 @@ export const authApi = baseApi.injectEndpoints({
         body,
       }),
     }),
+    forgotPassword: build.mutation<ForgotPasswordResponse, ForgotPasswordRequestBody>({
+      query: (body) => ({
+        url: "auth/forgot-password",
+        method: "POST",
+        body,
+      }),
+    }),
+    resetPassword: build.mutation<ResetPasswordResponse, ResetPasswordRequestBody>({
+      query: (body) => ({
+        url: "auth/reset-password",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useLoginMutation, useRegisterMutation, useVerifyEmailMutation } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useVerifyEmailMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
+} = authApi;

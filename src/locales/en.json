@@ -220,6 +220,15 @@
       "levelTitle": "Risk level",
       "considerationsTitle": "Investor considerations"
     },
+    "updates": {
+      "retry": "Retry",
+      "refreshHint": "Please refresh to get new updates.",
+      "refreshLabel": "Refresh updates",
+      "emptyList": "No updates yet. Check back later for news from the innovator.",
+      "pinnedBadge": "Pinned",
+      "noContentBody": "No extra content for this update.",
+      "loadFailed": "Could not load updates. Please try again."
+    },
     "fallback": {
       "problem": "{name} targets a clear need in its sector. Review the summary and documents before investing.",
       "solution": "The campaign describes how funds will be used to deliver outcomes. Confirm assumptions with the team before investing.",
@@ -423,6 +432,49 @@
       "password": "Password is required"
     }
   },
+  "forgotPasswordPage": {
+    "metaTitle": "Forgot password | IdealLink",
+    "title": "Forgot password",
+    "subtitle": "Enter the email for your account and we will send you a link to reset your password.",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "sendResetLink": "Send reset link",
+    "sending": "Sending…",
+    "backToLogin": "Back to sign in",
+    "successTitle": "Check your email",
+    "successMessage": "A password reset link has been sent to your email. Open the link in that message to set a new password.",
+    "ok": "OK",
+    "errors": {
+      "email": "Enter a valid email address",
+      "submitFailed": "Could not send the reset email. Please try again."
+    }
+  },
+  "resetPasswordPage": {
+    "metaTitle": "Reset password | IdealLink",
+    "title": "Set a new password",
+    "subtitle": "Choose a strong password for your account.",
+    "newPassword": "New password",
+    "newPasswordPlaceholder": "At least 8 characters",
+    "confirmPassword": "Confirm password",
+    "confirmPasswordPlaceholder": "Re-enter your new password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "resetPassword": "Reset password",
+    "resetting": "Resetting…",
+    "backToLogin": "Back to sign in",
+    "signIn": "Sign in",
+    "loading": "Loading…",
+    "successTitle": "Password updated",
+    "successBody": "Your password has been reset. You can now sign in with your new password.",
+    "invalidTokenTitle": "Invalid or expired link",
+    "invalidTokenBody": "This reset link is missing or no longer valid. Request a new password reset from settings or sign in.",
+    "errors": {
+      "password": "Password must be at least 8 characters",
+      "confirmPasswordRequired": "Please confirm your password",
+      "confirmPassword": "Passwords do not match",
+      "submitFailed": "Could not reset your password. Please try again."
+    }
+  },
   "kycPage": {
     "metaTitle": "Verify identity | IdealLink",
     "title": "Identity verification",
@@ -591,8 +643,9 @@
   "settingsPage": {
     "metaTitle": "Settings | IdealLink",
     "title": "Settings",
-    "subtitle": "Manage appearance, language, and notifications.",
+    "subtitle": "Manage appearance, language, and account security.",
     "sectionAppearance": "Appearance",
+    "sectionSecurity": "Account security",
     "sectionNotifications": "Notifications",
     "languageTitle": "Language",
     "languageDescription": "Interface language for menus and content.",
@@ -606,7 +659,16 @@
     "notifyEmailLabel": "Email updates",
     "notifyEmailHint": "Funding milestones and project news",
     "notifyMessagesLabel": "Message alerts",
-    "notifyMessagesHint": "When someone sends you a message"
+    "notifyMessagesHint": "When someone sends you a message",
+    "resetPasswordTitle": "Password",
+    "resetPasswordDescription": "We will email a reset link to the address on your profile.",
+    "resetPasswordCta": "Reset password",
+    "resetPasswordSending": "Sending…",
+    "resetPasswordNoEmail": "No email found on your profile. Please contact support.",
+    "resetPasswordError": "Could not send the reset email. Please try again.",
+    "resetPasswordSuccessTitle": "Check your email",
+    "resetPasswordSuccessMessage": "A password reset link has been sent to your email. Open the link in that message to set a new password.",
+    "resetPasswordOk": "OK"
   },
   "innovatorDashboard": {
     "metaTitle": "Innovator Dashboard | IdealLink",
