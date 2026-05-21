@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { FormEvent, useCallback, useState } from "react";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { messages } from "@/locales";
+import { LandingHeroBackground } from "./LandingHeroBackground";
 
 type Audience = "invest" | "innovate";
 
@@ -59,23 +60,18 @@ export function LandingPage() {
   const card = isDark
     ? "rounded-2xl border border-white/10 bg-zinc-900/50 shadow-lg shadow-black/20"
     : "rounded-2xl border border-zinc-200/90 bg-white shadow-md shadow-zinc-900/[0.04]";
-  const pillInactive = isDark
-    ? "border-white/15 bg-white/5 text-zinc-300 hover:bg-white/10"
-    : "border-zinc-200 bg-white text-zinc-600 hover:border-zinc-300 hover:bg-zinc-50";
   const pillActive = "border-primary-600 bg-primary-600 text-white shadow-md shadow-primary-900/25";
+  const heroPillInactive = "border-transparent bg-transparent text-zinc-200 hover:bg-white/10";
 
   return (
     <div className={clsx("flex flex-col", section)}>
       {/* Hero */}
-      <section className="relative px-4 pb-16 pt-8 sm:px-5 sm:pb-20 sm:pt-12 lg:px-6 lg:pb-24">
-        <div
-          className={`pointer-events-none absolute left-1/2 top-0 h-[28rem] w-[min(100%,52rem)] -translate-x-1/2 rounded-full blur-3xl ${isDark ? "bg-primary-600/15" : "bg-primary-400/20"}`}
-          aria-hidden
-        />
+      <section className="relative min-h-[28rem] overflow-hidden px-4 pb-16 pt-24 sm:min-h-[32rem] sm:px-5 sm:pb-20 sm:pt-28 lg:px-6 lg:pb-24">
+        <LandingHeroBackground />
 
-        <div className="relative mx-auto max-w-4xl text-center">
+        <div className="relative z-10 mx-auto max-w-4xl text-center">
           <div
-            className={`mx-auto mb-8 inline-flex rounded-full border p-1 ${isDark ? "border-white/15 bg-zinc-900/80" : "border-zinc-200 bg-zinc-100/90"}`}
+            className="mx-auto mb-8 inline-flex rounded-full border border-white/20 bg-black/40 p-1 backdrop-blur-md"
             role="tablist"
             aria-label="Audience"
           >
@@ -85,7 +81,7 @@ export function LandingPage() {
               aria-selected={isInvest}
               className={clsx(
                 "rounded-full px-5 py-2 text-sm font-semibold transition",
-                isInvest ? pillActive : pillInactive,
+                isInvest ? pillActive : heroPillInactive,
               )}
               onClick={() => setAudience("invest")}
             >
@@ -97,7 +93,7 @@ export function LandingPage() {
               aria-selected={!isInvest}
               className={clsx(
                 "rounded-full px-5 py-2 text-sm font-semibold transition",
-                !isInvest ? pillActive : pillInactive,
+                !isInvest ? pillActive : heroPillInactive,
               )}
               onClick={() => setAudience("innovate")}
             >
@@ -105,10 +101,10 @@ export function LandingPage() {
             </button>
           </div>
 
-          <h1 className="text-balance text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.25rem]">
+          <h1 className="text-balance text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
             {heroTitle}
           </h1>
-          <p className={clsx("mx-auto mt-5 max-w-2xl text-pretty text-base leading-relaxed sm:text-lg", muted)}>
+          <p className="mx-auto mt-5 max-w-2xl text-pretty text-base leading-relaxed text-zinc-200 sm:text-lg">
             {heroSubtitle}
           </p>
 
@@ -122,23 +118,15 @@ export function LandingPage() {
             </Link>
             <Link
               href="/register"
-              className={clsx(
-                "inline-flex items-center gap-2 rounded-xl border px-6 py-3 text-sm font-bold transition hover:-translate-y-0.5",
-                isDark ? "border-white/20 bg-white/5 hover:bg-white/10" : "border-zinc-300 bg-white hover:bg-zinc-50",
-              )}
+              className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-white/20"
             >
               {t.finalCtaSignUp}
             </Link>
           </div>
 
           <form onSubmit={onSubmitSearch} className="mx-auto mt-10 max-w-2xl">
-            <div
-              className={clsx(
-                "flex overflow-hidden rounded-2xl border shadow-lg transition focus-within:ring-2 focus-within:ring-primary-500/40",
-                isDark ? "border-white/15 bg-zinc-900" : "border-zinc-200 bg-white shadow-zinc-900/10",
-              )}
-            >
-              <span className={`flex items-center pl-4 ${muted}`} aria-hidden>
+            <div className="flex overflow-hidden rounded-2xl border border-white/20 bg-zinc-900/80 shadow-lg shadow-black/30 backdrop-blur-md transition focus-within:ring-2 focus-within:ring-primary-400/50">
+              <span className="flex items-center pl-4 text-zinc-400" aria-hidden>
                 <Search className="h-5 w-5" />
               </span>
               <input
@@ -146,10 +134,7 @@ export function LandingPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={t.searchPlaceholder}
-                className={clsx(
-                  "min-w-0 flex-1 border-0 bg-transparent px-3 py-4 text-base outline-none",
-                  isDark ? "text-white placeholder:text-zinc-500" : "text-zinc-900 placeholder:text-zinc-400",
-                )}
+                className="min-w-0 flex-1 border-0 bg-transparent px-3 py-4 text-base text-white outline-none placeholder:text-zinc-500"
                 aria-label={t.searchPlaceholder}
               />
               <button
@@ -162,7 +147,7 @@ export function LandingPage() {
           </form>
 
           <div className="mt-8 text-left sm:text-center">
-            <p className={`text-xs font-bold uppercase tracking-wider ${muted}`}>{t.popularSearches}</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-zinc-300">{t.popularSearches}</p>
             <ul className="mt-3 flex flex-wrap justify-center gap-2">
               {t.popularQueries.map((label) => (
                 <li key={label}>
@@ -172,12 +157,7 @@ export function LandingPage() {
                       setQuery(label);
                       goToDiscovery(label);
                     }}
-                    className={clsx(
-                      "rounded-full border px-3 py-1.5 text-left text-xs font-medium transition hover:-translate-y-0.5 sm:text-sm",
-                      isDark
-                        ? "border-white/12 bg-white/5 text-zinc-300 hover:border-primary-500/40 hover:bg-primary-500/10"
-                        : "border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-primary-300 hover:bg-primary-50",
-                    )}
+                    className="rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-left text-xs font-medium text-zinc-100 transition hover:-translate-y-0.5 hover:border-primary-400/50 hover:bg-primary-500/20 sm:text-sm"
                   >
                     {label}
                   </button>
@@ -186,7 +166,7 @@ export function LandingPage() {
             </ul>
           </div>
 
-          <p className={`mt-10 text-sm font-medium ${muted}`}>{t.trustedBy}</p>
+          <p className="mt-10 text-sm font-medium text-zinc-300">{t.trustedBy}</p>
         </div>
       </section>
 

@@ -30,7 +30,7 @@ export default function Home() {
           aria-hidden
         />
 
-        <PublicSiteHeader />
+        <PublicSiteHeader transparent />
 
         <LandingPage />
 

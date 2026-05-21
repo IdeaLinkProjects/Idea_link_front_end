@@ -9,9 +9,11 @@ export type PublicSiteHeaderProps = {
   /** When set, a link is shown before the brand (e.g. back to Discovery). */
   backHref?: string;
   backLabel?: string;
+  /** See-through bar over hero media (e.g. landing page). */
+  transparent?: boolean;
 };
 
-export function PublicSiteHeader({ backHref, backLabel }: PublicSiteHeaderProps) {
+export function PublicSiteHeader({ backHref, backLabel, transparent = false }: PublicSiteHeaderProps) {
   const { locale, setLocale, setTheme, isDark } = useAppPreferences();
   const [loggedIn, setLoggedIn] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -41,16 +43,26 @@ export function PublicSiteHeader({ backHref, backLabel }: PublicSiteHeaderProps)
     return () => document.removeEventListener("mousedown", onDown);
   }, [langOpen]);
 
+  const navBtn = transparent
+    ? "border-white/25 bg-white/10 text-white hover:bg-white/20"
+    : isDark
+      ? "border-white/20 bg-white/5 text-zinc-100 hover:bg-white/10"
+      : "border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-100";
+
   return (
     <header
-      className={`sticky top-0 z-50 border-b backdrop-blur-xl ${isDark ? "border-white/10 bg-zinc-950/70" : "border-zinc-200 bg-white/80"}`}
+      className={
+        transparent
+          ? "absolute top-0 right-0 left-0 z-50 border-b border-white/10 bg-transparent"
+          : `sticky top-0 z-50 border-b backdrop-blur-xl ${isDark ? "border-white/10 bg-zinc-950/70" : "border-zinc-200 bg-white/80"}`
+      }
     >
       <div className="mx-auto flex h-20 w-full max-w-screen-2xl items-center justify-between gap-3 px-4 sm:px-5 lg:px-6">
         <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
           {backHref && backLabel ? (
             <Link
               href={backHref}
-              className={`shrink-0 text-sm font-semibold transition hover:underline ${isDark ? "text-primary-300 hover:text-primary-200" : "text-primary-700 hover:text-primary-800"}`}
+              className={`shrink-0 text-sm font-semibold transition hover:underline ${transparent ? "text-white hover:text-primary-200" : isDark ? "text-primary-300 hover:text-primary-200" : "text-primary-700 hover:text-primary-800"}`}
             >
               ← {backLabel}
             </Link>
@@ -65,7 +77,7 @@ export function PublicSiteHeader({ backHref, backLabel }: PublicSiteHeaderProps)
         <div className="flex shrink-0 flex-wrap items-center justify-end gap-2 sm:gap-3">
           <Link
             href="/discovery"
-            className={`hidden rounded-lg border px-3 py-2 text-sm font-semibold transition hover:-translate-y-0.5 sm:inline-flex ${isDark ? "border-white/20 bg-white/5 text-zinc-100 hover:bg-white/10" : "border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-100"}`}
+            className={`hidden rounded-lg border px-3 py-2 text-sm font-semibold transition hover:-translate-y-0.5 sm:inline-flex ${navBtn}`}
           >
             {t.nav.discover}
           </Link>
@@ -76,7 +88,7 @@ export function PublicSiteHeader({ backHref, backLabel }: PublicSiteHeaderProps)
               aria-expanded={langOpen}
               aria-haspopup="listbox"
               aria-label={t.nav.language}
-              className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-2 text-sm font-semibold transition hover:-translate-y-0.5 ${isDark ? "border-white/20 bg-white/5 text-zinc-100 hover:bg-white/10" : "border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-100"}`}
+              className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-2 text-sm font-semibold transition hover:-translate-y-0.5 ${navBtn}`}
             >
               {locale === "en" ? t.nav.langEnglish : t.nav.langAmharic}
               <span className="text-[10px] opacity-70" aria-hidden>
@@ -122,7 +134,7 @@ export function PublicSiteHeader({ backHref, backLabel }: PublicSiteHeaderProps)
           <button
             type="button"
             onClick={() => setTheme(isDark ? "light" : "dark")}
-            className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition hover:-translate-y-0.5 ${isDark ? "border-white/20 bg-white/5 text-zinc-100 hover:bg-white/10" : "border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-100"}`}
+            className={`inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition hover:-translate-y-0.5 ${navBtn}`}
             aria-label={isDark ? t.nav.themeLight : t.nav.themeDark}
           >
             <span aria-hidden="true" className="text-base leading-none">
@@ -132,7 +144,7 @@ export function PublicSiteHeader({ backHref, backLabel }: PublicSiteHeaderProps)
           </button>
           <Link
             href={loggedIn ? "/dashboard" : "/login"}
-            className={`rounded-lg border px-3 py-2 text-sm font-medium transition hover:-translate-y-0.5 ${isDark ? "border-white/20 bg-white/5 text-zinc-100 hover:bg-white/10" : "border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-100"}`}
+            className={`rounded-lg border px-3 py-2 text-sm font-medium transition hover:-translate-y-0.5 ${navBtn}`}
           >
             {loggedIn ? t.nav.dashboard : t.nav.login}
           </Link>
