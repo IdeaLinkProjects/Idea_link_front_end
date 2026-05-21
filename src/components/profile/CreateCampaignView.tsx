@@ -145,6 +145,51 @@ export function CreateCampaignView() {
             </div>
 
             <div>
+              <label htmlFor="campaign-total-shares" className={labelClass}>
+                {t.totalShares}
+              </label>
+              <input
+                id="campaign-total-shares"
+                type="number"
+                min="1"
+                step="1"
+                value={form.totalShares}
+                onChange={(e) => updateField("totalShares", e.target.value)}
+                className={inputClass}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="campaign-min-shares" className={labelClass}>
+                {t.minimumSharesPerInvestor}
+              </label>
+              <input
+                id="campaign-min-shares"
+                type="number"
+                min="1"
+                step="1"
+                value={form.minimumSharesPerInvestor}
+                onChange={(e) => updateField("minimumSharesPerInvestor", e.target.value)}
+                className={inputClass}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="campaign-duration-days" className={labelClass}>
+                {t.durationDays}
+              </label>
+              <input
+                id="campaign-duration-days"
+                type="number"
+                min="1"
+                step="1"
+                value={form.durationDays}
+                onChange={(e) => updateField("durationDays", e.target.value)}
+                className={inputClass}
+              />
+            </div>
+
+            <div>
               <label htmlFor="campaign-start-date" className={labelClass}>
                 {t.startDate}
               </label>

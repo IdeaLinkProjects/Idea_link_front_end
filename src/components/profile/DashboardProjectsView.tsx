@@ -1,11 +1,19 @@
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useMemo, useState } from "react";
 import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader";
 import { DashboardPagination } from "@/components/ui/DashboardPagination";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { useWorkspace } from "@/context/WorkspaceContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 import { messages } from "@/locales";
 import { useGetMyCampaignsQuery, useGetUserInvestmentsQuery } from "@/store";
+
+export type DashboardCampaignsMode = "creator" | "investor";
+
+type DashboardProjectsViewProps = {
+  mode: DashboardCampaignsMode;
+};
 
 const PAGE_SIZE = 6;
 
@@ -27,12 +35,26 @@ function formatDate(isoDate: string, locale: "en" | "am") {
   });
 }
 
-export function DashboardProjectsView() {
+export function DashboardProjectsView({ mode }: DashboardProjectsViewProps) {
+  const router = useRouter();
+  const { activeWorkspace } = useWorkspace();
   const { locale, isDark } = useAppPreferences();
   const t = messages[locale].innovatorDashboard;
-  const [view, setView] = useState<"myCampaigns" | "investedCampaigns">("myCampaigns");
+  const shell = messages[locale].commonDashboard;
   const [myCampaignsPage, setMyCampaignsPage] = useState(0);
   const [investmentsPage, setInvestmentsPage] = useState(0);
+
+  const showMyCampaigns = mode === "creator";
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    if (mode === "creator" && activeWorkspace === "investor") {
+      void router.replace("/dashboard/portfolio");
+    }
+    if (mode === "investor" && activeWorkspace === "innovator") {
+      void router.replace("/dashboard/projects");
+    }
+  }, [router.isReady, mode, activeWorkspace, router]);
 
   const myCampaignsRequest = useMemo(
     () => ({
@@ -49,8 +71,8 @@ export function DashboardProjectsView() {
     [investmentsPage],
   );
 
-  const campaignsQuery = useGetMyCampaignsQuery(myCampaignsRequest, { skip: view !== "myCampaigns" });
-  const investmentsQuery = useGetUserInvestmentsQuery(investmentsRequest, { skip: view !== "investedCampaigns" });
+  const campaignsQuery = useGetMyCampaignsQuery(myCampaignsRequest, { skip: !showMyCampaigns });
+  const investmentsQuery = useGetUserInvestmentsQuery(investmentsRequest, { skip: showMyCampaigns });
 
   const campaigns = campaignsQuery.data?.content ?? [];
   const campaignsTotalPages = campaignsQuery.data?.totalPages ?? 0;
@@ -60,20 +82,14 @@ export function DashboardProjectsView() {
   const cardClass = isDark
     ? "border-white/15 bg-white/10 shadow-lg shadow-black/20"
     : "border-zinc-200 bg-white shadow-md shadow-zinc-200/60";
-  const selectedViewCard = isDark
-    ? "border-primary-400/50 bg-gradient-to-br from-primary-950/55 via-primary-900/35 to-emerald-900/20 text-white"
-    : "border-primary-300 bg-gradient-to-br from-primary-50 via-white to-emerald-50 text-zinc-900";
-  const idleViewCard = isDark
-    ? "border-white/15 bg-zinc-900/40 text-zinc-200 hover:border-primary-500/30 hover:bg-zinc-900/70"
-    : "border-zinc-200 bg-white text-zinc-700 hover:border-primary-200 hover:bg-primary-50/40";
-
-  const showMyCampaigns = view === "myCampaigns";
+  const pageTitle = showMyCampaigns ? shell.navMyCampaigns : shell.navCampaignsInvested;
+  const pageSubtitle = showMyCampaigns ? t.campaignsPageSubtitle : t.investedCampaignsOptionDescription;
 
   return (
     <div className="mx-auto max-w-6xl space-y-6">
       <DashboardPageHeader
-        title={t.campaignsPageTitle}
-        subtitle={t.campaignsPageSubtitle}
+        title={pageTitle}
+        subtitle={pageSubtitle}
         actions={
           showMyCampaigns ? (
             <Link
@@ -85,33 +101,6 @@ export function DashboardProjectsView() {
           ) : null
         }
       />
-
-      <section className={`rounded-3xl border p-4 sm:p-5 ${cardClass}`}>
-        <div className="mb-4">
-          <h2 className={`text-sm font-bold uppercase tracking-wide ${isDark ? "text-zinc-300" : "text-zinc-600"}`}>{t.campaignViewChooserTitle}</h2>
-          <p className={`mt-1 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.campaignViewChooserSubtitle}</p>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <button
-            type="button"
-            onClick={() => setView("myCampaigns")}
-            className={`rounded-2xl border p-4 text-left transition ${showMyCampaigns ? selectedViewCard : idleViewCard}`}
-          >
-            <p className="text-xs font-bold uppercase tracking-wide">{t.myCampaignsOptionBadge}</p>
-            <p className="mt-1 text-base font-semibold">{t.myCampaignsOptionTitle}</p>
-            <p className={`mt-1 text-sm ${isDark ? "text-zinc-300" : "text-zinc-600"}`}>{t.myCampaignsOptionDescription}</p>
-          </button>
-          <button
-            type="button"
-            onClick={() => setView("investedCampaigns")}
-            className={`rounded-2xl border p-4 text-left transition ${!showMyCampaigns ? selectedViewCard : idleViewCard}`}
-          >
-            <p className="text-xs font-bold uppercase tracking-wide">{t.investedCampaignsOptionBadge}</p>
-            <p className="mt-1 text-base font-semibold">{t.investedCampaignsOptionTitle}</p>
-            <p className={`mt-1 text-sm ${isDark ? "text-zinc-300" : "text-zinc-600"}`}>{t.investedCampaignsOptionDescription}</p>
-          </button>
-        </div>
-      </section>
 
       {showMyCampaigns && (campaignsQuery.isLoading || campaignsQuery.isFetching) ? (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -297,7 +286,7 @@ export function DashboardProjectsView() {
                     </span>
                   </div>
                   <p className={`line-clamp-1 text-sm ${isDark ? "text-zinc-300" : "text-zinc-600"}`}>
-                    {t.companyLabel}: {investment.campaign.company?.name ?? "—"}
+                    {t.companyLabel}: {investment.campaign.company?.name ?? "???"}
                   </p>
                   <div className={`grid grid-cols-2 gap-3 text-xs ${isDark ? "text-zinc-300" : "text-zinc-600"}`}>
                     <div>
@@ -319,7 +308,7 @@ export function DashboardProjectsView() {
                   </div>
                   <div className="flex items-center justify-between">
                     <p className={`text-xs ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>
-                      {t.paymentStatusLabel}: {investment.payment?.paymentStatus ?? "—"}
+                      {t.paymentStatusLabel}: {investment.payment?.paymentStatus ?? "???"}
                     </p>
                     <Link
                       href={`/projects/${investment.campaign.id}?from=investments`}

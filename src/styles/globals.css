@@ -56,3 +56,20 @@ body {
     @apply bg-primary-200 text-zinc-950;
   }
 }
+
+@keyframes ideal-workspace-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-workspace-content {
+    animation: ideal-workspace-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+}

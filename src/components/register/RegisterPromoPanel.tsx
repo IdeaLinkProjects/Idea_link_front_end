@@ -121,7 +121,7 @@ export function RegisterPromoPanel({ t, className }: RegisterPromoPanelProps) {
         </ul>
 
         <Link
-          href="/"
+          href="/discovery"
           className="group mt-4 inline-flex items-center gap-2 rounded-lg border border-primary-600/30 bg-primary-50/80 px-4 py-2 text-xs font-semibold text-primary-900 transition hover:bg-primary-100 dark:border-primary-500/30 dark:bg-primary-500/10 dark:text-primary-200 dark:hover:border-primary-400/50 dark:hover:bg-primary-500/20 sm:py-2.5 sm:text-sm"
         >
           {t.heroExplore}

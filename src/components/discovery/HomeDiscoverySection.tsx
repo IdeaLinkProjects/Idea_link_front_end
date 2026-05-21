@@ -59,13 +59,22 @@ function parseOptionalPositiveInt(s: string): number | undefined {
   return n;
 }
 
-export function HomeDiscoverySection() {
+export type HomeDiscoverySectionProps = {
+  /** Pre-fill search from landing hero or `?q=` URL param */
+  initialKeyword?: string;
+};
+
+export function HomeDiscoverySection({ initialKeyword = "" }: HomeDiscoverySectionProps) {
   const { locale, isDark } = useAppPreferences();
   const t = messages[locale];
   const d = t.discovery;
   const fu = d.filterUi;
 
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState(initialKeyword);
+  useEffect(() => {
+    if (initialKeyword) setKeyword(initialKeyword);
+  }, [initialKeyword]);
+
   const debouncedKeyword = useDebouncedValue(keyword, 400);
   const [statuses, setStatuses] = useState<string[]>([]);
   const [tagIds, setTagIds] = useState<number[]>([]);

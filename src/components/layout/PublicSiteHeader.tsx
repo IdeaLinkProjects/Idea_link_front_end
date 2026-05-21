@@ -63,6 +63,12 @@ export function PublicSiteHeader({ backHref, backLabel }: PublicSiteHeaderProps)
           />
         </div>
         <div className="flex shrink-0 flex-wrap items-center justify-end gap-2 sm:gap-3">
+          <Link
+            href="/discovery"
+            className={`hidden rounded-lg border px-3 py-2 text-sm font-semibold transition hover:-translate-y-0.5 sm:inline-flex ${isDark ? "border-white/20 bg-white/5 text-zinc-100 hover:bg-white/10" : "border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-100"}`}
+          >
+            {t.nav.discover}
+          </Link>
           <div className="relative" ref={langMenuRef}>
             <button
               type="button"
