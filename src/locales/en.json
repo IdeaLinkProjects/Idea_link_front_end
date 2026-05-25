@@ -743,6 +743,8 @@
     "companyNo": "No",
     "completeProfilesTitle": "Finish your profiles",
     "completeProfilesHint": "Complete both sides to unlock the full experience.",
+    "completeProfileHintInnovator": "Complete your innovator profile to unlock campaigns and company tools in this workspace.",
+    "completeProfileHintInvestor": "Complete your investor profile to unlock discovery and investment features in this workspace.",
     "completeInnovatorCta": "Complete innovator profile",
     "completeInvestorCta": "Complete investor profile",
     "editInnovatorCta": "Edit innovator profile",
