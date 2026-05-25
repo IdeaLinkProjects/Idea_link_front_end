@@ -67,14 +67,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     ];
   }, [activeWorkspace, t]);
 
-  const pageBg =
-    activeWorkspace === "investor"
-      ? isDark
-        ? "bg-gradient-to-br from-zinc-950 via-primary-950/40 to-zinc-900 text-zinc-100"
-        : "bg-gradient-to-br from-slate-100 via-primary-100/50 to-slate-100 text-slate-900"
-      : isDark
-        ? "bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-900 text-zinc-100"
-        : "bg-gradient-to-br from-slate-100 via-zinc-50/80 to-slate-100 text-slate-900";
+  const pageBg = isDark
+    ? "bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-900 text-zinc-100"
+    : "bg-gradient-to-br from-slate-100 via-zinc-50/80 to-slate-100 text-slate-900";
 
   const topBar = isDark ? "border-white/10 bg-zinc-950/90 backdrop-blur-xl" : "border-slate-200/90 bg-white/85 shadow-sm backdrop-blur-xl";
   const sidebarBg = isDark ? "border-white/10 bg-zinc-950/95" : "border-slate-200/90 bg-white/90 shadow-sm";

@@ -32,6 +32,16 @@ export {
   useDeleteCampaignUpdateMutation,
 } from "./api/Campaigns";
 export {
+  innovatorApi,
+  useGetInnovatorDashboardSummaryQuery,
+  useGetInnovatorWalletTransactionsQuery,
+} from "./api/innovatorApi";
+export {
+  investorApi,
+  useGetInvestorDashboardSummaryQuery,
+  useGetInvestorWalletTransactionsQuery,
+} from "./api/investorApi";
+export {
   profileApi,
   useGetUserRolesStatusQuery,
   useGetInnovatorProfileQuery,
@@ -75,6 +85,20 @@ export type {
   UserInvestment,
   UserInvestmentsResponse,
 } from "./api/Campaigns";
+export type {
+  CompanyWalletBreakdown,
+  InnovatorDashboardSummary,
+  InnovatorWalletTransactionsRequest,
+  InnovatorWalletTransactionsResponse,
+  WalletTransaction,
+} from "./api/innovatorApi";
+export type {
+  InvestorDashboardSummary,
+  InvestorWalletTransactionsRequest,
+  InvestorWalletTransactionsResponse,
+  RecentInvestment,
+  UpcomingDividend,
+} from "./api/investorApi";
 export type {
   CompanyCampaignStats,
   CompanyFounder,

@@ -1,6 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { baseApi } from "./api/baseApi";
 import "./api/Campaigns";
+import "./api/innovatorApi";
+import "./api/investorApi";
 import "./api/notificationsApi";
 import "./api/profileApi";
 
