@@ -91,6 +91,9 @@ export function useEditCampaignForm(campaignId: number) {
       equityOffered: String(c.equityOffered ?? ""),
       valuation: String(c.valuation ?? ""),
       minInvestment: String(c.minInvestment ?? ""),
+      totalShares: String(c.totalShares ?? 1),
+      minimumSharesPerInvestor: String(c.minimumSharesPerInvestor ?? 1),
+      durationDays: String(c.durationDays ?? 1),
       startDate: isoToDatetimeLocal(c.startDate),
       endDate: isoToDatetimeLocal(c.endDate),
       selectedTagIds: [],
@@ -180,6 +183,9 @@ export function useEditCampaignForm(campaignId: number) {
     const equityOffered = Number(form.equityOffered);
     const valuation = Number(form.valuation);
     const minInvestment = Number(form.minInvestment);
+    const totalShares = Number(form.totalShares);
+    const minimumSharesPerInvestor = Number(form.minimumSharesPerInvestor);
+    const durationDays = Number(form.durationDays);
 
     if (!Number.isFinite(fundingGoal) || fundingGoal <= 0) {
       setErrorMessage(tFields.errors.fundingGoal);
@@ -195,6 +201,22 @@ export function useEditCampaignForm(campaignId: number) {
     }
     if (!Number.isFinite(minInvestment) || minInvestment <= 0) {
       setErrorMessage(tFields.errors.minInvestment);
+      return;
+    }
+    if (!Number.isInteger(totalShares) || totalShares < 1) {
+      setErrorMessage(tFields.errors.totalShares);
+      return;
+    }
+    if (!Number.isInteger(minimumSharesPerInvestor) || minimumSharesPerInvestor < 1) {
+      setErrorMessage(tFields.errors.minimumSharesPerInvestor);
+      return;
+    }
+    if (minimumSharesPerInvestor > totalShares) {
+      setErrorMessage(tFields.errors.minimumSharesExceedsTotal);
+      return;
+    }
+    if (!Number.isInteger(durationDays) || durationDays < 1) {
+      setErrorMessage(tFields.errors.durationDays);
       return;
     }
 
@@ -225,6 +247,9 @@ export function useEditCampaignForm(campaignId: number) {
           equityOffered,
           valuation,
           minInvestment,
+          totalShares,
+          minimumSharesPerInvestor,
+          durationDays,
           startDate: startDateIso,
           endDate: endDateIso,
           tagIds: form.selectedTagIds,

@@ -36,6 +36,9 @@ export type MyCampaign = {
   equityOffered: number;
   valuation: number;
   minInvestment: number;
+  totalShares?: number;
+  minimumSharesPerInvestor?: number;
+  durationDays?: number;
   amountRaised: number;
   fundingProgress: number;
   startDate: string;
@@ -73,6 +76,9 @@ export type CreateCampaignRequestBody = {
   equityOffered: number;
   valuation: number;
   minInvestment: number;
+  totalShares: number;
+  minimumSharesPerInvestor: number;
+  durationDays: number;
   risksJson: Record<string, string>;
   startDate: string;
   endDate: string;
@@ -215,10 +221,90 @@ export type CreateCampaignUpdateBody = {
   isPinned: boolean;
 };
 
+export type UpdateCampaignUpdateArg = {
+  campaignId: number;
+  updateId: number;
+  body: CreateCampaignUpdateBody;
+};
+
 export type DeleteCampaignUpdateArg = {
   campaignId: number;
   updateId: number;
 };
+
+export type CampaignCommentUser = {
+  id: number;
+  fullName: string;
+  profilePictureUrl: string | null;
+  isInvestor: boolean;
+  isInnovator: boolean;
+};
+
+export type CampaignComment = {
+  id: number;
+  comment: string;
+  user: CampaignCommentUser;
+  isEdited: boolean;
+  createdAt: string;
+  updatedAt: string;
+  replyCount: number;
+  replies: CampaignComment[];
+};
+
+export type CampaignCommentsPageResponse = {
+  content: CampaignComment[];
+  totalElements: number;
+  totalPages: number;
+  number: number;
+  size: number;
+  numberOfElements: number;
+  first: boolean;
+  last: boolean;
+  empty: boolean;
+};
+
+export type CampaignCommentsQueryArg = {
+  campaignId: number;
+  page?: number;
+  size?: number;
+};
+
+export type CreateCampaignCommentBody = {
+  comment: string;
+  parentCommentId?: number;
+};
+
+export type UpdateCampaignCommentBody = {
+  comment: string;
+};
+
+export type UpdateCampaignCommentArg = {
+  campaignId: number;
+  commentId: number;
+  body: UpdateCampaignCommentBody;
+};
+
+export type DeleteCampaignCommentArg = {
+  campaignId: number;
+  commentId: number;
+};
+
+/** Spring Page / wrapped list responses → plain array for the UI. */
+function normalizeListResponse<T>(raw: unknown, nestedKeys: string[]): T[] {
+  if (Array.isArray(raw)) return raw as T[];
+  if (raw && typeof raw === "object") {
+    const record = raw as Record<string, unknown>;
+    for (const key of nestedKeys) {
+      const nested = record[key];
+      if (Array.isArray(nested)) return nested as T[];
+    }
+  }
+  return [];
+}
+
+function normalizeCampaignUpdatesResponse(raw: unknown): CampaignUpdate[] {
+  return normalizeListResponse<CampaignUpdate>(raw, ["content", "updates", "data", "items"]);
+}
 
 export const campaignsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -332,6 +418,7 @@ export const campaignsApi = baseApi.injectEndpoints({
         url: `campaigns/${campaignId}/updates`,
         method: "GET",
       }),
+      transformResponse: normalizeCampaignUpdatesResponse,
       providesTags: (_result, _err, campaignId) => [{ type: "Profile", id: `campaign-${campaignId}-updates` }],
     }),
     createCampaignUpdate: build.mutation<CampaignUpdate, { campaignId: number; body: CreateCampaignUpdateBody }>({
@@ -342,13 +429,21 @@ export const campaignsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: (_r, _e, { campaignId }) => [{ type: "Profile", id: `campaign-${campaignId}-updates` }],
     }),
+    updateCampaignUpdate: build.mutation<CampaignUpdate, UpdateCampaignUpdateArg>({
+      query: ({ campaignId, updateId, body }) => ({
+        url: `campaigns/${campaignId}/updates/${updateId}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: (_r, _e, { campaignId }) => [{ type: "Profile", id: `campaign-${campaignId}-updates` }],
+    }),
     deleteCampaignUpdate: build.mutation<unknown, DeleteCampaignUpdateArg>({
       query: ({ campaignId, updateId }) => ({
         url: `campaigns/${campaignId}/updates/${updateId}`,
         method: "DELETE",
       }),
       invalidatesTags: (_r, _e, { campaignId }) => [{ type: "Profile", id: `campaign-${campaignId}-updates` }],
-    }),
+    })
   }),
   overrideExisting: true,
 });
@@ -370,5 +465,6 @@ export const {
   useLazySearchCampaignTagsQuery,
   useGetCampaignUpdatesQuery,
   useCreateCampaignUpdateMutation,
+  useUpdateCampaignUpdateMutation,
   useDeleteCampaignUpdateMutation,
 } = campaignsApi;

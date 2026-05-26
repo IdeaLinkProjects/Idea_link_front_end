@@ -204,6 +204,51 @@ export function CampaignEditView({ campaignId }: CampaignEditViewProps) {
             </div>
 
             <div>
+              <label htmlFor="edit-campaign-total-shares" className={labelClass}>
+                {tFields.totalShares}
+              </label>
+              <input
+                id="edit-campaign-total-shares"
+                type="number"
+                min="1"
+                step="1"
+                value={form.totalShares}
+                onChange={(e) => updateField("totalShares", e.target.value)}
+                className={inputClass}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="edit-campaign-min-shares" className={labelClass}>
+                {tFields.minimumSharesPerInvestor}
+              </label>
+              <input
+                id="edit-campaign-min-shares"
+                type="number"
+                min="1"
+                step="1"
+                value={form.minimumSharesPerInvestor}
+                onChange={(e) => updateField("minimumSharesPerInvestor", e.target.value)}
+                className={inputClass}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="edit-campaign-duration-days" className={labelClass}>
+                {tFields.durationDays}
+              </label>
+              <input
+                id="edit-campaign-duration-days"
+                type="number"
+                min="1"
+                step="1"
+                value={form.durationDays}
+                onChange={(e) => updateField("durationDays", e.target.value)}
+                className={inputClass}
+              />
+            </div>
+
+            <div>
               <label htmlFor="edit-campaign-start-date" className={labelClass}>
                 {tFields.startDate}
               </label>

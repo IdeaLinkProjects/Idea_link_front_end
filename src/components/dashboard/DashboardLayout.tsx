@@ -3,9 +3,11 @@ import { useRouter } from "next/router";
 import { RequireAuth } from "@/components/auth/RequireAuth";
 import { IdealLinkLogo } from "@/components/brand/IdealLinkLogo";
 import { NotificationsMenu } from "@/components/dashboard/NotificationsMenu";
+import { WorkspaceSwitcher } from "@/components/dashboard/WorkspaceSwitcher";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { useWorkspace } from "@/context/WorkspaceContext";
 import { clearAuthTokens } from "@/lib/auth/tokenStorage";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { messages } from "@/locales";
 import { useGetUserRolesStatusQuery } from "@/store";
 
@@ -24,9 +26,17 @@ function initialsFromFullName(name: string): string {
   return parts[0]?.[0]?.toUpperCase() ?? "?";
 }
 
+type NavItem = {
+  href: string;
+  label: string;
+  match: (p: string) => boolean;
+  badge?: number;
+};
+
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const router = useRouter();
   const { locale, isDark } = useAppPreferences();
+  const { activeWorkspace } = useWorkspace();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
@@ -34,27 +44,44 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
   const t = messages[locale].commonDashboard;
 
-  const nav: Array<{
-    href: string;
-    label: string;
-    match: (p: string) => boolean;
-    badge?: number;
-  }> = [
-    { href: "/dashboard", label: t.navDashboard, match: (p) => p === "/dashboard" },
-    {
-      href: "/dashboard/projects",
-      label: t.navProjects,
-      match: (p) => p.startsWith("/dashboard/projects") || p.startsWith("/dashboard/campaigns"),
-    },
-    { href: "/dashboard/company", label: t.navCompany, match: (p) => p.startsWith("/dashboard/company") },
-    { href: "/dashboard/payment", label: t.navPayment, match: (p) => p.startsWith("/dashboard/payment") },
-  ];
+  const nav = useMemo((): NavItem[] => {
+    if (activeWorkspace === "investor") {
+      return [
+        { href: "/dashboard", label: t.navDashboard, match: (p) => p === "/dashboard" },
+        {
+          href: "/dashboard/portfolio",
+          label: t.navCampaignsInvested,
+          match: (p) => p.startsWith("/dashboard/portfolio"),
+        },
+        { href: "/dashboard/payment", label: t.navWallet, match: (p) => p.startsWith("/dashboard/payment") },
+      ];
+    }
+    return [
+      { href: "/dashboard", label: t.navDashboard, match: (p) => p === "/dashboard" },
+      {
+        href: "/dashboard/projects",
+        label: t.navMyCampaigns,
+        match: (p) => p.startsWith("/dashboard/projects") || p.startsWith("/dashboard/campaigns"),
+      },
+      { href: "/dashboard/company", label: t.navCompany, match: (p) => p.startsWith("/dashboard/company") },
+    ];
+  }, [activeWorkspace, t]);
 
   const pageBg = isDark
-    ? "bg-gradient-to-br from-zinc-950 via-emerald-950/25 to-zinc-900 text-zinc-100"
-    : "bg-slate-100 text-slate-900";
+    ? "bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-900 text-zinc-100"
+    : "bg-gradient-to-br from-slate-100 via-zinc-50/80 to-slate-100 text-slate-900";
+
   const topBar = isDark ? "border-white/10 bg-zinc-950/90 backdrop-blur-xl" : "border-slate-200/90 bg-white/85 shadow-sm backdrop-blur-xl";
   const sidebarBg = isDark ? "border-white/10 bg-zinc-950/95" : "border-slate-200/90 bg-white/90 shadow-sm";
+  const sidebarAccent =
+    activeWorkspace === "investor"
+      ? isDark
+        ? "shadow-[inset_3px_0_0_0_rgba(6,78,59,0.65)]"
+        : "shadow-[inset_3px_0_0_0_rgba(5,150,105,0.45)]"
+      : isDark
+        ? "shadow-[inset_3px_0_0_0_rgba(52,211,153,0.35)]"
+        : "shadow-[inset_3px_0_0_0_rgba(16,185,129,0.35)]";
+
   const navInactive = isDark
     ? "text-zinc-400 hover:bg-white/10 hover:text-white"
     : "text-black hover:bg-primary-100 hover:text-black";
@@ -76,7 +103,10 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <RequireAuth>
-      <div className={`relative min-h-screen ${pageBg}`}>
+      <div
+        className={`relative min-h-screen ${pageBg}`}
+        data-dashboard-workspace={activeWorkspace}
+      >
         {mobileNavOpen ? (
           <button
             type="button"
@@ -87,7 +117,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         ) : null}
 
         <aside
-          className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r transition-transform duration-200 lg:translate-x-0 ${sidebarBg} ${mobileNavOpen ? "translate-x-0" : "-translate-x-full"}`}
+          className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r transition-transform duration-300 ease-out lg:translate-x-0 ${sidebarBg} ${sidebarAccent} ${mobileNavOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
           <div className={`flex h-20 shrink-0 items-center justify-between border-b px-4 ${isDark ? "border-white/10" : "border-zinc-200"}`}>
             <IdealLinkLogo
@@ -117,7 +147,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     key={item.href}
                     href={item.href}
                     onClick={() => setMobileNavOpen(false)}
-                    className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition ${active ? navActive : navInactive}`}
+                    className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition duration-200 ${active ? navActive : navInactive}`}
                   >
                     <span>{item.label}</span>
                     {item.badge != null ? (
@@ -146,7 +176,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
         <div className="lg:pl-64">
           <header
-            className={`sticky top-0 z-30 flex h-16 min-h-16 items-center gap-2 border-b px-3 sm:px-4 ${topBar}`}
+            className={`sticky top-0 z-30 flex h-16 min-h-16 items-center gap-2 border-b px-3 sm:gap-3 sm:px-4 ${topBar}`}
           >
             <button
               type="button"
@@ -159,30 +189,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               </svg>
             </button>
 
-            <div className="relative min-w-0 flex-1">
-              <div className="relative w-1/2 min-w-0">
-                <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-zinc-400" aria-hidden>
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                </span>
-                <input
-                  type="search"
-                  name="dashboard-search"
-                  placeholder={t.navSearchPlaceholder}
-                  className={`w-full rounded-xl border py-2 pl-9 pr-3 text-sm outline-none transition focus:ring-2 focus:ring-primary-500/30 ${
-                    isDark
-                      ? "border-white/10 bg-zinc-900/80 text-zinc-100 placeholder:text-zinc-500"
-                      : "border-slate-300 bg-white text-slate-900 placeholder:text-slate-500"
-                  }`}
-                  autoComplete="off"
-                />
-              </div>
+            <div className="flex min-w-0 flex-1 items-center justify-start sm:px-1">
+              <WorkspaceSwitcher className="max-w-[min(100%,20rem)] sm:max-w-xs md:max-w-sm" />
             </div>
 
             <div className="flex shrink-0 items-center gap-1 sm:gap-2">

@@ -1,10 +1,5 @@
-import type { GetServerSideProps } from "next";
+import { DiscoveryPageView } from "@/components/discovery/DiscoveryPageView";
 
-/** Legacy URL: discovery is now the landing page at `/`. */
-export default function DiscoveryRedirect() {
-  return null;
+export default function DiscoveryPage() {
+  return <DiscoveryPageView />;
 }
-
-export const getServerSideProps: GetServerSideProps = async () => ({
-  redirect: { destination: "/", permanent: true },
-});

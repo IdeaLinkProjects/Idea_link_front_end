@@ -15,7 +15,7 @@ export default function DashboardProjectsPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <DashboardLayout>
-        <DashboardProjectsView />
+        <DashboardProjectsView mode="creator" />
       </DashboardLayout>
     </>
   );

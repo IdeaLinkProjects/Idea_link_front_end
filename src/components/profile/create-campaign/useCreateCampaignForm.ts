@@ -105,6 +105,9 @@ export function useCreateCampaignForm() {
     const equityOffered = Number(form.equityOffered);
     const valuation = Number(form.valuation);
     const minInvestment = Number(form.minInvestment);
+    const totalShares = Number(form.totalShares);
+    const minimumSharesPerInvestor = Number(form.minimumSharesPerInvestor);
+    const durationDays = Number(form.durationDays);
 
     if (!Number.isFinite(fundingGoal) || fundingGoal <= 0) {
       setErrorMessage(t.errors.fundingGoal);
@@ -120,6 +123,22 @@ export function useCreateCampaignForm() {
     }
     if (!Number.isFinite(minInvestment) || minInvestment <= 0) {
       setErrorMessage(t.errors.minInvestment);
+      return;
+    }
+    if (!Number.isInteger(totalShares) || totalShares < 1) {
+      setErrorMessage(t.errors.totalShares);
+      return;
+    }
+    if (!Number.isInteger(minimumSharesPerInvestor) || minimumSharesPerInvestor < 1) {
+      setErrorMessage(t.errors.minimumSharesPerInvestor);
+      return;
+    }
+    if (minimumSharesPerInvestor > totalShares) {
+      setErrorMessage(t.errors.minimumSharesExceedsTotal);
+      return;
+    }
+    if (!Number.isInteger(durationDays) || durationDays < 1) {
+      setErrorMessage(t.errors.durationDays);
       return;
     }
 
@@ -148,6 +167,9 @@ export function useCreateCampaignForm() {
         equityOffered,
         valuation,
         minInvestment,
+        totalShares,
+        minimumSharesPerInvestor,
+        durationDays,
         startDate: startDateIso,
         endDate: endDateIso,
         tagIds: form.selectedTagIds,
