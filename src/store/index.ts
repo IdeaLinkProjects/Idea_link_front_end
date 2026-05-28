@@ -42,6 +42,18 @@ export {
   useGetInvestorWalletTransactionsQuery,
 } from "./api/investorApi";
 export {
+  paymentsApi,
+  useInitializeChapaPaymentMutation,
+  useVerifyChapaPaymentQuery,
+  useLazyVerifyChapaPaymentQuery,
+  useInvestInCampaignMutation,
+  useGetUserInvestmentsPageQuery,
+  useGetInvestmentByIdQuery,
+  useLazyGetInvestmentByIdQuery,
+  useCancelPendingInvestmentMutation,
+  useWithdrawInvestmentMutation,
+} from "./api/paymentsApi";
+export {
   profileApi,
   useGetUserRolesStatusQuery,
   useGetInnovatorProfileQuery,
@@ -99,6 +111,17 @@ export type {
   RecentInvestment,
   UpcomingDividend,
 } from "./api/investorApi";
+export type {
+  ChapaInitializeRequest,
+  ChapaInitializeResponse,
+  ChapaVerifyResponse,
+  InvestInCampaignRequest,
+  InvestInCampaignResponse,
+  InvestmentCampaignSummary,
+  UserInvestmentItem,
+  UserInvestmentsPage,
+  UserInvestmentsRequest,
+} from "./api/paymentsApi";
 export type {
   CompanyCampaignStats,
   CompanyFounder,

@@ -12,7 +12,7 @@ type IdealLinkLogoProps = {
 };
 
 export function IdealLinkLogo({
-  href = "/",
+  href = "/discovery",
   width = 280,
   height = 76,
   className = "",

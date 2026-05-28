@@ -53,6 +53,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           label: t.navCampaignsInvested,
           match: (p) => p.startsWith("/dashboard/portfolio"),
         },
+        { href: "/dashboard/investment", label: t.navInvestment, match: (p) => p.startsWith("/dashboard/investment") },
         { href: "/dashboard/payment", label: t.navWallet, match: (p) => p.startsWith("/dashboard/payment") },
       ];
     }

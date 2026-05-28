@@ -12,6 +12,7 @@ import { useProjectDetailPageData } from "@/components/projects/project-detail/u
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { messages } from "@/locales";
+import { hasStoredAuthTokens } from "@/lib/auth/tokenStorage";
 
 export default function ProjectDetailPage() {
   const router = useRouter();
@@ -33,12 +34,24 @@ export default function ProjectDetailPage() {
   const [tab, setTab] = useState<ProjectDetailTabKey>("overview");
   const [calcAmount, setCalcAmount] = useState(5000);
   const [toast, setToast] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     if (bundle.minInvestmentEtb > 0) {
       setCalcAmount((prev) => (prev < bundle.minInvestmentEtb ? bundle.minInvestmentEtb : prev));
     }
   }, [bundle.minInvestmentEtb]);
+
+  useEffect(() => {
+    const sync = () => setIsLoggedIn(hasStoredAuthTokens());
+    sync();
+    window.addEventListener("storage", sync);
+    window.addEventListener("focus", sync);
+    return () => {
+      window.removeEventListener("storage", sync);
+      window.removeEventListener("focus", sync);
+    };
+  }, []);
 
   const equityPreview = useMemo(() => {
     if (bundle.goalEtb <= 0) return 0;
@@ -55,7 +68,7 @@ export default function ProjectDetailPage() {
     showToast(p.docDemoNote);
   }, [p.docDemoNote, showToast]);
 
-  const showInvestAction = from !== "investments";
+  const showInvestAction = from !== "investments" && isLoggedIn;
 
   if (!router.isReady) {
     return null;

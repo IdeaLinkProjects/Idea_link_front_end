@@ -6,7 +6,10 @@ import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { myCampaignToDiscoveryIdea, myCampaignToPublicBundle, type DiscoveryIdeaView } from "@/lib/campaign/fromMyCampaign";
 import { useEffect, useMemo, useState } from "react";
 import { type Locale, messages } from "@/locales";
-import { useGetCampaignByIdQuery } from "@/store";
+import { useGetCampaignByIdQuery, useInvestInCampaignMutation } from "@/store";
+import { hasStoredAuthTokens } from "@/lib/auth/tokenStorage";
+import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
+import { PublicSiteHeader } from "@/components/layout/PublicSiteHeader";
 
 type ProjectBundle = {
   goalEtb: number;
@@ -50,13 +53,15 @@ export default function ProjectInvestPage() {
   const { locale, isDark } = useAppPreferences();
 
   const [step, setStep] = useState<Step>(1);
-  const [amount, setAmount] = useState(5000);
+  const [numberOfShares, setNumberOfShares] = useState(100);
   const [chkDisclosed, setChkDisclosed] = useState(false);
   const [chkSimulated, setChkSimulated] = useState(false);
   const [chkReturns, setChkReturns] = useState(false);
   const [step1Attempted, setStep1Attempted] = useState(false);
   const [step2Attempted, setStep2Attempted] = useState(false);
   const [reference, setReference] = useState("");
+  const [notes, setNotes] = useState("");
+  const [submitError, setSubmitError] = useState("");
 
   const t = messages[locale];
   const d = t.discovery;
@@ -71,6 +76,7 @@ export default function ProjectInvestPage() {
   const { data: apiCampaign, isLoading: apiLoading, isError: apiError } = useGetCampaignByIdQuery(campaignIdNum!, {
     skip: campaignIdNum == null,
   });
+  const [investInCampaign, { isLoading: isSubmittingInvestment }] = useInvestInCampaignMutation();
 
   const idea = useMemo((): DiscoveryIdeaView | null => {
     if (campaignIdNum != null && apiCampaign) {
@@ -141,6 +147,13 @@ export default function ProjectInvestPage() {
       : 0;
 
   useEffect(() => {
+    if (!router.isReady) return;
+    if (!hasStoredAuthTokens()) {
+      void router.replace(`/login?next=${encodeURIComponent(router.asPath)}`);
+    }
+  }, [router]);
+
+  useEffect(() => {
     setStep(1);
     setChkDisclosed(false);
     setChkSimulated(false);
@@ -148,19 +161,12 @@ export default function ProjectInvestPage() {
     setStep1Attempted(false);
     setStep2Attempted(false);
     setReference("");
-    setAmount(5000);
+    setNotes("");
+    setSubmitError("");
+    setNumberOfShares(100);
   }, [id]);
-
-  const equityPct = useMemo(() => {
-    if (bundle.goalEtb <= 0) return 0;
-    const raw = (amount / bundle.goalEtb) * bundle.equityOfferedPct;
-    return Math.min(bundle.equityOfferedPct, Math.max(0, raw));
-  }, [amount, bundle.goalEtb, bundle.equityOfferedPct]);
-
-  const amountValid = amount >= bundle.minInvestmentEtb && amount <= remaining && remaining >= bundle.minInvestmentEtb;
-  const step1ErrorMin = step1Attempted && amount < bundle.minInvestmentEtb;
-  const step1ErrorMax = step1Attempted && amount > remaining;
-  const step1ErrorCapacity = step1Attempted && remaining < bundle.minInvestmentEtb;
+  const sharesValid = Number.isInteger(numberOfShares) && numberOfShares > 0;
+  const step1ErrorShares = step1Attempted && !sharesValid;
 
   const riskBullets = useMemo(() => {
     const base = riskBulletsFromText(bundle.risksDisclosure, 4);
@@ -182,7 +188,7 @@ export default function ProjectInvestPage() {
 
   const goReview = () => {
     setStep1Attempted(true);
-    if (!amountValid) return;
+    if (!sharesValid) return;
     setStep(2);
     setStep2Attempted(false);
   };
@@ -190,13 +196,30 @@ export default function ProjectInvestPage() {
   const goConfirm = () => {
     setStep2Attempted(true);
     if (!chkDisclosed || !chkSimulated || !chkReturns) return;
-    const ref = `IL-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
-    setReference(ref);
-    setStep("success");
+    void submitInvestment();
   };
 
-  const addIncrement = (delta: number) => {
-    setAmount((a) => Math.min(remaining, Math.max(bundle.minInvestmentEtb, a + delta)));
+  const submitInvestment = async () => {
+    if (campaignIdNum == null || !sharesValid) return;
+    setSubmitError("");
+    const sanitizedShares = Number.isFinite(numberOfShares) ? Math.max(1, Math.round(numberOfShares)) : 1;
+    const payload = {
+      numberOfShares: sanitizedShares,
+      notes: notes.trim(),
+    };
+    try {
+      const res = await investInCampaign({
+        campaignId: campaignIdNum,
+        payload,
+      }).unwrap();
+      setReference(
+        res.transactionReference ??
+          `IL-${new Date().toISOString().slice(0, 10).replace(/-/g, "")}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`,
+      );
+      setStep("success");
+    } catch (err) {
+      setSubmitError(extractApiErrorMessage(err, "Unable to complete investment. Please try again."));
+    }
   };
 
   if (!router.isReady) {
@@ -249,16 +272,7 @@ export default function ProjectInvestPage() {
         </title>
       </Head>
       <div className={`min-h-screen ${isDark ? "bg-zinc-950 text-zinc-100" : "bg-zinc-50 text-zinc-900"}`}>
-        <header
-          className={`border-b px-4 py-4 sm:px-6 ${isDark ? "border-white/10 bg-zinc-950/90" : "border-zinc-200 bg-white/90"}`}
-        >
-          <div className="mx-auto flex max-w-lg items-center justify-between gap-3">
-            <Link href={projectHref} className="text-sm font-semibold text-primary-500 hover:underline">
-              ← {inv.backToProject}
-            </Link>
-            <IdealLinkLogo className="inline-flex shrink-0 transition hover:opacity-90" width={280} height={76} imageClassName="h-14 w-auto sm:h-16" />
-          </div>
-        </header>
+      <PublicSiteHeader backHref="/" backLabel={t.nav.home} />
 
         <main className="mx-auto max-w-lg px-4 py-8 sm:px-6 sm:py-10">
           {step === "success" ? (
@@ -279,13 +293,15 @@ export default function ProjectInvestPage() {
                     <dd className={`text-right font-medium ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{idea.name}</dd>
                   </div>
                   <div className="flex justify-between gap-4">
-                    <dt>{inv.receiptAmount}</dt>
-                    <dd className={`font-mono font-semibold ${isDark ? "text-primary-400" : "text-primary-700"}`}>{formatEtb(amount, locale)} ETB</dd>
+                    <dt>Number of shares</dt>
+                    <dd className={`font-mono font-semibold ${isDark ? "text-primary-400" : "text-primary-700"}`}>{numberOfShares.toLocaleString()}</dd>
                   </div>
-                  <div className="flex justify-between gap-4">
-                    <dt>{inv.receiptEquity}</dt>
-                    <dd className={`font-mono font-semibold ${isDark ? "text-zinc-200" : "text-zinc-800"}`}>{equityPct.toFixed(2)}%</dd>
-                  </div>
+                  {notes.trim() ? (
+                    <div className="flex justify-between gap-4">
+                      <dt>Note</dt>
+                      <dd className={`text-right ${isDark ? "text-zinc-200" : "text-zinc-800"}`}>{notes}</dd>
+                    </div>
+                  ) : null}
                   <div className="flex justify-between gap-4">
                     <dt>{inv.receiptReference}</dt>
                     <dd className="font-mono text-xs">{reference}</dd>
@@ -333,59 +349,27 @@ export default function ProjectInvestPage() {
                 </p>
               </div>
 
-              {step1ErrorCapacity ? (
-                <p className="mt-4 text-sm font-medium text-red-400">{inv.step1ErrorMax.replace("{max}", formatEtb(remaining, locale))}</p>
-              ) : null}
-
               <div className="mt-6">
                 <label htmlFor="inv-amount" className={`text-sm font-semibold ${muted}`}>
-                  {inv.amountLabel}
+                  Number of shares
                 </label>
                 <input
                   id="inv-amount"
                   type="number"
-                  min={bundle.minInvestmentEtb}
-                  max={remaining}
-                  step={500}
-                  value={amount}
-                  onChange={(e) => setAmount(Number(e.target.value) || 0)}
+                  min={1}
+                  step={1}
+                  value={numberOfShares}
+                  onChange={(e) => setNumberOfShares(Number(e.target.value) || 0)}
                   className={`mt-2 w-full rounded-xl border px-4 py-3 text-lg font-semibold tabular-nums outline-none focus:ring-2 focus:ring-primary-500/50 ${
                     isDark ? "border-white/15 bg-zinc-900 text-white" : "border-zinc-300 bg-white text-zinc-900"
                   }`}
-                  aria-invalid={step1ErrorMin || step1ErrorMax}
+                  aria-invalid={step1ErrorShares}
                 />
-                <p className={`mt-2 text-sm font-medium ${muted}`}>
-                  {inv.minInvestmentNote.replace("{amount}", formatEtb(bundle.minInvestmentEtb, locale))}
-                </p>
-                {step1ErrorMin ? (
-                  <p className="mt-2 text-sm text-red-400">{inv.step1ErrorMin.replace("{min}", formatEtb(bundle.minInvestmentEtb, locale))}</p>
-                ) : null}
-                {step1ErrorMax && !step1ErrorCapacity ? (
-                  <p className="mt-2 text-sm text-red-400">{inv.step1ErrorMax.replace("{max}", formatEtb(remaining, locale))}</p>
+                <p className={`mt-2 text-sm font-medium ${muted}`}>Enter whole shares only.</p>
+                {step1ErrorShares ? (
+                  <p className="mt-2 text-sm text-red-400">Please enter at least 1 share.</p>
                 ) : null}
               </div>
-
-              <div className="mt-4 flex flex-wrap gap-2">
-                {[
-                  { v: 5000, label: inv.increment5000 },
-                  { v: 10000, label: inv.increment10000 },
-                  { v: 25000, label: inv.increment25000 },
-                ].map((inc) => (
-                  <button
-                    key={inc.v}
-                    type="button"
-                    disabled={remaining < bundle.minInvestmentEtb}
-                    onClick={() => addIncrement(inc.v)}
-                    className="rounded-lg border border-primary-600/50 px-3 py-2 text-sm font-semibold text-primary-500 transition hover:bg-primary-950/40 disabled:cursor-not-allowed disabled:opacity-40"
-                  >
-                    {inc.label}
-                  </button>
-                ))}
-              </div>
-
-              <p className="mt-6 rounded-xl border border-primary-500/30 bg-primary-950/20 px-4 py-3 text-center text-sm font-semibold text-primary-200">
-                {inv.equityLive.replace("{invest}", formatEtb(amount, locale)).replace("{equity}", equityPct.toFixed(2))}
-              </p>
 
               <button
                 type="button"
@@ -406,12 +390,8 @@ export default function ProjectInvestPage() {
                 <p className="text-xs font-bold uppercase tracking-wide text-primary-500">{inv.summaryTitle}</p>
                 <dl className={`mt-3 space-y-2 text-sm ${muted}`}>
                   <div className="flex justify-between">
-                    <dt>{inv.summaryAmount}</dt>
-                    <dd className={`font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{formatEtb(amount, locale)} ETB</dd>
-                  </div>
-                  <div className="flex justify-between">
-                    <dt>{inv.summaryEquity}</dt>
-                    <dd className={`font-semibold ${isDark ? "text-primary-400" : "text-primary-700"}`}>{equityPct.toFixed(2)}%</dd>
+                    <dt>Number of shares</dt>
+                    <dd className={`font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{numberOfShares.toLocaleString()}</dd>
                   </div>
                   <div className="flex justify-between">
                     <dt>{inv.summaryDate}</dt>
@@ -467,13 +447,30 @@ export default function ProjectInvestPage() {
                 <p className={`mt-2 text-sm leading-relaxed ${muted}`}>{inv.termsSummaryBody}</p>
               </div>
 
+              <div className="mt-6">
+                <label htmlFor="inv-notes" className={`text-sm font-semibold ${muted}`}>
+                  Investment note (optional)
+                </label>
+                <textarea
+                  id="inv-notes"
+                  rows={3}
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  placeholder="Add a short note for this investment"
+                  className={`mt-2 w-full rounded-xl border px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary-500/50 ${
+                    isDark ? "border-white/15 bg-zinc-900 text-white" : "border-zinc-300 bg-white text-zinc-900"
+                  }`}
+                />
+              </div>
+
               <div className="mt-8 flex flex-col gap-3 sm:flex-row-reverse">
                 <button
                   type="button"
                   onClick={goConfirm}
+                  disabled={isSubmittingInvestment}
                   className="flex-1 rounded-xl bg-primary-950 py-3.5 text-sm font-bold text-white hover:bg-primary-900"
                 >
-                  {inv.confirmInvestment}
+                  {isSubmittingInvestment ? "Processing..." : inv.confirmInvestment}
                 </button>
                 <button
                   type="button"
@@ -486,6 +483,7 @@ export default function ProjectInvestPage() {
                   {inv.cancel}
                 </button>
               </div>
+              {submitError ? <p className="mt-3 text-sm font-medium text-red-400">{submitError}</p> : null}
             </div>
           ) : null}
         </main>

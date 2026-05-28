@@ -4,6 +4,7 @@ import "./api/Campaigns";
 import "./api/innovatorApi";
 import "./api/investorApi";
 import "./api/notificationsApi";
+import "./api/paymentsApi";
 import "./api/profileApi";
 
 export const store = configureStore({
