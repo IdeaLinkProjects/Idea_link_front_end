@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import Image from "next/image";
 import ARIAChatWidget from "./ARIAChatWidget";
@@ -5,6 +6,7 @@ import ARIAChatWidget from "./ARIAChatWidget";
 interface User {
   id: number;
   role: string;
+  firstName?: string;
 }
 
 interface Props {
@@ -14,52 +16,64 @@ interface Props {
 export default function ARIAChatButton({ user }: Props) {
   const [open, setOpen] = useState(false);
 
+  // Only show for investors
   if (!user || user.role !== "INVESTOR") return null;
 
   return (
     <>
-      {/* chat panel */}
+      {/* Chat panel */}
       {open && (
-        <div style={{
-          position: "fixed",
-          bottom: 90,
-          right: 20,
-          width: 370,
-          height: 580,
-          zIndex: 1000,
-          borderRadius: 20,
-          overflow: "hidden",
-          boxShadow: "0 20px 60px rgba(0,196,140,0.15), 0 8px 32px rgba(0,0,0,0.4)",
-        }}>
-          <ARIAChatWidget userId={user.id} onClose={() => setOpen(false)} />
+        <div
+          style={{
+            position: "fixed",
+            bottom: 90,
+            right: 20,
+            width: 370,
+            height: 580,
+            zIndex: 1000,
+            borderRadius: 20,
+            overflow: "hidden",
+            boxShadow:
+              "0 20px 60px rgba(0,196,140,0.15), 0 8px 32px rgba(0,0,0,0.4)",
+          }}
+        >
+          <ARIAChatWidget
+            userId={user.id}
+            firstName={user.firstName || ""}
+            onClose={() => setOpen(false)}
+          />
         </div>
       )}
 
-      {/* tooltip */}
+      {/* Tooltip */}
       {!open && (
-        <div style={{
-          position: "fixed",
-          bottom: 86,
-          right: 20,
-          zIndex: 1000,
-          pointerEvents: "none",
-        }}>
-          <div style={{
-            background: "#00C48C",
-            color: "#0D1F1A",
-            fontSize: 10,
-            fontWeight: 700,
-            padding: "5px 12px",
-            borderRadius: 8,
-            whiteSpace: "nowrap",
-            boxShadow: "0 4px 12px rgba(0,196,140,0.3)",
-          }}>
+        <div
+          style={{
+            position: "fixed",
+            bottom: 86,
+            right: 20,
+            zIndex: 1000,
+            pointerEvents: "none",
+          }}
+        >
+          <div
+            style={{
+              background: "#00C48C",
+              color: "#0D1F1A",
+              fontSize: 10,
+              fontWeight: 700,
+              padding: "5px 12px",
+              borderRadius: 8,
+              whiteSpace: "nowrap",
+              boxShadow: "0 4px 12px rgba(0,196,140,0.3)",
+            }}
+          >
             Ask ARIA ✦
           </div>
         </div>
       )}
 
-      {/* floating button with IdeaLink logo */}
+      {/* Floating button with IdeaLink logo */}
       <button
         onClick={() => setOpen((o) => !o)}
         style={{
@@ -81,35 +95,31 @@ export default function ARIAChatButton({ user }: Props) {
           padding: 0,
           overflow: "hidden",
         }}
-        onMouseEnter={e => {
+        onMouseEnter={(e) => {
           e.currentTarget.style.transform = "scale(1.1)";
-          e.currentTarget.style.boxShadow = "0 6px 28px rgba(0,196,140,0.6)";
+          e.currentTarget.style.boxShadow =
+            "0 6px 28px rgba(0,196,140,0.6)";
         }}
-        onMouseLeave={e => {
+        onMouseLeave={(e) => {
           e.currentTarget.style.transform = "scale(1)";
-          e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,196,140,0.45)";
+          e.currentTarget.style.boxShadow =
+            "0 4px 20px rgba(0,196,140,0.45)";
         }}
         aria-label="Open ARIA investment advisor"
       >
         {open ? (
-          <span style={{
-            color: "#00C48C",
-            fontSize: 22,
-            fontWeight: 700,
-            lineHeight: 1,
-          }}>
+          <span
+            style={{ color: "#00C48C", fontSize: 22, fontWeight: 700, lineHeight: 1 }}
+          >
             ✕
           </span>
         ) : (
           <Image
-            src="/logo_idealink.png"
+            src="/favicon.ico"
             alt="IdeaLink ARIA"
-            width={38}
-            height={38}
-            style={{
-              objectFit: "contain",
-              borderRadius: "50%",
-            }}
+            width={34}
+            height={34}
+            style={{ objectFit: "contain" }}
           />
         )}
       </button>
