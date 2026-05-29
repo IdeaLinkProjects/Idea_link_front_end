@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const N8N_WEBHOOK = "https://kvillain6327.app.n8n.cloud/webhook/b3da1344-e359-4770-8b50-38c385e06ca3/chat";
+const N8N_WEBHOOK = "https://mewael.app.n8n.cloud/webhook/b3da1344-e359-4770-8b50-38c385e06ca3/chat";
+
 const BACKEND_URL = "https://idealink-7i33.onrender.com/api";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
