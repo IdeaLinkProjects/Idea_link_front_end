@@ -25,6 +25,7 @@ interface CampaignCard {
 interface Message {
   role: "user" | "assistant";
   content: string;
+  cards?: CampaignCard[];
 }
 
 interface Props {
@@ -50,12 +51,35 @@ const STORAGE_KEY = "aria-chat-history";
 
 // ── helpers ──────────────────────────────────────────────────────────────
 function parseMessage(raw: string) {
-  const cardMatch = raw.match(/\[CARDS\]([\s\S]*?)\[\/CARDS\]/);
+  // Matches [CARDS]...[/CARDS], [PROJECTS]...[/PROJECTS], etc. case-insensitively
+  const cardMatch = raw.match(/\[(CARDS|CARD|PROJECTS|PROJECT|CAMPAIGNS|CAMPAIGN)\]([\s\S]*?)\[\/\1\]/i);
   let cards: CampaignCard[] = [];
   let text = raw;
   if (cardMatch) {
-    try { cards = JSON.parse(cardMatch[1].trim()); } catch {}
-    text = raw.replace(/\[CARDS\][\s\S]*?\[\/CARDS\]/, "").trim();
+    let jsonStr = cardMatch[2].trim();
+    // Strip markdown code blocks if the LLM outputted them inside the custom tags
+    jsonStr = jsonStr.replace(/^```(?:json)?\s*|```$/g, "").trim();
+    try {
+      // First try standard parse
+      cards = JSON.parse(jsonStr);
+    } catch (e) {
+      // Try parsing after removing trailing commas
+      try {
+        const cleanedStr = jsonStr
+          .replace(/,\s*\]/g, "]")
+          .replace(/,\s*\}/g, "}");
+        cards = JSON.parse(cleanedStr);
+      } catch (err2) {
+        console.error(
+          `ARIA: Failed to parse [${cardMatch[1]}] JSON:`,
+          e,
+          "Raw matched string:",
+          cardMatch[2]
+        );
+      }
+    }
+    // Remove the match from the text so it doesn't display raw tags/JSON to the user
+    text = raw.replace(/\[(CARDS|CARD|PROJECTS|PROJECT|CAMPAIGNS|CAMPAIGN)\]([\s\S]*?)\[\/\1\]/i, "").trim();
   }
   return { text, cards };
 }
@@ -176,7 +200,14 @@ function CampaignCard({ card }: { card: CampaignCard }) {
       )}
 
       <button
-        onClick={() => card.id && router.push(`/projects/${card.id}`)}
+        onClick={() => {
+          const id = card.id ?? (card as any).campaignId ?? (card as any).campaign_id ?? (card as any).projectId ?? (card as any).project_id;
+          if (id) {
+            router.push(`/projects/${id}`);
+          } else {
+            console.warn("ARIA: No project/campaign ID found on card object:", card);
+          }
+        }}
         style={{
           marginTop: "auto",
           width: "100%",
@@ -201,8 +232,10 @@ function CampaignCard({ card }: { card: CampaignCard }) {
 
 // ── message bubble ────────────────────────────────────────────────────────
 function MessageBubble({ msg }: { msg: Message }) {
-  const { text, cards } = parseMessage(msg.content);
+  const parsed = parseMessage(msg.content);
   const isUser = msg.role === "user";
+  const cards = msg.cards && msg.cards.length > 0 ? msg.cards : parsed.cards;
+  const text = parsed.text;
 
   return (
     <div
@@ -233,9 +266,10 @@ function MessageBubble({ msg }: { msg: Message }) {
       {cards.length > 0 && (
         <div style={{ width: "100%", overflowX: "auto", paddingBottom: 6, scrollbarWidth: "thin" }}>
           <div style={{ display: "flex", gap: 10, width: "max-content", padding: "2px 2px" }}>
-            {cards.map((card, i) => (
-              <CampaignCard key={i} card={card} />
-            ))}
+            {cards.map((card, i) => {
+              if (!card || typeof card !== "object") return null;
+              return <CampaignCard key={i} card={card} />;
+            })}
           </div>
         </div>
       )}
@@ -346,7 +380,18 @@ export default function ARIAChatWidget({ userId, firstName, onClose }: Props) {
       const data = await res.json();
       const reply =
         extractText(data) || "I couldn't process that. Please try again.";
-      setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
+      
+      // Extract structured cards if they are returned directly in the response
+      const cards = data?.cards || data?.projects || null;
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: reply,
+          ...(cards ? { cards } : {}),
+        },
+      ]);
     } catch {
       setMessages((prev) => [
         ...prev,

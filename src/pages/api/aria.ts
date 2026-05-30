@@ -50,6 +50,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     const text = await response.text();
+    console.log("=== ARIA Webhook Response ===");
+    console.log("Status:", response.status);
+    console.log("Raw Response Text:", text);
+
     try {
       const data = JSON.parse(text);
       const output =
@@ -59,7 +63,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         data?.response ||
         (Array.isArray(data) ? data[0]?.output || data[0]?.text : null) ||
         text;
-      return res.status(200).json({ output });
+      
+      // Forward the entire response data object along with the resolved output
+      return res.status(200).json({
+        ...(typeof data === "object" && data !== null ? data : {}),
+        output,
+      });
     } catch {
       return res.status(200).json({ output: text });
     }
