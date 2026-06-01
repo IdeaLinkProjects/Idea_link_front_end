@@ -9,8 +9,8 @@ import ARIAChatButton from "@/components/ui/ARIAChatButton";
 import { useGetUserRolesStatusQuery } from "@/store";
 import { hasStoredAuthTokens } from "@/lib/auth/tokenStorage";
 
-// This component reads the real logged-in investor from the backend
-// and passes their real userId + firstName to ARIA
+// This component reads the real logged-in user from the backend
+// and passes their real userId + firstName to ARIA/NOVA depending on role
 function ARIAWrapper() {
   const isLoggedIn = hasStoredAuthTokens();
 
@@ -21,15 +21,20 @@ function ARIAWrapper() {
   // Not logged in or API not responded yet
   if (!userStatus) return null;
 
-  // Only show ARIA to investors — hide from innovators
   const isInvestor = userStatus.currentRoles.includes("INVESTOR");
-  if (!isInvestor) return null;
+  const isInnovator = userStatus.currentRoles.includes("INNOVATOR");
+
+  // Hide if they are neither an investor nor an innovator
+  if (!isInvestor && !isInnovator) return null;
+
+  // Prioritize INVESTOR role if they happen to hold both roles
+  const role = isInvestor ? "INVESTOR" : "INNOVATOR";
 
   return (
     <ARIAChatButton
       user={{
         id: userStatus.userId,
-        role: "INVESTOR",
+        role,
         firstName: userStatus.fullName?.split(" ")[0] || "",
       }}
     />
