@@ -3,16 +3,17 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
 import { AppPreferencesProvider } from "@/context/AppPreferencesContext";
-import { WorkspaceProvider } from "@/context/WorkspaceContext";
+import { WorkspaceProvider, useWorkspace } from "@/context/WorkspaceContext";
 import { store } from "@/store";
 import ARIAChatButton from "@/components/ui/ARIAChatButton";
 import { useGetUserRolesStatusQuery } from "@/store";
 import { hasStoredAuthTokens } from "@/lib/auth/tokenStorage";
 
 // This component reads the real logged-in user from the backend
-// and passes their real userId + firstName to ARIA/NOVA depending on role
+// and passes their real userId + firstName to ARIA/NOVA depending on role/active workspace
 function ARIAWrapper() {
   const isLoggedIn = hasStoredAuthTokens();
+  const { activeWorkspace } = useWorkspace();
 
   const { data: userStatus } = useGetUserRolesStatusQuery(undefined, {
     skip: !isLoggedIn,
@@ -27,8 +28,14 @@ function ARIAWrapper() {
   // Hide if they are neither an investor nor an innovator
   if (!isInvestor && !isInnovator) return null;
 
-  // Prioritize INVESTOR role if they happen to hold both roles
-  const role = isInvestor ? "INVESTOR" : "INNOVATOR";
+  let role: "INVESTOR" | "INNOVATOR";
+  if (isInvestor && isInnovator) {
+    // If they have both roles, dynamically show the chatbot matching their active workspace
+    role = activeWorkspace === "innovator" ? "INNOVATOR" : "INVESTOR";
+  } else {
+    // Otherwise, default to their single assigned role
+    role = isInvestor ? "INVESTOR" : "INNOVATOR";
+  }
 
   return (
     <ARIAChatButton
