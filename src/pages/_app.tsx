@@ -28,14 +28,8 @@ function ARIAWrapper() {
   // Hide if they are neither an investor nor an innovator
   if (!isInvestor && !isInnovator) return null;
 
-  let role: "INVESTOR" | "INNOVATOR";
-  if (isInvestor && isInnovator) {
-    // If they have both roles, dynamically show the chatbot matching their active workspace
-    role = activeWorkspace === "innovator" ? "INNOVATOR" : "INVESTOR";
-  } else {
-    // Otherwise, default to their single assigned role
-    role = isInvestor ? "INVESTOR" : "INNOVATOR";
-  }
+  // Dynamically show the chatbot matching their active workspace
+  const role = activeWorkspace === "innovator" ? "INNOVATOR" : "INVESTOR";
 
   return (
     <ARIAChatButton
