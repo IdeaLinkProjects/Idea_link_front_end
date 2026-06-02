@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const { message, chatHistory, sessionId } = req.body;
+    const { message, chatHistory, sessionId, language } = req.body;
     const authHeader = req.headers.authorization;
 
     let realUserId = 1;
@@ -46,6 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         userId: realUserId,
         firstName: firstName,
         chatHistory: chatHistory || [],
+        language: language || "en",
       }),
     });
 
