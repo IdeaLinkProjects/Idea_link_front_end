@@ -5,7 +5,7 @@ import ARIAChatWidget from "./ARIAChatWidget";
 
 interface User {
   id: number;
-  role: string;
+  role: "INVESTOR" | "INNOVATOR";
   firstName?: string;
 }
 
@@ -46,10 +46,11 @@ export default function ARIAChatButton({ user }: Props) {
           }}
         >
           <ARIAChatWidget
+            key={`${user.id}-${user.role}`}
             userId={user.id}
             firstName={user.firstName || ""}
             onClose={() => setOpen(false)}
-            role={user.role as any}
+            role={user.role}
           />
         </div>
       )}

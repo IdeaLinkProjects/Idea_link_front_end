@@ -50,7 +50,9 @@ const DEFAULT_IL = {
 
 type ILTheme = typeof DEFAULT_IL;
 
-const STORAGE_KEY = "aria-chat-history";
+function getStorageKey(userId?: number, role?: "INVESTOR" | "INNOVATOR") {
+  return `aria-chat-history-${userId ?? "anon"}-${role ?? "INVESTOR"}`;
+}
 
 // ── helpers ──────────────────────────────────────────────────────────────
 function parseMessage(raw: string) {
@@ -339,10 +341,11 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
           : `👋 Hey! I'm NOVA, your IdeaLink innovator support AI.\n\nTry asking:\n• "Draft a campaign story"\n• "Show my active campaigns"\n• "How to attract investors?"`),
   };
 
+  const storageKey = getStorageKey(userId, role);
   const [messages, setMessages] = useState<Message[]>(() => {
     if (typeof window === "undefined") return [welcomeMessage];
     try {
-      const saved = sessionStorage.getItem(STORAGE_KEY);
+      const saved = sessionStorage.getItem(storageKey);
       return saved ? JSON.parse(saved) : [welcomeMessage];
     } catch {
       return [welcomeMessage];
@@ -361,14 +364,14 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
-        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+        sessionStorage.setItem(storageKey, JSON.stringify(messages));
       } catch {}
     }
-  }, [messages]);
+  }, [messages, storageKey]);
 
   const handleNewChat = () => {
     setMessages([welcomeMessage]);
-    if (typeof window !== "undefined") sessionStorage.removeItem(STORAGE_KEY);
+    if (typeof window !== "undefined") sessionStorage.removeItem(storageKey);
   };
 
   const sendMessage = async (text?: string) => {
