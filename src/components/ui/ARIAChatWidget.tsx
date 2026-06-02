@@ -25,16 +25,18 @@ interface CampaignCard {
 interface Message {
   role: "user" | "assistant";
   content: string;
+  cards?: CampaignCard[];
 }
 
 interface Props {
   userId?: number;
   firstName?: string;
   onClose?: () => void;
+  role?: "INVESTOR" | "INNOVATOR";
 }
 
-// IdeaLink green palette
-const IL = {
+// IdeaLink green palette (Default for Investors)
+const DEFAULT_IL = {
   green: "#00C48C",
   greenDark: "#00A87A",
   greenLight: "#E6FAF5",
@@ -46,16 +48,41 @@ const IL = {
   border: "#00C48C22",
 };
 
+type ILTheme = typeof DEFAULT_IL;
+
 const STORAGE_KEY = "aria-chat-history";
 
 // ── helpers ──────────────────────────────────────────────────────────────
 function parseMessage(raw: string) {
-  const cardMatch = raw.match(/\[CARDS\]([\s\S]*?)\[\/CARDS\]/);
+  // Matches [CARDS]...[/CARDS], [PROJECTS]...[/PROJECTS], etc. case-insensitively
+  const cardMatch = raw.match(/\[(CARDS|CARD|PROJECTS|PROJECT|CAMPAIGNS|CAMPAIGN)\]([\s\S]*?)\[\/\1\]/i);
   let cards: CampaignCard[] = [];
   let text = raw;
   if (cardMatch) {
-    try { cards = JSON.parse(cardMatch[1].trim()); } catch {}
-    text = raw.replace(/\[CARDS\][\s\S]*?\[\/CARDS\]/, "").trim();
+    let jsonStr = cardMatch[2].trim();
+    // Strip markdown code blocks if the LLM outputted them inside the custom tags
+    jsonStr = jsonStr.replace(/^```(?:json)?\s*|```$/g, "").trim();
+    try {
+      // First try standard parse
+      cards = JSON.parse(jsonStr);
+    } catch (e) {
+      // Try parsing after removing trailing commas
+      try {
+        const cleanedStr = jsonStr
+          .replace(/,\s*\]/g, "]")
+          .replace(/,\s*\}/g, "}");
+        cards = JSON.parse(cleanedStr);
+      } catch (err2) {
+        console.error(
+          `ARIA: Failed to parse [${cardMatch[1]}] JSON:`,
+          e,
+          "Raw matched string:",
+          cardMatch[2]
+        );
+      }
+    }
+    // Remove the match from the text so it doesn't display raw tags/JSON to the user
+    text = raw.replace(/\[(CARDS|CARD|PROJECTS|PROJECT|CAMPAIGNS|CAMPAIGN)\]([\s\S]*?)\[\/\1\]/i, "").trim();
   }
   return { text, cards };
 }
@@ -79,24 +106,24 @@ function extractText(data: unknown): string {
 }
 
 // ── campaign card ─────────────────────────────────────────────────────────
-function CampaignCard({ card }: { card: CampaignCard }) {
+function CampaignCard({ card, theme = DEFAULT_IL }: { card: CampaignCard; theme?: ILTheme }) {
   const router = useRouter();
   const funded = card.funded ?? card.funding_progress ?? 0;
   const equity = card.equity || "—";
   const valuation = card.val || fmtCurrency(card.valuation);
   const minInvest = card.min || fmtCurrency(card.min_investment);
   const scoreColor =
-    card.score >= 80 ? IL.green : card.score >= 65 ? "#F59E0B" : "#9CA3AF";
+    card.score >= 80 ? theme.green : card.score >= 65 ? "#F59E0B" : "#9CA3AF";
   const progressColor =
-    funded >= 70 ? IL.green : funded >= 40 ? "#F59E0B" : "#EF4444";
+    funded >= 70 ? theme.green : funded >= 40 ? "#F59E0B" : "#EF4444";
 
   return (
     <div
       style={{
         width: 200,
         flexShrink: 0,
-        background: IL.darkCard,
-        border: `1px solid ${IL.border}`,
+        background: theme.darkCard,
+        border: `1px solid ${theme.border}`,
         borderRadius: 14,
         padding: 12,
         display: "flex",
@@ -111,8 +138,8 @@ function CampaignCard({ card }: { card: CampaignCard }) {
             fontWeight: 600,
             padding: "2px 8px",
             borderRadius: 20,
-            background: `${IL.green}22`,
-            color: IL.green,
+            background: `${theme.green}22`,
+            color: theme.green,
             textTransform: "uppercase",
             letterSpacing: "0.5px",
           }}
@@ -124,14 +151,14 @@ function CampaignCard({ card }: { card: CampaignCard }) {
         </span>
       </div>
 
-      <p style={{ margin: 0, fontSize: 12, fontWeight: 600, color: IL.text, lineHeight: 1.3 }}>
+      <p style={{ margin: 0, fontSize: 12, fontWeight: 600, color: theme.text, lineHeight: 1.3 }}>
         {card.title}
       </p>
 
       {(card.description || card.short_description) && (
         <p
           style={{
-            margin: 0, fontSize: 10, color: IL.textMuted, lineHeight: 1.4,
+            margin: 0, fontSize: 10, color: theme.textMuted, lineHeight: 1.4,
             display: "-webkit-box", WebkitLineClamp: 2,
             WebkitBoxOrient: "vertical", overflow: "hidden",
           }}
@@ -144,8 +171,8 @@ function CampaignCard({ card }: { card: CampaignCard }) {
         {[["Equity", equity], ["Valuation", valuation], ["Min invest", minInvest]].map(
           ([label, val]) => (
             <div key={label} style={{ display: "flex", justifyContent: "space-between" }}>
-              <span style={{ fontSize: 10, color: IL.textMuted }}>{label}</span>
-              <span style={{ fontSize: 10, fontWeight: 600, color: IL.text }}>{val}</span>
+              <span style={{ fontSize: 10, color: theme.textMuted }}>{label}</span>
+              <span style={{ fontSize: 10, fontWeight: 600, color: theme.text }}>{val}</span>
             </div>
           )
         )}
@@ -153,8 +180,8 @@ function CampaignCard({ card }: { card: CampaignCard }) {
 
       <div>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-          <span style={{ fontSize: 9, color: IL.textMuted }}>Funded</span>
-          <span style={{ fontSize: 9, fontWeight: 600, color: IL.text }}>{funded}%</span>
+          <span style={{ fontSize: 9, color: theme.textMuted }}>Funded</span>
+          <span style={{ fontSize: 9, fontWeight: 600, color: theme.text }}>{funded}%</span>
         </div>
         <div style={{ background: "#1a3a30", borderRadius: 4, height: 4 }}>
           <div
@@ -170,28 +197,35 @@ function CampaignCard({ card }: { card: CampaignCard }) {
       </div>
 
       {card.closing && (
-        <p style={{ margin: 0, fontSize: 9, color: IL.textMuted }}>
+        <p style={{ margin: 0, fontSize: 9, color: theme.textMuted }}>
           Closes {card.closing}
         </p>
       )}
 
       <button
-        onClick={() => card.id && router.push(`/projects/${card.id}`)}
+        onClick={() => {
+          const id = card.id ?? (card as any).campaignId ?? (card as any).campaign_id ?? (card as any).projectId ?? (card as any).project_id;
+          if (id) {
+            router.push(`/projects/${id}`);
+          } else {
+            console.warn("ARIA: No project/campaign ID found on card object:", card);
+          }
+        }}
         style={{
           marginTop: "auto",
           width: "100%",
           padding: "7px 0",
           fontSize: 10,
           fontWeight: 600,
-          color: IL.dark,
-          background: IL.green,
+          color: theme.dark,
+          background: theme.green,
           border: "none",
           borderRadius: 8,
           cursor: "pointer",
           transition: "background 0.15s",
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.background = IL.greenDark)}
-        onMouseLeave={(e) => (e.currentTarget.style.background = IL.green)}
+        onMouseEnter={(e) => (e.currentTarget.style.background = theme.greenDark)}
+        onMouseLeave={(e) => (e.currentTarget.style.background = theme.green)}
       >
         View details →
       </button>
@@ -200,9 +234,11 @@ function CampaignCard({ card }: { card: CampaignCard }) {
 }
 
 // ── message bubble ────────────────────────────────────────────────────────
-function MessageBubble({ msg }: { msg: Message }) {
-  const { text, cards } = parseMessage(msg.content);
+function MessageBubble({ msg, theme = DEFAULT_IL }: { msg: Message; theme?: ILTheme }) {
+  const parsed = parseMessage(msg.content);
   const isUser = msg.role === "user";
+  const cards = msg.cards && msg.cards.length > 0 ? msg.cards : parsed.cards;
+  const text = parsed.text;
 
   return (
     <div
@@ -219,8 +255,8 @@ function MessageBubble({ msg }: { msg: Message }) {
             maxWidth: "82%",
             padding: "9px 13px",
             borderRadius: isUser ? "16px 16px 3px 16px" : "3px 16px 16px 16px",
-            background: isUser ? IL.green : "#1a3a30",
-            color: isUser ? IL.dark : IL.text,
+            background: isUser ? theme.green : "#1a3a30",
+            color: isUser ? theme.dark : theme.text,
             fontSize: 12,
             lineHeight: 1.6,
             whiteSpace: "pre-wrap",
@@ -233,9 +269,10 @@ function MessageBubble({ msg }: { msg: Message }) {
       {cards.length > 0 && (
         <div style={{ width: "100%", overflowX: "auto", paddingBottom: 6, scrollbarWidth: "thin" }}>
           <div style={{ display: "flex", gap: 10, width: "max-content", padding: "2px 2px" }}>
-            {cards.map((card, i) => (
-              <CampaignCard key={i} card={card} />
-            ))}
+            {cards.map((card, i) => {
+              if (!card || typeof card !== "object") return null;
+              return <CampaignCard key={i} card={card} theme={theme} />;
+            })}
           </div>
         </div>
       )}
@@ -244,7 +281,7 @@ function MessageBubble({ msg }: { msg: Message }) {
 }
 
 // ── typing indicator ──────────────────────────────────────────────────────
-function TypingIndicator() {
+function TypingIndicator({ theme = DEFAULT_IL }: { theme?: ILTheme }) {
   return (
     <div
       style={{
@@ -258,7 +295,7 @@ function TypingIndicator() {
           key={i}
           style={{
             width: 6, height: 6, borderRadius: "50%",
-            background: IL.green, display: "inline-block",
+            background: theme.green, display: "inline-block",
             animation: "aria-bounce 1.2s infinite",
             animationDelay: `${i * 0.2}s`, opacity: 0.7,
           }}
@@ -270,13 +307,36 @@ function TypingIndicator() {
 }
 
 // ── main widget ───────────────────────────────────────────────────────────
-export default function ARIAChatWidget({ userId, firstName, onClose }: Props) {
-  // Build personalized welcome message using the investor's real first name
+export default function ARIAChatWidget({ userId, firstName, onClose, role = "INVESTOR" }: Props) {
+  const isInvestor = role === "INVESTOR";
+  
+  // Keep original green palette colors for both ARIA and NOVA
+  const IL = {
+    green: "#00C48C",
+    greenDark: "#00A87A",
+    greenLight: "#E6FAF5",
+    dark: "#0D1F1A",
+    darkCard: "#112920",
+    darkInput: "#1a3a30",
+    text: "#E8F5F1",
+    textMuted: "#7DB8A8",
+    border: "#00C48C22",
+  };
+
+  const aiName = isInvestor ? "ARIA" : "NOVA";
+  const aiTitle = isInvestor ? "IdeaLink Investment Advisor" : "IdeaLink Innovator Support AI";
+  const apiEndpoint = isInvestor ? "/api/aria" : "/api/nova";
+
+  // Build personalized welcome message using the user's real first name
   const welcomeMessage: Message = {
     role: "assistant",
-    content: firstName
-      ? `👋 Welcome back, ${firstName}! I'm ARIA, your IdeaLink investment advisor.\n\nI can see your profile and portfolio. Try asking:\n• "What is my portfolio?"\n• "How much have I invested?"\n• "Show me active campaigns"\n• "I have $5,000, where should I invest?"`
-      : `👋 Hey! I'm ARIA, your IdeaLink investment advisor.\n\nTry asking:\n• "Show me active campaigns"\n• "I have $5,000, where should I invest?"\n• "What's trending this week?"`,
+    content: isInvestor
+      ? (firstName
+          ? `👋 Welcome back, ${firstName}! I'm ARIA, your IdeaLink investment advisor.\n\nI can see your profile and portfolio. Try asking:\n• "What is my portfolio?"\n• "How much have I invested?"\n• "Show me active campaigns"\n• "I have $5,000, where should I invest?"`
+          : `👋 Hey! I'm ARIA, your IdeaLink investment advisor.\n\nTry asking:\n• "Show me active campaigns"\n• "I have $5,000, where should I invest?"\n• "What's trending this week?"`)
+      : (firstName
+          ? `👋 Welcome back, ${firstName}! I'm NOVA, your IdeaLink innovator support AI.\n\nI can help you draft campaign details, track progress, or optimize your pitches. Try asking:\n• "How do I optimize my campaign?"\n• "Draft a campaign story"\n• "Show my active campaigns"\n• "Help me structure my risks"`
+          : `👋 Hey! I'm NOVA, your IdeaLink innovator support AI.\n\nTry asking:\n• "Draft a campaign story"\n• "Show my active campaigns"\n• "How to attract investors?"`),
   };
 
   const [messages, setMessages] = useState<Message[]>(() => {
@@ -329,7 +389,7 @@ export default function ARIAChatWidget({ userId, firstName, onClose }: Props) {
           ? localStorage.getItem("ideal-link-access-token")
           : null;
 
-      const res = await fetch("/api/aria", {
+      const res = await fetch(apiEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -346,7 +406,18 @@ export default function ARIAChatWidget({ userId, firstName, onClose }: Props) {
       const data = await res.json();
       const reply =
         extractText(data) || "I couldn't process that. Please try again.";
-      setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
+      
+      // Extract structured cards if they are returned directly in the response
+      const cards = data?.cards || data?.projects || null;
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: reply,
+          ...(cards ? { cards } : {}),
+        },
+      ]);
     } catch {
       setMessages((prev) => [
         ...prev,
@@ -364,12 +435,19 @@ export default function ARIAChatWidget({ userId, firstName, onClose }: Props) {
     }
   };
 
-  const suggestions = [
-    "What is my portfolio?",
-    "Show active campaigns",
-    "I have $5,000 to invest",
-    "What's trending?",
-  ];
+  const suggestions = isInvestor
+    ? [
+        "What is my portfolio?",
+        "Show active campaigns",
+        "I have $5,000 to invest",
+        "What's trending?",
+      ]
+    : [
+        "Draft a campaign story",
+        "Show my active campaigns",
+        "How to attract investors?",
+        "Review my KPIs",
+      ];
 
   return (
     <div
@@ -417,10 +495,10 @@ export default function ARIAChatWidget({ userId, firstName, onClose }: Props) {
 
         <div style={{ flex: 1 }}>
           <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: IL.text }}>
-            ARIA
+            {aiName}
           </p>
           <p style={{ margin: 0, fontSize: 10, color: IL.textMuted }}>
-            IdeaLink Investment Advisor
+            {aiTitle}
           </p>
         </div>
 
@@ -476,9 +554,9 @@ export default function ARIAChatWidget({ userId, firstName, onClose }: Props) {
         }}
       >
         {messages.map((msg, i) => (
-          <MessageBubble key={i} msg={msg} />
+          <MessageBubble key={i} msg={msg} theme={IL} />
         ))}
-        {loading && <TypingIndicator />}
+        {loading && <TypingIndicator theme={IL} />}
         <div ref={bottomRef} />
       </div>
 
@@ -529,7 +607,7 @@ export default function ARIAChatWidget({ userId, firstName, onClose }: Props) {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask ARIA anything..."
+          placeholder={`Ask ${aiName} anything...`}
           rows={1}
           style={{
             flex: 1, resize: "none",

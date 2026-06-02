@@ -16,8 +16,17 @@ interface Props {
 export default function ARIAChatButton({ user }: Props) {
   const [open, setOpen] = useState(false);
 
-  // Only show for investors
-  if (!user || user.role !== "INVESTOR") return null;
+  // Show for both investors and innovators
+  if (!user || (user.role !== "INVESTOR" && user.role !== "INNOVATOR")) return null;
+
+  const isInvestor = user.role === "INVESTOR";
+  const primaryColor = "#00C48C";
+  const darkColor = "#0D1F1A";
+  const shadowColor = "rgba(0,196,140,0.15)";
+  const buttonShadow = "rgba(0,196,140,0.45)";
+  const buttonShadowHover = "rgba(0,196,140,0.6)";
+  const tooltipText = isInvestor ? "Ask ARIA ✦" : "Ask NOVA ✦";
+  const ariaLabel = isInvestor ? "Open ARIA investment advisor" : "Open NOVA innovator assistant";
 
   return (
     <>
@@ -33,14 +42,14 @@ export default function ARIAChatButton({ user }: Props) {
             zIndex: 1000,
             borderRadius: 20,
             overflow: "hidden",
-            boxShadow:
-              "0 20px 60px rgba(0,196,140,0.15), 0 8px 32px rgba(0,0,0,0.4)",
+            boxShadow: `0 20px 60px ${shadowColor}, 0 8px 32px rgba(0,0,0,0.4)`,
           }}
         >
           <ARIAChatWidget
             userId={user.id}
             firstName={user.firstName || ""}
             onClose={() => setOpen(false)}
+            role={user.role as any}
           />
         </div>
       )}
@@ -58,17 +67,17 @@ export default function ARIAChatButton({ user }: Props) {
         >
           <div
             style={{
-              background: "#00C48C",
-              color: "#0D1F1A",
+              background: primaryColor,
+              color: darkColor,
               fontSize: 10,
               fontWeight: 700,
               padding: "5px 12px",
               borderRadius: 8,
               whiteSpace: "nowrap",
-              boxShadow: "0 4px 12px rgba(0,196,140,0.3)",
+              boxShadow: `0 4px 12px ${buttonShadow}`,
             }}
           >
-            Ask ARIA ✦
+            {tooltipText}
           </div>
         </div>
       )}
@@ -84,39 +93,37 @@ export default function ARIAChatButton({ user }: Props) {
           width: 56,
           height: 56,
           borderRadius: "50%",
-          background: open ? "#0D1F1A" : "#00C48C",
-          border: "2.5px solid #00C48C",
+          background: open ? darkColor : primaryColor,
+          border: `2.5px solid ${primaryColor}`,
           cursor: "pointer",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxShadow: "0 4px 20px rgba(0,196,140,0.45)",
+          boxShadow: `0 4px 20px ${buttonShadow}`,
           transition: "all 0.2s ease",
           padding: 0,
           overflow: "hidden",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "scale(1.1)";
-          e.currentTarget.style.boxShadow =
-            "0 6px 28px rgba(0,196,140,0.6)";
+          e.currentTarget.style.boxShadow = `0 6px 28px ${buttonShadowHover}`;
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "scale(1)";
-          e.currentTarget.style.boxShadow =
-            "0 4px 20px rgba(0,196,140,0.45)";
+          e.currentTarget.style.boxShadow = `0 4px 20px ${buttonShadow}`;
         }}
-        aria-label="Open ARIA investment advisor"
+        aria-label={ariaLabel}
       >
         {open ? (
           <span
-            style={{ color: "#00C48C", fontSize: 22, fontWeight: 700, lineHeight: 1 }}
+            style={{ color: primaryColor, fontSize: 22, fontWeight: 700, lineHeight: 1 }}
           >
             ✕
           </span>
         ) : (
           <Image
             src="/favicon.ico"
-            alt="IdeaLink ARIA"
+            alt="IdeaLink Chatbot"
             width={34}
             height={34}
             style={{ objectFit: "contain" }}

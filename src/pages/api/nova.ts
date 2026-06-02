@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const N8N_WEBHOOK = "https://mewael.app.n8n.cloud/webhook/b3da1344-e359-4770-8b50-38c385e06ca3/chat";
+const N8N_WEBHOOK = "https://kvillai.app.n8n.cloud/webhook/nova-chat-trigger-001/chat";
 
 const BACKEND_URL = "https://idealink-7i33.onrender.com/api";
 
@@ -50,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     const text = await response.text();
-    console.log("=== ARIA Webhook Response ===");
+    console.log("=== NOVA Webhook Response ===");
     console.log("Status:", response.status);
     console.log("Raw Response Text:", text);
 
@@ -73,7 +73,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(200).json({ output: text });
     }
   } catch (error) {
-    console.error("ARIA error:", error);
-    return res.status(500).json({ error: "Failed to reach ARIA" });
+    console.error("NOVA error:", error);
+    return res.status(500).json({ error: "Failed to reach NOVA" });
   }
 }
