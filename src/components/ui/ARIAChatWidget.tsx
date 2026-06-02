@@ -235,6 +235,125 @@ function CampaignCard({ card, theme = DEFAULT_IL }: { card: CampaignCard; theme?
   );
 }
 
+// ── markdown renderer ──────────────────────────────────────────────────────
+function renderMarkdown(content: string, theme: ILTheme, isUser: boolean) {
+  const lines = content.split("\n");
+  
+  // Helper to parse **bold** inside text
+  const parseBold = (txt: string) => {
+    const parts = txt.split(/\*\*([\s\S]*?)\*\*/g);
+    return parts.map((part, i) => {
+      if (i % 2 === 1) {
+        return (
+          <strong
+            key={i}
+            style={{
+              fontWeight: 600,
+              color: isUser ? theme.dark : "#FFFFFF",
+            }}
+          >
+            {part}
+          </strong>
+        );
+      }
+      return part;
+    });
+  };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      {lines.map((line, index) => {
+        const spaceMatch = line.match(/^(\s*)/);
+        const indentCount = spaceMatch ? spaceMatch[1].length : 0;
+        const indentLevel = indentCount > 0 ? Math.floor(indentCount / 2) : 0;
+        const trimmed = line.trim();
+
+        if (!trimmed) {
+          return <div key={index} style={{ height: 6 }} />;
+        }
+
+        // 1. Detect numbered list item: e.g. "1. ", "2. "
+        const olMatch = trimmed.match(/^(\d+)\.\s+(.*)$/);
+        if (olMatch) {
+          const num = olMatch[1];
+          const content = olMatch[2];
+          return (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                marginLeft: indentLevel * 14,
+                marginBottom: 4,
+                lineHeight: 1.5,
+              }}
+            >
+              <span
+                style={{
+                  fontWeight: 600,
+                  color: isUser ? theme.dark : theme.green,
+                  marginRight: 6,
+                  flexShrink: 0,
+                }}
+              >
+                {num}.
+              </span>
+              <div style={{ flex: 1 }}>{parseBold(content)}</div>
+            </div>
+          );
+        }
+
+        // 2. Detect bullet list item: e.g. "- ", "* ", "o ", "• "
+        const ulMatch = trimmed.match(/^([-*o•])\s+(.*)$/);
+        if (ulMatch) {
+          const content = ulMatch[2];
+          const bulletChar = indentLevel % 2 === 1 ? "◦" : "•";
+          return (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                marginLeft: indentLevel * 14,
+                marginBottom: 4,
+                lineHeight: 1.5,
+              }}
+            >
+              <span
+                style={{
+                  fontWeight: 600,
+                  color: isUser ? theme.dark : theme.green,
+                  marginRight: 8,
+                  fontSize: indentLevel % 2 === 1 ? 12 : 10,
+                  flexShrink: 0,
+                  lineHeight: 1.2,
+                }}
+              >
+                {bulletChar}
+              </span>
+              <div style={{ flex: 1 }}>{parseBold(content)}</div>
+            </div>
+          );
+        }
+
+        // 3. Regular paragraph text
+        return (
+          <div
+            key={index}
+            style={{
+              marginLeft: indentLevel * 14,
+              marginBottom: 6,
+              lineHeight: 1.5,
+            }}
+          >
+            {parseBold(trimmed)}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 // ── message bubble ────────────────────────────────────────────────────────
 function MessageBubble({ msg, theme = DEFAULT_IL }: { msg: Message; theme?: ILTheme }) {
   const parsed = parseMessage(msg.content);
@@ -261,11 +380,10 @@ function MessageBubble({ msg, theme = DEFAULT_IL }: { msg: Message; theme?: ILTh
             color: isUser ? theme.dark : theme.text,
             fontSize: 12,
             lineHeight: 1.6,
-            whiteSpace: "pre-wrap",
             fontWeight: isUser ? 500 : 400,
           }}
         >
-          {text}
+          {renderMarkdown(text, theme, isUser)}
         </div>
       )}
       {cards.length > 0 && (
