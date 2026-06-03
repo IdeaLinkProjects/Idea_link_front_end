@@ -492,6 +492,20 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
+  // Dynamically translate the welcome message when language changes
+  useEffect(() => {
+    setMessages((prev) => {
+      if (prev.length === 0) return [welcomeMessage];
+      const first = prev[0];
+      if (first && first.role === "assistant") {
+        const updated = [...prev];
+        updated[0] = { ...first, content: welcomeMessage.content };
+        return updated;
+      }
+      return prev;
+    });
+  }, [locale, welcomeMessage.content]);
+
   // Save chat to sessionStorage — persists until tab is closed
   useEffect(() => {
     if (typeof window !== "undefined") {
