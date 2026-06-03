@@ -54,6 +54,20 @@ export {
   useWithdrawInvestmentMutation,
 } from "./api/paymentsApi";
 export {
+  walletApi,
+  useGetWalletBalanceQuery,
+  useGetCompanyBankAccountQuery,
+  useUpsertCompanyBankAccountMutation,
+  useWithdrawCompanyFundsMutation,
+} from "./api/walletApi";
+export type {
+  WalletBalanceResponse,
+  CompanyBankAccountResponse,
+  UpsertCompanyBankAccountRequest,
+  WithdrawCompanyFundsRequest,
+  WithdrawCompanyFundsResponse,
+} from "./api/walletApi";
+export {
   profileApi,
   useGetUserRolesStatusQuery,
   useGetInnovatorProfileQuery,
