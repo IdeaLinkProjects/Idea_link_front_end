@@ -637,6 +637,11 @@
     "navCampaignsInvested": "የተዋጡ ዘመቻዎች",
     "navInvestment": "ኢንቨስትመንት",
     "navWallet": "ኪስ",
+    "navWalletFinance": "ኪስ እና ፋይናንስ",
+    "navWalletDashboard": "የኪስ ዳሽቦርድ",
+    "navBankAccount": "የባንክ ሂሳብ",
+    "navWithdrawFunds": "ገንዘብ ማውጣት",
+    "navTransactionHistory": "የግብይት ታሪክ",
     "workspaceSwitchAria": "በፈጠራ እና በኢንቨስተር የስራ ቦታ መካከል ቀይር",
     "workspaceModeLabel": "የስራ ቦታ",
     "workspaceInnovator": "የፈጠራ የስራ ቦታ",
@@ -1688,6 +1693,76 @@
       "createUpdateFailed": "ዝማኔ ማስቀመጥ አልተቻለም። እንደገና ይሞክሩ።",
       "deleteUpdateFailed": "ዝማኔ ማስወገድ አልተቻለም። እንደገና ይሞክሩ።",
        "submitCampaignFailed": "ይህን ዘመቻ ማስገባት አልተቻለም። እንደገና ይሞክሩ።"
+    }
+  },
+  "walletPage": {
+    "noCompany": "የዋሌት እና ባንክ አገልግሎት ለመጠቀም በመጀመሪያ የኩባንያ መረጃዎን ያጠናቅቁ።",
+    "setupCompany": "ወደ የኩባንያ ቅንብር ይሂዱ",
+    "badges": {
+      "verified": "ተረጋግጧል",
+      "pending": "ማረጋገጫ በመጠባበቅ ላይ"
+    },
+    "dashboard": {
+      "metaTitle": "የዋሌት ዳሽቦርድ | IdealLink",
+      "title": "የዋሌት ዳሽቦርድ",
+      "subtitle": "የኩባንያዎን የዋሌት ቀሪ እና የማውጫ ዝግጁነት ይመልከቱ።",
+      "currentBalance": "አሁን ያለ ቀሪ",
+      "quickWithdraw": "ገንዘብ ያውጡ",
+      "refresh": "አድስ",
+      "loadError": "የዋሌት ቀሪ ማምጣት አልተቻለም።",
+      "bankStatus": "የባንክ ሂሳብ",
+      "noBank": "የባንክ ሂሳብ አልተገናኘም",
+      "addBank": "የባንክ ሂሳብ ጨምር",
+      "pendingVerification": "የባንክ ሂሳብዎ በአስተዳዳሪ ማረጋገጫ ላይ ነው።",
+      "manageBank": "የባንክ ሂሳብ ያስተዳድሩ"
+    },
+    "bankAccount": {
+      "metaTitle": "የባንክ ሂሳብ | IdealLink",
+      "title": "የባንክ ሂሳብ",
+      "subtitle": "ለማውጫ የኩባንያዎን ባንክ ሂሳብ ያገናኙ።",
+      "addTitle": "የባንክ ሂሳብ ጨምር",
+      "updateTitle": "የባንክ ሂሳብ አዘምን",
+      "accountHolder": "የሂሳብ ባለቤት ስም",
+      "bank": "ባንክ",
+      "accountNumber": "የሂሳብ ቁጥር",
+      "defaultAccount": "እንደ ነባሪ የክፍያ ሂሳብ ያድርጉ",
+      "saveButton": "የባንክ ሂሳብ አስቀምጥ",
+      "updateButton": "የባንክ ሂሳብ አዘምን",
+      "saving": "በማስቀመጥ ላይ…",
+      "saveSuccess": "የባንክ ሂሳብ በተሳካ ሁኔታ ተቀምጧል።",
+      "saveError": "የባንክ ሂሳብ ማስቀመጥ አልተቻለም።",
+      "pendingMessage": "የባንክ ሂሳብዎ በማረጋገጫ ላይ ነው።",
+      "verifiedAt": "የተረጋገጠበት ቀን",
+      "verifiedEditHint": "ሂሳቡ ተረጋግጦ እያለ ዋና መረጃዎች ሊሻሻሉ አይችሉም።"
+    },
+    "withdraw": {
+      "metaTitle": "ገንዘብ ማውጣት | IdealLink",
+      "title": "ገንዘብ ማውጣት",
+      "subtitle": "ያለውን የዋሌት ቀሪ ወደ የተረጋገጠ የባንክ ሂሳብ ያስተላልፉ።",
+      "availableBalance": "ያለ ቀሪ",
+      "amountLabel": "የማውጫ መጠን (ETB)",
+      "submit": "ማውጫውን ይገምግሙ",
+      "success": "የማውጫ ጥያቄ በተሳካ ሁኔታ ተልኳል።",
+      "error": "ገንዘብ ማውጣት አልተቻለም።",
+      "noBankTitle": "የባንክ ሂሳብ አልተገናኘም",
+      "noBankDescription": "ገንዘብ ከማውጣትዎ በፊት የኩባንያ የባንክ ሂሳብ ያክሉ እና ያረጋግጡ።",
+      "addBankCta": "የባንክ ሂሳብ ጨምር",
+      "emptyWalletTitle": "የዋሌት ቀሪ ዜሮ ነው",
+      "emptyWalletDescription": "ኢንቨስትመንቶች ሲገቡ ቀሪው እዚህ ይታያል።",
+      "unverifiedWarning": "የባንክ ሂሳብዎ እስኪረጋገጥ ድረስ ማውጫ አይቻልም።",
+      "destination": "መዳረሻ ሂሳብ",
+      "confirmTitle": "ማውጫ አረጋግጥ",
+      "confirmDescription": "ገንዘቡ ወደ የተረጋገጠ የባንክ ሂሳብ ይላካል። ይህ ተግባር አይመለስም።",
+      "cancel": "ይተው",
+      "confirm": "ማውጫ አረጋግጥ",
+      "submitting": "በሂደት ላይ…"
+    },
+    "transactions": {
+      "metaTitle": "የግብይት ታሪክ | IdealLink",
+      "title": "የግብይት ታሪክ",
+      "subtitle": "የዋሌት እንቅስቃሴዎች ሙሉ መዝገብ።",
+      "comingSoon": "በቅርቡ ይመጣል",
+      "description": "ዝርዝር የግብይት ታሪክ በቀጣይ ስሪት ይጨመራል።"
     }
   },
   "campaignEditPage": {

@@ -637,6 +637,11 @@
     "navCampaignsInvested": "My Campaigns",
     "navInvestment": "Investment",
     "navWallet": "Wallet",
+    "navWalletFinance": "Wallet & Finance",
+    "navWalletDashboard": "Wallet Dashboard",
+    "navBankAccount": "Bank Account",
+    "navWithdrawFunds": "Withdraw Funds",
+    "navTransactionHistory": "Transaction History",
     "workspaceSwitchAria": "Switch between innovator and investor workspace",
     "workspaceModeLabel": "Workspace",
     "workspaceInnovator": "Innovator workspace",
@@ -1687,6 +1692,76 @@
       "createUpdateFailed": "Could not publish this update. Please try again.",
       "deleteUpdateFailed": "Could not remove this update. Please try again.",
       "submitCampaignFailed": "Could not submit this campaign. Please try again."
+    }
+  },
+  "walletPage": {
+    "noCompany": "Set up your company profile before managing wallet and bank details.",
+    "setupCompany": "Go to company settings",
+    "badges": {
+      "verified": "Verified",
+      "pending": "Pending verification"
+    },
+    "dashboard": {
+      "metaTitle": "Wallet Dashboard | IdealLink",
+      "title": "Wallet Dashboard",
+      "subtitle": "View your company wallet balance and payout readiness.",
+      "currentBalance": "Current balance",
+      "quickWithdraw": "Withdraw funds",
+      "refresh": "Refresh",
+      "loadError": "Could not load wallet balance.",
+      "bankStatus": "Bank account",
+      "noBank": "No bank account on file",
+      "addBank": "Add bank account",
+      "pendingVerification": "Your bank account is awaiting admin verification.",
+      "manageBank": "Manage bank account"
+    },
+    "bankAccount": {
+      "metaTitle": "Bank Account | IdealLink",
+      "title": "Bank account",
+      "subtitle": "Link your company payout account for withdrawals.",
+      "addTitle": "Add bank account",
+      "updateTitle": "Update bank account",
+      "accountHolder": "Account holder name",
+      "bank": "Bank",
+      "accountNumber": "Account number",
+      "defaultAccount": "Set as default payout account",
+      "saveButton": "Save bank account",
+      "updateButton": "Update bank account",
+      "saving": "Saving…",
+      "saveSuccess": "Bank account saved successfully.",
+      "saveError": "Could not save bank account.",
+      "pendingMessage": "Your bank account is awaiting admin verification.",
+      "verifiedAt": "Verified on",
+      "verifiedEditHint": "Sensitive fields are locked while your account is verified. Contact support to change them."
+    },
+    "withdraw": {
+      "metaTitle": "Withdraw Funds | IdealLink",
+      "title": "Withdraw funds",
+      "subtitle": "Transfer available wallet balance to your verified bank account.",
+      "availableBalance": "Available balance",
+      "amountLabel": "Withdrawal amount (ETB)",
+      "submit": "Review withdrawal",
+      "success": "Withdrawal submitted successfully.",
+      "error": "Could not process withdrawal.",
+      "noBankTitle": "No bank account connected",
+      "noBankDescription": "Add and verify a company bank account before withdrawing funds.",
+      "addBankCta": "Add bank account",
+      "emptyWalletTitle": "Wallet balance is empty",
+      "emptyWalletDescription": "Funds will appear here when investments are received into your company wallet.",
+      "unverifiedWarning": "Withdrawals are disabled until your bank account is verified by an administrator.",
+      "destination": "Destination account",
+      "confirmTitle": "Confirm withdrawal",
+      "confirmDescription": "You are about to withdraw funds to your verified bank account. This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Confirm withdrawal",
+      "submitting": "Processing…"
+    },
+    "transactions": {
+      "metaTitle": "Transaction History | IdealLink",
+      "title": "Transaction history",
+      "subtitle": "A complete ledger of wallet movements.",
+      "comingSoon": "Coming soon",
+      "description": "Detailed transaction history will be available in a future release."
     }
   },
   "campaignEditPage": {

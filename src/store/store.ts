@@ -6,6 +6,7 @@ import "./api/investorApi";
 import "./api/notificationsApi";
 import "./api/paymentsApi";
 import "./api/profileApi";
+import "./api/walletApi";
 
 export const store = configureStore({
   reducer: {

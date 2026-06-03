@@ -8,6 +8,7 @@ import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { useWorkspace } from "@/context/WorkspaceContext";
 import { clearAuthTokens } from "@/lib/auth/tokenStorage";
 import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { FinanceSidebarMenu, defaultFinanceNavItems } from "@/components/wallet/components/FinanceSidebarMenu";
 import { messages } from "@/locales";
 import { useGetUserRolesStatusQuery } from "@/store";
 
@@ -91,6 +92,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const avatarInitials = userRolesStatus?.fullName?.trim()
     ? initialsFromFullName(userRolesStatus.fullName)
     : t.userFirstName.trim().slice(0, 2).toUpperCase() || "?";
+  const primarySectionLabel = activeWorkspace === "investor" ? t.sectionInvesting : t.sectionCampaigns;
 
   useEffect(() => {
     if (!profileMenuOpen) return;
@@ -141,22 +143,42 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           </div>
           <nav className="min-h-0 flex-1 overflow-y-auto p-3">
             <div className="flex flex-col gap-1">
-              {nav.map((item) => {
-                const active = item.match(router.pathname);
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileNavOpen(false)}
-                    className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition duration-200 ${active ? navActive : navInactive}`}
-                  >
-                    <span>{item.label}</span>
-                    {item.badge != null ? (
-                      <span className="rounded-full bg-primary-950 px-2 py-0.5 text-xs font-bold text-white">{item.badge}</span>
-                    ) : null}
-                  </Link>
-                );
-              })}
+              <section className={`rounded-2xl border p-2 ${isDark ? "border-white/10 bg-white/5" : "border-slate-200 bg-slate-50/60"}`}>
+                <p className={`px-2 pb-2 text-xs font-semibold uppercase tracking-wide ${isDark ? "text-zinc-400" : "text-slate-500"}`}>
+                  {primarySectionLabel}
+                </p>
+                <div className="space-y-1">
+                  {nav.map((item) => {
+                    const active = item.match(router.pathname);
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setMobileNavOpen(false)}
+                        className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition duration-200 ${active ? navActive : navInactive}`}
+                      >
+                        <span>{item.label}</span>
+                        {item.badge != null ? (
+                          <span className="rounded-full bg-primary-950 px-2 py-0.5 text-xs font-bold text-white">{item.badge}</span>
+                        ) : null}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </section>
+              {activeWorkspace === "innovator" ? (
+                <FinanceSidebarMenu
+                  sectionLabel={t.navWalletFinance}
+                  items={defaultFinanceNavItems({
+                    walletDashboard: t.navWalletDashboard,
+                    transactionHistory: t.navTransactionHistory,
+                  })}
+                  isDark={isDark}
+                  navActive={navActive}
+                  navInactive={navInactive}
+                  onNavigate={() => setMobileNavOpen(false)}
+                />
+              ) : null}
             </div>
           </nav>
           <div
