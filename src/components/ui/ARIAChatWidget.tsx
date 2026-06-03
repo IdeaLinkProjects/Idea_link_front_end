@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useAppPreferences } from "@/context/AppPreferencesContext";
+
 
 // ── types ──────────────────────────────────────────────────────────────────
 interface CampaignCard {
@@ -429,6 +431,8 @@ function TypingIndicator({ theme = DEFAULT_IL }: { theme?: ILTheme }) {
 // ── main widget ───────────────────────────────────────────────────────────
 export default function ARIAChatWidget({ userId, firstName, onClose, role = "INVESTOR" }: Props) {
   const isInvestor = role === "INVESTOR";
+  const { locale } = useAppPreferences();
+  const isAmharic = locale === "am";
   
   // Keep original green palette colors for both ARIA and NOVA
   const IL = {
@@ -444,19 +448,29 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
   };
 
   const aiName = isInvestor ? "ARIA" : "NOVA";
-  const aiTitle = isInvestor ? "IdeaLink Investment Advisor" : "IdeaLink Innovator Support AI";
+  const aiTitle = isInvestor
+    ? (isAmharic ? "IdeaLink የኢንቨስትመንት አማካሪ" : "IdeaLink Investment Advisor")
+    : (isAmharic ? "IdeaLink የፈጠራ ስራ ድጋፍ ሰጪ AI" : "IdeaLink Innovator Support AI");
   const apiEndpoint = isInvestor ? "/api/aria" : "/api/nova";
 
   // Build personalized welcome message using the user's real first name
   const welcomeMessage: Message = {
     role: "assistant",
     content: isInvestor
-      ? (firstName
-          ? `👋 Welcome back, ${firstName}! I'm ARIA, your IdeaLink investment advisor.\n\nI can see your profile and portfolio. Try asking:\n• "What is my portfolio?"\n• "How much have I invested?"\n• "Show me active campaigns"\n• "I have $5,000, where should I invest?"`
-          : `👋 Hey! I'm ARIA, your IdeaLink investment advisor.\n\nTry asking:\n• "Show me active campaigns"\n• "I have $5,000, where should I invest?"\n• "What's trending this week?"`)
-      : (firstName
-          ? `👋 Welcome back, ${firstName}! I'm NOVA, your IdeaLink innovator support AI.\n\nI can help you draft campaign details, track progress, or optimize your pitches. Try asking:\n• "How do I optimize my campaign?"\n• "Draft a campaign story"\n• "Show my active campaigns"\n• "Help me structure my risks"`
-          : `👋 Hey! I'm NOVA, your IdeaLink innovator support AI.\n\nTry asking:\n• "Draft a campaign story"\n• "Show my active campaigns"\n• "How to attract investors?"`),
+      ? (isAmharic
+          ? (firstName
+              ? `👋 እንኳን ደህና መጡ፣ ${firstName}! እኔ የIdeaLink ኢንቨስትመንት አማካሪዎ ARIA ነኝ።\n\nየእርስዎን መገለጫ እና ፖርትፎሊዮ ማየት እችላለሁ። ለመጠየቅ ይሞክሩ፡\n• "ፖርትፎሊዮዬ ምንድን ነው?"\n• "ምን ያህል ኢንቨስት አድርጌያለሁ?"\n• "ገባሪ ዘመቻዎችን አሳየኝ"\n• "5,000 ዶላር አለኝ፣ የት ኢንቨስት ላድርግ?"`
+              : `👋 ሰላም! እኔ የIdeaLink ኢንቨስትመንት አማካሪዎ ARIA ነኝ።\n\nለመጠየቅ ይሞክሩ፡\n• "ገባሪ ዘመቻዎችን አሳየኝ"\n• "5,000 ዶላር አለኝ፣ የት ኢንቨስት ላድርግ?"\n• "በዚህ ሳምንት ምን አዲስ ነገር አለ?"`)
+          : (firstName
+              ? `👋 Welcome back, ${firstName}! I'm ARIA, your IdeaLink investment advisor.\n\nI can see your profile and portfolio. Try asking:\n• "What is my portfolio?"\n• "How much have I invested?"\n• "Show me active campaigns"\n• "I have $5,000, where should I invest?"`
+              : `👋 Hey! I'm ARIA, your IdeaLink investment advisor.\n\nTry asking:\n• "Show me active campaigns"\n• "I have $5,000, where should I invest?"\n• "What's trending this week?"`))
+      : (isAmharic
+          ? (firstName
+              ? `👋 እንኳን ደህና መጡ፣ ${firstName}! እኔ የIdeaLink የፈጠራ ስራ ድጋፍ ሰጪዎ NOVA ነኝ።\n\nየዘመቻ ዝርዝሮችን ለማዘጋጀት፣ እድገትን ለመከታተል ወይም የንግድ አቀራረብዎን ለማሻሻል ልረዳዎ እችላለሁ። ለመጠየቅ ይሞክሩ፡\n• "ዘመቻዬን እንዴት ማሻሻል እችላለሁ?"\n• "የዘመቻ ታሪክ አዘጋጅልኝ"\n• "የእኔን ገባሪ ዘመቻዎች አሳየኝ"\n• "ስጋቶቼን እንድዋቅር እርዳኝ"`
+              : `👋 ሰላም! እኔ የIdeaLink የፈጠራ ስራ ድጋፍ ሰጪዎ NOVA ነኝ።\n\nለመጠየቅ ይሞክሩ፡\n• "የዘመቻ ታሪክ አዘጋጅልኝ"\n• "የእኔን ገባሪ ዘመቻዎች አሳየኝ"\n• "ኢንቨስተሮችን እንዴት መሳብ እችላለሁ?"`)
+          : (firstName
+              ? `👋 Welcome back, ${firstName}! I'm NOVA, your IdeaLink innovator support AI.\n\nI can help you draft campaign details, track progress, or optimize your pitches. Try asking:\n• "How do I optimize my campaign?"\n• "Draft a campaign story"\n• "Show my active campaigns"\n• "Help me structure my risks"`
+              : `👋 Hey! I'm NOVA, your IdeaLink innovator support AI.\n\nTry asking:\n• "Draft a campaign story"\n• "Show my active campaigns"\n• "How to attract investors?"`)),
   };
 
   const storageKey = getStorageKey(userId, role);
@@ -521,6 +535,7 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
           userId: userId || 1,
           sessionId: `user-${userId || 1}`,
           chatHistory: newMessages.slice(-10),
+          language: locale,
         }),
       });
 
@@ -557,18 +572,32 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
   };
 
   const suggestions = isInvestor
-    ? [
-        "What is my portfolio?",
-        "Show active campaigns",
-        "I have $5,000 to invest",
-        "What's trending?",
-      ]
-    : [
-        "Draft a campaign story",
-        "Show my active campaigns",
-        "How to attract investors?",
-        "Review my KPIs",
-      ];
+    ? (isAmharic
+        ? [
+            "ፖርትፎሊዮዬ ምንድን ነው?",
+            "ገባሪ ዘመቻዎችን አሳየኝ",
+            "ለመዋዕለ ንዋይ 5,000 ዶላር አለኝ",
+            "በአሁኑ ጊዜ አዝማሚያው ምንድን ነው?",
+          ]
+        : [
+            "What is my portfolio?",
+            "Show active campaigns",
+            "I have $5,000 to invest",
+            "What's trending?",
+          ])
+    : (isAmharic
+        ? [
+            "የዘመቻ ታሪክ አዘጋጅልኝ",
+            "የእኔን ገባሪ ዘመቻዎች አሳየኝ",
+            "ኢንቨስተሮችን እንዴት መሳብ እችላለሁ?",
+            "ቁልፍ መለኪያዎቼን ክለስ",
+          ]
+        : [
+            "Draft a campaign story",
+            "Show my active campaigns",
+            "How to attract investors?",
+            "Review my KPIs",
+          ]);
 
   return (
     <div
@@ -626,7 +655,9 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
         {/* Online dot */}
         <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
           <div style={{ width: 7, height: 7, borderRadius: "50%", background: IL.green }} />
-          <span style={{ fontSize: 10, color: IL.textMuted }}>Online</span>
+          <span style={{ fontSize: 10, color: IL.textMuted }}>
+            {isAmharic ? "ኦንላይን" : "Online"}
+          </span>
         </div>
 
         {/* New chat button */}
@@ -647,7 +678,7 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
             e.currentTarget.style.color = IL.textMuted;
           }}
         >
-          New chat
+          {isAmharic ? "አዲስ ውይይት" : "New chat"}
         </button>
 
         {onClose && (
@@ -728,7 +759,11 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder={`Ask ${aiName} anything...`}
+          placeholder={
+            isAmharic
+              ? `${aiName}ን ማንኛውንም ነገር ይጠይቁ...`
+              : `Ask ${aiName} anything...`
+          }
           rows={1}
           style={{
             flex: 1, resize: "none",
