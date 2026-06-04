@@ -29,6 +29,7 @@ interface Message {
   role: "user" | "assistant";
   content: string;
   cards?: CampaignCard[];
+  lang?: "en" | "am";
 }
 
 interface Props {
@@ -415,7 +416,11 @@ function MessageBubble({ msg, theme = DEFAULT_IL }: { msg: Message; theme?: ILTh
           <div style={{ display: "flex", gap: 10, width: "max-content", padding: "2px 2px" }}>
             {cards.map((card, i) => {
               if (!card || typeof card !== "object") return null;
-              return <CampaignCard key={i} card={card} theme={theme} />;
+              const cardWithLang = {
+                ...card,
+                lang: card.lang || msg.lang,
+              };
+              return <CampaignCard key={i} card={cardWithLang} theme={theme} />;
             })}
           </div>
         </div>
@@ -548,7 +553,7 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
     setInput("");
     const newMessages: Message[] = [
       ...messages,
-      { role: "user", content: userText },
+      { role: "user", content: userText, lang: locale },
     ];
     setMessages(newMessages);
     setLoading(true);
@@ -587,6 +592,7 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
         {
           role: "assistant",
           content: reply,
+          lang: locale,
           ...(cards ? { cards } : {}),
         },
       ]);
