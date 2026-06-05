@@ -22,12 +22,14 @@ interface CampaignCard {
   closing?: string;
   description?: string;
   short_description?: string;
+  lang?: string;
 }
 
 interface Message {
   role: "user" | "assistant";
   content: string;
   cards?: CampaignCard[];
+  lang?: "en" | "am";
 }
 
 interface Props {
@@ -111,6 +113,23 @@ function extractText(data: unknown): string {
 
 // ── campaign card ─────────────────────────────────────────────────────────
 function CampaignCard({ card, theme = DEFAULT_IL }: { card: CampaignCard; theme?: ILTheme }) {
+  const isAmharic = card.lang === "am";
+  const labels = isAmharic
+    ? {
+        equity: "ኢኩዊቲ",
+        valuation: "ዋጋ ግምት",
+        minInvest: "ዝቅተኛ ኢንቨስትመንት",
+        funded: "ተሰብስቧል",
+        viewDetails: "ዝርዝር ይመልከቱ →",
+      }
+    : {
+        equity: "Equity",
+        valuation: "Valuation",
+        minInvest: "Min invest",
+        funded: "Funded",
+        viewDetails: "View details →",
+      };
+
   const router = useRouter();
   const funded = card.funded ?? card.funding_progress ?? 0;
   const equity = card.equity || "—";
@@ -148,7 +167,7 @@ function CampaignCard({ card, theme = DEFAULT_IL }: { card: CampaignCard; theme?
             letterSpacing: "0.5px",
           }}
         >
-          {card.cat || card.category || "Campaign"}
+          {card.cat || card.category || (isAmharic ? "ዘመቻ" : "Campaign")}
         </span>
         <span style={{ fontSize: 11, fontWeight: 700, color: scoreColor }}>
           {card.score}/100
@@ -172,19 +191,21 @@ function CampaignCard({ card, theme = DEFAULT_IL }: { card: CampaignCard; theme?
       )}
 
       <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-        {[["Equity", equity], ["Valuation", valuation], ["Min invest", minInvest]].map(
-          ([label, val]) => (
-            <div key={label} style={{ display: "flex", justifyContent: "space-between" }}>
-              <span style={{ fontSize: 10, color: theme.textMuted }}>{label}</span>
-              <span style={{ fontSize: 10, fontWeight: 600, color: theme.text }}>{val}</span>
-            </div>
-          )
-        )}
+        {[
+          [labels.equity, equity],
+          [labels.valuation, valuation],
+          [labels.minInvest, minInvest],
+        ].map(([label, val]) => (
+          <div key={label} style={{ display: "flex", justifyContent: "space-between" }}>
+            <span style={{ fontSize: 10, color: theme.textMuted }}>{label}</span>
+            <span style={{ fontSize: 10, fontWeight: 600, color: theme.text }}>{val}</span>
+          </div>
+        ))}
       </div>
 
       <div>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-          <span style={{ fontSize: 9, color: theme.textMuted }}>Funded</span>
+          <span style={{ fontSize: 9, color: theme.textMuted }}>{labels.funded}</span>
           <span style={{ fontSize: 9, fontWeight: 600, color: theme.text }}>{funded}%</span>
         </div>
         <div style={{ background: "#1a3a30", borderRadius: 4, height: 4 }}>
@@ -202,7 +223,8 @@ function CampaignCard({ card, theme = DEFAULT_IL }: { card: CampaignCard; theme?
 
       {card.closing && (
         <p style={{ margin: 0, fontSize: 9, color: theme.textMuted }}>
-          Closes {card.closing}
+          {isAmharic ? "የማብቂያ ቀን " : "Closes "}
+          {card.closing}
         </p>
       )}
 
@@ -231,7 +253,7 @@ function CampaignCard({ card, theme = DEFAULT_IL }: { card: CampaignCard; theme?
         onMouseEnter={(e) => (e.currentTarget.style.background = theme.greenDark)}
         onMouseLeave={(e) => (e.currentTarget.style.background = theme.green)}
       >
-        View details →
+        {labels.viewDetails}
       </button>
     </div>
   );
@@ -393,7 +415,11 @@ function MessageBubble({ msg, theme = DEFAULT_IL }: { msg: Message; theme?: ILTh
           <div style={{ display: "flex", gap: 10, width: "max-content", padding: "2px 2px" }}>
             {cards.map((card, i) => {
               if (!card || typeof card !== "object") return null;
-              return <CampaignCard key={i} card={card} theme={theme} />;
+              const cardWithLang = {
+                ...card,
+                lang: card.lang || msg.lang,
+              };
+              return <CampaignCard key={i} card={cardWithLang} theme={theme} />;
             })}
           </div>
         </div>
@@ -526,7 +552,7 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
     setInput("");
     const newMessages: Message[] = [
       ...messages,
-      { role: "user", content: userText },
+      { role: "user", content: userText, lang: locale },
     ];
     setMessages(newMessages);
     setLoading(true);
@@ -565,6 +591,7 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
         {
           role: "assistant",
           content: reply,
+          lang: locale,
           ...(cards ? { cards } : {}),
         },
       ]);
