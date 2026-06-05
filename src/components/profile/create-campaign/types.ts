@@ -7,10 +7,8 @@ export type CreateCampaignForm = {
   title: string;
   shortDescription: string;
   heroImageUrl: string;
-  fundingGoal: string;
   equityOffered: string;
   valuation: string;
-  minInvestment: string;
   totalShares: string;
   minimumSharesPerInvestor: string;
   durationDays: string;
@@ -19,14 +17,17 @@ export type CreateCampaignForm = {
   selectedTagIds: number[];
 };
 
+export type EditCampaignForm = CreateCampaignForm & {
+  fundingGoal: string;
+  minInvestment: string;
+};
+
 export const initialCreateCampaignForm: CreateCampaignForm = {
   title: "",
   shortDescription: "",
   heroImageUrl: "",
-  fundingGoal: "100000",
-  equityOffered: "0.1",
+  equityOffered: "10",
   valuation: "10000",
-  minInvestment: "100",
   totalShares: "1",
   minimumSharesPerInvestor: "1",
   durationDays: "1",

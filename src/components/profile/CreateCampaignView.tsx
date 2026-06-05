@@ -87,29 +87,15 @@ export function CreateCampaignView() {
             />
 
             <div>
-              <label htmlFor="campaign-funding-goal" className={labelClass}>
-                {t.fundingGoal}
-              </label>
-              <input
-                id="campaign-funding-goal"
-                type="number"
-                min="1"
-                value={form.fundingGoal}
-                onChange={(e) => updateField("fundingGoal", e.target.value)}
-                className={inputClass}
-              />
-            </div>
-
-            <div>
               <label htmlFor="campaign-equity" className={labelClass}>
                 {t.equityOffered}
               </label>
               <input
                 id="campaign-equity"
                 type="number"
-                min="0.0001"
-                max="1"
-                step="0.0001"
+                min="1"
+                max="100"
+                step="1"
                 value={form.equityOffered}
                 onChange={(e) => updateField("equityOffered", e.target.value)}
                 className={inputClass}
@@ -126,20 +112,6 @@ export function CreateCampaignView() {
                 min="1"
                 value={form.valuation}
                 onChange={(e) => updateField("valuation", e.target.value)}
-                className={inputClass}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="campaign-min-investment" className={labelClass}>
-                {t.minInvestment}
-              </label>
-              <input
-                id="campaign-min-investment"
-                type="number"
-                min="1"
-                value={form.minInvestment}
-                onChange={(e) => updateField("minInvestment", e.target.value)}
                 className={inputClass}
               />
             </div>

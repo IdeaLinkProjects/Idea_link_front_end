@@ -313,7 +313,7 @@ export function CampaignDetailView({ campaignId }: CampaignDetailViewProps) {
               {[
                 [t.fundingGoal, formatCurrency(campaign.fundingGoal, locale)],
                 [t.amountRaised, formatCurrency(campaign.amountRaised, locale)],
-                [t.equityOffered, `${(campaign.equityOffered * 100).toFixed(2)}%`],
+                [t.equityOffered, `${campaign.equityOffered.toFixed(2)}%`],
                 [t.valuation, formatCurrency(campaign.valuation, locale)],
                 [t.minInvestment, formatCurrency(campaign.minInvestment, locale)],
                 [t.progressPercent, `${progress}%`],

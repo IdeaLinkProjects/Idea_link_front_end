@@ -72,10 +72,10 @@ export type CreateCampaignRequestBody = {
   shortDescription: string;
   heroImageUrl: string;
   storyJson: Record<string, string>;
-  fundingGoal: number;
+  fundingGoal?: number;
   equityOffered: number;
   valuation: number;
-  minInvestment: number;
+  minInvestment?: number;
   totalShares: number;
   minimumSharesPerInvestor: number;
   durationDays: number;

@@ -173,9 +173,9 @@ export function CampaignEditView({ campaignId }: CampaignEditViewProps) {
               <input
                 id="edit-campaign-equity"
                 type="number"
-                min="0.0001"
-                max="1"
-                step="0.0001"
+                min="1"
+                max="100"
+                step="1"
                 value={form.equityOffered}
                 onChange={(e) => updateField("equityOffered", e.target.value)}
                 className={inputClass}
