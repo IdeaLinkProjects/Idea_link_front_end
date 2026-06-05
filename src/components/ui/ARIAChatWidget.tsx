@@ -113,8 +113,7 @@ function extractText(data: unknown): string {
 
 // ── campaign card ─────────────────────────────────────────────────────────
 function CampaignCard({ card, theme = DEFAULT_IL }: { card: CampaignCard; theme?: ILTheme }) {
-  const { locale } = useAppPreferences();
-  const isAmharic = card.lang === "am" || locale === "am";
+  const isAmharic = card.lang === "am";
   const labels = isAmharic
     ? {
         equity: "ኢኩዊቲ",
