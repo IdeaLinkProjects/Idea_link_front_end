@@ -138,6 +138,7 @@ export default function ProjectDetailPage() {
                 bundle={bundle}
                 tab={tab}
                 campaignId={campaignIdNum}
+                isLoggedIn={isLoggedIn}
                 onDocPreview={onDocPreview}
               />
             </div>

@@ -76,92 +76,126 @@
       "title": "IdealLink | Ethiopian Crowdfunding Platform",
       "description": "Discover vetted ventures, back local innovation, and launch campaigns on Ethiopia's trusted crowdfunding marketplace."
     },
-    "audienceInvest": "Invest",
-    "audienceInnovate": "Innovate",
-    "heroInvestTitle": "Grow your portfolio at the speed of your ambition",
-    "heroInvestSubtitle": "Discover vetted Ethiopian ventures, back teams you believe in, and track progress in one transparent place.",
-    "heroInnovateTitle": "Turn your idea into funded momentum",
-    "heroInnovateSubtitle": "Launch a campaign, reach investors across Ethiopia, and build with structured tools made for serious innovators.",
-    "heroCtaInvest": "Explore projects",
-    "heroCtaInnovate": "Start a campaign",
-    "searchPlaceholder": "Search projects, sectors, or keywords…",
+    "heroBadge": "Ethiopia's crowdfunding marketplace",
+    "heroTitle": "Back Ethiopian ventures. Invest with clarity.",
+    "heroSubtitle": "Discover live campaigns in agritech, health, clean energy, and more. Start from as little as 1,000 ETB.",
+    "heroCtaExplore": "Explore live campaigns",
+    "heroCtaSignUp": "Create free account",
+    "searchPlaceholder": "Search campaigns, sectors, or keywords…",
     "searchSubmit": "Search",
-    "popularSearches": "Popular searches",
-    "popularQueries": [
-      "Solar irrigation for farms",
-      "Amharic ed-tech learning app",
-      "Textile export marketplace",
-      "Health clinic equipment",
-      "Clean energy micro-grid"
-    ],
-    "trustedBy": "Trusted by innovators and investors across Ethiopia",
-    "categoriesTitle": "Invest where innovation is headed",
-    "categoriesSubtitle": "From agritech to health—explore the sectors driving growth on IdealLink",
-    "categoriesCta": "Browse all projects",
-    "emergingTitle": "Emerging on the platform",
-    "emergingRoles": [
-      { "title": "Agritech & food systems", "desc": "Climate-smart farming and supply chain ventures" },
-      { "title": "Fintech & payments", "desc": "Inclusive finance built for local markets" },
-      { "title": "Health & medtech", "desc": "Care delivery, devices, and community health" },
-      { "title": "Ed-tech & skills", "desc": "Learning products in local languages" },
-      { "title": "Clean energy", "desc": "Solar, storage, and rural electrification" }
-    ],
-    "inDemandTitle": "In-demand sectors",
-    "inDemandSectors": ["Agriculture", "Technology", "Education", "Health", "Commerce", "Energy"],
-    "testimonialQuote": "IdealLink helped us reach backers we could not access offline—our campaign went from pitch deck to funded in weeks, not months.",
-    "testimonialAuthor": "Meron T.",
-    "testimonialRole": "Founder, Addis-based agritech venture",
-    "testimonialCta": "Read more stories",
+    "popularLabel": "Popular:",
+    "popularTags": ["Agriculture", "Health", "Ed-tech"],
     "stats": [
-      { "value": "50+", "label": "Projects listed" },
-      { "value": "2.5M+", "label": "ETB pledged" },
-      { "value": "200+", "label": "Registered members" },
-      { "value": "24h", "label": "Typical first backer interest" }
+      { "value": "0", "label": "Live campaigns" },
+      { "value": "0", "label": "ETB pledged" },
+      { "value": "0", "label": "Campaigns funded" },
+      { "value": "0", "label": "Community members" }
+    ],
+    "statsFootnote": "Updated in real-time from platform activity",
+    "liveCampaignsTitle": "Live campaigns you can back today",
+    "liveCampaignsViewAll": "View all",
+    "liveBadge": "LIVE",
+    "fundedLabel": "funded",
+    "daysLeftLabel": "days left",
+    "raisedLabel": "RAISED",
+    "minInvestLabel": "MIN INVEST",
+    "featuredCampaigns": [
+      {
+        "title": "Solar irrigation for farms",
+        "category": "Agri-tech",
+        "location": "Addis Ababa",
+        "fundedPercent": 72,
+        "daysRemaining": 14,
+        "raisedEtb": 360000,
+        "minInvestEtb": 1000,
+        "image": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "title": "Health clinic equipment",
+        "category": "Health",
+        "location": "Hawassa",
+        "fundedPercent": 54,
+        "daysRemaining": 21,
+        "raisedEtb": 270000,
+        "minInvestEtb": 1000,
+        "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "title": "Smart learning app in Amharic",
+        "category": "Ed-tech",
+        "location": "Addis Ababa",
+        "fundedPercent": 88,
+        "daysRemaining": 7,
+        "raisedEtb": 440000,
+        "minInvestEtb": 1000,
+        "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80&auto=format&fit=crop"
+      }
+    ],
+    "transparencyTitle": "Built for transparency",
+    "transparencySubtitle": "Every campaign on IdealLink is structured so backers and founders can see progress, verify identity, and follow the money.",
+    "transparencyFeatures": [
+      { "title": "Identity verified", "desc": "Founders and companies complete verification before campaigns go live." },
+      { "title": "Milestone tracking", "desc": "Campaign updates and milestone reports keep backers informed at every stage." },
+      { "title": "Secure pledges", "desc": "Investments are processed through trusted payment flows with clear records." },
+      { "title": "ETB wallet ready", "desc": "Back campaigns with ETB from your mobile wallet—no complex setup required." }
     ],
     "howItWorksTitle": "How it works",
-    "howItWorksInvest": [
-      { "step": "1", "title": "Discover ventures", "desc": "Search and filter live campaigns by sector, goal, and progress." },
-      { "step": "2", "title": "Back with confidence", "desc": "Review profiles, documents, and funding terms before you commit." },
-      { "step": "3", "title": "Track your portfolio", "desc": "Follow milestones, messages, and outcomes from your dashboard." }
+    "howItWorksSteps": [
+      { "step": "1", "title": "Discover", "desc": "Browse through verified Ethiopian ventures across agritech, health, energy, and more." },
+      { "step": "2", "title": "Invest", "desc": "Back campaigns with ETB from your mobile wallet, starting from as little as 1,000 ETB." },
+      { "step": "3", "title": "Track", "desc": "Monitor progress through transparent milestone reports and campaign updates." }
     ],
-    "howItWorksInnovate": [
-      { "step": "1", "title": "Create your campaign", "desc": "Tell your story, set goals, and upload the materials investors expect." },
-      { "step": "2", "title": "Reach backers", "desc": "Get visibility across discovery, categories, and your network." },
-      { "step": "3", "title": "Deliver and report", "desc": "Share updates, manage documents, and close your round transparently." }
+    "sectorsTitle": "Browse by Sector",
+    "sectorsBrowse": "Browse",
+    "sectors": [
+      { "name": "Agrotech & Food", "keyword": "Agriculture" },
+      { "name": "Fintech", "keyword": "Fintech" },
+      { "name": "Health & Wellness", "keyword": "Health" },
+      { "name": "Ed-tech", "keyword": "Education" },
+      { "name": "Clean Energy", "keyword": "Energy" },
+      { "name": "Commerce & Retail", "keyword": "Commerce" }
     ],
-    "howItWorksCta": "See how IdealLink works",
-    "pathsTitle": "Paths built for how you participate",
-    "pathInvestorTitle": "For investors",
-    "pathInvestorDesc": "Browse curated ventures, diversify across sectors, and manage pledges without long-term overhead.",
-    "pathInvestorCta": "Register as investor",
-    "pathInnovatorTitle": "For innovators",
-    "pathInnovatorDesc": "Run campaigns with structured flows, company profiles, and tools to keep backers informed.",
-    "pathInnovatorCta": "Register as innovator",
-    "discoverSectionTitle": "Live projects on IdealLink",
-    "discoverSectionSubtitle": "Search, filter, and explore every active campaign.",
-    "finalCtaTitle": "Start building Ethiopia's next wave of ventures",
-    "finalCtaSubtitle": "Join innovators and investors already on IdealLink.",
-    "finalCtaExplore": "Explore projects",
-    "finalCtaSignUp": "Create free account",
-    "faqTitle": "Your questions, answered",
+    "pathInvestorEyebrow": "For Investors",
+    "pathInvestorBenefits": [
+      "Browse vetted Ethiopian ventures across sectors",
+      "Invest from 1,000 ETB via mobile wallet",
+      "Track portfolio progress in one dashboard"
+    ],
+    "pathInvestorCta": "Register as Investor",
+    "pathInnovatorEyebrow": "For Innovators",
+    "pathInnovatorBenefits": [
+      "Launch structured campaigns with clear milestones",
+      "Reach backers across Ethiopia's investor network",
+      "Manage updates, documents, and funding in one place"
+    ],
+    "pathInnovatorCta": "Register as Innovator",
+    "testimonialQuote": "IdealLink helped us fund our processing plant when traditional banks wouldn't listen. We reached our goal in three weeks.",
+    "testimonialAuthor": "Hirut Melaku",
+    "testimonialRole": "CEO, AgroFresh Ethiopia",
+    "testimonialCta": "Read their story",
+    "testimonialImage": "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1200&q=80&auto=format&fit=crop",
+    "faqTitle": "Frequently Asked Questions",
     "faqItems": [
       {
         "q": "What is IdealLink?",
-        "a": "IdealLink is Ethiopia's crowdfunding marketplace connecting innovators with investors. Businesses and individuals can discover ventures, pledge support, and innovators can launch structured campaigns to raise capital."
+        "a": "IdealLink is Ethiopia's crowdfunding marketplace connecting innovators with investors. Discover ventures, pledge support, and launch structured campaigns to raise capital."
       },
       {
-        "q": "How does investing work?",
-        "a": "Browse live projects, review campaign details and documents, then pledge through our guided investment flow. Track your portfolio and communicate with innovators from your dashboard."
+        "q": "Who can invest?",
+        "a": "Anyone registered on IdealLink can browse live campaigns and invest from as little as 1,000 ETB using their mobile wallet."
       },
       {
         "q": "How do I launch a campaign?",
-        "a": "Register as an innovator, complete your profile and company details, then create a campaign with goals, media, and updates. Once live, your project appears in discovery for investors."
+        "a": "Register as an innovator, complete your company profile, then create a campaign with goals, media, and milestone updates. Once approved, it goes live on discovery."
       },
       {
-        "q": "Who is IdealLink for?",
-        "a": "IdealLink is for Ethiopian innovators seeking transparent funding and for investors who want vetted, local opportunities—from first-time backers to experienced portfolios."
+        "q": "Is my investment secure?",
+        "a": "All pledges are processed through trusted payment flows with clear records. Founders complete identity verification before campaigns go live."
       }
-    ]
+    ],
+    "finalCtaTitle": "Start exploring Ethiopia's next wave of ventures",
+    "finalCtaSubtitle": "Join thousands of backers building the future of Ethiopian industry, today.",
+    "finalCtaButton": "Get started"
   },
   "discoveryCta": {
     "title": "Discover ideas worth backing",
@@ -345,7 +379,14 @@
       "reply": "Reply",
       "replyPlaceholder": "Write a reply…",
       "submitReply": "Post reply",
-      "cancelReply": "Cancel"
+      "cancelReply": "Cancel",
+      "edit": "Edit",
+      "save": "Save",
+      "updateSuccess": "Comment updated.",
+      "updateFailed": "Could not update comment.",
+      "loadMore": "Load more comments",
+      "investorBadge": "Investor",
+      "innovatorBadge": "Innovator"
     },
     "fallback": {
       "problem": "{name} targets a clear need in its sector. Review the summary and documents before investing.",

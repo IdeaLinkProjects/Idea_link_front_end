@@ -30,6 +30,10 @@ export {
   useGetCampaignUpdatesQuery,
   useCreateCampaignUpdateMutation,
   useDeleteCampaignUpdateMutation,
+  useGetCampaignCommentsQuery,
+  useCreateCampaignCommentMutation,
+  useUpdateCampaignCommentMutation,
+  useDeleteCampaignCommentMutation,
 } from "./api/Campaigns";
 export {
   innovatorApi,
@@ -110,6 +114,11 @@ export type {
   UserInvestmentPayment,
   UserInvestment,
   UserInvestmentsResponse,
+  CampaignComment,
+  CampaignCommentUser,
+  CampaignCommentsPageResponse,
+  CreateCampaignCommentBody,
+  UpdateCampaignCommentBody,
 } from "./api/Campaigns";
 export type {
   CompanyWalletBreakdown,

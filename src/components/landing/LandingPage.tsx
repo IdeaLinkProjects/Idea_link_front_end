@@ -1,47 +1,188 @@
 import clsx from "clsx";
 import {
   ArrowRight,
-  BarChart3,
+  Check,
   ChevronDown,
+  GraduationCap,
+  Heart,
   Leaf,
-  Lightbulb,
+  ListChecks,
+  Lock,
+  Quote,
   Search,
   ShieldCheck,
   Sparkles,
-  TrendingUp,
-  Users,
+  Store,
+  Wallet,
   Zap,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, useCallback, useMemo, useState } from "react";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
+import type { Locale } from "@/locales";
 import { messages } from "@/locales";
-import { LandingHeroBackground } from "./LandingHeroBackground";
+import {
+  type CampaignFilterRequestBody,
+  type MyCampaign,
+  useFilterCampaignsQuery,
+} from "@/store";
 
-type Audience = "invest" | "innovate";
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1200&q=80&auto=format&fit=crop";
 
-const SECTOR_ICONS = [Leaf, Zap, Lightbulb, ShieldCheck, BarChart3, TrendingUp] as const;
+const LIVE_CAMPAIGNS_QUERY: CampaignFilterRequestBody = {
+  pagination: { page: 0, size: 3 },
+  filters: {
+    keyword: "",
+    statuses: [],
+    tagIds: [],
+    activeNow: true,
+    funded: false,
+  },
+};
 
 function discoveryHref(keyword?: string): string {
   const q = keyword?.trim();
   return q ? `/discovery?q=${encodeURIComponent(q)}` : "/discovery";
 }
 
+function formatEtb(n: number, locale: Locale): string {
+  return new Intl.NumberFormat(locale === "am" ? "am-ET" : "en-ET", { maximumFractionDigits: 0 }).format(
+    Number.isFinite(n) ? n : 0,
+  );
+}
+
+function daysRemaining(iso: string): number {
+  const end = new Date(iso).getTime();
+  if (Number.isNaN(end)) return 0;
+  return Math.max(0, Math.ceil((end - Date.now()) / 86_400_000));
+}
+
+type FallbackCampaign = (typeof messages.en.landing)["featuredCampaigns"][number];
+
+type LandingCampaign = {
+  id: string;
+  title: string;
+  categoryLabel: string;
+  location: string;
+  fundedPercent: number;
+  daysRemaining: number;
+  raisedEtb: number;
+  minInvestEtb: number;
+  image: string;
+  href: string;
+};
+
+function campaignFromApi(c: MyCampaign, locale: Locale): LandingCampaign {
+  const tag = c.tags?.[0] ?? "";
+  const categoryLabel = tag || c.company?.industry || "—";
+  return {
+    id: String(c.id),
+    title: c.title,
+    categoryLabel,
+    location: c.company?.name ?? "Ethiopia",
+    fundedPercent: Math.min(100, Math.max(0, Math.round(c.fundingProgress ?? 0))),
+    daysRemaining: daysRemaining(c.endDate),
+    raisedEtb: c.amountRaised ?? 0,
+    minInvestEtb: c.minInvestment ?? 0,
+    image:
+      c.heroImageUrl?.trim() ||
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200&q=80&auto=format&fit=crop",
+    href: `/projects/${c.id}`,
+  };
+}
+
+function campaignFromFallback(c: FallbackCampaign): LandingCampaign {
+  return {
+    id: c.title,
+    title: c.title,
+    categoryLabel: c.category,
+    location: c.location,
+    fundedPercent: c.fundedPercent,
+    daysRemaining: c.daysRemaining,
+    raisedEtb: c.raisedEtb,
+    minInvestEtb: c.minInvestEtb,
+    image: c.image,
+    href: "/discovery",
+  };
+}
+
+function LandingCampaignCard({
+  campaign,
+  locale,
+  isDark,
+  t,
+  cardClass,
+  muted,
+}: {
+  campaign: LandingCampaign;
+  locale: Locale;
+  isDark: boolean;
+  t: (typeof messages.en.landing);
+  cardClass: string;
+  muted: string;
+}) {
+  return (
+    <Link href={campaign.href} className={clsx(cardClass, "group flex flex-col overflow-hidden transition hover:-translate-y-0.5")}>
+      <div className="relative aspect-[16/10] overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element -- remote campaign imagery */}
+        <img
+          src={campaign.image}
+          alt=""
+          className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+        />
+        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-red-600 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm">
+          <span className="h-1.5 w-1.5 rounded-full bg-white" aria-hidden />
+          {t.liveBadge}
+        </span>
+      </div>
+      <div className="flex flex-1 flex-col p-5">
+        <p className={clsx("text-xs font-medium", muted)}>
+          {campaign.categoryLabel} • {campaign.location}
+        </p>
+        <h3 className="mt-1.5 text-lg font-bold leading-snug">{campaign.title}</h3>
+        <div className="mt-4">
+          <div className={clsx("h-1.5 w-full overflow-hidden rounded-full", isDark ? "bg-zinc-800" : "bg-zinc-200")}>
+            <div
+              className="h-full rounded-full bg-primary-600"
+              style={{ width: `${campaign.fundedPercent}%` }}
+            />
+          </div>
+          <div className={clsx("mt-2 flex items-center justify-between text-xs font-semibold", muted)}>
+            <span>{campaign.fundedPercent}% {t.fundedLabel}</span>
+            <span>
+              {campaign.daysRemaining} {t.daysLeftLabel}
+            </span>
+          </div>
+        </div>
+        <div className={clsx("mt-4 grid grid-cols-2 gap-3 border-t pt-4 text-xs", isDark ? "border-white/10" : "border-zinc-100")}>
+          <div>
+            <p className={clsx("font-bold uppercase tracking-wide", muted)}>{t.raisedLabel}</p>
+            <p className="mt-0.5 text-sm font-bold text-primary-800 dark:text-primary-300">
+              {formatEtb(campaign.raisedEtb, locale)} ETB
+            </p>
+          </div>
+          <div>
+            <p className={clsx("font-bold uppercase tracking-wide", muted)}>{t.minInvestLabel}</p>
+            <p className="mt-0.5 text-sm font-bold text-primary-800 dark:text-primary-300">
+              {formatEtb(campaign.minInvestEtb, locale)} ETB
+            </p>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export function LandingPage() {
   const { locale, isDark } = useAppPreferences();
   const router = useRouter();
   const t = messages[locale].landing;
-  const [audience, setAudience] = useState<Audience>("invest");
   const [query, setQuery] = useState("");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  const isInvest = audience === "invest";
-  const heroTitle = isInvest ? t.heroInvestTitle : t.heroInnovateTitle;
-  const heroSubtitle = isInvest ? t.heroInvestSubtitle : t.heroInnovateSubtitle;
-  const heroCta = isInvest ? t.heroCtaInvest : t.heroCtaInnovate;
-  const heroCtaHref = isInvest ? "/discovery" : "/register";
-  const howSteps = isInvest ? t.howItWorksInvest : t.howItWorksInnovate;
+  const { data: liveData, isLoading: liveLoading } = useFilterCampaignsQuery(LIVE_CAMPAIGNS_QUERY);
 
   const goToDiscovery = useCallback(
     (keyword?: string) => {
@@ -55,289 +196,408 @@ export function LandingPage() {
     goToDiscovery(query);
   };
 
+  const campaigns = useMemo((): LandingCampaign[] => {
+    const apiItems = liveData?.content ?? [];
+    if (apiItems.length > 0) {
+      return apiItems.map((c) => campaignFromApi(c, locale));
+    }
+    return t.featuredCampaigns.map(campaignFromFallback);
+  }, [liveData?.content, locale, t.featuredCampaigns]);
+
+  const stats = useMemo(() => {
+    const liveCount = liveData?.totalElements;
+    return t.stats.map((stat, i) =>
+      i === 0 && liveCount != null ? { ...stat, value: String(liveCount) } : stat,
+    );
+  }, [liveData?.totalElements, t.stats]);
+
   const section = isDark ? "text-zinc-100" : "text-zinc-900";
-  const muted = isDark ? "text-zinc-400" : "text-zinc-600";
+  const muted = isDark ? "text-zinc-400" : "text-zinc-500";
   const card = isDark
-    ? "rounded-2xl border border-white/10 bg-zinc-900/50 shadow-lg shadow-black/20"
-    : "rounded-2xl border border-zinc-200/90 bg-white shadow-md shadow-zinc-900/[0.04]";
-  const pillActive = "border-primary-600 bg-primary-600 text-white shadow-md shadow-primary-900/25";
-  const heroPillInactive = "border-transparent bg-transparent text-zinc-200 hover:bg-white/10";
+    ? "rounded-2xl border border-white/10 bg-zinc-900/60 shadow-lg shadow-black/20"
+    : "rounded-2xl border border-zinc-200/80 bg-white shadow-md shadow-zinc-900/[0.05]";
+  const mintSection = isDark ? "bg-primary-950/25" : "bg-primary-50";
+
+  const transparencyIcons = [ShieldCheck, ListChecks, Lock, Wallet] as const;
+  const sectorIcons = [Leaf, Wallet, Heart, GraduationCap, Zap, Store] as const;
+  const sectionX = "px-8 sm:px-12 lg:px-16";
 
   return (
     <div className={clsx("flex flex-col", section)}>
       {/* Hero */}
-      <section className="relative min-h-[28rem] overflow-hidden px-4 pb-16 pt-24 sm:min-h-[32rem] sm:px-5 sm:pb-20 sm:pt-28 lg:px-6 lg:pb-24">
-        <LandingHeroBackground />
-
-        <div className="relative z-10 mx-auto max-w-4xl text-center">
-          <div
-            className="mx-auto mb-8 inline-flex rounded-full border border-white/20 bg-black/40 p-1 backdrop-blur-md"
-            role="tablist"
-            aria-label="Audience"
-          >
-            <button
-              type="button"
-              role="tab"
-              aria-selected={isInvest}
+      <section className={clsx(sectionX, "pb-12 pt-6 sm:pb-14 sm:pt-8", isDark ? "bg-zinc-950" : "bg-[#f7faf8]")}>
+        <div className="mx-auto grid max-w-screen-2xl items-center gap-10 lg:grid-cols-2 lg:gap-14">
+          <div>
+            <span
               className={clsx(
-                "rounded-full px-5 py-2 text-sm font-semibold transition",
-                isInvest ? pillActive : heroPillInactive,
+                "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold",
+                isDark ? "border-primary-500/30 bg-primary-950/50 text-primary-200" : "border-primary-200 bg-white text-primary-800",
               )}
-              onClick={() => setAudience("invest")}
             >
-              {t.audienceInvest}
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={!isInvest}
-              className={clsx(
-                "rounded-full px-5 py-2 text-sm font-semibold transition",
-                !isInvest ? pillActive : heroPillInactive,
-              )}
-              onClick={() => setAudience("innovate")}
-            >
-              {t.audienceInnovate}
-            </button>
-          </div>
+              <Sparkles className="h-3.5 w-3.5 text-primary-600" aria-hidden />
+              {t.heroBadge}
+            </span>
 
-          <h1 className="text-balance text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[3.25rem]">
-            {heroTitle}
-          </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-pretty text-base leading-relaxed text-zinc-200 sm:text-lg">
-            {heroSubtitle}
-          </p>
+            <h1 className="mt-6 text-balance text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.25rem]">
+              {t.heroTitle}
+            </h1>
+            <p className={clsx("mt-5 max-w-xl text-pretty text-base leading-relaxed sm:text-lg", muted)}>
+              {t.heroSubtitle}
+            </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href={heroCtaHref}
-              className="inline-flex items-center gap-2 rounded-xl bg-primary-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-primary-900/25 transition hover:bg-primary-500 hover:-translate-y-0.5"
-            >
-              {heroCta}
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-            <Link
-              href="/register"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-white/20"
-            >
-              {t.finalCtaSignUp}
-            </Link>
-          </div>
-
-          <form onSubmit={onSubmitSearch} className="mx-auto mt-10 max-w-2xl">
-            <div className="flex overflow-hidden rounded-2xl border border-white/20 bg-zinc-900/80 shadow-lg shadow-black/30 backdrop-blur-md transition focus-within:ring-2 focus-within:ring-primary-400/50">
-              <span className="flex items-center pl-4 text-zinc-400" aria-hidden>
-                <Search className="h-5 w-5" />
-              </span>
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder={t.searchPlaceholder}
-                className="min-w-0 flex-1 border-0 bg-transparent px-3 py-4 text-base text-white outline-none placeholder:text-zinc-500"
-                aria-label={t.searchPlaceholder}
-              />
-              <button
-                type="submit"
-                className="shrink-0 bg-primary-600 px-5 py-4 text-sm font-bold text-white transition hover:bg-primary-500 sm:px-8"
+            <form onSubmit={onSubmitSearch} className="mt-8 max-w-xl">
+              <div
+                className={clsx(
+                  "flex overflow-hidden rounded-xl border shadow-sm transition focus-within:ring-2 focus-within:ring-primary-500/30",
+                  isDark ? "border-white/10 bg-zinc-900" : "border-zinc-200 bg-white",
+                )}
               >
-                {t.searchSubmit}
-              </button>
-            </div>
-          </form>
+                <span className={clsx("flex items-center pl-4", muted)} aria-hidden>
+                  <Search className="h-5 w-5" />
+                </span>
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder={t.searchPlaceholder}
+                  className={clsx(
+                    "min-w-0 flex-1 border-0 bg-transparent px-3 py-3.5 text-base outline-none",
+                    isDark ? "text-white placeholder:text-zinc-500" : "text-zinc-900 placeholder:text-zinc-400",
+                  )}
+                  aria-label={t.searchPlaceholder}
+                />
+                <button
+                  type="submit"
+                  className="shrink-0 bg-primary-800 px-5 py-3.5 text-sm font-bold text-white transition hover:bg-primary-700 sm:px-7"
+                >
+                  {t.searchSubmit}
+                </button>
+              </div>
+            </form>
 
-          <div className="mt-8 text-left sm:text-center">
-            <p className="text-xs font-bold uppercase tracking-wider text-zinc-300">{t.popularSearches}</p>
-            <ul className="mt-3 flex flex-wrap justify-center gap-2">
-              {t.popularQueries.map((label) => (
-                <li key={label}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setQuery(label);
-                      goToDiscovery(label);
-                    }}
-                    className="rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-left text-xs font-medium text-zinc-100 transition hover:-translate-y-0.5 hover:border-primary-400/50 hover:bg-primary-500/20 sm:text-sm"
-                  >
-                    {label}
-                  </button>
-                </li>
+            <div className="mt-5 flex flex-wrap items-center gap-2">
+              <span className={clsx("text-sm font-medium", muted)}>{t.popularLabel}</span>
+              {t.popularTags.map((tag) => (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() => {
+                    setQuery(tag);
+                    goToDiscovery(tag);
+                  }}
+                  className={clsx(
+                    "rounded-full border px-3 py-1 text-sm font-medium transition hover:-translate-y-0.5",
+                    isDark
+                      ? "border-white/15 bg-white/5 text-zinc-200 hover:border-primary-500/40 hover:bg-primary-950/50"
+                      : "border-zinc-200 bg-white text-zinc-700 hover:border-primary-300 hover:bg-primary-50",
+                  )}
+                >
+                  {tag}
+                </button>
               ))}
-            </ul>
-          </div>
-
-          <p className="mt-10 text-sm font-medium text-zinc-300">{t.trustedBy}</p>
-        </div>
-      </section>
-
-      {/* Categories */}
-      <section className={`border-y px-4 py-16 sm:px-5 lg:px-6 ${isDark ? "border-white/10 bg-zinc-900/30" : "border-zinc-200/80 bg-zinc-100/50"}`}>
-        <div className="mx-auto max-w-screen-2xl">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">{t.categoriesTitle}</h2>
-              <p className={clsx("mt-2 max-w-xl text-sm sm:text-base", muted)}>{t.categoriesSubtitle}</p>
-            </div>
-            <Link
-              href="/discovery"
-              className="inline-flex w-fit items-center gap-1 text-sm font-bold text-primary-600 transition hover:text-primary-500 dark:text-primary-400"
-            >
-              {t.categoriesCta}
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </div>
-
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
-            <div className={clsx(card, "p-6 sm:p-8")}>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-primary-600 dark:text-primary-400">
-                {t.emergingTitle}
-              </h3>
-              <ul className="mt-5 space-y-4">
-                {t.emergingRoles.map((role) => (
-                  <li key={role.title} className="flex gap-3 border-b border-dashed pb-4 last:border-0 last:pb-0 dark:border-white/10">
-                    <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-500/15 text-primary-600 dark:text-primary-300">
-                      <Sparkles className="h-4 w-4" aria-hidden />
-                    </span>
-                    <div>
-                      <p className="font-semibold">{role.title}</p>
-                      <p className={clsx("mt-0.5 text-sm", muted)}>{role.desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
             </div>
 
-            <div className={clsx(card, "p-6 sm:p-8")}>
-              <h3 className="text-sm font-bold uppercase tracking-wider text-primary-600 dark:text-primary-400">
-                {t.inDemandTitle}
-              </h3>
-              <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {t.inDemandSectors.map((sector, i) => {
-                  const Icon = SECTOR_ICONS[i] ?? Sparkles;
-                  return (
-                    <button
-                      key={sector}
-                      type="button"
-                      onClick={() => goToDiscovery(sector)}
-                      className={clsx(
-                        "flex flex-col items-start gap-2 rounded-xl border p-4 text-left transition hover:-translate-y-0.5",
-                        isDark
-                          ? "border-white/10 bg-white/[0.03] hover:border-primary-500/35 hover:bg-primary-500/10"
-                          : "border-zinc-200/90 bg-zinc-50/80 hover:border-primary-300 hover:bg-primary-50",
-                      )}
-                    >
-                      <Icon className="h-5 w-5 text-primary-600 dark:text-primary-400" aria-hidden />
-                      <span className="text-sm font-semibold">{sector}</span>
-                    </button>
-                  );
-                })}
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href="/discovery"
+                className="inline-flex items-center gap-2 rounded-xl bg-primary-800 px-6 py-3 text-sm font-bold text-white shadow-md shadow-primary-900/20 transition hover:bg-primary-700 hover:-translate-y-0.5"
+              >
+                {t.heroCtaExplore}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+              <Link
+                href="/register"
+                className={clsx(
+                  "inline-flex items-center gap-2 rounded-xl border px-6 py-3 text-sm font-bold transition hover:-translate-y-0.5",
+                  isDark
+                    ? "border-primary-500/40 text-primary-200 hover:bg-primary-950/40"
+                    : "border-primary-800 text-primary-900 hover:bg-primary-50",
+                )}
+              >
+                {t.heroCtaSignUp}
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative mx-auto w-full max-w-lg lg:max-w-none lg:justify-self-end">
+            <div
+              className="pointer-events-none absolute -inset-4 rounded-[2rem] bg-primary-200/40 blur-2xl dark:bg-primary-800/20"
+              aria-hidden
+            />
+            <div className="relative rotate-2 transition hover:rotate-1">
+              <div className={clsx("overflow-hidden rounded-3xl shadow-2xl shadow-primary-900/15 ring-1", isDark ? "ring-white/10" : "ring-black/5")}>
+                {/* eslint-disable-next-line @next/next/no-img-element -- marketing hero photography */}
+                <img src={HERO_IMAGE} alt="" className="aspect-[4/3] w-full object-cover" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats + testimonial */}
-      <section className="px-4 py-16 sm:px-5 lg:px-6">
-        <div className="mx-auto grid max-w-screen-2xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div className={clsx(card, "relative overflow-hidden p-8 sm:p-10")}>
-            <div className="pointer-events-none absolute -right-8 -top-8 h-40 w-40 rounded-full bg-primary-500/20 blur-3xl" aria-hidden />
-            <Users className="h-8 w-8 text-primary-500" aria-hidden />
-            <blockquote className="relative mt-6 text-lg font-medium leading-relaxed sm:text-xl">
-              &ldquo;{t.testimonialQuote}&rdquo;
-            </blockquote>
-            <footer className="relative mt-6">
-              <p className="font-bold">{t.testimonialAuthor}</p>
-              <p className={clsx("text-sm", muted)}>{t.testimonialRole}</p>
-            </footer>
-            <Link
-              href="/discovery"
-              className="relative mt-6 inline-block text-sm font-bold text-primary-600 dark:text-primary-400"
-            >
-              {t.testimonialCta} →
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            {t.stats.map((stat) => (
-              <div key={stat.label} className={clsx(card, "p-5 text-center sm:p-6")}>
-                <p className="text-3xl font-extrabold tracking-tight text-primary-600 dark:text-primary-400 sm:text-4xl">
+      {/* Stats bar */}
+      <section className={clsx(sectionX, "py-10", mintSection)}>
+        <div className="mx-auto max-w-screen-2xl">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <p className="text-4xl font-extrabold tracking-tight text-primary-800 dark:text-primary-300 sm:text-5xl">
                   {stat.value}
                 </p>
-                <p className={clsx("mt-1 text-xs font-semibold uppercase tracking-wide sm:text-sm", muted)}>
-                  {stat.label}
-                </p>
+                <p className={clsx("mt-1 text-sm font-medium", muted)}>{stat.label}</p>
               </div>
             ))}
+          </div>
+          <p className={clsx("mt-8 text-center text-xs", muted)}>{t.statsFootnote}</p>
+        </div>
+      </section>
+
+      {/* Live campaigns */}
+      <section className={clsx(sectionX, "py-16")}>
+        <div className="mx-auto max-w-screen-2xl">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">{t.liveCampaignsTitle}</h2>
+            <Link
+              href="/discovery"
+              className="inline-flex w-fit items-center gap-1 text-sm font-bold text-primary-700 transition hover:text-primary-600 dark:text-primary-400"
+            >
+              {t.liveCampaignsViewAll}
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {liveLoading
+              ? Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i} className={clsx(card, "h-[22rem] animate-pulse")} aria-hidden />
+                ))
+              : campaigns.map((campaign) => (
+                  <LandingCampaignCard
+                    key={campaign.id}
+                    campaign={campaign}
+                    locale={locale}
+                    isDark={isDark}
+                    t={t}
+                    cardClass={card}
+                    muted={muted}
+                  />
+                ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Built for transparency */}
+      <section className={clsx(sectionX, "py-16", mintSection)}>
+        <div className="mx-auto max-w-screen-2xl text-center">
+          <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">{t.transparencyTitle}</h2>
+          <p className={clsx("mx-auto mt-3 max-w-2xl text-sm leading-relaxed sm:text-base", muted)}>
+            {t.transparencySubtitle}
+          </p>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {t.transparencyFeatures.map((feature, i) => {
+              const Icon = transparencyIcons[i] ?? ShieldCheck;
+              return (
+                <div key={feature.title} className={clsx(card, "p-6 text-left")}>
+                  <span
+                    className={clsx(
+                      "inline-flex h-11 w-11 items-center justify-center rounded-full",
+                      isDark ? "bg-primary-900/50 text-primary-300" : "bg-primary-100 text-primary-800",
+                    )}
+                  >
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  <h3 className="mt-4 font-bold">{feature.title}</h3>
+                  <p className={clsx("mt-2 text-sm leading-relaxed", muted)}>{feature.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* How it works */}
-      <section className={`px-4 py-16 sm:px-5 lg:px-6 ${isDark ? "bg-zinc-900/40" : "bg-primary-50/40"}`}>
+      <section className={clsx(sectionX, "py-16")}>
         <div className="mx-auto max-w-screen-2xl text-center">
           <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">{t.howItWorksTitle}</h2>
-          <ol className="mt-12 grid gap-6 text-left sm:grid-cols-3">
-            {howSteps.map((step) => (
-              <li key={step.title} className={clsx(card, "p-6")}>
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white">
+          <ol className="relative mt-14 grid gap-10 text-left md:grid-cols-3 md:gap-8">
+            <div
+              className={clsx(
+                "pointer-events-none absolute top-5 right-[16%] left-[16%] hidden h-px md:block",
+                isDark ? "bg-primary-800" : "bg-primary-200",
+              )}
+              aria-hidden
+            />
+            {t.howItWorksSteps.map((step) => (
+              <li key={step.title} className="relative flex flex-col items-center text-center md:items-center">
+                <span className="relative z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary-800 text-sm font-bold text-white shadow-md shadow-primary-900/20">
                   {step.step}
                 </span>
-                <h3 className="mt-4 text-lg font-bold">{step.title}</h3>
-                <p className={clsx("mt-2 text-sm leading-relaxed", muted)}>{step.desc}</p>
+                <h3 className="mt-5 text-lg font-bold">{step.title}</h3>
+                <p className={clsx("mt-2 max-w-xs text-sm leading-relaxed", muted)}>{step.desc}</p>
               </li>
             ))}
           </ol>
-          <Link
-            href="/register"
-            className="mt-10 inline-flex items-center gap-2 text-sm font-bold text-primary-700 transition hover:text-primary-600 dark:text-primary-300"
-          >
-            {t.howItWorksCta}
-            <ArrowRight className="h-4 w-4" aria-hidden />
-          </Link>
         </div>
       </section>
 
-      {/* Paths */}
-      <section className="px-4 py-16 sm:px-5 lg:px-6">
+      {/* Browse by sector */}
+      <section className={clsx(sectionX, "py-16", mintSection)}>
         <div className="mx-auto max-w-screen-2xl">
-          <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-3xl">{t.pathsTitle}</h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <div className={clsx(card, "flex flex-col p-8")}>
-              <BarChart3 className="h-8 w-8 text-primary-600 dark:text-primary-400" aria-hidden />
-              <h3 className="mt-4 text-xl font-bold">{t.pathInvestorTitle}</h3>
-              <p className={clsx("mt-2 flex-1 text-sm leading-relaxed", muted)}>{t.pathInvestorDesc}</p>
-              <Link
-                href="/register"
-                className="mt-6 inline-flex w-fit items-center gap-2 rounded-xl border border-primary-600/30 bg-primary-50 px-5 py-2.5 text-sm font-bold text-primary-900 transition hover:bg-primary-100 dark:border-primary-500/40 dark:bg-primary-500/10 dark:text-primary-100 dark:hover:bg-primary-500/20"
-              >
-                {t.pathInvestorCta}
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-            </div>
+          <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">{t.sectorsTitle}</h2>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {t.sectors.map((sector, i) => {
+              const Icon = sectorIcons[i] ?? Leaf;
+              return (
+                <button
+                  key={sector.name}
+                  type="button"
+                  onClick={() => goToDiscovery(sector.keyword)}
+                  className={clsx(
+                    card,
+                    "group flex flex-col items-start p-6 text-left transition hover:-translate-y-0.5",
+                  )}
+                >
+                  <span
+                    className={clsx(
+                      "inline-flex h-10 w-10 items-center justify-center rounded-xl",
+                      isDark ? "bg-primary-900/50 text-primary-300" : "bg-primary-100 text-primary-800",
+                    )}
+                  >
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  <h3 className="mt-4 text-lg font-bold">{sector.name}</h3>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-primary-700 transition group-hover:gap-2 dark:text-primary-400">
+                    {t.sectorsBrowse}
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Investor / Innovator paths */}
+      <section className={clsx(sectionX, "py-16")}>
+        <div className="mx-auto grid max-w-screen-2xl gap-6 lg:grid-cols-2">
+          <div
+            className={clsx(
+              "relative overflow-hidden rounded-3xl p-8 sm:p-10",
+              "bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white shadow-xl shadow-primary-950/25",
+            )}
+          >
+            <div className="pointer-events-none absolute -top-8 -right-8 h-40 w-40 rounded-full bg-white/10" aria-hidden />
+            <p className="text-sm font-semibold text-primary-100">{t.pathInvestorEyebrow}</p>
+            <ul className="mt-6 space-y-4">
+              {t.pathInvestorBenefits.map((benefit) => (
+                <li key={benefit} className="flex gap-3 text-sm leading-relaxed text-white/90 sm:text-base">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/20">
+                    <Check className="h-3 w-3" aria-hidden />
+                  </span>
+                  {benefit}
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/register"
+              className="mt-8 inline-flex rounded-full bg-white px-6 py-3 text-sm font-bold text-primary-900 transition hover:bg-primary-50"
+            >
+              {t.pathInvestorCta}
+            </Link>
+          </div>
+
+          <div
+            className={clsx(
+              "relative overflow-hidden rounded-3xl p-8 sm:p-10",
+              isDark ? "bg-zinc-900/60 text-zinc-100" : "bg-zinc-100 text-zinc-900",
+            )}
+          >
             <div
               className={clsx(
-                card,
-                "flex flex-col border-primary-500/30 bg-gradient-to-br from-primary-800 via-primary-700 to-primary-600 p-8 text-white",
+                "pointer-events-none absolute -top-8 -right-8 h-40 w-40 rounded-full",
+                isDark ? "bg-primary-800/30" : "bg-primary-200/60",
               )}
+              aria-hidden
+            />
+            <p className={clsx("text-sm font-semibold", isDark ? "text-primary-300" : "text-primary-800")}>
+              {t.pathInnovatorEyebrow}
+            </p>
+            <ul className="mt-6 space-y-4">
+              {t.pathInnovatorBenefits.map((benefit) => (
+                <li key={benefit} className={clsx("flex gap-3 text-sm leading-relaxed sm:text-base", muted)}>
+                  <span
+                    className={clsx(
+                      "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full",
+                      isDark ? "bg-primary-900/50 text-primary-300" : "bg-primary-200 text-primary-900",
+                    )}
+                  >
+                    <Check className="h-3 w-3" aria-hidden />
+                  </span>
+                  {benefit}
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/register"
+              className="mt-8 inline-flex rounded-full bg-primary-800 px-6 py-3 text-sm font-bold text-white transition hover:bg-primary-700"
             >
-              <Lightbulb className="h-8 w-8 text-primary-100" aria-hidden />
-              <h3 className="mt-4 text-xl font-bold">{t.pathInnovatorTitle}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-white/85">{t.pathInnovatorDesc}</p>
-              <Link
-                href="/register"
-                className="mt-6 inline-flex w-fit items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-primary-900 transition hover:bg-primary-50"
+              {t.pathInnovatorCta}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial */}
+      <section className={clsx(sectionX, "py-16")}>
+        <div
+          className={clsx(
+            card,
+            "mx-auto grid max-w-screen-2xl overflow-hidden lg:grid-cols-2",
+          )}
+        >
+          <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-12">
+            <Quote className="h-10 w-10 text-primary-600 dark:text-primary-400" aria-hidden />
+            <blockquote className="mt-6 text-xl font-bold leading-snug sm:text-2xl">
+              &ldquo;{t.testimonialQuote}&rdquo;
+            </blockquote>
+            <div className="mt-8 flex items-center gap-4">
+              <div
+                className={clsx(
+                  "flex h-12 w-12 items-center justify-center rounded-full text-sm font-bold",
+                  isDark ? "bg-primary-900/50 text-primary-200" : "bg-primary-100 text-primary-800",
+                )}
               >
-                {t.pathInnovatorCta}
-                <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
+                {t.testimonialAuthor
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")
+                  .slice(0, 2)}
+              </div>
+              <div>
+                <p className="font-bold">{t.testimonialAuthor}</p>
+                <p className={clsx("text-sm", muted)}>{t.testimonialRole}</p>
+              </div>
             </div>
+            <Link
+              href="/discovery"
+              className="mt-6 inline-flex w-fit items-center gap-1 text-sm font-bold text-primary-700 transition hover:gap-2 dark:text-primary-400"
+            >
+              {t.testimonialCta}
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </div>
+          <div className="relative min-h-[16rem] lg:min-h-full">
+            {/* eslint-disable-next-line @next/next/no-img-element -- marketing testimonial photography */}
+            <img
+              src={t.testimonialImage}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+            />
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section className={`border-t px-4 py-16 sm:px-5 lg:px-6 ${isDark ? "border-white/10" : "border-zinc-200"}`}>
+      <section className={clsx(sectionX, "py-16", mintSection)}>
         <div className="mx-auto max-w-3xl">
           <h2 className="text-center text-2xl font-extrabold tracking-tight sm:text-3xl">{t.faqTitle}</h2>
           <ul className="mt-10 space-y-3">
@@ -349,14 +609,19 @@ export function LandingPage() {
                     type="button"
                     onClick={() => setOpenFaq(open ? null : i)}
                     className={clsx(
-                      "flex w-full items-center justify-between gap-4 rounded-xl border px-5 py-4 text-left text-sm font-semibold transition sm:text-base",
-                      isDark ? "border-white/10 bg-zinc-900/50 hover:bg-zinc-900" : "border-zinc-200 bg-white hover:bg-zinc-50",
+                      "flex w-full items-center justify-between gap-4 rounded-2xl border px-5 py-4 text-left text-sm font-semibold transition sm:text-base",
+                      isDark
+                        ? "border-white/10 bg-zinc-900/60 hover:bg-zinc-900"
+                        : "border-zinc-200/80 bg-white hover:bg-zinc-50",
                     )}
                     aria-expanded={open}
                   >
                     {item.q}
                     <ChevronDown
-                      className={clsx("h-5 w-5 shrink-0 text-primary-600 transition dark:text-primary-400", open && "rotate-180")}
+                      className={clsx(
+                        "h-5 w-5 shrink-0 text-primary-600 transition dark:text-primary-400",
+                        open && "rotate-180",
+                      )}
                       aria-hidden
                     />
                   </button>
@@ -371,29 +636,23 @@ export function LandingPage() {
       </section>
 
       {/* Final CTA */}
-      <section className="px-4 pb-8 sm:px-5 lg:px-6">
+      <section className={clsx(sectionX, "pb-16")}>
         <div
           className={clsx(
-            "mx-auto max-w-screen-2xl rounded-3xl px-6 py-12 text-center sm:px-10 sm:py-14",
-            "bg-gradient-to-br from-primary-800 via-primary-700 to-primary-600 text-white shadow-xl shadow-primary-950/30",
+            "relative mx-auto max-w-screen-2xl overflow-hidden rounded-3xl px-6 py-14 text-center sm:px-10 sm:py-16",
+            "bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white shadow-xl shadow-primary-950/30",
           )}
         >
-          <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl">{t.finalCtaTitle}</h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm text-white/90 sm:text-base">{t.finalCtaSubtitle}</p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/discovery"
-              className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-primary-900 transition hover:bg-primary-50"
-            >
-              {t.finalCtaExplore}
-            </Link>
-            <Link
-              href="/register"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10"
-            >
-              {t.finalCtaSignUp}
-            </Link>
-          </div>
+          <div className="pointer-events-none absolute -top-16 -left-16 h-56 w-56 rounded-full bg-white/5" aria-hidden />
+          <div className="pointer-events-none absolute -right-12 -bottom-12 h-48 w-48 rounded-full bg-white/5" aria-hidden />
+          <h2 className="relative text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">{t.finalCtaTitle}</h2>
+          <p className="relative mx-auto mt-4 max-w-xl text-sm text-white/85 sm:text-base">{t.finalCtaSubtitle}</p>
+          <Link
+            href="/register"
+            className="relative mt-8 inline-flex rounded-full bg-white px-8 py-3.5 text-sm font-bold text-primary-900 transition hover:bg-primary-50"
+          >
+            {t.finalCtaButton}
+          </Link>
         </div>
       </section>
     </div>

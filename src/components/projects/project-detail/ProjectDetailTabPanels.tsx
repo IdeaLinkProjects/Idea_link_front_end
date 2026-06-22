@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { PublicProjectBundle } from "@/lib/campaign/fromMyCampaign";
 import type { Locale, messages } from "@/locales";
 import type { ProjectDetailTabKey } from "./types";
+import { ProjectCommentsPanel } from "./ProjectCommentsPanel";
 import { ProjectUpdatesPanel } from "./ProjectUpdatesPanel";
 import { projectDetailCardClass, projectDetailMutedClass, projectDetailSectionTitleClass } from "./projectDetailClassNames";
 
@@ -14,6 +15,7 @@ type ProjectDetailTabPanelsProps = {
   bundle: PublicProjectBundle;
   tab: ProjectDetailTabKey;
   campaignId: number | null;
+  isLoggedIn: boolean;
   onDocPreview: () => void;
 };
 
@@ -42,7 +44,7 @@ function SectionCard({
   return <div className={`rounded-2xl border-l-4 ${border} p-5 sm:p-6 ${card}`}>{children}</div>;
 }
 
-export function ProjectDetailTabPanels({ isDark, locale, p, bundle, tab, campaignId, onDocPreview }: ProjectDetailTabPanelsProps) {
+export function ProjectDetailTabPanels({ isDark, locale, p, bundle, tab, campaignId, isLoggedIn, onDocPreview }: ProjectDetailTabPanelsProps) {
   const muted = projectDetailMutedClass(isDark);
   const title = projectDetailSectionTitleClass(isDark);
 
@@ -147,6 +149,18 @@ export function ProjectDetailTabPanels({ isDark, locale, p, bundle, tab, campaig
           </li>
         ))}
       </ul>
+    );
+  }
+
+  if (tab === "comments") {
+    if (campaignId != null) {
+      return <ProjectCommentsPanel campaignId={campaignId} locale={locale} isDark={isDark} isLoggedIn={isLoggedIn} t={p.comments} />;
+    }
+
+    return (
+      <p className={`mt-8 rounded-2xl border border-dashed px-4 py-10 text-center text-sm ${muted} ${projectDetailCardClass(isDark)}`}>
+        {p.comments.emptyList}
+      </p>
     );
   }
 
