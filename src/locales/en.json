@@ -63,7 +63,30 @@
     "about": "About",
     "contact": "Contact",
     "privacy": "Privacy",
-    "terms": "Terms"
+    "terms": "Terms",
+    "disclaimer": "Investing in startups and early-stage businesses involves risks, including illiquidity, lack of dividends, loss of investment and dilution, and it should be done only as part of a diversified portfolio. IdealLink is intended for backers who understand these risks. Capital at risk.",
+    "tagline": "Empowering Ethiopian innovators through radical transparency and community-driven capital.",
+    "productHeading": "Product",
+    "productLinks": [
+      { "label": "Explore Projects", "href": "/discovery" },
+      { "label": "For Innovators", "href": "/register" },
+      { "label": "How it Works", "href": "/#how-it-works" },
+      { "label": "Pricing", "href": "/contact" }
+    ],
+    "companyHeading": "Company",
+    "companyLinks": [
+      { "label": "About Us", "href": "/about" },
+      { "label": "Our Impact", "href": "/about" },
+      { "label": "Contact", "href": "/contact" },
+      { "label": "Careers", "href": "/contact" }
+    ],
+    "legalHeading": "Legal & Settings",
+    "legalLinks": [
+      { "label": "Terms of Service", "href": "/terms" },
+      { "label": "Privacy Policy", "href": "/privacy" },
+      { "label": "Risk Disclosure", "href": "/privacy" }
+    ],
+    "copyright": "© {year} IdealLink. Radical Transparency in Crowdfunding."
   },
   "cookieConsent": {
     "title": "Cookies on IdealLink",

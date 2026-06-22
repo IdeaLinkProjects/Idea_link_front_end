@@ -72,7 +72,30 @@
     "about": "ስለ እኛ",
     "contact": "አድራሻ",
     "privacy": "ግላዊነት",
-    "terms": "ውሎች"
+    "terms": "ውሎች",
+    "disclaimer": "በስታርታፕ እና በመጀመሪያ ደረጃ ንግዶች ላይ ኢንቨስት ማድረግ የማይሸጥነት፣ የድርሻ ክፍያ አለመኖር፣ የኢንቨስትመንት መጥፋት እና ማባዛትን ጨምሮ አደጋዎችን ያካትታል፣ እና እንደ የተለያዩ ፖርትፎሊዎ ክፍል ብቻ መሆን አለበት። IdealLink እነዚህን አደጋዎች የሚረዱ ድጋፍ ሰጪዎችን የሚያገለግል ነው። ሃብት በአደጋ ላይ ነው።",
+    "tagline": "በማህበረሰብ የሚመራ ካፒታል እና በራዲካል ግልጽነት የኢትዮጵያ ፈጠራ ባለቤቶችን ማብቃት።",
+    "productHeading": "ምርት",
+    "productLinks": [
+      { "label": "ፕሮጀክቶችን ያስሱ", "href": "/discovery" },
+      { "label": "ለፈጠራ ባለቤቶች", "href": "/register" },
+      { "label": "እንዴት እንደሚሰራ", "href": "/#how-it-works" },
+      { "label": "ዋጋ", "href": "/contact" }
+    ],
+    "companyHeading": "ኩባንያ",
+    "companyLinks": [
+      { "label": "ስለ እኛ", "href": "/about" },
+      { "label": "ውጤታችን", "href": "/about" },
+      { "label": "አድራሻ", "href": "/contact" },
+      { "label": "ሙያዎች", "href": "/contact" }
+    ],
+    "legalHeading": "ህጋዊ እና ቅንብሮች",
+    "legalLinks": [
+      { "label": "የአገልግሎት ውሎች", "href": "/terms" },
+      { "label": "የግላዊነት ፖሊሲ", "href": "/privacy" },
+      { "label": "የአደጋ ይፋ ማድረግ", "href": "/privacy" }
+    ],
+    "copyright": "© {year} IdealLink። በህዝብ ገንዘብ ማሰባሰቢያ ውስጥ ራዲካል ግልጽነት።"
   },
   "cookieConsent": {
     "title": "ኩኪዎች በIdealLink",
