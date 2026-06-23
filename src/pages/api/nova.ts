@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const N8N_WEBHOOK = "https://kvillai.app.n8n.cloud/webhook/nova-chat-trigger-001/chat";
+const N8N_WEBHOOK = "https://idealinks.app.n8n.cloud/webhook/nova-chat-trigger-001/chat";
 
 const BACKEND_URL = "https://idealink-7i33.onrender.com/api";
 
