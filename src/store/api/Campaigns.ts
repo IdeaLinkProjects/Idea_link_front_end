@@ -1,6 +1,10 @@
 import { baseApi } from "./baseApi";
 import { campaignCommentsTags, campaignProfileTags, campaignUpdatesTags } from "./campaigns/cacheTags";
-import { normalizeCampaignUpdatesResponse } from "./campaigns/normalize";
+import {
+  normalizeCampaignComment,
+  normalizeCampaignCommentsPageResponse,
+  normalizeCampaignUpdatesResponse,
+} from "./campaigns/normalize";
 import type {
   CampaignComment,
   CampaignCommentsPageResponse,
@@ -229,6 +233,7 @@ export const campaignsApi = baseApi.injectEndpoints({
         method: "GET",
         params: { page, size },
       }),
+      transformResponse: normalizeCampaignCommentsPageResponse,
       providesTags: (_result, _err, { campaignId }) => campaignCommentsTags(campaignId),
     }),
 
@@ -238,6 +243,7 @@ export const campaignsApi = baseApi.injectEndpoints({
         method: "POST",
         body,
       }),
+      transformResponse: normalizeCampaignComment,
       invalidatesTags: (_r, _e, { campaignId }) => campaignCommentsTags(campaignId),
     }),
 
@@ -247,6 +253,7 @@ export const campaignsApi = baseApi.injectEndpoints({
         method: "PUT",
         body,
       }),
+      transformResponse: normalizeCampaignComment,
       invalidatesTags: (_r, _e, { campaignId }) => campaignCommentsTags(campaignId),
     }),
 

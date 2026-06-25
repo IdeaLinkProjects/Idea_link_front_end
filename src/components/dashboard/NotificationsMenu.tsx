@@ -58,13 +58,18 @@ export function NotificationsMenu() {
   } = useGetNotificationsQuery({ page, size: PAGE_SIZE }, { skip: !open });
 
   const [markRead] = useMarkNotificationReadMutation();
-  const [markAllRead, { isLoading: markingAll }] = useMarkAllNotificationsReadMutation();
+  const [markAllRead] = useMarkAllNotificationsReadMutation();
   const [removeNotification, { isLoading: isDeleting }] = useDeleteNotificationMutation();
 
   useEffect(() => {
-    if (open && !prevOpen.current) setPage(0);
+    if (open && !prevOpen.current) {
+      setPage(0);
+      if (unread > 0) {
+        void markAllRead().unwrap().catch(() => undefined);
+      }
+    }
     prevOpen.current = open;
-  }, [open]);
+  }, [open, unread, markAllRead]);
 
   useEffect(() => {
     if (!open) return;
@@ -143,32 +148,16 @@ export function NotificationsMenu() {
           className={`absolute right-0 top-full z-[60] mt-2 flex w-[min(100vw-1.25rem,22rem)] flex-col overflow-hidden rounded-2xl border sm:w-96 ${panelBorder}`}
         >
           <div
-            className={`flex items-start justify-between gap-2 border-b px-4 py-3 ${isDark ? "border-white/10 bg-zinc-900/80" : "border-slate-100 bg-slate-50/90"}`}
+            className={`border-b px-4 py-3 ${isDark ? "border-white/10 bg-zinc-900/80" : "border-slate-100 bg-slate-50/90"}`}
           >
-            <div>
-              <p className={`text-sm font-bold ${isDark ? "text-zinc-100" : "text-slate-900"}`}>{nm.title}</p>
-              {unread > 0 ? (
-                <p className={`mt-0.5 text-xs font-medium ${muted}`}>
-                  {nm.unreadSummary.replace("{n}", String(unread))}
-                </p>
-              ) : (
-                <p className={`mt-0.5 text-xs ${muted}`}>{nm.allCaughtUp}</p>
-              )}
-            </div>
-            <button
-              type="button"
-              disabled={unread === 0 || markingAll}
-              onClick={() => {
-                void markAllRead().unwrap().catch(() => undefined);
-              }}
-              className={`shrink-0 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-40 ${
-                isDark
-                  ? "bg-white/10 text-primary-200 hover:bg-white/15"
-                  : "bg-primary-600 text-white hover:bg-primary-700"
-              }`}
-            >
-              {markingAll ? nm.markingAll : nm.markAllRead}
-            </button>
+            <p className={`text-sm font-bold ${isDark ? "text-zinc-100" : "text-slate-900"}`}>{nm.title}</p>
+            {unread > 0 ? (
+              <p className={`mt-0.5 text-xs font-medium ${muted}`}>
+                {nm.unreadSummary.replace("{n}", String(unread))}
+              </p>
+            ) : (
+              <p className={`mt-0.5 text-xs ${muted}`}>{nm.allCaughtUp}</p>
+            )}
           </div>
 
           <div

@@ -1,4 +1,4 @@
-import type { CampaignUpdate } from "./types";
+import type { CampaignComment, CampaignCommentsPageResponse, CampaignUpdate } from "./types";
 
 /** Spring Page / wrapped list responses → plain array for the UI. */
 export function normalizeListResponse<T>(raw: unknown, nestedKeys: string[]): T[] {
@@ -15,4 +15,20 @@ export function normalizeListResponse<T>(raw: unknown, nestedKeys: string[]): T[
 
 export function normalizeCampaignUpdatesResponse(raw: unknown): CampaignUpdate[] {
   return normalizeListResponse<CampaignUpdate>(raw, ["content", "updates", "data", "items"]);
+}
+
+/** API may return `replies: null` when a comment has no replies. */
+export function normalizeCampaignComment(raw: CampaignComment): CampaignComment {
+  return {
+    ...raw,
+    replies: (raw.replies ?? []).map(normalizeCampaignComment),
+  };
+}
+
+export function normalizeCampaignCommentsPageResponse(raw: unknown): CampaignCommentsPageResponse {
+  const page = raw as CampaignCommentsPageResponse;
+  return {
+    ...page,
+    content: (page.content ?? []).map(normalizeCampaignComment),
+  };
 }

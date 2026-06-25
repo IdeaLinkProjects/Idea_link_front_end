@@ -408,6 +408,8 @@
       "updateSuccess": "Comment updated.",
       "updateFailed": "Could not update comment.",
       "loadMore": "Load more comments",
+      "commentCount": "{count} Comments",
+      "commentCountOne": "{count} Comment",
       "investorBadge": "Investor",
       "innovatorBadge": "Innovator"
     },
@@ -1538,6 +1540,15 @@
     "fundingGoal": "Funding goal",
     "equityOffered": "Equity offered (%)",
     "valuation": "Valuation",
+    "estimatedFundingGoal": "Estimated funding goal",
+    "rules": {
+      "fundingGoalMin": "100,000 ETB is the minimum amount the campaign can raise (funding goal).",
+      "equityMax": "50% is the maximum share of the company that can be sold.",
+      "equityNot100": "100% equity is not allowed.",
+      "valuationMinAtMaxEquity": "At maximum equity (50%), the minimum company valuation is 200,000 ETB.",
+      "totalSharesGreaterThanMin": "Total shares must be greater than minimum shares per investor.",
+      "minSharesLessThanOffered": "Minimum shares per investor must be less than shares offered."
+    },
     "minInvestment": "Min investment",
     "totalShares": "Total shares",
     "minimumSharesPerInvestor": "Minimum shares per investor",

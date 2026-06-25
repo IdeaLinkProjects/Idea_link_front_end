@@ -457,6 +457,8 @@
       "updateSuccess": "አስተያየቱ ተዘምኗል።",
       "updateFailed": "አስተያየት ማዘመን አልተሳካም።",
       "loadMore": "ተጨማሪ አስተያየቶች",
+      "commentCount": "{count} አስተያየቶች",
+      "commentCountOne": "{count} አስተያየት",
       "investorBadge": "ኢንቨስተር",
       "innovatorBadge": "ፈጣሪ"
     },
@@ -1831,6 +1833,15 @@
     "fundingGoal": "የገንዘብ ግብ",
     "equityOffered": "የተሰጠ ኢኩዊቲ (%)",
     "valuation": "መገምገሚያ ዋጋ",
+    "estimatedFundingGoal": "የተገመተ የገንዘብ ግብ",
+    "rules": {
+      "fundingGoalMin": "100,000 ብር የዘመቻው የሚያሳድገው ዝቅተኛ መጠን (የገንዘብ ግብ) ነው።",
+      "equityMax": "50% ከኩባንያው የሚሸጥ ከፍተኛ የኢኩዊቲ ክፍፍል ነው።",
+      "equityNot100": "100% ኢኩዊቲ አይፈቀድም።",
+      "valuationMinAtMaxEquity": "በከፍተኛ ኢኩዊቲ (50%)፣ ዝቅተኛው የኩባንያ መገምገሚያ ዋጋ 200,000 ብር ነው።",
+      "totalSharesGreaterThanMin": "ጠቅላላ አክሲዮኖች ከዝተኛ አክሲዮን በኢንቨስተር መብለጥ አለባቸው።",
+      "minSharesLessThanOffered": "ዝተኛ አክሲዮን በኢንቨስተር ከቀረቡ አክሲዮኖች ያነሰ መሆን አለበት።"
+    },
     "minInvestment": "ዝተኛ ኢንቨስትመንት",
     "totalShares": "ጠቅላላ አክሲዮኖች",
     "minimumSharesPerInvestor": "ዝተኛ አክሲዮን በኢንቨስተር",

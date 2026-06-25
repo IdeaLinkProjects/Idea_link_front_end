@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CampaignFieldRuleHint } from "@/components/profile/create-campaign/CampaignFieldRuleHint";
 import { CampaignTagPicker } from "@/components/profile/create-campaign/CampaignTagPicker";
 import { CreateCampaignHeroUpload } from "@/components/profile/create-campaign/CreateCampaignHeroUpload";
 import { CreateCampaignKeyedSection } from "@/components/profile/create-campaign/CreateCampaignKeyedSection";
@@ -30,6 +31,18 @@ export function CreateCampaignView() {
   } = useCreateCampaignForm();
 
   const labelClass = `mb-1 block text-sm font-medium ${isDark ? "text-zinc-200" : "text-zinc-700"}`;
+  const readOnlyClass = `mt-1 rounded-xl border px-3 py-2.5 text-sm tabular-nums ${
+    isDark ? "border-white/10 bg-white/[0.04] text-zinc-300" : "border-zinc-200 bg-zinc-50 text-zinc-700"
+  }`;
+
+  const equityPct = Number(form.equityOffered);
+  const valuationAmt = Number(form.valuation);
+  const estimatedFundingGoal =
+    Number.isFinite(equityPct) && Number.isFinite(valuationAmt) && equityPct > 0 && valuationAmt > 0
+      ? Math.round((valuationAmt * equityPct) / 100)
+      : null;
+
+  const rules = t.rules;
 
   return (
     <div className="mx-auto max-w-5xl space-y-6">
@@ -100,6 +113,7 @@ export function CreateCampaignView() {
                 onChange={(e) => updateField("equityOffered", e.target.value)}
                 className={inputClass}
               />
+              <CampaignFieldRuleHint isDark={isDark} rules={[rules.equityMax, rules.equityNot100]} />
             </div>
 
             <div>
@@ -114,6 +128,15 @@ export function CreateCampaignView() {
                 onChange={(e) => updateField("valuation", e.target.value)}
                 className={inputClass}
               />
+              <CampaignFieldRuleHint isDark={isDark} rules={[rules.valuationMinAtMaxEquity]} />
+            </div>
+
+            <div className="md:col-span-2">
+              <p className={labelClass}>{t.estimatedFundingGoal}</p>
+              <div className={readOnlyClass} aria-live="polite">
+                {estimatedFundingGoal != null ? `${estimatedFundingGoal.toLocaleString()} ETB` : "—"}
+              </div>
+              <CampaignFieldRuleHint isDark={isDark} rules={[rules.fundingGoalMin]} />
             </div>
 
             <div>
@@ -129,6 +152,7 @@ export function CreateCampaignView() {
                 onChange={(e) => updateField("totalShares", e.target.value)}
                 className={inputClass}
               />
+              <CampaignFieldRuleHint isDark={isDark} rules={[rules.totalSharesGreaterThanMin]} />
             </div>
 
             <div>
@@ -144,6 +168,7 @@ export function CreateCampaignView() {
                 onChange={(e) => updateField("minimumSharesPerInvestor", e.target.value)}
                 className={inputClass}
               />
+              <CampaignFieldRuleHint isDark={isDark} rules={[rules.minSharesLessThanOffered]} />
             </div>
 
             <div>
