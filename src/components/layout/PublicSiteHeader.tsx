@@ -57,16 +57,8 @@ export function PublicSiteHeader({ backHref, backLabel, transparent = false }: P
           : `sticky top-0 z-50 border-b backdrop-blur-xl ${isDark ? "border-white/10 bg-zinc-950/70" : "border-zinc-200 bg-white/80"}`
       }
     >
-      <div className="mx-auto flex h-20 w-full max-w-screen-2xl items-center justify-between gap-3 px-4 sm:px-5 lg:px-6">
+      <div className="mx-auto flex h-20 w-full max-w-screen-2xl items-center justify-between gap-3 px-8 sm:px-12 lg:px-16">
         <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
-          {backHref && backLabel ? (
-            <Link
-              href={backHref}
-              className={`shrink-0 text-sm font-semibold transition hover:underline ${transparent ? "text-white hover:text-primary-200" : isDark ? "text-primary-300 hover:text-primary-200" : "text-primary-700 hover:text-primary-800"}`}
-            >
-              ← {backLabel}
-            </Link>
-          ) : null}
           <IdealLinkLogo
             className="inline-flex min-w-0 shrink-0 items-center transition hover:opacity-90"
             width={280}

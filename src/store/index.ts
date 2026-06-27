@@ -30,6 +30,10 @@ export {
   useGetCampaignUpdatesQuery,
   useCreateCampaignUpdateMutation,
   useDeleteCampaignUpdateMutation,
+  useGetCampaignCommentsQuery,
+  useCreateCampaignCommentMutation,
+  useUpdateCampaignCommentMutation,
+  useDeleteCampaignCommentMutation,
 } from "./api/Campaigns";
 export {
   innovatorApi,
@@ -41,6 +45,32 @@ export {
   useGetInvestorDashboardSummaryQuery,
   useGetInvestorWalletTransactionsQuery,
 } from "./api/investorApi";
+export {
+  paymentsApi,
+  useInitializeChapaPaymentMutation,
+  useVerifyChapaPaymentQuery,
+  useLazyVerifyChapaPaymentQuery,
+  useInvestInCampaignMutation,
+  useGetUserInvestmentsPageQuery,
+  useGetInvestmentByIdQuery,
+  useLazyGetInvestmentByIdQuery,
+  useCancelPendingInvestmentMutation,
+  useWithdrawInvestmentMutation,
+} from "./api/paymentsApi";
+export {
+  walletApi,
+  useGetWalletBalanceQuery,
+  useGetCompanyBankAccountQuery,
+  useUpsertCompanyBankAccountMutation,
+  useWithdrawCompanyFundsMutation,
+} from "./api/walletApi";
+export type {
+  WalletBalanceResponse,
+  CompanyBankAccountResponse,
+  UpsertCompanyBankAccountRequest,
+  WithdrawCompanyFundsRequest,
+  WithdrawCompanyFundsResponse,
+} from "./api/walletApi";
 export {
   profileApi,
   useGetUserRolesStatusQuery,
@@ -84,6 +114,11 @@ export type {
   UserInvestmentPayment,
   UserInvestment,
   UserInvestmentsResponse,
+  CampaignComment,
+  CampaignCommentUser,
+  CampaignCommentsPageResponse,
+  CreateCampaignCommentBody,
+  UpdateCampaignCommentBody,
 } from "./api/Campaigns";
 export type {
   CompanyWalletBreakdown,
@@ -99,6 +134,17 @@ export type {
   RecentInvestment,
   UpcomingDividend,
 } from "./api/investorApi";
+export type {
+  ChapaInitializeRequest,
+  ChapaInitializeResponse,
+  ChapaVerifyResponse,
+  InvestInCampaignRequest,
+  InvestInCampaignResponse,
+  InvestmentCampaignSummary,
+  UserInvestmentItem,
+  UserInvestmentsPage,
+  UserInvestmentsRequest,
+} from "./api/paymentsApi";
 export type {
   CompanyCampaignStats,
   CompanyFounder,

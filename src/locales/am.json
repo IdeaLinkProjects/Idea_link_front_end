@@ -27,9 +27,18 @@
     "registerInvestor": "እንደ ኢንቨስተር ተመዝገብ"
   },
   "statistics": [
-    { "label": "የተፈጠሩ ፕሮጀክቶች", "value": "50+" },
-    { "label": "የተደገፈ ገንዘብ (ብር)", "value": "2.5M+" },
-    { "label": "የተመዘገቡ ተጠቃሚዎች", "value": "200+" }
+    {
+      "label": "የተፈጠሩ ፕሮጀክቶች",
+      "value": "50+"
+    },
+    {
+      "label": "የተደገፈ ገንዘብ (ብር)",
+      "value": "2.5M+"
+    },
+    {
+      "label": "የተመዘገቡ ተጠቃሚዎች",
+      "value": "200+"
+    }
   ],
   "featured": {
     "title": "የተመረጡ ፕሮጀክቶች",
@@ -63,7 +72,30 @@
     "about": "ስለ እኛ",
     "contact": "አድራሻ",
     "privacy": "ግላዊነት",
-    "terms": "ውሎች"
+    "terms": "ውሎች",
+    "disclaimer": "በስታርታፕ እና በመጀመሪያ ደረጃ ንግዶች ላይ ኢንቨስት ማድረግ የማይሸጥነት፣ የድርሻ ክፍያ አለመኖር፣ የኢንቨስትመንት መጥፋት እና ማባዛትን ጨምሮ አደጋዎችን ያካትታል፣ እና እንደ የተለያዩ ፖርትፎሊዎ ክፍል ብቻ መሆን አለበት። IdealLink እነዚህን አደጋዎች የሚረዱ ድጋፍ ሰጪዎችን የሚያገለግል ነው። ሃብት በአደጋ ላይ ነው።",
+    "tagline": "በማህበረሰብ የሚመራ ካፒታል እና በራዲካል ግልጽነት የኢትዮጵያ ፈጠራ ባለቤቶችን ማብቃት።",
+    "productHeading": "ምርት",
+    "productLinks": [
+      { "label": "ፕሮጀክቶችን ያስሱ", "href": "/discovery" },
+      { "label": "ለፈጠራ ባለቤቶች", "href": "/register" },
+      { "label": "እንዴት እንደሚሰራ", "href": "/#how-it-works" },
+      { "label": "ዋጋ", "href": "/contact" }
+    ],
+    "companyHeading": "ኩባንያ",
+    "companyLinks": [
+      { "label": "ስለ እኛ", "href": "/about" },
+      { "label": "ውጤታችን", "href": "/about" },
+      { "label": "አድራሻ", "href": "/contact" },
+      { "label": "ሙያዎች", "href": "/contact" }
+    ],
+    "legalHeading": "ህጋዊ እና ቅንብሮች",
+    "legalLinks": [
+      { "label": "የአገልግሎት ውሎች", "href": "/terms" },
+      { "label": "የግላዊነት ፖሊሲ", "href": "/privacy" },
+      { "label": "የአደጋ ይፋ ማድረግ", "href": "/privacy" }
+    ],
+    "copyright": "© {year} IdealLink። በህዝብ ገንዘብ ማሰባሰቢያ ውስጥ ራዲካል ግልጽነት።"
   },
   "cookieConsent": {
     "title": "ኩኪዎች በIdealLink",
@@ -76,92 +108,166 @@
       "title": "IdealLink | የኢትዮጵያ የህዝብ ገንዘብ ማሰባሰቢያ",
       "description": "የተመረጡ ተግባሮችን ያግኙ፣ አካባቢያዊ ፈጠራን ይደግፉ እና በኢትዮጵያ ታማኝ የገንዘብ ማሰባሰቢያ መድረክ ላይ ዘመቻ ይጀምሩ።"
     },
-    "audienceInvest": "ኢንቨስት",
-    "audienceInnovate": "ፈጠር",
-    "heroInvestTitle": "በምኞትዎ ፍጥነት ፖርትፎሊዎን ያሳድጉ",
-    "heroInvestSubtitle": "የተመረጡ የኢትዮጵያ ተግባሮችን ያግኙ፣ የሚያምኑትን ቡድን ይደግፉ እና እድገቱን በአንድ ግልጽ ቦታ ይከታተሉ።",
-    "heroInnovateTitle": "ሀሳብዎን ወደ የተደገፈ እድገት ይለውጡ",
-    "heroInnovateSubtitle": "ዘመቻ ይጀምሩ፣ በኢትዮጵያ ውስጥ ኢንቨስተሮችን ይድረሱ እና ለከባድ ፈጠራ ባለቤቶች የተገነባ መሳሪያዎችን ተጠቀሙ።",
-    "heroCtaInvest": "ፕሮጀክቶችን ያስሱ",
-    "heroCtaInnovate": "ዘመቻ ይጀምሩ",
-    "searchPlaceholder": "ፕሮጀክቶች፣ ዘርፎች ወይም ቁልፍ ቃላትን ይፈልጉ…",
+    "heroBadge": "የኢትዮጵያ የህዝብ ገንዘብ ማሰባሰቢያ ገበያ",
+    "heroTitle": "የኢትዮጵያ ተግባሮችን ይደግፉ። በግልጽነት ይድረሱ።",
+    "heroSubtitle": "በአግሮቴክ፣ ጤና፣ ንጹህ ኢነርጂ እና ሌሎችም ላይ አቋሚ ዘመቻዎችን ያግኙ። ከ1,000 ብር ጀምሮ ይጀምሩ።",
+    "heroCtaExplore": "አቋሚ ዘመቻዎችን ያስሱ",
+    "heroCtaSignUp": "ነጻ መለያ ይፍጠሩ",
+    "searchPlaceholder": "ዘመቻዎችን፣ ዘርፎችን ወይም ቁልፍ ቃላትን ይፈልጉ…",
     "searchSubmit": "ፈልግ",
-    "popularSearches": "ታዋቂ ፍለጋዎች",
-    "popularQueries": [
-      "ለእርሻ የፀሐይ ኃይል መስኖ",
-      "በአማርኛ የትምህርት መተግበሪያ",
-      "የጨርቃ ጨርቅ ምርት ኤክስፖርት",
-      "የጤና ክሊኒክ መሳሪያ",
-      "ንጹህ ኢነርጂ ማይክሮ ግሪድ"
+    "popularLabel": "ታዋቂ፦",
+    "popularTags": [
+      "እርሻ",
+      "ጤና",
+      "ትምህርት ቴክ"
     ],
-    "trustedBy": "በኢትዮጵያ ውስጥ በፈጠራ ባለቤቶች እና በኢንቨስተሮች የታመነ",
-    "categoriesTitle": "ፈጠራ እየሄደበት ያለው ቦታ ይድረሱ",
-    "categoriesSubtitle": "ከአግሮቴክ እስከ ጤና—በIdealLink ላይ እድገት የሚያደርጉ ዘርፎችን ያስሱ",
-    "categoriesCta": "ሁሉንም ፕሮጀክቶች ይመልከቱ",
-    "emergingTitle": "በመድረክ ላይ አዲስ የሆኑ",
-    "emergingRoles": [
-      { "title": "አግሮቴክ እና ምግብ ስርዓት", "desc": "ከአየር ንብረት ጋር የሚስማማ እርሻ እና አቅርቦት ሰንሰለት" },
-      { "title": "ፋይናንስ እና ክፍያ", "desc": "ለአካባቢ ገበያ የተገነባ ተጨማሪ ፋይናንስ" },
-      { "title": "ጤና እና ሜድቴክ", "desc": "እንክብካቤ፣ መሳሪያዎች እና የማህበረሰብ ጤና" },
-      { "title": "ትምህርት ቴክ", "desc": "በአካባቢ ቋንቋዎች የሚሰጡ የመማሪያ ምርቶች" },
-      { "title": "ንጹህ ኢነርጂ", "desc": "ፀሐይ፣ ማከማቻ እና የገጠር ኤሌክትሪክ" }
-    ],
-    "inDemandTitle": "ተፈላጊ ዘርፎች",
-    "inDemandSectors": ["እርሻ", "ቴክኖሎጂ", "ትምህርት", "ጤና", "ንግድ", "ኢነርጂ"],
-    "testimonialQuote": "IdealLink ከመስመር ውጭ ማግኘት የማይቻለን ድጋፍ ሰጪዎችን ማግኘት ረዳን—ዘመቻችን ከሳምንታት ወደ ተደገፈ ሁኔታ ተሻገረ።",
-    "testimonialAuthor": "መሮን ተ.",
-    "testimonialRole": "መስሪያ ቤት፣ አዲስ አባባ የአግሮቴክ ተግባር",
-    "testimonialCta": "ተጨማሪ ታሪኮች",
     "stats": [
-      { "value": "50+", "label": "የተዘረዘሩ ፕሮጀክቶች" },
-      { "value": "2.5M+", "label": "የተደገፈ ብር" },
-      { "value": "200+", "label": "የተመዘገቡ አባላት" },
-      { "value": "24ሰ", "label": "ተራ የመጀመሪያ ድጋፍ ፍላጎት" }
+      {
+        "value": "0",
+        "label": "አቋሚ ዘመቻዎች"
+      },
+      {
+        "value": "0",
+        "label": "የተደገፈ ብር"
+      },
+      {
+        "value": "0",
+        "label": "የተደገፉ ዘመቻዎች"
+      },
+      {
+        "value": "0",
+        "label": "የማህበረሰብ አባላት"
+      }
+    ],
+    "statsFootnote": "ከመድረክ እንቅስቃሴ በቀጥታ ይዘመናል",
+    "liveCampaignsTitle": "ዛሬ ሊደገፉ የሚችሉ አቋሚ ዘመቻዎች",
+    "liveCampaignsViewAll": "ሁሉንም ይመልከቱ",
+    "liveBadge": "አቋሚ",
+    "fundedLabel": "ተደገፈ",
+    "daysLeftLabel": "ቀናት ቀርተዋል",
+    "raisedLabel": "የተሰበሰበ",
+    "minInvestLabel": "ዝቅተኛ ኢንቨስት",
+    "featuredCampaigns": [
+      {
+        "title": "ለእርሻ የፀሐይ ኃይል መስኖ",
+        "category": "አግሮቴክ",
+        "location": "አዲስ አበባ",
+        "fundedPercent": 72,
+        "daysRemaining": 14,
+        "raisedEtb": 360000,
+        "minInvestEtb": 1000,
+        "image": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "title": "የጤና ክሊኒክ መሳሪያ",
+        "category": "ጤና",
+        "location": "ሐዋሳ",
+        "fundedPercent": 54,
+        "daysRemaining": 21,
+        "raisedEtb": 270000,
+        "minInvestEtb": 1000,
+        "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "title": "በአማርኛ የብልህ ትምህርት መተግበሪያ",
+        "category": "ትምህርት ቴክ",
+        "location": "አዲስ አበባ",
+        "fundedPercent": 88,
+        "daysRemaining": 7,
+        "raisedEtb": 440000,
+        "minInvestEtb": 1000,
+        "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80&auto=format&fit=crop"
+      }
+    ],
+    "transparencyTitle": "ለግልጽነት የተገነባ",
+    "transparencySubtitle": "በIdealLink ላይ እያንዳንዱ ዘመቻ ድጋፍ ሰጪዎች እና መስሪያ ቤቶች እድገትን፣ ማንነትን እና ገንዘብን ማየት እንዲችሉ ተዋቅሯል።",
+    "transparencyFeatures": [
+      {
+        "title": "ማንነት የተረጋገጠ",
+        "desc": "ዘመቻ ከመጀመሩ በፊት መስሪያ ቤቶች ማረጋገጫ ይጠናቀቃሉ።"
+      },
+      {
+        "title": "የእድገት ክትትል",
+        "desc": "የዘመቻ ዝመናዎች እና የእድገት ሪፖርቶች ድጋፍ ሰጪዎችን በእያንዳንዱ ደረጃ ያሳውቃሉ።"
+      },
+      {
+        "title": "ደህንነቱ የተጠበቀ ቃል ኪዳን",
+        "desc": "ኢንቨስትመንቶች በታመነ የክፍያ ፍሰት እና ግልጽ መዝገቦች ይሰራሉ።"
+      },
+      {
+        "title": "የብር ዋሌት ዝግጁ",
+        "desc": "ከሞባይል ዋሌትዎ በብር ዘመቻዎችን ይደግፉ—ውስብስብ ማዋቀር አያስፈልግም።"
+      }
     ],
     "howItWorksTitle": "እንዴት እንደሚሰራ",
-    "howItWorksInvest": [
-      { "step": "1", "title": "ተግባሮችን ያግኙ", "desc": "በዘርፍ፣ በግብ እና በእድገት አቋሚ ዘመቻዎችን ይፈልጉ እና ያጣሩ።" },
-      { "step": "2", "title": "በሙሉነት ይደግፉ", "desc": "ከመወሰንዎ በፊት መገለጫዎችን፣ ሰነዶችን እና የገንዘብ ውሎችን ይገምገሙ።" },
-      { "step": "3", "title": "ፖርትፎሊዎን ይከታተሉ", "desc": "እድገቶችን፣ መልዕክቶችን እና ውጤቶችን ከዳሽቦርድዎ ይከታተሉ።" }
+    "howItWorksSteps": [
+      {
+        "step": "1",
+        "title": "ያግኙ",
+        "desc": "በአግሮቴክ፣ ጤና፣ ኢነርጂ እና ሌሎችም ላይ የተረጋገጡ የኢትዮጵያ ተግባሮችን ያስሱ።"
+      },
+      {
+        "step": "2",
+        "title": "ኢንቨስት ያድርጉ",
+        "desc": "ከ1,000 ብር ጀምሮ ከሞባይል ዋሌትዎ በብር ዘመቻዎችን ይደግፉ።"
+      },
+      {
+        "step": "3",
+        "title": "ይከታተሉ",
+        "desc": "በግልጽ የእድገት ሪፖርቶች እና የዘመቻ ዝመናዎች እድገቱን ይከታተሉ።"
+      }
     ],
-    "howItWorksInnovate": [
-      { "step": "1", "title": "ዘመቻ ይፍጠሩ", "desc": "ታሪክዎን ይንገሩ፣ ግቦችን ያዘጋጁ እና ኢንቨስተሮች የሚጠብቁትን ይስቀሉ።" },
-      { "step": "2", "title": "ድጋፍ ሰጪዎችን ይድረሱ", "desc": "በግኝት፣ በምድቦች እና በአውታረ መረብዎ ታይነት ያግኙ።" },
-      { "step": "3", "title": "ያስረዱ እና ያሳድጉ", "desc": "ዝመናዎችን ያጋሩ፣ ሰነዶችን ያስተዳድሩ እና ዙሮን በግልጽ ይዘጉ።" }
+    "sectorsTitle": "በዘርፍ ያስሱ",
+    "sectorsBrowse": "ያስሱ",
+    "sectors": [
+      { "name": "አግሮቴክ እና ምግብ", "keyword": "Agriculture" },
+      { "name": "ፋይንቴክ", "keyword": "Fintech" },
+      { "name": "ጤና", "keyword": "Health" },
+      { "name": "ትምህርት ቴክ", "keyword": "Education" },
+      { "name": "ንጹህ ኢነርጂ", "keyword": "Energy" },
+      { "name": "ንግድ", "keyword": "Commerce" }
     ],
-    "howItWorksCta": "IdealLink እንዴት እንደሚሰራ ይመልከቱ",
-    "pathsTitle": "ለተሳትፎዎ የተዘጋጁ መንገዶች",
-    "pathInvestorTitle": "ለኢንቨስተሮች",
-    "pathInvestorDesc": "የተመረጡ ተግባሮችን ያስሱ፣ በዘርፎች ይበታተሉ እና ቃል ኪዳን ሳይጨምሩ ቃል ኪዳኖችን ያስተዳድሩ።",
+    "pathInvestorEyebrow": "ለኢንቨስተሮች",
+    "pathInvestorBenefits": [
+      "በዘርፎች ላይ የተመረጡ የኢትዮጵያ ተግባሮችን ያስሱ",
+      "ከ1,000 ብር ጀምሮ በሞባይል ዋሌት ይድረሱ",
+      "ፖርትፎሊዎን በአንድ ዳሽቦርድ ይከታተሉ"
+    ],
     "pathInvestorCta": "እንደ ኢንቨስተር ተመዝገብ",
-    "pathInnovatorTitle": "ለፈጠራ ባለቤቶች",
-    "pathInnovatorDesc": "በተዋቀሩ ፍሰቶች፣ በኩባንያ መገለጫ እና ድጋፍ ሰጪዎችን ለማሳወቅ መሳሪያዎች ዘመቻ ያስኬዱ።",
+    "pathInnovatorEyebrow": "ለፈጠራ ባለቤቶች",
+    "pathInnovatorBenefits": [
+      "በግልጽ እድገቶች ያሉት ዘመቻዎችን ይጀምሩ",
+      "በኢትዮጵያ የኢንቨስተር አውታረ መረብ ድጋፍ ሰጪዎችን ይድረሱ",
+      "ዝመናዎችን፣ ሰነዶችን እና ገንዘብን በአንድ ቦታ ያስተዳድሩ"
+    ],
     "pathInnovatorCta": "እንደ ፈጠራ ባለቤት ተመዝገብ",
-    "discoverSectionTitle": "በIdealLink ላይ አቋሚ ፕሮጀክቶች",
-    "discoverSectionSubtitle": "ፈልጉ፣ ያጣሩ እና እያንዳንዱን አቋሚ ዘመቻ ያስሱ።",
-    "finalCtaTitle": "የኢትዮጵያን ቀጣይ ሞገስ ፕሮጀክቶችን ይጀምሩ",
-    "finalCtaSubtitle": "በIdealLink ላይ ያሉ ፈጠራ ባለቤቶችን እና ኢንቨስተሮችን ይቀላቀሉ።",
-    "finalCtaExplore": "ፕሮጀክቶችን ያስሱ",
-    "finalCtaSignUp": "ነጻ መለያ ይፍጠሩ",
-    "faqTitle": "ጥያቄዎችዎ፣ መልሶች",
+    "testimonialQuote": "IdealLink ባንኮች ስላልሰሙን የማቀነባበሪያ ቤታችንን ለመደገፍ ረዳን። ግባችንን በሶስት ሳምንታት ሞላን።",
+    "testimonialAuthor": "ሕሩት መላኩ",
+    "testimonialRole": "ዋና ሥራ አስፈፃሚ፣ አግሮፍሬሽ ኢትዮጵያ",
+    "testimonialCta": "ታሪካቸውን ያንብቡ",
+    "testimonialImage": "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1200&q=80&auto=format&fit=crop",
+    "faqTitle": "በተደጋጋሚ የሚጠየቁ ጥያቄዎች",
     "faqItems": [
       {
         "q": "IdealLink ምንድን ነው?",
-        "a": "IdealLink ፈጠራ ባለቤቶችን ከኢንቨስተሮች ጋር የሚያገናኝ የኢትዮጵያ የህዝብ ገንዘብ ማሰባሰቢያ ገበያ ነው። ተጠቃሚዎች ተግባሮችን ማግኘት፣ ድጋፍ መስጠት እና ፈጠራ ባለቤቶች ተዋቀሩ ዘመቻ ማስጀመር ይችላሉ።"
+        "a": "IdealLink ፈጠራ ባለቤቶችን ከኢንቨስተሮች ጋር የሚያገናኝ የኢትዮጵያ የህዝብ ገንዘብ ማሰባሰቢያ ገበያ ነው።"
       },
       {
-        "q": "ኢንቨስት ማድረግ እንዴት ይሰራል?",
-        "a": "አቋሚ ፕሮጀክቶችን ይመልከቱ፣ ዝርዝሮችን እና ሰነዶችን ይገምገሙ፣ ከዚያ በመሪያ ፍሰት ድጋፍ ይስጡ። ፖርትፎሊዎን ከዳሽቦርድዎ ይከታተሉ።"
+        "q": "ማን ሊደግፍ ይችላል?",
+        "a": "በIdealLink የተመዘገበ ማንኛውም ተጠቃሚ አቋሚ ዘመቻዎችን ማግኘት እና ከ1,000 ብር ጀምሮ በሞባይል ዋሌት መድረስ ይችላል።"
       },
       {
         "q": "ዘመቻ እንዴት እጀምራለሁ?",
-        "a": "እንደ ፈጠራ ባለቤት ተመዝገቡ፣ መገለጫዎን እና ኩባንያዎን ያጠናቅቁ፣ ከዚያ ግብ፣ ሚዲያ እና ዝመናዎች ያሉት ዘመቻ ይፍጠሩ።"
+        "a": "እንደ ፈጠራ ባለቤት ተመዝገቡ፣ የኩባንያ መገለጫዎን ያጠናቅቁ፣ ከዚያ ግብ፣ ሚዲያ እና እድገት ዝመናዎች ያሉት ዘመቻ ይፍጠሩ።"
       },
       {
-        "q": "IdealLink ለማን ነው?",
-        "a": "ለግልጽ ገንዘብ የሚፈልጉ የኢትዮጵያ ፈጠራ ባለቤቶች እና ለአካባቢያዊ የተመረጡ እድሎች ለሚፈልጉ ኢንቨስተሮች ነው።"
+        "q": "ኢንቨስትመንቴ ደህንነቱ የተጠበቀ ነው?",
+        "a": "ሁሉም ቃል ኪዳኖች በታመነ የክፍያ ፍሰት እና ግልጽ መዝገቦች ይሰራሉ። ዘመቻ ከመጀመሩ በፊት መስሪያ ቤቶች ማረጋገጫ ይጠናቀቃሉ።"
       }
-    ]
+    ],
+    "finalCtaTitle": "የኢትዮጵያን ቀጣይ ሞገስ ተግባሮችን ማሰስ ይጀምሩ",
+    "finalCtaSubtitle": "የኢትዮጵያ ኢንዱስትሪን የሚገነቡ በሺዎች የሚቆጠሩ ድጋፍ ሰጪዎችን ይቀላቀሉ።",
+    "finalCtaButton": "ይጀምሩ"
   },
   "discoveryCta": {
     "title": "ድጋፍ የሚገባቸውን ሀሳቦች ያግኙ",
@@ -345,7 +451,16 @@
       "reply": "መልስ",
       "replyPlaceholder": "መልስ ይጻፉ…",
       "submitReply": "መልስ ለጥፍ",
-      "cancelReply": "ሰርዝ"
+      "cancelReply": "ሰርዝ",
+      "edit": "አርትዕ",
+      "save": "አስቀምጥ",
+      "updateSuccess": "አስተያየቱ ተዘምኗል።",
+      "updateFailed": "አስተያየት ማዘመን አልተሳካም።",
+      "loadMore": "ተጨማሪ አስተያየቶች",
+      "commentCount": "{count} አስተያየቶች",
+      "commentCountOne": "{count} አስተያየት",
+      "investorBadge": "ኢንቨስተር",
+      "innovatorBadge": "ፈጣሪ"
     },
     "fallback": {
       "problem": "{name} በመስኩ ውስጥ ግልጽ ፍላጎት ያነጣጥራል። ማጠቃለያውን እና ሰነዶችን ይመልከቱ።",
@@ -369,21 +484,53 @@
         "investorsCount": 5,
         "updatesCount": 3,
         "documentsCount": 2,
-        "similarIds": ["coffee-cooperative", "solar-irrigation", "textile-marketplace"],
+        "similarIds": [
+          "coffee-cooperative",
+          "solar-irrigation",
+          "textile-marketplace"
+        ],
         "problem": "አነስተኛ ገበሬዎች በክፍት አየር ማድረቅ ወቅት ዝናብ ሲወርድ 15–30% ምርት ያጣሉ። የዲዘል ማድረቂያዎች ውዐዎች ናቸው።",
         "solution": "በአካባቢ ሉህ እና ፖሊካርቦኔት ሞጁላር የፀሐይ ማድረቂያ መንገዶች እንገነባለን። ህብረቶች በመከር ቀን መቁጠሪያ ያጋራሉ።",
         "team": "ጆን ዶ — መስራች። ሙሉጌታ አ. — ሜካኒካል ዲዛይን። ሳራ ከ. — ህብረት አጋርነት።",
         "timeline": [
-          { "milestone": "ዲዛይን እና አቅራቢ ውል", "date": "ኖቬምበር 2023", "done": true },
-          { "milestone": "አምሳያ እና ላብ ሙከራ", "date": "ጃንዋሪ 2024", "done": true },
-          { "milestone": "ከ2 ህብረቶች ጋር ሙከራ", "date": "ማርች–ሜይ 2024", "done": false },
-          { "milestone": "ወደ 50 አጋራ ክፍሎች", "date": "የ4ኛ ሩብ 2024", "done": false }
+          {
+            "milestone": "ዲዛይን እና አቅራቢ ውል",
+            "date": "ኖቬምበር 2023",
+            "done": true
+          },
+          {
+            "milestone": "አምሳያ እና ላብ ሙከራ",
+            "date": "ጃንዋሪ 2024",
+            "done": true
+          },
+          {
+            "milestone": "ከ2 ህብረቶች ጋር ሙከራ",
+            "date": "ማርች–ሜይ 2024",
+            "done": false
+          },
+          {
+            "milestone": "ወደ 50 አጋራ ክፍሎች",
+            "date": "የ4ኛ ሩብ 2024",
+            "done": false
+          }
         ],
         "funds": [
-          { "label": "ቁሳቁሶች", "percent": 40 },
-          { "label": "ልማት እና ሰራተኛ", "percent": 35 },
-          { "label": "ግብይት", "percent": 15 },
-          { "label": "ተጨማሪ", "percent": 10 }
+          {
+            "label": "ቁሳቁሶች",
+            "percent": 40
+          },
+          {
+            "label": "ልማት እና ሰራተኛ",
+            "percent": 35
+          },
+          {
+            "label": "ግብይት",
+            "percent": 15
+          },
+          {
+            "label": "ተጨማሪ",
+            "percent": 10
+          }
         ],
         "risksDisclosure": "የገቢያ መቀበል ዘግይቶ ሊሆን ይችላል። የአቅርቦት ሰንሰለት መዘግየት ሙከራን ሊወስን ይችላል።",
         "riskLevel": "መካከለኛ",
@@ -407,8 +554,16 @@
           }
         ],
         "documents": [
-          { "name": "Solar_Dryer_Spec_v2.pdf", "kind": "pdf", "sizeLabel": "1.2 ሜባ" },
-          { "name": "Pilot_Photos_March.zip", "kind": "archive", "sizeLabel": "4.8 ሜባ" }
+          {
+            "name": "Solar_Dryer_Spec_v2.pdf",
+            "kind": "pdf",
+            "sizeLabel": "1.2 ሜባ"
+          },
+          {
+            "name": "Pilot_Photos_March.zip",
+            "kind": "archive",
+            "sizeLabel": "4.8 ሜባ"
+          }
         ],
         "qa": [
           {
@@ -635,7 +790,13 @@
     "navPayment": "ክፍያ",
     "navMyCampaigns": "የእኔ ዘመቻዎች",
     "navCampaignsInvested": "የተዋጡ ዘመቻዎች",
+    "navInvestment": "ኢንቨስትመንት",
     "navWallet": "ኪስ",
+    "navWalletFinance": "ኪስ እና ፋይናንስ",
+    "navWalletDashboard": "የኪስ ዳሽቦርድ",
+    "navBankAccount": "የባንክ ሂሳብ",
+    "navWithdrawFunds": "ገንዘብ ማውጣት",
+    "navTransactionHistory": "የግብይት ታሪክ",
     "workspaceSwitchAria": "በፈጠራ እና በኢንቨስተር የስራ ቦታ መካከል ቀይር",
     "workspaceModeLabel": "የስራ ቦታ",
     "workspaceInnovator": "የፈጠራ የስራ ቦታ",
@@ -743,6 +904,8 @@
     "companyNo": "አይ",
     "completeProfilesTitle": "መገለጮችዎን ያጠናቅቁ",
     "completeProfilesHint": "ሙሉ ተሞክሮ ለማግኘት ሁለቱንም ያስገቡ።",
+    "completeProfileHintInnovator": "በዚህ የስራ ቦታ ውስጥ ዘመቻዎችን እና የኩባንያ መሳሪያዎችን ለማግኘት የፈጣሪ መገለጫዎን ያጠናቅቁ።",
+    "completeProfileHintInvestor": "በዚህ የስራ ቦታ ውስጥ መሸጎጫ እና የኢንቨስትመንት ባህሪዎችን ለማግኘት የኢንቨስተር መገለጫዎን ያጠናቅቁ።",
     "completeInnovatorCta": "የፈጠራ ባለቤት መገለጫ ያጠናቅቁ",
     "completeInvestorCta": "የኢንቨስተር መገለጫ ያጠናቅቁ",
     "editInnovatorCta": "የፈጠራ ባለቤት መገለጫ ያርትዑ",
@@ -965,6 +1128,7 @@
   "investorDashboard": {
     "metaTitle": "የኢንቨስተር ዳሽቦርድ | IdealLink",
     "portfolioMetaTitle": "ፖርትፎሊዮ | IdealLink",
+    "investmentMetaTitle": "ኢንቨስትመንት | IdealLink",
     "messagesMetaTitle": "መልዕክቶች | IdealLink",
     "profileMetaTitle": "መገለጫ | IdealLink",
     "userFirstName": "ሳራ",
@@ -1005,6 +1169,17 @@
     "retry": "እንደገና ይሞክሩ",
     "paginationPrevious": "ቀዳሚ",
     "paginationNext": "ቀጣይ",
+    "investmentTableCampaign": "ዘመቻ",
+    "investmentTableAmount": "መጠን",
+    "investmentTableShares": "ሼሮች",
+    "investmentTableStatus": "ሁኔታ",
+    "investmentTableInvested": "የተከፈለበት",
+    "investmentTableCoolingOff": "የመመለሻ ጊዜ",
+    "investmentTableActions": "ተግባራት",
+    "investmentActionDetail": "ዝርዝር",
+    "investmentActionCancel": "ሰርዝ",
+    "investmentActionWithdraw": "ያውጡ",
+    "investmentTableEmpty": "ምንም ኢንቨስትመንት አልተገኘም።",
     "errors": {
       "loadSummaryTitle": "የዳሽቦርድ ማጠቃለያ ሊጫን አልተቻለም",
       "loadSummaryDescription": "እባክዎ ያድሱና እንደገና ይሞክሩ።",
@@ -1013,6 +1188,8 @@
     },
     "portfolioPageTitle": "ፖርትፎሊዮ",
     "portfolioPageSubtitle": "የእርስዎ ቦታዎች፣ ተመላሾች እና የቃል መፈፀም መርሐግብር።",
+    "investmentPageTitle": "ኢንቨስትመንት",
+    "investmentPageSubtitle": "ኢንቨስትመንቶችዎን፣ ሁኔታዎችን እና የመመለሻ ጊዜ እርምጃዎችን ይመልከቱ።",
     "portfolioPlaceholder": "ዝርዝር ፖርትፎሊዮ (የኢንቨስትመንት ታሪክ፣ ተመላሽ) በቀጣይ ስሪት ይገናኛል።",
     "messagesPageTitle": "መልዕክቶች",
     "messagesPageSubtitle": "ከፈጠራ ባለቤቶች ጋር ውይይቶች።",
@@ -1079,18 +1256,43 @@
       "avgFundedPct": 72
     },
     "diversification": [
-      { "category": "ግብርና", "percent": 35, "color": "#022c22" },
-      { "category": "ንግድ", "percent": 28, "color": "#ca8a04" },
-      { "category": "ትምህርት", "percent": 22, "color": "#2563eb" },
-      { "category": "ኃይል", "percent": 15, "color": "#9333ea" }
+      {
+        "category": "ግብርና",
+        "percent": 35,
+        "color": "#022c22"
+      },
+      {
+        "category": "ንግድ",
+        "percent": 28,
+        "color": "#ca8a04"
+      },
+      {
+        "category": "ትምህርት",
+        "percent": 22,
+        "color": "#2563eb"
+      },
+      {
+        "category": "ኃይል",
+        "percent": 15,
+        "color": "#9333ea"
+      }
     ],
     "performance": {
       "successRatePct": 78,
       "avgSimulatedReturnPct": 4.2,
       "riskBreakdown": [
-        { "level": "ዝቅተኛ", "percent": 30 },
-        { "level": "መካከለኛ", "percent": 55 },
-        { "level": "ከፍተኛ", "percent": 15 }
+        {
+          "level": "ዝቅተኛ",
+          "percent": 30
+        },
+        {
+          "level": "መካከለኛ",
+          "percent": 55
+        },
+        {
+          "level": "ከፍተኛ",
+          "percent": 15
+        }
       ]
     },
     "rows": [
@@ -1137,11 +1339,23 @@
     ],
     "details": {
       "inv-1": {
-        "simulatedReturnPct": 6.0,
+        "simulatedReturnPct": 6,
         "timeline": [
-          { "date": "ጃን 2026", "label": "ቃል ተመዝግቧል", "tone": "neutral" },
-          { "date": "ፌብ 2026", "label": "ሙከራ ከመሰረት በላይ", "tone": "positive" },
-          { "date": "ማርች 2026", "label": "ሁለተኛ ህብረት ተጨመረ", "tone": "positive" }
+          {
+            "date": "ጃን 2026",
+            "label": "ቃል ተመዝግቧል",
+            "tone": "neutral"
+          },
+          {
+            "date": "ፌብ 2026",
+            "label": "ሙከራ ከመሰረት በላይ",
+            "tone": "positive"
+          },
+          {
+            "date": "ማርች 2026",
+            "label": "ሁለተኛ ህብረት ተጨመረ",
+            "tone": "positive"
+          }
         ],
         "updates": [
           {
@@ -1156,50 +1370,118 @@
           }
         ],
         "messages": [
-          { "from": "innovator", "text": "ስለ ድጋፍዎ እናመሰግናለን — ፎቶዎች ይላካሉ።", "time": "12 ማርች" },
-          { "from": "you", "text": "ጥሩ። የጥገና ስልጠና?", "time": "12 ማርች" },
-          { "from": "innovator", "text": "ለአመራሮች ሁለት ቀን ስልጠና ተያይዟል።", "time": "13 ማርች" }
+          {
+            "from": "innovator",
+            "text": "ስለ ድጋፍዎ እናመሰግናለን — ፎቶዎች ይላካሉ።",
+            "time": "12 ማርች"
+          },
+          {
+            "from": "you",
+            "text": "ጥሩ። የጥገና ስልጠና?",
+            "time": "12 ማርች"
+          },
+          {
+            "from": "innovator",
+            "text": "ለአመራሮች ሁለት ቀን ስልጠና ተያይዟል።",
+            "time": "13 ማርች"
+          }
         ]
       },
       "inv-2": {
         "simulatedReturnPct": 0,
         "timeline": [
-          { "date": "ማርች 2026", "label": "በክፍት ዙር ውስጥ ኢንቨስት", "tone": "neutral" },
-          { "date": "—", "label": "ሙሉ መበረብ በመጠባበቅ ላይ", "tone": "neutral" }
+          {
+            "date": "ማርች 2026",
+            "label": "በክፍት ዙር ውስጥ ኢንቨስት",
+            "tone": "neutral"
+          },
+          {
+            "date": "—",
+            "label": "ሙሉ መበረብ በመጠባበቅ ላይ",
+            "tone": "neutral"
+          }
         ],
         "updates": [
-          { "date": "1 ማርች 2026", "title": "ጠላፊ መጨመር", "body": "12 አዲስ ቡድኖች ተገናኙ።" }
+          {
+            "date": "1 ማርች 2026",
+            "title": "ጠላፊ መጨመር",
+            "body": "12 አዲስ ቡድኖች ተገናኙ።"
+          }
         ],
         "messages": [
-          { "from": "innovator", "text": "እንኳን ደህና መጡ — ሪፖርት በቅርብ።", "time": "5 ማርች" }
+          {
+            "from": "innovator",
+            "text": "እንኳን ደህና መጡ — ሪፖርት በቅርብ።",
+            "time": "5 ማርች"
+          }
         ]
       },
       "inv-3": {
         "simulatedReturnPct": 5.1,
         "timeline": [
-          { "date": "ዲሴም 2025", "label": "ቤታ ጀምሮ", "tone": "neutral" },
-          { "date": "ፌብ 2026", "label": "10ሺህ ተጠቃሚዎች", "tone": "positive" }
+          {
+            "date": "ዲሴም 2025",
+            "label": "ቤታ ጀምሮ",
+            "tone": "neutral"
+          },
+          {
+            "date": "ፌብ 2026",
+            "label": "10ሺህ ተጠቃሚዎች",
+            "tone": "positive"
+          }
         ],
         "updates": [
-          { "date": "15 ማርች 2026", "title": "አዲስ ትምህርት", "body": "ደረጃ 7 ሳይንስ በአማርኛ።" }
+          {
+            "date": "15 ማርች 2026",
+            "title": "አዲስ ትምህርት",
+            "body": "ደረጃ 7 ሳይንስ በአማርኛ።"
+          }
         ],
         "messages": [
-          { "from": "you", "text": "እቅዱ ደስ ያሰኛል።", "time": "10 ማርች" },
-          { "from": "innovator", "text": "እናመሰግናለን! ግምገማ ቀጣይ ነው።", "time": "10 ማርች" }
+          {
+            "from": "you",
+            "text": "እቅዱ ደስ ያሰኛል።",
+            "time": "10 ማርች"
+          },
+          {
+            "from": "innovator",
+            "text": "እናመሰግናለን! ግምገማ ቀጣይ ነው።",
+            "time": "10 ማርች"
+          }
         ]
       },
       "inv-4": {
-        "simulatedReturnPct": 8.0,
+        "simulatedReturnPct": 8,
         "timeline": [
-          { "date": "ኦክቶ 2025", "label": "መርቅ ተከፈተ", "tone": "positive" },
-          { "date": "ጃን 2026", "label": "የገቢ ክፍፍል ጀመረ", "tone": "positive" },
-          { "date": "ማርች 2026", "label": "ዘመቻ ተጠናቋል", "tone": "positive" }
+          {
+            "date": "ኦክቶ 2025",
+            "label": "መርቅ ተከፈተ",
+            "tone": "positive"
+          },
+          {
+            "date": "ጃን 2026",
+            "label": "የገቢ ክፍፍል ጀመረ",
+            "tone": "positive"
+          },
+          {
+            "date": "ማርች 2026",
+            "label": "ዘመቻ ተጠናቋል",
+            "tone": "positive"
+          }
         ],
         "updates": [
-          { "date": "20 ማርች 2026", "title": "የመጨረሻ ክፍፍል", "body": "ለሁሉም ኢንቨስተሮች ማስመሰያ መርሐግብር።" }
+          {
+            "date": "20 ማርች 2026",
+            "title": "የመጨረሻ ክፍፍል",
+            "body": "ለሁሉም ኢንቨስተሮች ማስመሰያ መርሐግብር።"
+          }
         ],
         "messages": [
-          { "from": "innovator", "text": "የመጨረሻ ሪፖርት በመልዕክት ውስጥ።", "time": "21 ማርች" }
+          {
+            "from": "innovator",
+            "text": "የመጨረሻ ሪፖርት በመልዕክት ውስጥ።",
+            "time": "21 ማርች"
+          }
         ]
       }
     }
@@ -1238,10 +1520,22 @@
       "pending": "በመጠባበበ ላይ"
     },
     "milestones": [
-      { "title": "የመስክ ጥናት እና የገበሬ ቃለመጠይቅ", "done": true },
-      { "title": "የፀሐይ ማድረቂያ አምሳያ ተገኝቷል", "done": true },
-      { "title": "በኦሮሚያ ሙከራ ጫን", "done": false },
-      { "title": "ወደ 50 ኅብረተራ ክፍሎች ማስፋፋት", "done": false }
+      {
+        "title": "የመስክ ጥናት እና የገበሬ ቃለመጠይቅ",
+        "done": true
+      },
+      {
+        "title": "የፀሐይ ማድረቂያ አምሳያ ተገኝቷል",
+        "done": true
+      },
+      {
+        "title": "በኦሮሚያ ሙከራ ጫን",
+        "done": false
+      },
+      {
+        "title": "ወደ 50 ኅብረተራ ክፍሎች ማስፋፋት",
+        "done": false
+      }
     ],
     "updates": {
       "writeUpdate": "አዘምን ይጻፉ",
@@ -1290,9 +1584,21 @@
       "download": "አውርድ",
       "emptyList": "እስካሁን ሰነድ የለም። የቴክኒክ ዝርዝሮች፣ ፎቶዎች ወይም ሪፖርቶች ይጭኑ።",
       "initial": [
-        { "name": "Solar_Dryer_Spec_v2.pdf", "kind": "pdf", "sizeLabel": "1.2 ሜባ" },
-        { "name": "Pilot_Site_Photo.jpg", "kind": "image", "sizeLabel": "840 ኪባ" },
-        { "name": "Coop_Agreement_Draft.docx", "kind": "doc", "sizeLabel": "56 ኪባ" }
+        {
+          "name": "Solar_Dryer_Spec_v2.pdf",
+          "kind": "pdf",
+          "sizeLabel": "1.2 ሜባ"
+        },
+        {
+          "name": "Pilot_Site_Photo.jpg",
+          "kind": "image",
+          "sizeLabel": "840 ኪባ"
+        },
+        {
+          "name": "Coop_Agreement_Draft.docx",
+          "kind": "doc",
+          "sizeLabel": "56 ኪባ"
+        }
       ]
     },
     "investors": {
@@ -1303,11 +1609,36 @@
       "colEquity": "ኢኩዊቲ %",
       "colDate": "ቀን",
       "rows": [
-        { "name": "ሳራ ም.", "amountEtb": 8500, "equityPct": 2.1, "date": "12 ማርች 2026" },
-        { "name": "ዳንኤል ት.", "amountEtb": 6200, "equityPct": 1.5, "date": "10 ማርች 2026" },
-        { "name": "GreenGrowth ፈንድ", "amountEtb": 10000, "equityPct": 2.8, "date": "5 ማርች 2026" },
-        { "name": "ሃና ከ.", "amountEtb": 2750, "equityPct": 0.7, "date": "1 ማርች 2026" },
-        { "name": "ዮናስ ብ.", "amountEtb": 1800, "equityPct": 0.4, "date": "28 የካቲት 2026" }
+        {
+          "name": "ሳራ ም.",
+          "amountEtb": 8500,
+          "equityPct": 2.1,
+          "date": "12 ማርች 2026"
+        },
+        {
+          "name": "ዳንኤል ት.",
+          "amountEtb": 6200,
+          "equityPct": 1.5,
+          "date": "10 ማርች 2026"
+        },
+        {
+          "name": "GreenGrowth ፈንድ",
+          "amountEtb": 10000,
+          "equityPct": 2.8,
+          "date": "5 ማርች 2026"
+        },
+        {
+          "name": "ሃና ከ.",
+          "amountEtb": 2750,
+          "equityPct": 0.7,
+          "date": "1 ማርች 2026"
+        },
+        {
+          "name": "ዮናስ ብ.",
+          "amountEtb": 1800,
+          "equityPct": 0.4,
+          "date": "28 የካቲት 2026"
+        }
       ]
     },
     "messages": {
@@ -1324,9 +1655,21 @@
           "name": "ሳራ ም.",
           "preview": "ስለ ሙከራው ስልክ ጥሪ ማድረግ እንችላለን?",
           "items": [
-            { "from": "them", "text": "ሰላም — ከሙከራው ውጤት በኋላ ድጋፍ ማስፋት ያስባለሁ።", "time": "12 ማርች፣ 09:14" },
-            { "from": "me", "text": "በእርግጠኝነት። ደርብ ቀኑ ከከሰዓት በኋላ ይስማማል?", "time": "12 ማርች፣ 11:02" },
-            { "from": "them", "text": "ስለ ሙከራው ስልክ ጥሪ ማድረግ እንችላለን?", "time": "13 ማርች፣ 08:30" }
+            {
+              "from": "them",
+              "text": "ሰላም — ከሙከራው ውጤት በኋላ ድጋፍ ማስፋት ያስባለሁ።",
+              "time": "12 ማርች፣ 09:14"
+            },
+            {
+              "from": "me",
+              "text": "በእርግጠኝነት። ደርብ ቀኑ ከከሰዓት በኋላ ይስማማል?",
+              "time": "12 ማርች፣ 11:02"
+            },
+            {
+              "from": "them",
+              "text": "ስለ ሙከራው ስልክ ጥሪ ማድረግ እንችላለን?",
+              "time": "13 ማርች፣ 08:30"
+            }
           ]
         },
         {
@@ -1334,8 +1677,16 @@
           "name": "GreenGrowth ፈንድ",
           "preview": "ለሰርተታችን የቪ ክፍለ ጊዜ ተፅዕኖ መለኪያ ያስፈልገናል።",
           "items": [
-            { "from": "them", "text": "እባክዎ የቪ2 ሩብ ተፅዕኖ መለኪያ ዝግጁ ሲሆን ያካፍሉ።", "time": "11 ማርች፣ 16:40" },
-            { "from": "me", "text": "እስከ ሳምንቱ መጨረሻ አንድ ምሳሌ ቅርጸት እንላካለን።", "time": "11 ማርች፣ 17:05" }
+            {
+              "from": "them",
+              "text": "እባክዎ የቪ2 ሩብ ተፅዕኖ መለኪያ ዝግጁ ሲሆን ያካፍሉ።",
+              "time": "11 ማርች፣ 16:40"
+            },
+            {
+              "from": "me",
+              "text": "እስከ ሳምንቱ መጨረሻ አንድ ምሳሌ ቅርጸት እንላካለን።",
+              "time": "11 ማርች፣ 17:05"
+            }
           ]
         },
         {
@@ -1343,8 +1694,16 @@
           "name": "ዳንኤል ት.",
           "preview": "ለፈጣኑ ምላሽ እናመሰግናለሁ!",
           "items": [
-            { "from": "me", "text": "ስለ ዘመቻው ድጋፍዎ እናመሰግናለሁ።", "time": "9 ማርች፣ 10:00" },
-            { "from": "them", "text": "ለፈጣኑ ምላሽ እናመሰግናለሁ!", "time": "9 ማርች፣ 10:22" }
+            {
+              "from": "me",
+              "text": "ስለ ዘመቻው ድጋፍዎ እናመሰግናለሁ።",
+              "time": "9 ማርች፣ 10:00"
+            },
+            {
+              "from": "them",
+              "text": "ለፈጣኑ ምላሽ እናመሰግናለሁ!",
+              "time": "9 ማርች፣ 10:22"
+            }
           ]
         }
       ]
@@ -1407,13 +1766,34 @@
     "successBody": "ቡድናችን ዘመቻዎን ይገምግማል። ሲቀየር እንወቅዎታለን።",
     "viewProjects": "የእኔ ፕሮጀክቶችን ይመልከቱ",
     "categories": [
-      { "value": "tech", "label": "ቴክኖሎጂ" },
-      { "value": "agriculture", "label": "ግብርና" },
-      { "value": "health", "label": "ጤና" },
-      { "value": "education", "label": "ትምህርት" },
-      { "value": "manufacturing", "label": "ማምረቻ" },
-      { "value": "energy", "label": "ኃይል" },
-      { "value": "other", "label": "ሌላ" }
+      {
+        "value": "tech",
+        "label": "ቴክኖሎጂ"
+      },
+      {
+        "value": "agriculture",
+        "label": "ግብርና"
+      },
+      {
+        "value": "health",
+        "label": "ጤና"
+      },
+      {
+        "value": "education",
+        "label": "ትምህርት"
+      },
+      {
+        "value": "manufacturing",
+        "label": "ማምረቻ"
+      },
+      {
+        "value": "energy",
+        "label": "ኃይል"
+      },
+      {
+        "value": "other",
+        "label": "ሌላ"
+      }
     ],
     "errors": {
       "title": "የፕሮጀክት ርዕስ ያስፈልጋል።",
@@ -1451,8 +1831,17 @@
     "heroImageUrl": "የተዋናይ ምስል URL",
     "urlPlaceholder": "https://...",
     "fundingGoal": "የገንዘብ ግብ",
-    "equityOffered": "የተሰጠ ኢኩዊቲ (0–1)",
+    "equityOffered": "የተሰጠ ኢኩዊቲ (%)",
     "valuation": "መገምገሚያ ዋጋ",
+    "estimatedFundingGoal": "የተገመተ የገንዘብ ግብ",
+    "rules": {
+      "fundingGoalMin": "100,000 ብር የዘመቻው የሚያሳድገው ዝቅተኛ መጠን (የገንዘብ ግብ) ነው።",
+      "equityMax": "50% ከኩባንያው የሚሸጥ ከፍተኛ የኢኩዊቲ ክፍፍል ነው።",
+      "equityNot100": "100% ኢኩዊቲ አይፈቀድም።",
+      "valuationMinAtMaxEquity": "በከፍተኛ ኢኩዊቲ (50%)፣ ዝቅተኛው የኩባንያ መገምገሚያ ዋጋ 200,000 ብር ነው።",
+      "totalSharesGreaterThanMin": "ጠቅላላ አክሲዮኖች ከዝተኛ አክሲዮን በኢንቨስተር መብለጥ አለባቸው።",
+      "minSharesLessThanOffered": "ዝተኛ አክሲዮን በኢንቨስተር ከቀረቡ አክሲዮኖች ያነሰ መሆን አለበት።"
+    },
     "minInvestment": "ዝተኛ ኢንቨስትመንት",
     "totalShares": "ጠቅላላ አክሲዮኖች",
     "minimumSharesPerInvestor": "ዝተኛ አክሲዮን በኢንቨስተር",
@@ -1485,7 +1874,7 @@
       "titleRequired": "የዘመቻ ርዕስ ያስፈልጋል።",
       "shortDescriptionRequired": "አጭር መግለጫ ያስፈልጋል።",
       "fundingGoal": "የገንዘብ ግብ ከዜሮ በላይ የሆነ ትክክለኛ ቁጥር መሆን አለበት።",
-      "equityOffered": "የተሰጠ ኢኩዊት በ0 እና 1 መካለል አለበት (ለምሳሌ ለ10% 0.1)።",
+      "equityOffered": "የተሰጠ ኢኩዊት በ1% እና 100% መካለል አለበት።",
       "valuation": "መገምገሚያ ዋጋ ከዜሮ በላይ የሆነ ትክክለኛ ቁጥር መሆን አለበት።",
       "minInvestment": "ዝተኛ ኢንቨስትመንት ከዜሮ በላይ የሆነ ትክክለኛ ቁጥር መሆን አለበት።",
       "totalShares": "ጠቅላላ አክሲዮኖች ቢያንስ 1 የሆነ ሙሉ ቁጥር መሆን አለበት።",
@@ -1670,7 +2059,77 @@
       "loadUpdatesFailed": "ዝማኔዎች መጫን አልተቻለም። እንደገና ይሞክሩ።",
       "createUpdateFailed": "ዝማኔ ማስቀመጥ አልተቻለም። እንደገና ይሞክሩ።",
       "deleteUpdateFailed": "ዝማኔ ማስወገድ አልተቻለም። እንደገና ይሞክሩ።",
-       "submitCampaignFailed": "ይህን ዘመቻ ማስገባት አልተቻለም። እንደገና ይሞክሩ።"
+      "submitCampaignFailed": "ይህን ዘመቻ ማስገባት አልተቻለም። እንደገና ይሞክሩ።"
+    }
+  },
+  "walletPage": {
+    "noCompany": "የዋሌት እና ባንክ አገልግሎት ለመጠቀም በመጀመሪያ የኩባንያ መረጃዎን ያጠናቅቁ።",
+    "setupCompany": "ወደ የኩባንያ ቅንብር ይሂዱ",
+    "badges": {
+      "verified": "ተረጋግጧል",
+      "pending": "ማረጋገጫ በመጠባበቅ ላይ"
+    },
+    "dashboard": {
+      "metaTitle": "የዋሌት ዳሽቦርድ | IdealLink",
+      "title": "የዋሌት ዳሽቦርድ",
+      "subtitle": "የኩባንያዎን የዋሌት ቀሪ እና የማውጫ ዝግጁነት ይመልከቱ።",
+      "currentBalance": "አሁን ያለ ቀሪ",
+      "quickWithdraw": "ገንዘብ ያውጡ",
+      "refresh": "አድስ",
+      "loadError": "የዋሌት ቀሪ ማምጣት አልተቻለም።",
+      "bankStatus": "የባንክ ሂሳብ",
+      "noBank": "የባንክ ሂሳብ አልተገናኘም",
+      "addBank": "የባንክ ሂሳብ ጨምር",
+      "pendingVerification": "የባንክ ሂሳብዎ በአስተዳዳሪ ማረጋገጫ ላይ ነው።",
+      "manageBank": "የባንክ ሂሳብ ያስተዳድሩ"
+    },
+    "bankAccount": {
+      "metaTitle": "የባንክ ሂሳብ | IdealLink",
+      "title": "የባንክ ሂሳብ",
+      "subtitle": "ለማውጫ የኩባንያዎን ባንክ ሂሳብ ያገናኙ።",
+      "addTitle": "የባንክ ሂሳብ ጨምር",
+      "updateTitle": "የባንክ ሂሳብ አዘምን",
+      "accountHolder": "የሂሳብ ባለቤት ስም",
+      "bank": "ባንክ",
+      "accountNumber": "የሂሳብ ቁጥር",
+      "defaultAccount": "እንደ ነባሪ የክፍያ ሂሳብ ያድርጉ",
+      "saveButton": "የባንክ ሂሳብ አስቀምጥ",
+      "updateButton": "የባንክ ሂሳብ አዘምን",
+      "saving": "በማስቀመጥ ላይ…",
+      "saveSuccess": "የባንክ ሂሳብ በተሳካ ሁኔታ ተቀምጧል።",
+      "saveError": "የባንክ ሂሳብ ማስቀመጥ አልተቻለም።",
+      "pendingMessage": "የባንክ ሂሳብዎ በማረጋገጫ ላይ ነው።",
+      "verifiedAt": "የተረጋገጠበት ቀን",
+      "verifiedEditHint": "ሂሳቡ ተረጋግጦ እያለ ዋና መረጃዎች ሊሻሻሉ አይችሉም።"
+    },
+    "withdraw": {
+      "metaTitle": "ገንዘብ ማውጣት | IdealLink",
+      "title": "ገንዘብ ማውጣት",
+      "subtitle": "ያለውን የዋሌት ቀሪ ወደ የተረጋገጠ የባንክ ሂሳብ ያስተላልፉ።",
+      "availableBalance": "ያለ ቀሪ",
+      "amountLabel": "የማውጫ መጠን (ETB)",
+      "submit": "ማውጫውን ይገምግሙ",
+      "success": "የማውጫ ጥያቄ በተሳካ ሁኔታ ተልኳል።",
+      "error": "ገንዘብ ማውጣት አልተቻለም።",
+      "noBankTitle": "የባንክ ሂሳብ አልተገናኘም",
+      "noBankDescription": "ገንዘብ ከማውጣትዎ በፊት የኩባንያ የባንክ ሂሳብ ያክሉ እና ያረጋግጡ።",
+      "addBankCta": "የባንክ ሂሳብ ጨምር",
+      "emptyWalletTitle": "የዋሌት ቀሪ ዜሮ ነው",
+      "emptyWalletDescription": "ኢንቨስትመንቶች ሲገቡ ቀሪው እዚህ ይታያል።",
+      "unverifiedWarning": "የባንክ ሂሳብዎ እስኪረጋገጥ ድረስ ማውጫ አይቻልም።",
+      "destination": "መዳረሻ ሂሳብ",
+      "confirmTitle": "ማውጫ አረጋግጥ",
+      "confirmDescription": "ገንዘቡ ወደ የተረጋገጠ የባንክ ሂሳብ ይላካል። ይህ ተግባር አይመለስም።",
+      "cancel": "ይተው",
+      "confirm": "ማውጫ አረጋግጥ",
+      "submitting": "በሂደት ላይ…"
+    },
+    "transactions": {
+      "metaTitle": "የግብይት ታሪክ | IdealLink",
+      "title": "የግብይት ታሪክ",
+      "subtitle": "የዋሌት እንቅስቃሴዎች ሙሉ መዝገብ።",
+      "comingSoon": "በቅርቡ ይመጣል",
+      "description": "ዝርዝር የግብይት ታሪክ በቀጣይ ስሪት ይጨመራል።"
     }
   },
   "campaignEditPage": {

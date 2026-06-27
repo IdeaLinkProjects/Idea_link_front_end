@@ -63,7 +63,30 @@
     "about": "About",
     "contact": "Contact",
     "privacy": "Privacy",
-    "terms": "Terms"
+    "terms": "Terms",
+    "disclaimer": "Investing in startups and early-stage businesses involves risks, including illiquidity, lack of dividends, loss of investment and dilution, and it should be done only as part of a diversified portfolio. IdealLink is intended for backers who understand these risks. Capital at risk.",
+    "tagline": "Empowering Ethiopian innovators through radical transparency and community-driven capital.",
+    "productHeading": "Product",
+    "productLinks": [
+      { "label": "Explore Projects", "href": "/discovery" },
+      { "label": "For Innovators", "href": "/register" },
+      { "label": "How it Works", "href": "/#how-it-works" },
+      { "label": "Pricing", "href": "/contact" }
+    ],
+    "companyHeading": "Company",
+    "companyLinks": [
+      { "label": "About Us", "href": "/about" },
+      { "label": "Our Impact", "href": "/about" },
+      { "label": "Contact", "href": "/contact" },
+      { "label": "Careers", "href": "/contact" }
+    ],
+    "legalHeading": "Legal & Settings",
+    "legalLinks": [
+      { "label": "Terms of Service", "href": "/terms" },
+      { "label": "Privacy Policy", "href": "/privacy" },
+      { "label": "Risk Disclosure", "href": "/privacy" }
+    ],
+    "copyright": "© {year} IdealLink. Radical Transparency in Crowdfunding."
   },
   "cookieConsent": {
     "title": "Cookies on IdealLink",
@@ -76,92 +99,126 @@
       "title": "IdealLink | Ethiopian Crowdfunding Platform",
       "description": "Discover vetted ventures, back local innovation, and launch campaigns on Ethiopia's trusted crowdfunding marketplace."
     },
-    "audienceInvest": "Invest",
-    "audienceInnovate": "Innovate",
-    "heroInvestTitle": "Grow your portfolio at the speed of your ambition",
-    "heroInvestSubtitle": "Discover vetted Ethiopian ventures, back teams you believe in, and track progress in one transparent place.",
-    "heroInnovateTitle": "Turn your idea into funded momentum",
-    "heroInnovateSubtitle": "Launch a campaign, reach investors across Ethiopia, and build with structured tools made for serious innovators.",
-    "heroCtaInvest": "Explore projects",
-    "heroCtaInnovate": "Start a campaign",
-    "searchPlaceholder": "Search projects, sectors, or keywords…",
+    "heroBadge": "Ethiopia's crowdfunding marketplace",
+    "heroTitle": "Back Ethiopian ventures. Invest with clarity.",
+    "heroSubtitle": "Discover live campaigns in agritech, health, clean energy, and more. Start from as little as 1,000 ETB.",
+    "heroCtaExplore": "Explore live campaigns",
+    "heroCtaSignUp": "Create free account",
+    "searchPlaceholder": "Search campaigns, sectors, or keywords…",
     "searchSubmit": "Search",
-    "popularSearches": "Popular searches",
-    "popularQueries": [
-      "Solar irrigation for farms",
-      "Amharic ed-tech learning app",
-      "Textile export marketplace",
-      "Health clinic equipment",
-      "Clean energy micro-grid"
-    ],
-    "trustedBy": "Trusted by innovators and investors across Ethiopia",
-    "categoriesTitle": "Invest where innovation is headed",
-    "categoriesSubtitle": "From agritech to health—explore the sectors driving growth on IdealLink",
-    "categoriesCta": "Browse all projects",
-    "emergingTitle": "Emerging on the platform",
-    "emergingRoles": [
-      { "title": "Agritech & food systems", "desc": "Climate-smart farming and supply chain ventures" },
-      { "title": "Fintech & payments", "desc": "Inclusive finance built for local markets" },
-      { "title": "Health & medtech", "desc": "Care delivery, devices, and community health" },
-      { "title": "Ed-tech & skills", "desc": "Learning products in local languages" },
-      { "title": "Clean energy", "desc": "Solar, storage, and rural electrification" }
-    ],
-    "inDemandTitle": "In-demand sectors",
-    "inDemandSectors": ["Agriculture", "Technology", "Education", "Health", "Commerce", "Energy"],
-    "testimonialQuote": "IdealLink helped us reach backers we could not access offline—our campaign went from pitch deck to funded in weeks, not months.",
-    "testimonialAuthor": "Meron T.",
-    "testimonialRole": "Founder, Addis-based agritech venture",
-    "testimonialCta": "Read more stories",
+    "popularLabel": "Popular:",
+    "popularTags": ["Agriculture", "Health", "Ed-tech"],
     "stats": [
-      { "value": "50+", "label": "Projects listed" },
-      { "value": "2.5M+", "label": "ETB pledged" },
-      { "value": "200+", "label": "Registered members" },
-      { "value": "24h", "label": "Typical first backer interest" }
+      { "value": "0", "label": "Live campaigns" },
+      { "value": "0", "label": "ETB pledged" },
+      { "value": "0", "label": "Campaigns funded" },
+      { "value": "0", "label": "Community members" }
+    ],
+    "statsFootnote": "Updated in real-time from platform activity",
+    "liveCampaignsTitle": "Live campaigns you can back today",
+    "liveCampaignsViewAll": "View all",
+    "liveBadge": "LIVE",
+    "fundedLabel": "funded",
+    "daysLeftLabel": "days left",
+    "raisedLabel": "RAISED",
+    "minInvestLabel": "MIN INVEST",
+    "featuredCampaigns": [
+      {
+        "title": "Solar irrigation for farms",
+        "category": "Agri-tech",
+        "location": "Addis Ababa",
+        "fundedPercent": 72,
+        "daysRemaining": 14,
+        "raisedEtb": 360000,
+        "minInvestEtb": 1000,
+        "image": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "title": "Health clinic equipment",
+        "category": "Health",
+        "location": "Hawassa",
+        "fundedPercent": 54,
+        "daysRemaining": 21,
+        "raisedEtb": 270000,
+        "minInvestEtb": 1000,
+        "image": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80&auto=format&fit=crop"
+      },
+      {
+        "title": "Smart learning app in Amharic",
+        "category": "Ed-tech",
+        "location": "Addis Ababa",
+        "fundedPercent": 88,
+        "daysRemaining": 7,
+        "raisedEtb": 440000,
+        "minInvestEtb": 1000,
+        "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80&auto=format&fit=crop"
+      }
+    ],
+    "transparencyTitle": "Built for transparency",
+    "transparencySubtitle": "Every campaign on IdealLink is structured so backers and founders can see progress, verify identity, and follow the money.",
+    "transparencyFeatures": [
+      { "title": "Identity verified", "desc": "Founders and companies complete verification before campaigns go live." },
+      { "title": "Milestone tracking", "desc": "Campaign updates and milestone reports keep backers informed at every stage." },
+      { "title": "Secure pledges", "desc": "Investments are processed through trusted payment flows with clear records." },
+      { "title": "ETB wallet ready", "desc": "Back campaigns with ETB from your mobile wallet—no complex setup required." }
     ],
     "howItWorksTitle": "How it works",
-    "howItWorksInvest": [
-      { "step": "1", "title": "Discover ventures", "desc": "Search and filter live campaigns by sector, goal, and progress." },
-      { "step": "2", "title": "Back with confidence", "desc": "Review profiles, documents, and funding terms before you commit." },
-      { "step": "3", "title": "Track your portfolio", "desc": "Follow milestones, messages, and outcomes from your dashboard." }
+    "howItWorksSteps": [
+      { "step": "1", "title": "Discover", "desc": "Browse through verified Ethiopian ventures across agritech, health, energy, and more." },
+      { "step": "2", "title": "Invest", "desc": "Back campaigns with ETB from your mobile wallet, starting from as little as 1,000 ETB." },
+      { "step": "3", "title": "Track", "desc": "Monitor progress through transparent milestone reports and campaign updates." }
     ],
-    "howItWorksInnovate": [
-      { "step": "1", "title": "Create your campaign", "desc": "Tell your story, set goals, and upload the materials investors expect." },
-      { "step": "2", "title": "Reach backers", "desc": "Get visibility across discovery, categories, and your network." },
-      { "step": "3", "title": "Deliver and report", "desc": "Share updates, manage documents, and close your round transparently." }
+    "sectorsTitle": "Browse by Sector",
+    "sectorsBrowse": "Browse",
+    "sectors": [
+      { "name": "Agrotech & Food", "keyword": "Agriculture" },
+      { "name": "Fintech", "keyword": "Fintech" },
+      { "name": "Health & Wellness", "keyword": "Health" },
+      { "name": "Ed-tech", "keyword": "Education" },
+      { "name": "Clean Energy", "keyword": "Energy" },
+      { "name": "Commerce & Retail", "keyword": "Commerce" }
     ],
-    "howItWorksCta": "See how IdealLink works",
-    "pathsTitle": "Paths built for how you participate",
-    "pathInvestorTitle": "For investors",
-    "pathInvestorDesc": "Browse curated ventures, diversify across sectors, and manage pledges without long-term overhead.",
-    "pathInvestorCta": "Register as investor",
-    "pathInnovatorTitle": "For innovators",
-    "pathInnovatorDesc": "Run campaigns with structured flows, company profiles, and tools to keep backers informed.",
-    "pathInnovatorCta": "Register as innovator",
-    "discoverSectionTitle": "Live projects on IdealLink",
-    "discoverSectionSubtitle": "Search, filter, and explore every active campaign.",
-    "finalCtaTitle": "Start building Ethiopia's next wave of ventures",
-    "finalCtaSubtitle": "Join innovators and investors already on IdealLink.",
-    "finalCtaExplore": "Explore projects",
-    "finalCtaSignUp": "Create free account",
-    "faqTitle": "Your questions, answered",
+    "pathInvestorEyebrow": "For Investors",
+    "pathInvestorBenefits": [
+      "Browse vetted Ethiopian ventures across sectors",
+      "Invest from 1,000 ETB via mobile wallet",
+      "Track portfolio progress in one dashboard"
+    ],
+    "pathInvestorCta": "Register as Investor",
+    "pathInnovatorEyebrow": "For Innovators",
+    "pathInnovatorBenefits": [
+      "Launch structured campaigns with clear milestones",
+      "Reach backers across Ethiopia's investor network",
+      "Manage updates, documents, and funding in one place"
+    ],
+    "pathInnovatorCta": "Register as Innovator",
+    "testimonialQuote": "IdealLink helped us fund our processing plant when traditional banks wouldn't listen. We reached our goal in three weeks.",
+    "testimonialAuthor": "Hirut Melaku",
+    "testimonialRole": "CEO, AgroFresh Ethiopia",
+    "testimonialCta": "Read their story",
+    "testimonialImage": "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1200&q=80&auto=format&fit=crop",
+    "faqTitle": "Frequently Asked Questions",
     "faqItems": [
       {
         "q": "What is IdealLink?",
-        "a": "IdealLink is Ethiopia's crowdfunding marketplace connecting innovators with investors. Businesses and individuals can discover ventures, pledge support, and innovators can launch structured campaigns to raise capital."
+        "a": "IdealLink is Ethiopia's crowdfunding marketplace connecting innovators with investors. Discover ventures, pledge support, and launch structured campaigns to raise capital."
       },
       {
-        "q": "How does investing work?",
-        "a": "Browse live projects, review campaign details and documents, then pledge through our guided investment flow. Track your portfolio and communicate with innovators from your dashboard."
+        "q": "Who can invest?",
+        "a": "Anyone registered on IdealLink can browse live campaigns and invest from as little as 1,000 ETB using their mobile wallet."
       },
       {
         "q": "How do I launch a campaign?",
-        "a": "Register as an innovator, complete your profile and company details, then create a campaign with goals, media, and updates. Once live, your project appears in discovery for investors."
+        "a": "Register as an innovator, complete your company profile, then create a campaign with goals, media, and milestone updates. Once approved, it goes live on discovery."
       },
       {
-        "q": "Who is IdealLink for?",
-        "a": "IdealLink is for Ethiopian innovators seeking transparent funding and for investors who want vetted, local opportunities—from first-time backers to experienced portfolios."
+        "q": "Is my investment secure?",
+        "a": "All pledges are processed through trusted payment flows with clear records. Founders complete identity verification before campaigns go live."
       }
-    ]
+    ],
+    "finalCtaTitle": "Start exploring Ethiopia's next wave of ventures",
+    "finalCtaSubtitle": "Join thousands of backers building the future of Ethiopian industry, today.",
+    "finalCtaButton": "Get started"
   },
   "discoveryCta": {
     "title": "Discover ideas worth backing",
@@ -345,7 +402,16 @@
       "reply": "Reply",
       "replyPlaceholder": "Write a reply…",
       "submitReply": "Post reply",
-      "cancelReply": "Cancel"
+      "cancelReply": "Cancel",
+      "edit": "Edit",
+      "save": "Save",
+      "updateSuccess": "Comment updated.",
+      "updateFailed": "Could not update comment.",
+      "loadMore": "Load more comments",
+      "commentCount": "{count} Comments",
+      "commentCountOne": "{count} Comment",
+      "investorBadge": "Investor",
+      "innovatorBadge": "Innovator"
     },
     "fallback": {
       "problem": "{name} targets a clear need in its sector. Review the summary and documents before investing.",
@@ -635,7 +701,13 @@
     "navPayment": "Payment",
     "navMyCampaigns": "My campaigns",
     "navCampaignsInvested": "My Campaigns",
+    "navInvestment": "Investment",
     "navWallet": "Wallet",
+    "navWalletFinance": "Wallet & Finance",
+    "navWalletDashboard": "Company Wallet",
+    "navBankAccount": "Bank Account",
+    "navWithdrawFunds": "Withdraw Funds",
+    "navTransactionHistory": "Transaction History",
     "workspaceSwitchAria": "Switch between innovator and investor workspace",
     "workspaceModeLabel": "Workspace",
     "workspaceInnovator": "Innovator workspace",
@@ -743,6 +815,8 @@
     "companyNo": "No",
     "completeProfilesTitle": "Finish your profiles",
     "completeProfilesHint": "Complete both sides to unlock the full experience.",
+    "completeProfileHintInnovator": "Complete your innovator profile to unlock campaigns and company tools in this workspace.",
+    "completeProfileHintInvestor": "Complete your investor profile to unlock discovery and investment features in this workspace.",
     "completeInnovatorCta": "Complete innovator profile",
     "completeInvestorCta": "Complete investor profile",
     "editInnovatorCta": "Edit innovator profile",
@@ -964,6 +1038,7 @@
   "investorDashboard": {
     "metaTitle": "Investor Dashboard | IdealLink",
     "portfolioMetaTitle": "Portfolio | IdealLink",
+    "investmentMetaTitle": "Investment | IdealLink",
     "messagesMetaTitle": "Messages | IdealLink",
     "profileMetaTitle": "Profile | IdealLink",
     "userFirstName": "Sarah",
@@ -1004,6 +1079,17 @@
     "retry": "Retry",
     "paginationPrevious": "Previous",
     "paginationNext": "Next",
+    "investmentTableCampaign": "Campaign",
+    "investmentTableAmount": "Amount",
+    "investmentTableShares": "Shares",
+    "investmentTableStatus": "Status",
+    "investmentTableInvested": "Invested",
+    "investmentTableCoolingOff": "Cooling-off",
+    "investmentTableActions": "Actions",
+    "investmentActionDetail": "Detail",
+    "investmentActionCancel": "Cancel",
+    "investmentActionWithdraw": "Withdraw",
+    "investmentTableEmpty": "No investments found.",
     "errors": {
       "loadSummaryTitle": "Could not load dashboard summary",
       "loadSummaryDescription": "Please refresh and try again.",
@@ -1012,6 +1098,8 @@
     },
     "portfolioPageTitle": "Portfolio",
     "portfolioPageSubtitle": "Your positions, returns, and commitment schedule.",
+    "investmentPageTitle": "Investment",
+    "investmentPageSubtitle": "Review your investments, statuses, and cooling-off actions.",
     "portfolioPlaceholder": "Detailed holdings, performance, and schedules will connect to your account in a future release.",
     "messagesPageTitle": "Messages",
     "messagesPageSubtitle": "Conversations with innovators you support.",
@@ -1450,8 +1538,17 @@
     "heroImageUrl": "Hero image URL",
     "urlPlaceholder": "https://...",
     "fundingGoal": "Funding goal",
-    "equityOffered": "Equity offered (0–1)",
+    "equityOffered": "Equity offered (%)",
     "valuation": "Valuation",
+    "estimatedFundingGoal": "Estimated funding goal",
+    "rules": {
+      "fundingGoalMin": "100,000 ETB is the minimum amount the campaign can raise (funding goal).",
+      "equityMax": "50% is the maximum share of the company that can be sold.",
+      "equityNot100": "100% equity is not allowed.",
+      "valuationMinAtMaxEquity": "At maximum equity (50%), the minimum company valuation is 200,000 ETB.",
+      "totalSharesGreaterThanMin": "Total shares must be greater than minimum shares per investor.",
+      "minSharesLessThanOffered": "Minimum shares per investor must be less than shares offered."
+    },
     "minInvestment": "Min investment",
     "totalShares": "Total shares",
     "minimumSharesPerInvestor": "Minimum shares per investor",
@@ -1484,7 +1581,7 @@
       "titleRequired": "Campaign title is required.",
       "shortDescriptionRequired": "Short description is required.",
       "fundingGoal": "Funding goal must be a valid number greater than 0.",
-      "equityOffered": "Equity offered must be between 0 and 1 (e.g. 0.1 for 10%).",
+      "equityOffered": "Equity offered must be between 1% and 100%.",
       "valuation": "Valuation must be a valid number greater than 0.",
       "minInvestment": "Minimum investment must be a valid number greater than 0.",
       "totalShares": "Total shares must be a whole number of at least 1.",
@@ -1670,6 +1767,77 @@
       "createUpdateFailed": "Could not publish this update. Please try again.",
       "deleteUpdateFailed": "Could not remove this update. Please try again.",
       "submitCampaignFailed": "Could not submit this campaign. Please try again."
+    }
+  },
+  "walletPage": {
+    "noCompany": "Set up your company profile before managing wallet and bank details.",
+    "setupCompany": "Go to company settings",
+    "badges": {
+      "verified": "Verified",
+      "pending": "Pending verification"
+      
+    },
+    "dashboard": {
+      "metaTitle": "Wallet Dashboard | IdealLink",
+      "title": "Company Wallet",
+      "subtitle": "View your company wallet balance and payout readiness.",
+      "currentBalance": "Current balance",
+      "quickWithdraw": "Withdraw funds",
+      "refresh": "Refresh",
+      "loadError": "Could not load wallet balance.",
+      "bankStatus": "Bank account",
+      "noBank": "No bank account on file",
+      "addBank": "Add bank account",
+      "pendingVerification": "Your bank account is awaiting admin verification.",
+      "manageBank": "Manage bank account"
+    },
+    "bankAccount": {
+      "metaTitle": "Bank Account | IdealLink",
+      "title": "Bank account",
+      "subtitle": "Link your company payout account for withdrawals.",
+      "addTitle": "Add bank account",
+      "updateTitle": "Update bank account",
+      "accountHolder": "Account holder name",
+      "bank": "Bank",
+      "accountNumber": "Account number",
+      "defaultAccount": "Set as default payout account",
+      "saveButton": "Save bank account",
+      "updateButton": "Update bank account",
+      "saving": "Saving…",
+      "saveSuccess": "Bank account saved successfully.",
+      "saveError": "Could not save bank account.",
+      "pendingMessage": "Your bank account is awaiting admin verification.",
+      "verifiedAt": "Verified on",
+      "verifiedEditHint": "Sensitive fields are locked while your account is verified. Contact support to change them."
+    },
+    "withdraw": {
+      "metaTitle": "Withdraw Funds | IdealLink",
+      "title": "Withdraw funds",
+      "subtitle": "Transfer available wallet balance to your verified bank account.",
+      "availableBalance": "Available balance",
+      "amountLabel": "Withdrawal amount (ETB)",
+      "submit": "Review withdrawal",
+      "success": "Withdrawal submitted successfully.",
+      "error": "Could not process withdrawal.",
+      "noBankTitle": "No bank account connected",
+      "noBankDescription": "Add and verify a company bank account before withdrawing funds.",
+      "addBankCta": "Add bank account",
+      "emptyWalletTitle": "Wallet balance is empty",
+      "emptyWalletDescription": "Funds will appear here when investments are received into your company wallet.",
+      "unverifiedWarning": "Withdrawals are disabled until your bank account is verified by an administrator.",
+      "destination": "Destination account",
+      "confirmTitle": "Confirm withdrawal",
+      "confirmDescription": "You are about to withdraw funds to your verified bank account. This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Confirm withdrawal",
+      "submitting": "Processing…"
+    },
+    "transactions": {
+      "metaTitle": "Transaction History | IdealLink",
+      "title": "Transaction history",
+      "subtitle": "A complete ledger of wallet movements.",
+      "comingSoon": "Coming soon",
+      "description": "Detailed transaction history will be available in a future release."
     }
   },
   "campaignEditPage": {

@@ -25,6 +25,7 @@ export function ProjectDetailTabBar({ isDark, p, tab, onTabChange }: ProjectDeta
             ["overview", p.tabs.overview],
             ["risks", p.tabs.risks],
             ["updates", p.tabs.updates],
+            ["comments", p.tabs.comments],
             ["documents", p.tabs.documents],
           ] as const
         ).map(([key, label]) => (

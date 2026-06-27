@@ -101,28 +101,18 @@ export function useCreateCampaignForm() {
       return;
     }
 
-    const fundingGoal = Number(form.fundingGoal);
-    const equityOffered = Number(form.equityOffered);
+    const equityOfferedPct = Number(form.equityOffered);
     const valuation = Number(form.valuation);
-    const minInvestment = Number(form.minInvestment);
     const totalShares = Number(form.totalShares);
     const minimumSharesPerInvestor = Number(form.minimumSharesPerInvestor);
     const durationDays = Number(form.durationDays);
 
-    if (!Number.isFinite(fundingGoal) || fundingGoal <= 0) {
-      setErrorMessage(t.errors.fundingGoal);
-      return;
-    }
-    if (!Number.isFinite(equityOffered) || equityOffered <= 0 || equityOffered > 1) {
+    if (!Number.isFinite(equityOfferedPct) || equityOfferedPct < 1 || equityOfferedPct > 100) {
       setErrorMessage(t.errors.equityOffered);
       return;
     }
     if (!Number.isFinite(valuation) || valuation <= 0) {
       setErrorMessage(t.errors.valuation);
-      return;
-    }
-    if (!Number.isFinite(minInvestment) || minInvestment <= 0) {
-      setErrorMessage(t.errors.minInvestment);
       return;
     }
     if (!Number.isInteger(totalShares) || totalShares < 1) {
@@ -163,10 +153,8 @@ export function useCreateCampaignForm() {
         heroImageUrl: form.heroImageUrl.trim(),
         storyJson,
         risksJson,
-        fundingGoal,
-        equityOffered,
+        equityOffered: equityOfferedPct,
         valuation,
-        minInvestment,
         totalShares,
         minimumSharesPerInvestor,
         durationDays,

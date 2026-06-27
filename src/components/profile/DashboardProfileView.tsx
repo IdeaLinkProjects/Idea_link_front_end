@@ -1,16 +1,12 @@
 import Link from "next/link";
-import { DashboardProfileInnovatorCard } from "@/components/profile/DashboardProfileInnovatorCard";
-import { DashboardProfileInvestorCard } from "@/components/profile/DashboardProfileInvestorCard";
+import { DashboardRoleProfileCard } from "@/components/profile/DashboardRoleProfileCard";
 import { DashboardProfilePrereqChips } from "@/components/profile/DashboardProfilePrereqChips";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
-import { KYC_STATUS, resolveAccountKycStatus } from "@/constants/kycStatus";
+import { useWorkspace } from "@/context/WorkspaceContext";
+import { KYC_STATUS } from "@/constants/kycStatus";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 import { messages } from "@/locales";
-import {
-  useGetInnovatorProfileQuery,
-  useGetInvestorProfileQuery,
-  useGetUserRolesStatusQuery,
-} from "@/store";
+import { useGetUserRolesStatusQuery } from "@/store";
 
 function initialsFromFullName(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -25,7 +21,9 @@ function initialsFromFullName(name: string): string {
 
 export function DashboardProfileView() {
   const { locale, isDark } = useAppPreferences();
+  const { activeWorkspace } = useWorkspace();
   const t = messages[locale].dashboardProfilePage;
+  const isInnovatorWorkspace = activeWorkspace === "innovator";
 
   const {
     data: status,
@@ -37,9 +35,10 @@ export function DashboardProfileView() {
 
   const innovatorComplete = status?.innovatorPrerequisites?.innovatorProfileComplete === true;
   const investorComplete = status?.investorPrerequisites?.investorProfileComplete === true;
-
-  const innovatorQuery = useGetInnovatorProfileQuery(undefined, { skip: !innovatorComplete });
-  const investorQuery = useGetInvestorProfileQuery(undefined, { skip: !investorComplete });
+  const workspaceProfileComplete = isInnovatorWorkspace ? innovatorComplete : investorComplete;
+  const workspacePrerequisites = isInnovatorWorkspace
+    ? status?.innovatorPrerequisites
+    : status?.investorPrerequisites;
 
   const displayName = status?.fullName?.trim() || "—";
   const email = status?.email?.trim() || "";
@@ -51,8 +50,20 @@ export function DashboardProfileView() {
 
   const subtleCard = isDark ? "border-white/10 bg-zinc-900/40" : "border-zinc-200 bg-zinc-50/80";
 
-  const statInnov = innovatorComplete ? t.statusComplete : t.statusPending;
-  const statInv = investorComplete ? t.statusComplete : t.statusPending;
+  const workspaceProfileStatus = workspaceProfileComplete ? t.statusComplete : t.statusPending;
+  const workspaceProfileLabel = isInnovatorWorkspace ? t.statInnovator : t.statInvestor;
+  const completeProfileHref = isInnovatorWorkspace
+    ? "/dashboard/profile/complete-innovator"
+    : "/dashboard/profile/complete-investor";
+  const completeProfileCta = isInnovatorWorkspace
+    ? innovatorComplete
+      ? t.editInnovatorCta
+      : t.completeInnovatorCta
+    : investorComplete
+      ? t.editInvestorCta
+      : t.completeInvestorCta;
+  const completeProfileTitle = isInnovatorWorkspace ? t.innovatorProfileTitle : t.investorProfileTitle;
+  const completeProfileHint = isInnovatorWorkspace ? t.completeProfileHintInnovator : t.completeProfileHintInvestor;
 
   if (statusLoading) {
     return (
@@ -79,10 +90,8 @@ export function DashboardProfileView() {
     );
   }
 
-  const accountKycStatus = resolveAccountKycStatus(
-    status.innovatorPrerequisites.kycStatus,
-    status.investorPrerequisites.kycStatus,
-  );
+  const accountKycStatus =
+    workspacePrerequisites?.kycStatus?.trim() || KYC_STATUS.NOT_SUBMITTED;
 
   const showProfileActionSection = true;
 
@@ -184,73 +193,50 @@ export function DashboardProfileView() {
             </div>
           </div>
 
-          <div className="mt-10 grid grid-cols-3 gap-3 sm:gap-4">
+          <div className="mt-10 grid grid-cols-1 gap-3 sm:gap-4">
             <div className={`rounded-2xl border px-3 py-4 text-center sm:px-4 ${subtleCard}`}>
-              <p className={`text-2xl font-bold tabular-nums ${isDark ? "text-white" : "text-zinc-900"}`}>{status.currentRoles?.length ?? 0}</p>
-              <p className={`mt-1 text-xs font-medium sm:text-sm ${isDark ? "text-zinc-500" : "text-zinc-600"}`}>{t.statRoles}</p>
-            </div>
-            <div className={`rounded-2xl border px-3 py-4 text-center sm:px-4 ${subtleCard}`}>
-              <p className={`text-sm font-bold ${innovatorComplete ? "text-emerald-400" : isDark ? "text-zinc-400" : "text-zinc-600"}`}>{statInnov}</p>
-              <p className={`mt-1 text-xs font-medium sm:text-sm ${isDark ? "text-zinc-500" : "text-zinc-600"}`}>{t.statInnovator}</p>
-            </div>
-            <div className={`rounded-2xl border px-3 py-4 text-center sm:px-4 ${subtleCard}`}>
-              <p className={`text-sm font-bold ${investorComplete ? "text-emerald-400" : isDark ? "text-zinc-400" : "text-zinc-600"}`}>{statInv}</p>
-              <p className={`mt-1 text-xs font-medium sm:text-sm ${isDark ? "text-zinc-500" : "text-zinc-600"}`}>{t.statInvestor}</p>
+              <p
+                className={`text-sm font-bold ${workspaceProfileComplete ? "text-emerald-400" : isDark ? "text-zinc-400" : "text-zinc-600"}`}
+              >
+                {workspaceProfileStatus}
+              </p>
+              <p className={`mt-1 text-xs font-medium sm:text-sm ${isDark ? "text-zinc-500" : "text-zinc-600"}`}>{workspaceProfileLabel}</p>
             </div>
           </div>
         </div>
       </section>
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <DashboardProfilePrereqChips title={`${t.prerequisitesTitle} · ${t.statInnovator}`} pre={status.innovatorPrerequisites} t={t} isDark={isDark} />
-        <DashboardProfilePrereqChips title={`${t.prerequisitesTitle} · ${t.statInvestor}`} pre={status.investorPrerequisites} t={t} isDark={isDark} />
-      </div>
-      {(innovatorComplete || investorComplete) && (
-        <div className={`grid gap-6 ${innovatorComplete && investorComplete ? "lg:grid-cols-2" : ""}`}>
-          {innovatorComplete ? (
-            <DashboardProfileInnovatorCard
-              data={innovatorQuery.data}
-              error={innovatorQuery.isError ? innovatorQuery.error : undefined}
-              isLoading={innovatorQuery.isLoading || innovatorQuery.isFetching}
-              isDark={isDark}
-              cardClass={cardClass}
-              t={t}
-            />
-          ) : null}
-          {investorComplete ? (
-            <DashboardProfileInvestorCard
-              data={investorQuery.data}
-              error={investorQuery.isError ? investorQuery.error : undefined}
-              isLoading={investorQuery.isLoading || investorQuery.isFetching}
-              isDark={isDark}
-              cardClass={cardClass}
-              t={t}
-            />
-          ) : null}
-        </div>
-      )}
+      {workspacePrerequisites ? (
+        <DashboardProfilePrereqChips
+          title={`${t.prerequisitesTitle} · ${workspaceProfileLabel}`}
+          pre={workspacePrerequisites}
+          t={t}
+          isDark={isDark}
+        />
+      ) : null}
+
+      <DashboardRoleProfileCard
+        role={activeWorkspace}
+        profileComplete={workspaceProfileComplete}
+        isDark={isDark}
+        cardClass={cardClass}
+        t={t}
+      />
+
       {showProfileActionSection ? (
         <div
           className={`rounded-2xl border p-6 sm:p-8 ${isDark ? "border-primary-500/20 bg-gradient-to-br from-primary-950/40 to-zinc-950/80" : "border-primary-200 bg-gradient-to-br from-primary-50/80 to-white"}`}
         >
-          <h2 className={`text-lg font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{t.completeProfilesTitle}</h2>
-          <p className={`mt-1 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{t.completeProfilesHint}</p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <h2 className={`text-lg font-bold ${isDark ? "text-white" : "text-zinc-900"}`}>{completeProfileTitle}</h2>
+          <p className={`mt-1 text-sm ${isDark ? "text-zinc-400" : "text-zinc-600"}`}>{completeProfileHint}</p>
+          <div className="mt-6">
             <Link
-              href="/dashboard/profile/complete-innovator"
-              className={`inline-flex flex-1 items-center justify-center rounded-xl px-5 py-3 text-center text-sm font-semibold text-white shadow-lg transition hover:opacity-95 sm:flex-none ${
+              href={completeProfileHref}
+              className={`inline-flex items-center justify-center rounded-xl px-5 py-3 text-center text-sm font-semibold text-white shadow-lg transition hover:opacity-95 ${
                 isDark ? "bg-primary-600 hover:bg-primary-500" : "bg-primary-600 hover:bg-primary-700"
               }`}
             >
-              {innovatorComplete ? t.editInnovatorCta : t.completeInnovatorCta}
-            </Link>
-            <Link
-              href="/dashboard/profile/complete-investor"
-              className={`inline-flex flex-1 items-center justify-center rounded-xl px-5 py-3 text-center text-sm font-semibold text-white shadow-lg transition hover:opacity-95 sm:flex-none ${
-                isDark ? "bg-primary-600 hover:bg-primary-500" : "bg-primary-600 hover:bg-primary-700"
-              }`}
-            >
-              {investorComplete ? t.editInvestorCta : t.completeInvestorCta}
+              {completeProfileCta}
             </Link>
           </div>
         </div>

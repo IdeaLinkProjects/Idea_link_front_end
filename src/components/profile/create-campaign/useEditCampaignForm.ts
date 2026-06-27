@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { type ChangeEvent, type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { rowsToStoryRisksJson } from "@/components/profile/create-campaign/rowsToJson";
-import { type CreateCampaignForm, emptyStoryRisksRow } from "@/components/profile/create-campaign/types";
+import { type EditCampaignForm, emptyStoryRisksRow } from "@/components/profile/create-campaign/types";
 import { isoToDatetimeLocal, toIsoFromLocalDateTime } from "@/components/profile/create-campaign/utils";
 import { useKeyedRows } from "@/components/profile/create-campaign/useKeyedRows";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
@@ -41,7 +41,7 @@ export function useEditCampaignForm(campaignId: number) {
   /** `undefined` until campaign loaded; `null` if campaign has no tag names; otherwise names pending ID resolution */
   const tagNamesToResolveRef = useRef<string[] | null | undefined>(undefined);
   const resolvedCampaignTagsRef = useRef(false);
-  const [form, setForm] = useState<CreateCampaignForm | null>(null);
+  const [form, setForm] = useState<EditCampaignForm | null>(null);
   const storyKeyed = useKeyedRows();
   const risksKeyed = useKeyedRows();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -124,7 +124,7 @@ export function useEditCampaignForm(campaignId: number) {
     resolvedCampaignTagsRef.current = true;
   }, [tagCatalog]);
 
-  function updateField<K extends keyof CreateCampaignForm>(field: K, value: CreateCampaignForm[K]) {
+  function updateField<K extends keyof EditCampaignForm>(field: K, value: EditCampaignForm[K]) {
     setForm((prev) => (prev ? { ...prev, [field]: value } : prev));
   }
 
@@ -180,7 +180,7 @@ export function useEditCampaignForm(campaignId: number) {
     }
 
     const fundingGoal = Number(form.fundingGoal);
-    const equityOffered = Number(form.equityOffered);
+    const equityOfferedPct = Number(form.equityOffered);
     const valuation = Number(form.valuation);
     const minInvestment = Number(form.minInvestment);
     const totalShares = Number(form.totalShares);
@@ -191,7 +191,7 @@ export function useEditCampaignForm(campaignId: number) {
       setErrorMessage(tFields.errors.fundingGoal);
       return;
     }
-    if (!Number.isFinite(equityOffered) || equityOffered <= 0 || equityOffered > 1) {
+    if (!Number.isFinite(equityOfferedPct) || equityOfferedPct < 1 || equityOfferedPct > 100) {
       setErrorMessage(tFields.errors.equityOffered);
       return;
     }
@@ -244,7 +244,7 @@ export function useEditCampaignForm(campaignId: number) {
           storyJson,
           risksJson,
           fundingGoal,
-          equityOffered,
+          equityOffered: equityOfferedPct,
           valuation,
           minInvestment,
           totalShares,
