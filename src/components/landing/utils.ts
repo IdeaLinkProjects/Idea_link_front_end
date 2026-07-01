@@ -1,8 +1,8 @@
 import type { Locale } from "@/locales";
 import { messages } from "@/locales";
-import type { MyCampaign } from "@/store";
+import type { MyCampaign, PlatformStatsResponse } from "@/store";
 import { DEFAULT_CAMPAIGN_IMAGE } from "./constants";
-import type { LandingCampaign } from "./types";
+import type { LandingCampaign, LandingCopy } from "./types";
 
 type FallbackCampaign = (typeof messages.en.landing)["featuredCampaigns"][number];
 
@@ -15,6 +15,23 @@ export function formatEtb(n: number, locale: Locale): string {
   return new Intl.NumberFormat(locale === "am" ? "am-ET" : "en-ET", { maximumFractionDigits: 0 }).format(
     Number.isFinite(n) ? n : 0,
   );
+}
+
+export function landingStatsFromPlatform(
+  base: LandingCopy["stats"],
+  data: PlatformStatsResponse | undefined,
+  locale: Locale,
+): LandingCopy["stats"] {
+  if (!data) return base;
+
+  const values = [
+    String(data.liveCampaigns),
+    formatEtb(data.totalPledgedEtb, locale),
+    String(data.campaignsFunded),
+    String(data.registeredMembers),
+  ];
+
+  return base.map((stat, i) => ({ ...stat, value: values[i] ?? stat.value }));
 }
 
 export function daysRemaining(iso: string): number {

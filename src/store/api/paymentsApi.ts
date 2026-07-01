@@ -78,6 +78,14 @@ export type UserInvestmentsRequest = {
   size: number;
 };
 
+export type ChapaBank = {
+  isMobileMoney: boolean;
+  code: number;
+  name: string;
+  acctLength: number;
+  canProcessPayouts: boolean;
+};
+
 export const paymentsApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     initializeChapaPayment: build.mutation<ChapaInitializeResponse, ChapaInitializeRequest>({
@@ -93,6 +101,13 @@ export const paymentsApi = baseApi.injectEndpoints({
         method: "GET",
       }),
       providesTags: [{ type: "Profile", id: "investor-dashboard-summary" }],
+    }),
+    getChapaBanks: build.query<ChapaBank[], void>({
+      query: () => ({
+        url: "payments/chapa/banks",
+        method: "GET",
+      }),
+      providesTags: [{ type: "Wallet", id: "chapa-banks" }],
     }),
     investInCampaign: build.mutation<InvestInCampaignResponse, InvestInCampaignRequest>({
       query: ({ campaignId, payload }) => ({
@@ -143,6 +158,7 @@ export const {
   useInitializeChapaPaymentMutation,
   useVerifyChapaPaymentQuery,
   useLazyVerifyChapaPaymentQuery,
+  useGetChapaBanksQuery,
   useInvestInCampaignMutation,
   useGetUserInvestmentsPageQuery,
   useGetInvestmentByIdQuery,

@@ -8,13 +8,14 @@ import { WithdrawModal } from "@/components/wallet/components/WithdrawModal";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { messages } from "@/locales";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
+import { resolveBankByCode } from "@/components/wallet/components/BankSelector";
 import {
   useGetCompanyBankAccountQuery,
   useGetMyCompanyQuery,
+  useGetChapaBanksQuery,
   useGetWalletBalanceQuery,
   useWithdrawCompanyFundsMutation,
 } from "@/store";
-import { CHAPA_SUPPORTED_BANKS } from "@/components/wallet/components/BankSelector";
 
 export default function WithdrawFundsPage() {
   const { locale, isDark } = useAppPreferences();
@@ -23,6 +24,7 @@ export default function WithdrawFundsPage() {
   const companyId = companyQuery.data?.id;
   const balanceQuery = useGetWalletBalanceQuery(companyId ?? 0, { skip: !companyId });
   const bankQuery = useGetCompanyBankAccountQuery(companyId ?? 0, { skip: !companyId });
+  const banksQuery = useGetChapaBanksQuery();
   const [withdraw, withdrawState] = useWithdrawCompanyFundsMutation();
 
   const [amount, setAmount] = useState("");
@@ -32,7 +34,7 @@ export default function WithdrawFundsPage() {
   const balance = balanceQuery.data?.balance ?? 0;
   const parsedAmount = Number(amount);
   const bank = bankQuery.data;
-  const bankName = CHAPA_SUPPORTED_BANKS.find((item) => item.code === bank?.bankCode)?.name ?? bank?.bankCode ?? "-";
+  const bankName = resolveBankByCode(banksQuery.data, bank?.bankCode)?.name ?? bank?.bankCode ?? "-";
 
   const validationError = useMemo(() => {
     if (!amount.trim()) return "";
