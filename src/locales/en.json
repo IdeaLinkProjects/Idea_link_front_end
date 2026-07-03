@@ -285,7 +285,15 @@
       "investors": "Investors",
       "company": "Company",
       "ends": "Ends",
-      "posted": "Posted"
+      "posted": "Posted",
+      "viewAll": "All campaigns",
+      "viewSaved": "Saved",
+      "savedEmpty": "You haven't saved any campaigns yet. Browse projects and tap the bookmark to save them for later.",
+      "savedLoginPrompt": "Sign in to view your saved campaigns.",
+      "signIn": "Sign in",
+      "save": "Save",
+      "saved": "Saved",
+      "loginToSave": "Sign in to save"
     },
     "ideas": []
   },

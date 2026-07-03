@@ -334,7 +334,15 @@
       "investors": "ኢንቨስተሮች",
       "company": "ኩባንያ",
       "ends": "መጨረሻ",
-      "posted": "የታወጀ"
+      "posted": "የታወጀ",
+      "viewAll": "ሁሉም ዘመቻዎች",
+      "viewSaved": "የተቀመጡ",
+      "savedEmpty": "ገና ዘመቻ አላስቀመጡም። ፕሮጀክቶችን ይመልከቱ እና ለኋላ ለመቆየት የመዝገብ አዶን ይጫኑ።",
+      "savedLoginPrompt": "የተቀመጡ ዘመቻዎችን ለማየት ይግቡ።",
+      "signIn": "ግባ",
+      "save": "አስቀምጥ",
+      "saved": "ተቀምጧል",
+      "loginToSave": "ለማስቀመጥ ይግቡ"
     },
     "ideas": []
   },
