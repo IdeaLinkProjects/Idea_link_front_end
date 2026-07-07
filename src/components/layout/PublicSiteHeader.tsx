@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { IdealLinkLogo } from "@/components/brand/IdealLinkLogo";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { hasStoredAuthTokens } from "@/lib/auth/tokenStorage";
@@ -14,6 +15,7 @@ export type PublicSiteHeaderProps = {
 };
 
 export function PublicSiteHeader({ backHref, backLabel, transparent = false }: PublicSiteHeaderProps) {
+  const router = useRouter();
   const { locale, setLocale, setTheme, isDark } = useAppPreferences();
   const [loggedIn, setLoggedIn] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -43,6 +45,10 @@ export function PublicSiteHeader({ backHref, backLabel, transparent = false }: P
     return () => document.removeEventListener("mousedown", onDown);
   }, [langOpen]);
 
+  const onDiscovery = router.pathname === "/discovery";
+  const navLinkHref = onDiscovery ? "/" : "/discovery";
+  const navLinkLabel = onDiscovery ? t.nav.home : t.nav.discover;
+
   const navBtn = transparent
     ? "border-white/25 bg-white/10 text-white hover:bg-white/20"
     : isDark
@@ -68,10 +74,10 @@ export function PublicSiteHeader({ backHref, backLabel, transparent = false }: P
         </div>
         <div className="flex shrink-0 flex-wrap items-center justify-end gap-2 sm:gap-3">
           <Link
-            href="/discovery"
+            href={navLinkHref}
             className={`hidden rounded-lg border px-3 py-2 text-sm font-semibold transition hover:-translate-y-0.5 sm:inline-flex ${navBtn}`}
           >
-            {t.nav.discover}
+            {navLinkLabel}
           </Link>
           <div className="relative" ref={langMenuRef}>
             <button
