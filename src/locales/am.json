@@ -109,11 +109,11 @@
       "description": "የተመረጡ ተግባሮችን ያግኙ፣ አካባቢያዊ ፈጠራን ይደግፉ እና በኢትዮጵያ ታማኝ የገንዘብ ማሰባሰቢያ መድረክ ላይ ዘመቻ ይጀምሩ።"
     },
     "heroBadge": "የኢትዮጵያ የህዝብ ገንዘብ ማሰባሰቢያ ገበያ",
-    "heroTitle": "የኢትዮጵያ ተግባሮችን ይደግፉ። በግልጽነት ይድረሱ።",
-    "heroSubtitle": "በአግሮቴክ፣ ጤና፣ ንጹህ ኢነርጂ እና ሌሎችም ላይ አቋሚ ዘመቻዎችን ያግኙ። ከ1,000 ብር ጀምሮ ይጀምሩ።",
-    "heroCtaExplore": "አቋሚ ዘመቻዎችን ያስሱ",
+    "heroTitle": "ኢትዮጵያዊ  የንግድ ሥራ ይደግፉ",
+    "heroSubtitle": "በአግሮቴክ፣ ጤና፣ ንጹህ ኢነርጂ እና ሌሎችም ላይ አቋሚ ፕሮጀክት  ያግኙ። ከ1,000 ብር ጀምሮ ይጀምሩ።",
+    "heroCtaExplore": "አቋሚ ፕሮጀክት  ያስሱ",
     "heroCtaSignUp": "ነጻ መለያ ይፍጠሩ",
-    "searchPlaceholder": "ዘመቻዎችን፣ ዘርፎችን ወይም ቁልፍ ቃላትን ይፈልጉ…",
+    "searchPlaceholder": "ፕሮጀክት ፣ ዘርፎችን ወይም ቁልፍ ቃላትን ይፈልጉ…",
     "searchSubmit": "ፈልግ",
     "popularLabel": "ታዋቂ፦",
     "popularTags": [
@@ -124,7 +124,7 @@
     "stats": [
       {
         "value": "0",
-        "label": "አቋሚ ዘመቻዎች"
+        "label": "አቋሚ ፕሮጀክት"
       },
       {
         "value": "0",
@@ -132,7 +132,7 @@
       },
       {
         "value": "0",
-        "label": "የተደገፉ ዘመቻዎች"
+        "label": "የተደገፉ ፕሮጀክት"
       },
       {
         "value": "0",
@@ -140,7 +140,7 @@
       }
     ],
     "statsFootnote": "ከመድረክ እንቅስቃሴ በቀጥታ ይዘመናል",
-    "liveCampaignsTitle": "ዛሬ ሊደገፉ የሚችሉ አቋሚ ዘመቻዎች",
+    "liveCampaignsTitle": "ዛሬ ሊደገፉ የሚችሉ አቋሚ ፕሮጀክት",
     "liveCampaignsViewAll": "ሁሉንም ይመልከቱ",
     "liveBadge": "አቋሚ",
     "fundedLabel": "ተደገፈ",
@@ -196,7 +196,7 @@
       },
       {
         "title": "የብር ዋሌት ዝግጁ",
-        "desc": "ከሞባይል ዋሌትዎ በብር ዘመቻዎችን ይደግፉ—ውስብስብ ማዋቀር አያስፈልግም።"
+        "desc": "ከሞባይል ዋሌትዎ በብር ፕሮጀክት  ይደግፉ—ውስብስብ ማዋቀር አያስፈልግም።"
       }
     ],
     "howItWorksTitle": "እንዴት እንደሚሰራ",
@@ -209,7 +209,7 @@
       {
         "step": "2",
         "title": "ኢንቨስት ያድርጉ",
-        "desc": "ከ1,000 ብር ጀምሮ ከሞባይል ዋሌትዎ በብር ዘመቻዎችን ይደግፉ።"
+        "desc": "ከ1,000 ብር ጀምሮ ከሞባይል ዋሌትዎ በብር ፕሮጀክት  ይደግፉ።"
       },
       {
         "step": "3",
@@ -236,7 +236,7 @@
     "pathInvestorCta": "እንደ ኢንቨስተር ተመዝገብ",
     "pathInnovatorEyebrow": "ለፈጠራ ባለቤቶች",
     "pathInnovatorBenefits": [
-      "በግልጽ እድገቶች ያሉት ዘመቻዎችን ይጀምሩ",
+      "በግልጽ እድገቶች ያሉት ፕሮጀክትን ይጀምሩ",
       "በኢትዮጵያ የኢንቨስተር አውታረ መረብ ድጋፍ ሰጪዎችን ይድረሱ",
       "ዝመናዎችን፣ ሰነዶችን እና ገንዘብን በአንድ ቦታ ያስተዳድሩ"
     ],
@@ -254,7 +254,7 @@
       },
       {
         "q": "ማን ሊደግፍ ይችላል?",
-        "a": "በIdealLink የተመዘገበ ማንኛውም ተጠቃሚ አቋሚ ዘመቻዎችን ማግኘት እና ከ1,000 ብር ጀምሮ በሞባይል ዋሌት መድረስ ይችላል።"
+        "a": "በIdealLink የተመዘገበ ማንኛውም ተጠቃሚ አቋሚ ፕሮጀክትን ማግኘት እና ከ1,000 ብር ጀምሮ በሞባይል ዋሌት መድረስ ይችላል።"
       },
       {
         "q": "ዘመቻ እንዴት እጀምራለሁ?",
@@ -323,22 +323,22 @@
       "funded": "ሙሉ በሙሉ የተደገፈ",
       "apply": "ማጣሪያ ተግብር",
       "reset": "አጣራ",
-      "resultsCount": "{count} ዘመቻዎች",
+      "resultsCount": "{count} ፕሮጀክት",
       "sortNewest": "አዲስ በላይ",
       "prev": "ቀዳሚ",
       "next": "ቀጣይ",
       "pageOf": "ገጽ {page} ከ {total}",
-      "loadError": "ዘመቻዎችን መጫን አልተቻለም።",
+      "loadError": "ፕሮጀክትን መጫን አልተቻለም።",
       "retry": "እንደገና ሞክር",
       "raised": "የተደገፈ",
       "investors": "ኢንቨስተሮች",
       "company": "ኩባንያ",
       "ends": "መጨረሻ",
       "posted": "የታወጀ",
-      "viewAll": "ሁሉም ዘመቻዎች",
+      "viewAll": "ሁሉም ፕሮጀክት",
       "viewSaved": "የተቀመጡ",
       "savedEmpty": "ገና ዘመቻ አላስቀመጡም። ፕሮጀክቶችን ይመልከቱ እና ለኋላ ለመቆየት የመዝገብ አዶን ይጫኑ።",
-      "savedLoginPrompt": "የተቀመጡ ዘመቻዎችን ለማየት ይግቡ።",
+      "savedLoginPrompt": "የተቀመጡ ፕሮጀክትን ለማየት ይግቡ።",
       "signIn": "ግባ",
       "save": "አስቀምጥ",
       "saved": "ተቀምጧል",
@@ -362,7 +362,7 @@
     "companyTitle": "ኩባንያ",
     "industryLabel": "ኢንዱስትሪ",
     "websiteLabel": "ድረ-ገጽ",
-    "totalCampaignsLabel": "በዚህ ኩባንያ ዘመቻዎች",
+    "totalCampaignsLabel": "በዚህ ኩባንያ ፕሮጀክት",
     "statusLabel": "ሁኔታ",
     "valuationLabel": "የቅድሚያ ግምት",
     "statComments": "አስተያየቶች",
@@ -781,13 +781,13 @@
     "logout": "ውጣ",
     "navDashboard": "ዳሽቦርድ",
     "navBrowse": "ፕሮጀክቶችን ያስሱ",
-    "navProjects": "ዘመቻዎች",
+    "navProjects": "ፕሮጀክት",
     "navPortfolio": "ፖርትፎሊዮ",
     "navMessages": "መልዕክቶች",
     "navProfile": "መገለጫ",
     "openMenu": "ምናሌ ክፈት",
     "closeMenu": "ምናሌ ዝጋ",
-    "sectionCampaigns": "ዘመቻዎች",
+    "sectionCampaigns": "ፕሮጀክት",
     "sectionInvesting": "ኢንቨስትመንት እና ፍለጋ",
     "navSearchPlaceholder": "ፕሮጀክቶች፣ መልዕክቶችን ይፈልጉ…",
     "navNotifications": "ማስታወቂያዎች",
@@ -796,8 +796,8 @@
     "navSettings": "ቅንብሮች",
     "navCompany": "የእኔ ኩባንያ",
     "navPayment": "ክፍያ",
-    "navMyCampaigns": "የእኔ ዘመቻዎች",
-    "navCampaignsInvested": "የተዋጡ ዘመቻዎች",
+    "navMyCampaigns": "የእኔ ፕሮጀክት",
+    "navCampaignsInvested": "የተዋጡ ፕሮጀክት",
     "navInvestment": "ኢንቨስትመንት",
     "navWallet": "ኪስ",
     "navWalletFinance": "ኪስ እና ፋይናንስ",
@@ -903,7 +903,7 @@
     "companySize": "የኩባንያ መጠን",
     "companyFounder": "መስራች",
     "companyHeadquarters": "ዋና መስሪያ ቤት",
-    "companyTotalCampaigns": "ዘመቻዎች",
+    "companyTotalCampaigns": "ፕሮጀክት",
     "companySuccessRate": "የስኬት መጠን",
     "companyTotalRaised": "ጠቅላላ የተሰበሰበ",
     "companyTeamMembers": "የቡድን አባላት",
@@ -912,7 +912,7 @@
     "companyNo": "አይ",
     "completeProfilesTitle": "መገለጮችዎን ያጠናቅቁ",
     "completeProfilesHint": "ሙሉ ተሞክሮ ለማግኘት ሁለቱንም ያስገቡ።",
-    "completeProfileHintInnovator": "በዚህ የስራ ቦታ ውስጥ ዘመቻዎችን እና የኩባንያ መሳሪያዎችን ለማግኘት የፈጣሪ መገለጫዎን ያጠናቅቁ።",
+    "completeProfileHintInnovator": "በዚህ የስራ ቦታ ውስጥ ፕሮጀክትን እና የኩባንያ መሳሪያዎችን ለማግኘት የፈጣሪ መገለጫዎን ያጠናቅቁ።",
     "completeProfileHintInvestor": "በዚህ የስራ ቦታ ውስጥ መሸጎጫ እና የኢንቨስትመንት ባህሪዎችን ለማግኘት የኢንቨስተር መገለጫዎን ያጠናቅቁ።",
     "completeInnovatorCta": "የፈጠራ ባለቤት መገለጫ ያጠናቅቁ",
     "completeInvestorCta": "የኢንቨስተር መገለጫ ያጠናቅቁ",
@@ -972,13 +972,13 @@
   "innovatorDashboard": {
     "metaTitle": "የፈጠራ ባለቤት ዳሽቦርድ | IdealLink",
     "userFirstName": "ጆን",
-    "projectsMetaTitle": "ዘመቻዎች | IdealLink",
+    "projectsMetaTitle": "ፕሮጀክት | IdealLink",
     "messagesMetaTitle": "መልዕክቶች | IdealLink",
     "profileMetaTitle": "መገለጫ | IdealLink",
     "userRoleSuffix": "(ፈጠራ ባለቤት)",
     "logout": "ውጣ",
     "navDashboard": "ዳሽቦርድ",
-    "navProjects": "ዘመቻዎች",
+    "navProjects": "ፕሮጀክት",
     "navMessages": "መልዕክቶች",
     "navProfile": "መገለጫ",
     "openMenu": "ምናሌ ክፈት",
@@ -986,7 +986,7 @@
     "welcome": "እንኳን ደህና መጡ፣ {name}!",
     "today": "ዛሬ {date} ነው",
     "dashboardTitle": "የፈጠራ ባለቤት ዳሽቦርድ",
-    "dashboardSubtitle": "ዘመቻዎችን፣ የዋሌት ቀሪ እና የኢንቨስተር እንቅስቃሴን በአንድ ቦታ ይከታተሉ።",
+    "dashboardSubtitle": "ፕሮጀክትን፣ የዋሌት ቀሪ እና የኢንቨስተር እንቅስቃሴን በአንድ ቦታ ይከታተሉ።",
     "alertKycPending": "የ KYC ማረጋገጫ በመጠባበቅ ላይ ነው። ማንነትዎ እስኪረጋገጥ ድረስ አንዳንድ ባህሪያት የተገደቡ ሊሆኑ ይችላሉ።",
     "alertKycNotSubmitted": "ሙሉ የፈጠራ ባለቤት ባህሪያትን ለመክፈት የማንነት ማረጋገጫ ያጠናቅቁ።",
     "alertKycAction": "KYC ያጠናቅቁ",
@@ -996,7 +996,7 @@
     "chart6M": "6ወ",
     "chart1Y": "1ዓ",
     "keyMetricsTitle": "የዋሌት ብድር",
-    "activeCampaignsTableTitle": "ንቁ ዘመቻዎች",
+    "activeCampaignsTableTitle": "ንቁ ፕሮጀክት",
     "tableCampaign": "ዘመቻ",
     "tableRaised": "የተሰበሰበ",
     "tableGoal": "ግብ",
@@ -1009,7 +1009,7 @@
     "viewHistory": "ታሪክ ይመልከቱ",
     "statusCompleted": "ተጠናቋል",
     "statusPending": "በመጠባበቅ",
-    "statsActive": "ንቁ ዘመቻዎች",
+    "statsActive": "ንቁ ፕሮጀክት",
     "statsPending": "በግምገማ ላይ",
     "statsRaised": "ጠቅላላ የተሰበሰበ",
     "statsInvestors": "ጠቅላላ ኢንቨስተሮች",
@@ -1028,7 +1028,7 @@
     "emptyActivity": "እስካሁን የቅርብ ጊዜ የዋሌት እንቅስቃሴ የለም።",
     "emptyTransactions": "እስካሁን ምንም ግብይት የለም።",
     "balanceAfter": "ከግብይት በኋላ ቀሪ",
-    "manageCampaignsCta": "ዘመቻዎችን ያቀናብሩ",
+    "manageCampaignsCta": "ፕሮጀክትን ያቀናብሩ",
     "createProject": "አዲስ ፕሮጀክት ፍጠር",
     "activeProjectsTitle": "የእርስዎ ንቁ ፕሮጀክቶች",
     "investors": "ኢንቨስተሮች",
@@ -1038,18 +1038,18 @@
     "recentMessages": "የቅርብ ጊዜ መልዕክቶች",
     "reply": "መልስ",
     "manageProject": "ፕሮጀክት ያቀናብሩ",
-    "projectsPageTitle": "ዘመቻዎች",
-    "projectsPageSubtitle": "የራስዎ ዘመቻዎችን ወይም የኢንቨስት ያደረጉባቸውን ዘመቻዎች ይምረጡ።",
-    "campaignsPageTitle": "ዘመቻዎች",
-    "campaignsPageSubtitle": "የራስዎን ዘመቻዎች ያቀናብሩ ወይም የደገፉትን ዘመቻዎች ይመልከቱ።",
+    "projectsPageTitle": "ፕሮጀክት",
+    "projectsPageSubtitle": "የራስዎ ፕሮጀክትን ወይም የኢንቨስት ያደረጉባቸውን ፕሮጀክት ይምረጡ።",
+    "campaignsPageTitle": "ፕሮጀክት",
+    "campaignsPageSubtitle": "የራስዎን ፕሮጀክት ያቀናብሩ ወይም የደገፉትን ፕሮጀክት ይመልከቱ።",
     "campaignViewChooserTitle": "እይታ ይምረጡ",
     "campaignViewChooserSubtitle": "በፈጣሪ እና በኢንቨስተር እይታ መካከል ይቀይሩ።",
     "myCampaignsOptionBadge": "ፈጣሪ",
-    "myCampaignsOptionTitle": "የእኔ ዘመቻዎች",
+    "myCampaignsOptionTitle": "የእኔ ፕሮጀክት",
     "myCampaignsOptionDescription": "የዘመቻ እድገት፣ ሁኔታ እና አፈጻጸም ይከታተሉ።",
     "investedCampaignsOptionBadge": "ኢንቨስተር",
-    "investedCampaignsOptionTitle": "የኢንቨስት ዘመቻዎች",
-    "investedCampaignsOptionDescription": "የደገፉትን ዘመቻዎች፣ መጠን እና የክፍያ ሁኔታ ይመልከቱ።",
+    "investedCampaignsOptionTitle": "የኢንቨስት ፕሮጀክት",
+    "investedCampaignsOptionDescription": "የደገፉትን ፕሮጀክት፣ መጠን እና የክፍያ ሁኔታ ይመልከቱ።",
     "retry": "እንደገና ሞክር",
     "emptyMyCampaignsTitle": "እስካሁን ዘመቻ የለም",
     "emptyMyCampaignsDescription": "የመጀመሪያ ዘመቻዎን በመፍጠር ገንዘብ ማሰባሰብ ይጀምሩ።",
@@ -1071,7 +1071,7 @@
     "paginationNext": "ቀጣይ",
     "noImage": "ምስል የለም",
     "errors": {
-      "loadMyCampaignsTitle": "የእርስዎ ዘመቻዎችን መጫን አልተቻለም",
+      "loadMyCampaignsTitle": "የእርስዎ ፕሮጀክትን መጫን አልተቻለም",
       "loadMyCampaignsDescription": "እባክዎ ገጹን ያድሱ እና እንደገና ይሞክሩ።",
       "loadInvestmentsTitle": "የእርስዎ ኢንቨስትመንቶችን መጫን አልተቻለም",
       "loadInvestmentsDescription": "እባክዎ ገጹን ያድሱ እና እንደገና ይሞክሩ።",
@@ -1820,7 +1820,7 @@
   },
   "createCampaignPage": {
     "metaTitle": "ዘመቻ ፍጠር | IdealLink",
-    "backToCampaigns": "← ወደ ዘመቻዎች ተመለስ",
+    "backToCampaigns": "← ወደ ፕሮጀክት ተመለስ",
     "heading": "ዘመቻ ፍጠር",
     "subtitle": "ታሪክ፣ አደጋዎች እና የኢንቨስትመንት ሁኔታዎችን በግልጽ በማስቀመጥ አዲስ የገንዘብ ዘመቻ ያስጀምሩ።",
     "campaignTitle": "ርዕስ",
@@ -1901,7 +1901,7 @@
   },
   "uploadCampaignDocumentPage": {
     "metaTitle": "ሰነዶች ስቀል | IdealLink",
-    "backToCampaigns": "← ወደ ዘመቻዎች ተመለስ",
+    "backToCampaigns": "← ወደ ፕሮጀክት ተመለስ",
     "heading": "ሰነዶች ስቀል",
     "subtitle": "ለአዲሱ የእርስዎ ዘመቻ አጋዥ ሰነድ ያክሉ።",
     "subtitleChecklist": "ለዘመቻዎ የሚያስፈልጉ ሰነዶችን ሁሉ ይስቀሉ። በማንኛውም ቅደም ተከተል ሊጨርሱ ይችላሉ፤ ከእያንዳንዱ ስቀል በኋላ እድገትዎ ይቀመጣል።",
@@ -1961,7 +1961,7 @@
       "updates": "ዝማኔዎች",
       "settings": "ቅንብሮች"
     },
-    "backToCampaigns": "← ወደ ዘመቻዎች ተመለስ",
+    "backToCampaigns": "← ወደ ፕሮጀክት ተመለስ",
     "invalidCampaign": "ይህ የዘመቻ አገናኝ ልክ አይደለም።",
     "loadFailed": "የዘመቻ ዝርዝር መጫን አልተቻለም",
     "retryMessage": "እባክዎ ገጹን እንደገና ያድሱ እና ይሞክሩ።",
@@ -2021,7 +2021,7 @@
     "draftOnlyTooltip": "ወደ ረቂቕ ብቻ ዘመቻ ሊታረመ ወይም ሊሰረዝ ይችላል።",
     "draftOnlyDocumentTooltip": "ሰንዎች እንዳ ረቂቕ ዘመቻ ብቻ ሊሰረዙ ይችላሉ።",
     "deleteCampaignBlockedInvestors": "የኢንቨስተሮች እንስራ ስለሆነ ይህን ዘመቻ ማስወገድ አይቻልም።",
-    "campaignDeletedRedirect": "ዘመቻ ተሰርዟል። ወደ ዘመቻዎችዎ በመመለስ ላይ…",
+    "campaignDeletedRedirect": "ዘመቻ ተሰርዟል። ወደ ፕሮጀክትዎ በመመለስ ላይ…",
     "documentDeleted": "ሰንድ ተሰርዟል።",
     "untitledDocument": "ስም የሌለው ሰነድ",
     "noTags": "መለያዎች የሉም።",
