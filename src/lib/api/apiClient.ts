@@ -1,5 +1,10 @@
 import type { FetchArgs } from "@reduxjs/toolkit/query";
-import { getAccessToken } from "@/lib/auth/tokenStorage";
+import {
+  clearAuthSessionAndRedirectToLogin,
+  getAccessToken,
+  hasRawAccessToken,
+  isAccessTokenExpired,
+} from "@/lib/auth/tokenStorage";
 
 /**
  * Central place for default API behavior: Bearer auth, Accept, and JSON vs multipart.
@@ -17,8 +22,8 @@ function getBodyFromFetchArg(arg: string | FetchArgs): unknown {
 }
 
 /**
- * RTK Query `prepareHeaders` handler: sets `Authorization: Bearer <token>` when tokens exist,
- * applies `Content-Type: application/json` only when the body is not `FormData` (multipart uploads).
+ * RTK Query `prepareHeaders` handler: sets `Authorization: Bearer <token>` when a
+ * non-expired access token exists. Expired tokens are cleared and never attached.
  */
 export function prepareAuthorizedApiHeaders(
   headers: Headers,
@@ -40,8 +45,19 @@ export function prepareAuthorizedApiHeaders(
 
 /**
  * Same header rules as {@link prepareAuthorizedApiHeaders} for non-RTK `fetch` usage.
+ * Aborts with a synthetic 401 Response when the stored access token is expired.
  */
 export function authorizedFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+  if (hasRawAccessToken() && isAccessTokenExpired()) {
+    clearAuthSessionAndRedirectToLogin();
+    return Promise.resolve(
+      new Response(JSON.stringify({ message: "Session expired. Please sign in again." }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+  }
+
   const headers = new Headers(init?.headers);
   headers.set("Accept", "application/json");
   const token = getAccessToken();

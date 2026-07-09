@@ -51,7 +51,7 @@ export function LoginPage() {
       const access = data.accessToken?.trim();
       const refresh = data.refreshToken?.trim();
       if (access && refresh) {
-        persistAuthTokens(access, refresh);
+        persistAuthTokens(access, refresh, data.expiresIn);
         persistRememberedEmail(form.email, form.remember);
         void router.push(resolvePostLoginPath(email, data.userInfo));
         return;

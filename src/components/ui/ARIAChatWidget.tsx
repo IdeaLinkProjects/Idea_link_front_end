@@ -3,6 +3,7 @@ import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { getAccessToken, enforceValidAuthSession } from "@/lib/auth/tokenStorage";
 
 
 // ── types ──────────────────────────────────────────────────────────────────
@@ -558,11 +559,17 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
     setLoading(true);
 
     try {
-      // Get investor's token to pass to API
-      const token =
-        typeof window !== "undefined"
-          ? localStorage.getItem("ideal-link-access-token")
-          : null;
+      if (!enforceValidAuthSession()) {
+        setLoading(false);
+        return;
+      }
+
+      // Null when expired — getAccessToken clears the session
+      const token = getAccessToken();
+      if (!token) {
+        setLoading(false);
+        return;
+      }
 
       const res = await fetch(apiEndpoint, {
         method: "POST",
