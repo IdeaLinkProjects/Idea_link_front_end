@@ -3,6 +3,7 @@ import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
+import { getAccessToken, enforceValidAuthSession } from "@/lib/auth/tokenStorage";
 
 
 // ── types ──────────────────────────────────────────────────────────────────
@@ -485,15 +486,15 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
     content: isInvestor
       ? (isAmharic
           ? (firstName
-              ? `👋 እንኳን ደህና መጡ፣ ${firstName}! እኔ የIdeaLink ኢንቨስትመንት አማካሪዎ ARIA ነኝ።\n\nየእርስዎን መገለጫ እና ፖርትፎሊዮ ማየት እችላለሁ። ለመጠየቅ ይሞክሩ፡\n• "ፖርትፎሊዮዬ ምንድን ነው?"\n• "ምን ያህል ኢንቨስት አድርጌያለሁ?"\n• "ገባሪ ዘመቻዎችን አሳየኝ"\n• "5,000 ዶላር አለኝ፣ የት ኢንቨስት ላድርግ?"`
-              : `👋 ሰላም! እኔ የIdeaLink ኢንቨስትመንት አማካሪዎ ARIA ነኝ።\n\nለመጠየቅ ይሞክሩ፡\n• "ገባሪ ዘመቻዎችን አሳየኝ"\n• "5,000 ዶላር አለኝ፣ የት ኢንቨስት ላድርግ?"\n• "በዚህ ሳምንት ምን አዲስ ነገር አለ?"`)
+              ? `👋 እንኳን ደህና መጡ፣ ${firstName}! እኔ የIdeaLink ኢንቨስትመንት አማካሪዎ ARIA ነኝ።\n\nየእርስዎን መገለጫ እና ፖርትፎሊዮ ማየት እችላለሁ። ለመጠየቅ ይሞክሩ፡\n• "ፖርትፎሊዮዬ ምንድን ነው?"\n• "ምን ያህል ኢንቨስት አድርጌያለሁ?"\n• "ገባሪ ፕሮጀክት  አሳየኝ"\n• "5,000 ዶላር አለኝ፣ የት ኢንቨስት ላድርግ?"`
+              : `👋 ሰላም! እኔ የIdeaLink ኢንቨስትመንት አማካሪዎ ARIA ነኝ።\n\nለመጠየቅ ይሞክሩ፡\n• "ገባሪ ፕሮጀክት  አሳየኝ"\n• "5,000 ዶላር አለኝ፣ የት ኢንቨስት ላድርግ?"\n• "በዚህ ሳምንት ምን አዲስ ነገር አለ?"`)
           : (firstName
               ? `👋 Welcome back, ${firstName}! I'm ARIA, your IdeaLink investment advisor.\n\nI can see your profile and portfolio. Try asking:\n• "What is my portfolio?"\n• "How much have I invested?"\n• "Show me active campaigns"\n• "I have $5,000, where should I invest?"`
               : `👋 Hey! I'm ARIA, your IdeaLink investment advisor.\n\nTry asking:\n• "Show me active campaigns"\n• "I have $5,000, where should I invest?"\n• "What's trending this week?"`))
       : (isAmharic
           ? (firstName
-              ? `👋 እንኳን ደህና መጡ፣ ${firstName}! እኔ የIdeaLink የፈጠራ ስራ ድጋፍ ሰጪዎ NOVA ነኝ።\n\nየዘመቻ ዝርዝሮችን ለማዘጋጀት፣ እድገትን ለመከታተል ወይም የንግድ አቀራረብዎን ለማሻሻል ልረዳዎ እችላለሁ። ለመጠየቅ ይሞክሩ፡\n• "ዘመቻዬን እንዴት ማሻሻል እችላለሁ?"\n• "የዘመቻ ታሪክ አዘጋጅልኝ"\n• "የእኔን ገባሪ ዘመቻዎች አሳየኝ"\n• "ስጋቶቼን እንድዋቅር እርዳኝ"`
-              : `👋 ሰላም! እኔ የIdeaLink የፈጠራ ስራ ድጋፍ ሰጪዎ NOVA ነኝ።\n\nለመጠየቅ ይሞክሩ፡\n• "የዘመቻ ታሪክ አዘጋጅልኝ"\n• "የእኔን ገባሪ ዘመቻዎች አሳየኝ"\n• "ኢንቨስተሮችን እንዴት መሳብ እችላለሁ?"`)
+              ? `👋 እንኳን ደህና መጡ፣ ${firstName}! እኔ የIdeaLink የፈጠራ ስራ ድጋፍ ሰጪዎ NOVA ነኝ።\n\nየዘመቻ ዝርዝሮችን ለማዘጋጀት፣ እድገትን ለመከታተል ወይም የንግድ አቀራረብዎን ለማሻሻል ልረዳዎ እችላለሁ። ለመጠየቅ ይሞክሩ፡\n• "ዘመቻዬን እንዴት ማሻሻል እችላለሁ?"\n• "የዘመቻ ታሪክ አዘጋጅልኝ"\n• "የእኔን ገባሪ ፕሮጀክት አሳየኝ"\n• "ስጋቶቼን እንድዋቅር እርዳኝ"`
+              : `👋 ሰላም! እኔ የIdeaLink የፈጠራ ስራ ድጋፍ ሰጪዎ NOVA ነኝ።\n\nለመጠየቅ ይሞክሩ፡\n• "የዘመቻ ታሪክ አዘጋጅልኝ"\n• "የእኔን ገባሪ ፕሮጀክት አሳየኝ"\n• "ኢንቨስተሮችን እንዴት መሳብ እችላለሁ?"`)
           : (firstName
               ? `👋 Welcome back, ${firstName}! I'm NOVA, your IdeaLink innovator support AI.\n\nI can help you draft campaign details, track progress, or optimize your pitches. Try asking:\n• "How do I optimize my campaign?"\n• "Draft a campaign story"\n• "Show my active campaigns"\n• "Help me structure my risks"`
               : `👋 Hey! I'm NOVA, your IdeaLink innovator support AI.\n\nTry asking:\n• "Draft a campaign story"\n• "Show my active campaigns"\n• "How to attract investors?"`)),
@@ -558,11 +559,17 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
     setLoading(true);
 
     try {
-      // Get investor's token to pass to API
-      const token =
-        typeof window !== "undefined"
-          ? localStorage.getItem("ideal-link-access-token")
-          : null;
+      if (!enforceValidAuthSession()) {
+        setLoading(false);
+        return;
+      }
+
+      // Null when expired — getAccessToken clears the session
+      const token = getAccessToken();
+      if (!token) {
+        setLoading(false);
+        return;
+      }
 
       const res = await fetch(apiEndpoint, {
         method: "POST",
@@ -616,7 +623,7 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
     ? (isAmharic
         ? [
             "ፖርትፎሊዮዬ ምንድን ነው?",
-            "ገባሪ ዘመቻዎችን አሳየኝ",
+            "ገባሪ ፕሮጀክት  አሳየኝ",
             "ለመዋዕለ ንዋይ 5,000 ዶላር አለኝ",
             "በአሁኑ ጊዜ አዝማሚያው ምንድን ነው?",
           ]
@@ -629,7 +636,7 @@ export default function ARIAChatWidget({ userId, firstName, onClose, role = "INV
     : (isAmharic
         ? [
             "የዘመቻ ታሪክ አዘጋጅልኝ",
-            "የእኔን ገባሪ ዘመቻዎች አሳየኝ",
+            "የእኔን ገባሪ ፕሮጀክት አሳየኝ",
             "ኢንቨስተሮችን እንዴት መሳብ እችላለሁ?",
             "ቁልፍ መለኪያዎቼን ክለስ",
           ]

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { type ReactNode, useEffect, useState } from "react";
-import { hasStoredAuthTokens } from "@/lib/auth/tokenStorage";
+import { enforceValidAuthSession, hasStoredAuthTokens } from "@/lib/auth/tokenStorage";
 
 type RequireAuthProps = {
   children: ReactNode;
@@ -11,7 +11,7 @@ export function RequireAuth({ children }: RequireAuthProps) {
   const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
-    if (!hasStoredAuthTokens()) {
+    if (!enforceValidAuthSession() || !hasStoredAuthTokens()) {
       void router.replace("/login");
       return;
     }

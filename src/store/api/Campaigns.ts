@@ -1,5 +1,10 @@
 import { baseApi } from "./baseApi";
-import { campaignCommentsTags, campaignProfileTags, campaignUpdatesTags } from "./campaigns/cacheTags";
+import {
+  campaignCommentsTags,
+  campaignProfileTags,
+  campaignUpdatesTags,
+  savedCampaignsListTags,
+} from "./campaigns/cacheTags";
 import {
   normalizeCampaignComment,
   normalizeCampaignCommentsPageResponse,
@@ -91,6 +96,31 @@ export const campaignsApi = baseApi.injectEndpoints({
         method: "POST",
         body,
       }),
+    }),
+
+    getSavedCampaigns: build.query<MyCampaignsResponse, MyCampaignsRequestBody>({
+      query: ({ page, size }) => ({
+        url: "campaigns/saved",
+        method: "GET",
+        params: { page, size },
+      }),
+      providesTags: savedCampaignsListTags,
+    }),
+
+    saveCampaign: build.mutation<void, number>({
+      query: (id) => ({
+        url: `campaigns/${id}/save`,
+        method: "POST",
+      }),
+      invalidatesTags: (_r, _e, id) => [...campaignProfileTags(id), ...savedCampaignsListTags()],
+    }),
+
+    unsaveCampaign: build.mutation<void, number>({
+      query: (id) => ({
+        url: `campaigns/${id}/save`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_r, _e, id) => [...campaignProfileTags(id), ...savedCampaignsListTags()],
     }),
 
     getUserInvestments: build.query<UserInvestmentsResponse, UserInvestmentsRequestBody>({
@@ -272,6 +302,9 @@ export const {
   useGetMyCampaignsQuery,
   useGetUserInvestmentsQuery,
   useFilterCampaignsQuery,
+  useGetSavedCampaignsQuery,
+  useSaveCampaignMutation,
+  useUnsaveCampaignMutation,
   useGetCampaignByIdQuery,
   useCreateCampaignMutation,
   useUpdateCampaignMutation,

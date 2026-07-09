@@ -11,3 +11,9 @@ export function campaignUpdatesTags(campaignId: number) {
 export function campaignCommentsTags(campaignId: number) {
   return [{ type: PROFILE_TAG, id: `campaign-${campaignId}-comments` }] as const;
 }
+
+export const SAVED_CAMPAIGNS_LIST_TAG = { type: PROFILE_TAG, id: "saved-campaigns" } as const;
+
+export function savedCampaignsListTags() {
+  return [SAVED_CAMPAIGNS_LIST_TAG] as const;
+}

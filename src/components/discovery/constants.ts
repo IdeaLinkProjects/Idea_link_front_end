@@ -1,0 +1,3 @@
+export const DISCOVERY_PAGE_SIZE = 10;
+
+export const DISCOVERY_KEYWORD_DEBOUNCE_MS = 400;

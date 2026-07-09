@@ -3,11 +3,11 @@ import { FormEvent, useCallback, useMemo, useState } from "react";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import type { Locale } from "@/locales";
 import { messages } from "@/locales";
-import { useFilterCampaignsQuery } from "@/store";
+import { useFilterCampaignsQuery, useGetPlatformStatsQuery } from "@/store";
 import { LIVE_CAMPAIGNS_QUERY } from "./constants";
 import { getLandingTheme } from "./landingTheme";
 import type { LandingCampaign, LandingCopy, LandingTheme } from "./types";
-import { campaignFromApi, campaignFromFallback, discoveryHref } from "./utils";
+import { campaignFromApi, campaignFromFallback, discoveryHref, landingStatsFromPlatform } from "./utils";
 
 export type UseLandingPageResult = {
   locale: Locale;
@@ -32,6 +32,7 @@ export function useLandingPage(): UseLandingPageResult {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const { data: liveData, isLoading: liveLoading } = useFilterCampaignsQuery(LIVE_CAMPAIGNS_QUERY);
+  const { data: platformStats } = useGetPlatformStatsQuery();
 
   const goToDiscovery = useCallback(
     (keyword?: string) => {
@@ -56,12 +57,10 @@ export function useLandingPage(): UseLandingPageResult {
     return t.featuredCampaigns.map(campaignFromFallback);
   }, [liveData?.content, t.featuredCampaigns]);
 
-  const stats = useMemo(() => {
-    const liveCount = liveData?.totalElements;
-    return t.stats.map((stat, i) =>
-      i === 0 && liveCount != null ? { ...stat, value: String(liveCount) } : stat,
-    );
-  }, [liveData?.totalElements, t.stats]);
+  const stats = useMemo(
+    () => landingStatsFromPlatform(t.stats, platformStats, locale),
+    [locale, platformStats, t.stats],
+  );
 
   const theme = useMemo(() => getLandingTheme(isDark), [isDark]);
 

@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
+import { AuthSessionWatcher } from "@/components/auth/AuthSessionWatcher";
 import { CookieConsentBanner } from "@/components/layout/CookieConsentBanner";
 import { AppPreferencesProvider } from "@/context/AppPreferencesContext";
 import { WorkspaceProvider, useWorkspace } from "@/context/WorkspaceContext";
@@ -47,6 +48,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <AppPreferencesProvider>
         <WorkspaceProvider>
+          <AuthSessionWatcher />
           <Component {...pageProps} />
           <CookieConsentBanner />
           <ARIAWrapper />

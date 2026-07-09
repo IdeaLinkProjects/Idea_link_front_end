@@ -11,6 +11,8 @@ export {
   useResetPasswordMutation,
 } from "./api/authApi";
 export { kycApi, useUploadKycMutation, useVerifyPhoneOtpMutation } from "./api/kycApi";
+export { publicApi, useGetPlatformStatsQuery } from "./api/publicApi";
+export type { PlatformStatsResponse } from "./api/publicApi";
 export {
   campaignsApi,
   useGetCampaignByIdQuery,
@@ -21,6 +23,9 @@ export {
   useGetMyCampaignsQuery,
   useGetUserInvestmentsQuery,
   useFilterCampaignsQuery,
+  useGetSavedCampaignsQuery,
+  useSaveCampaignMutation,
+  useUnsaveCampaignMutation,
   useUpdateCampaignMutation,
   useUploadCampaignDocumentMutation,
   useSubmitCampaignMutation,
@@ -41,6 +46,21 @@ export {
   useGetInnovatorWalletTransactionsQuery,
 } from "./api/innovatorApi";
 export {
+  dividendsApi,
+  useGetCampaignDividendsQuery,
+  usePreviewCampaignDividendMutation,
+  useCreateCampaignDividendMutation,
+  useExecuteCampaignDividendMutation,
+  useCancelCampaignDividendMutation,
+} from "./api/dividendsApi";
+export type {
+  CampaignDividend,
+  CampaignDividendArg,
+  CreateDividendRequest,
+  DividendAllocation,
+  DividendPreviewResponse,
+} from "./api/dividendsApi";
+export {
   investorApi,
   useGetInvestorDashboardSummaryQuery,
   useGetInvestorWalletTransactionsQuery,
@@ -50,6 +70,7 @@ export {
   useInitializeChapaPaymentMutation,
   useVerifyChapaPaymentQuery,
   useLazyVerifyChapaPaymentQuery,
+  useGetChapaBanksQuery,
   useInvestInCampaignMutation,
   useGetUserInvestmentsPageQuery,
   useGetInvestmentByIdQuery,
@@ -144,6 +165,7 @@ export type {
   UserInvestmentItem,
   UserInvestmentsPage,
   UserInvestmentsRequest,
+  ChapaBank,
 } from "./api/paymentsApi";
 export type {
   CompanyCampaignStats,
