@@ -3,7 +3,9 @@ import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import type { CampaignDetailTabKey } from "@/components/profile/campaign-detail/CampaignTabsNav";
 import { CampaignTabsNav } from "@/components/profile/campaign-detail/CampaignTabsNav";
+import { CampaignDividendsPanel } from "@/components/profile/campaign-detail/CampaignDividendsPanel";
 import { CampaignUpdatesPanel } from "@/components/profile/campaign-detail/CampaignUpdatesPanel";
+import { isCompletedCampaignStatus } from "@/lib/campaign/isCompletedCampaignStatus";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { KYC_STATUS, resolveAccountKycStatus } from "@/constants/kycStatus";
@@ -128,6 +130,7 @@ export function CampaignDetailView({ campaignId }: CampaignDetailViewProps) {
   const risksEntries = useMemo(() => toKeyValueEntries(campaign?.risksJson), [campaign?.risksJson]);
 
   const isDraft = campaign ? normalizeStatus(campaign.status) === "draft" : false;
+  const isCompleted = campaign ? isCompletedCampaignStatus(campaign.status) : false;
   const accountKycStatus = resolveAccountKycStatus(
     userRolesStatus?.innovatorPrerequisites?.kycStatus,
     userRolesStatus?.investorPrerequisites?.kycStatus,
@@ -246,10 +249,12 @@ export function CampaignDetailView({ campaignId }: CampaignDetailViewProps) {
       <CampaignTabsNav
         activeTab={activeTab}
         onTabChange={setActiveTab}
+        showDividendsTab={isCompleted}
         labels={{
           overview: t.tabs.overview,
           files: t.tabs.files,
           updates: t.tabs.updates,
+          dividends: t.tabs.dividends,
           settings: t.tabs.settings,
         }}
       />
@@ -438,6 +443,17 @@ export function CampaignDetailView({ campaignId }: CampaignDetailViewProps) {
           cancelAction={t.cancelAction}
           confirmDelete={t.confirmDelete}
           deleting={t.deleting}
+        />
+      ) : null}
+
+      {activeTab === "dividends" && isCompleted ? (
+        <CampaignDividendsPanel
+          defaultCampaignId={campaign.id}
+          locale={locale}
+          isDark={isDark}
+          t={t.dividends}
+          errors={t.errors}
+          cancelAction={t.cancelAction}
         />
       ) : null}
 

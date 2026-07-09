@@ -27,9 +27,18 @@
     "registerInvestor": "Register as Investor"
   },
   "statistics": [
-    { "label": "Projects Created", "value": "50+" },
-    { "label": "ETB Pledged", "value": "2.5M+" },
-    { "label": "Registered Users", "value": "200+" }
+    {
+      "label": "Projects Created",
+      "value": "50+"
+    },
+    {
+      "label": "ETB Pledged",
+      "value": "2.5M+"
+    },
+    {
+      "label": "Registered Users",
+      "value": "200+"
+    }
   ],
   "featured": {
     "title": "Featured Projects",
@@ -68,23 +77,56 @@
     "tagline": "Empowering Ethiopian innovators through radical transparency and community-driven capital.",
     "productHeading": "Product",
     "productLinks": [
-      { "label": "Explore Projects", "href": "/discovery" },
-      { "label": "For Innovators", "href": "/register" },
-      { "label": "How it Works", "href": "/#how-it-works" },
-      { "label": "Pricing", "href": "/contact" }
+      {
+        "label": "Explore Projects",
+        "href": "/discovery"
+      },
+      {
+        "label": "For Innovators",
+        "href": "/register"
+      },
+      {
+        "label": "How it Works",
+        "href": "/#how-it-works"
+      },
+      {
+        "label": "Pricing",
+        "href": "/contact"
+      }
     ],
     "companyHeading": "Company",
     "companyLinks": [
-      { "label": "About Us", "href": "/about" },
-      { "label": "Our Impact", "href": "/about" },
-      { "label": "Contact", "href": "/contact" },
-      { "label": "Careers", "href": "/contact" }
+      {
+        "label": "About Us",
+        "href": "/about"
+      },
+      {
+        "label": "Our Impact",
+        "href": "/about"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      },
+      {
+        "label": "Careers",
+        "href": "/contact"
+      }
     ],
     "legalHeading": "Legal & Settings",
     "legalLinks": [
-      { "label": "Terms of Service", "href": "/terms" },
-      { "label": "Privacy Policy", "href": "/privacy" },
-      { "label": "Risk Disclosure", "href": "/privacy" }
+      {
+        "label": "Terms of Service",
+        "href": "/terms"
+      },
+      {
+        "label": "Privacy Policy",
+        "href": "/privacy"
+      },
+      {
+        "label": "Risk Disclosure",
+        "href": "/privacy"
+      }
     ],
     "copyright": "© {year} IdealLink. Radical Transparency in Crowdfunding."
   },
@@ -107,12 +149,28 @@
     "searchPlaceholder": "Search campaigns, sectors, or keywords…",
     "searchSubmit": "Search",
     "popularLabel": "Popular:",
-    "popularTags": ["Agriculture", "Health", "Ed-tech"],
+    "popularTags": [
+      "Agriculture",
+      "Health",
+      "Ed-tech"
+    ],
     "stats": [
-      { "value": "0", "label": "Live campaigns" },
-      { "value": "0", "label": "ETB pledged" },
-      { "value": "0", "label": "Campaigns funded" },
-      { "value": "0", "label": "Community members" }
+      {
+        "value": "0",
+        "label": "Live campaigns"
+      },
+      {
+        "value": "0",
+        "label": "ETB pledged"
+      },
+      {
+        "value": "0",
+        "label": "Campaigns funded"
+      },
+      {
+        "value": "0",
+        "label": "Community members"
+      }
     ],
     "statsFootnote": "Updated in real-time from platform activity",
     "liveCampaignsTitle": "Live campaigns you can back today",
@@ -157,26 +215,68 @@
     "transparencyTitle": "Built for transparency",
     "transparencySubtitle": "Every campaign on IdealLink is structured so backers and founders can see progress, verify identity, and follow the money.",
     "transparencyFeatures": [
-      { "title": "Identity verified", "desc": "Founders and companies complete verification before campaigns go live." },
-      { "title": "Milestone tracking", "desc": "Campaign updates and milestone reports keep backers informed at every stage." },
-      { "title": "Secure pledges", "desc": "Investments are processed through trusted payment flows with clear records." },
-      { "title": "ETB wallet ready", "desc": "Back campaigns with ETB from your mobile wallet—no complex setup required." }
+      {
+        "title": "Identity verified",
+        "desc": "Founders and companies complete verification before campaigns go live."
+      },
+      {
+        "title": "Milestone tracking",
+        "desc": "Campaign updates and milestone reports keep backers informed at every stage."
+      },
+      {
+        "title": "Secure pledges",
+        "desc": "Investments are processed through trusted payment flows with clear records."
+      },
+      {
+        "title": "ETB wallet ready",
+        "desc": "Back campaigns with ETB from your mobile wallet—no complex setup required."
+      }
     ],
     "howItWorksTitle": "How it works",
     "howItWorksSteps": [
-      { "step": "1", "title": "Discover", "desc": "Browse through verified Ethiopian ventures across agritech, health, energy, and more." },
-      { "step": "2", "title": "Invest", "desc": "Back campaigns with ETB from your mobile wallet, starting from as little as 1,000 ETB." },
-      { "step": "3", "title": "Track", "desc": "Monitor progress through transparent milestone reports and campaign updates." }
+      {
+        "step": "1",
+        "title": "Discover",
+        "desc": "Browse through verified Ethiopian ventures across agritech, health, energy, and more."
+      },
+      {
+        "step": "2",
+        "title": "Invest",
+        "desc": "Back campaigns with ETB from your mobile wallet, starting from as little as 1,000 ETB."
+      },
+      {
+        "step": "3",
+        "title": "Track",
+        "desc": "Monitor progress through transparent milestone reports and campaign updates."
+      }
     ],
     "sectorsTitle": "Browse by Sector",
     "sectorsBrowse": "Browse",
     "sectors": [
-      { "name": "Agrotech & Food", "keyword": "Agriculture" },
-      { "name": "Fintech", "keyword": "Fintech" },
-      { "name": "Health & Wellness", "keyword": "Health" },
-      { "name": "Ed-tech", "keyword": "Education" },
-      { "name": "Clean Energy", "keyword": "Energy" },
-      { "name": "Commerce & Retail", "keyword": "Commerce" }
+      {
+        "name": "Agrotech & Food",
+        "keyword": "Agriculture"
+      },
+      {
+        "name": "Fintech",
+        "keyword": "Fintech"
+      },
+      {
+        "name": "Health & Wellness",
+        "keyword": "Health"
+      },
+      {
+        "name": "Ed-tech",
+        "keyword": "Education"
+      },
+      {
+        "name": "Clean Energy",
+        "keyword": "Energy"
+      },
+      {
+        "name": "Commerce & Retail",
+        "keyword": "Commerce"
+      }
     ],
     "pathInvestorEyebrow": "For Investors",
     "pathInvestorBenefits": [
@@ -443,21 +543,53 @@
         "investorsCount": 5,
         "updatesCount": 3,
         "documentsCount": 2,
-        "similarIds": ["coffee-cooperative", "solar-irrigation", "textile-marketplace"],
+        "similarIds": [
+          "coffee-cooperative",
+          "solar-irrigation",
+          "textile-marketplace"
+        ],
         "problem": "Smallholders lose 15–30% of harvest to spoilage when rain hits during open-air drying. Diesel dryers are costly and fuel supply is unreliable.",
         "solution": "We manufacture modular solar tunnel dryers with local sheet metal and polycarbonate. Cooperatives share units across a harvest calendar, cutting moisture to safe storage levels within 48 hours.",
         "team": "John Doe — founder & agronomy lead (10 yrs extension work). Mulugeta A. — mechanical design. Sara K. — cooperative partnerships and training.",
         "timeline": [
-          { "milestone": "Design & supplier contracts", "date": "Nov 2023", "done": true },
-          { "milestone": "Prototype build & lab tests", "date": "Jan 2024", "done": true },
-          { "milestone": "Pilot with 2 cooperatives", "date": "Mar–May 2024", "done": false },
-          { "milestone": "Scale to 50 shared units", "date": "Q4 2024", "done": false }
+          {
+            "milestone": "Design & supplier contracts",
+            "date": "Nov 2023",
+            "done": true
+          },
+          {
+            "milestone": "Prototype build & lab tests",
+            "date": "Jan 2024",
+            "done": true
+          },
+          {
+            "milestone": "Pilot with 2 cooperatives",
+            "date": "Mar–May 2024",
+            "done": false
+          },
+          {
+            "milestone": "Scale to 50 shared units",
+            "date": "Q4 2024",
+            "done": false
+          }
         ],
         "funds": [
-          { "label": "Materials", "percent": 40 },
-          { "label": "Development & labor", "percent": 35 },
-          { "label": "Marketing & outreach", "percent": 15 },
-          { "label": "Contingency", "percent": 10 }
+          {
+            "label": "Materials",
+            "percent": 40
+          },
+          {
+            "label": "Development & labor",
+            "percent": 35
+          },
+          {
+            "label": "Marketing & outreach",
+            "percent": 15
+          },
+          {
+            "label": "Contingency",
+            "percent": 10
+          }
         ],
         "risksDisclosure": "Market adoption may be slower if cooperatives prioritize other capital needs. Supply chain delays could push pilot dates. Currency and input cost volatility may affect margins.",
         "riskLevel": "Medium",
@@ -481,8 +613,16 @@
           }
         ],
         "documents": [
-          { "name": "Solar_Dryer_Spec_v2.pdf", "kind": "pdf", "sizeLabel": "1.2 MB" },
-          { "name": "Pilot_Photos_March.zip", "kind": "archive", "sizeLabel": "4.8 MB" }
+          {
+            "name": "Solar_Dryer_Spec_v2.pdf",
+            "kind": "pdf",
+            "sizeLabel": "1.2 MB"
+          },
+          {
+            "name": "Pilot_Photos_March.zip",
+            "kind": "archive",
+            "sizeLabel": "4.8 MB"
+          }
         ],
         "qa": [
           {
@@ -1174,18 +1314,43 @@
       "avgFundedPct": 72
     },
     "diversification": [
-      { "category": "Agriculture", "percent": 35, "color": "#022c22" },
-      { "category": "Commerce", "percent": 28, "color": "#ca8a04" },
-      { "category": "Education", "percent": 22, "color": "#2563eb" },
-      { "category": "Energy", "percent": 15, "color": "#9333ea" }
+      {
+        "category": "Agriculture",
+        "percent": 35,
+        "color": "#022c22"
+      },
+      {
+        "category": "Commerce",
+        "percent": 28,
+        "color": "#ca8a04"
+      },
+      {
+        "category": "Education",
+        "percent": 22,
+        "color": "#2563eb"
+      },
+      {
+        "category": "Energy",
+        "percent": 15,
+        "color": "#9333ea"
+      }
     ],
     "performance": {
       "successRatePct": 78,
       "avgSimulatedReturnPct": 4.2,
       "riskBreakdown": [
-        { "level": "Low", "percent": 30 },
-        { "level": "Medium", "percent": 55 },
-        { "level": "High", "percent": 15 }
+        {
+          "level": "Low",
+          "percent": 30
+        },
+        {
+          "level": "Medium",
+          "percent": 55
+        },
+        {
+          "level": "High",
+          "percent": 15
+        }
       ]
     },
     "rows": [
@@ -1234,9 +1399,21 @@
       "inv-1": {
         "simulatedReturnPct": 6.0,
         "timeline": [
-          { "date": "Jan 2026", "label": "Commitment recorded", "tone": "neutral" },
-          { "date": "Feb 2026", "label": "Pilot metrics beat baseline", "tone": "positive" },
-          { "date": "Mar 2026", "label": "Second cooperative onboarded", "tone": "positive" }
+          {
+            "date": "Jan 2026",
+            "label": "Commitment recorded",
+            "tone": "neutral"
+          },
+          {
+            "date": "Feb 2026",
+            "label": "Pilot metrics beat baseline",
+            "tone": "positive"
+          },
+          {
+            "date": "Mar 2026",
+            "label": "Second cooperative onboarded",
+            "tone": "positive"
+          }
         ],
         "updates": [
           {
@@ -1251,50 +1428,118 @@
           }
         ],
         "messages": [
-          { "from": "innovator", "text": "Thanks for backing — sharing pilot photos this week.", "time": "12 Mar, 09:00" },
-          { "from": "you", "text": "Great progress. Any plan for maintenance training?", "time": "12 Mar, 14:22" },
-          { "from": "innovator", "text": "Two-day on-site training scheduled for cooperative leads.", "time": "13 Mar, 08:15" }
+          {
+            "from": "innovator",
+            "text": "Thanks for backing — sharing pilot photos this week.",
+            "time": "12 Mar, 09:00"
+          },
+          {
+            "from": "you",
+            "text": "Great progress. Any plan for maintenance training?",
+            "time": "12 Mar, 14:22"
+          },
+          {
+            "from": "innovator",
+            "text": "Two-day on-site training scheduled for cooperative leads.",
+            "time": "13 Mar, 08:15"
+          }
         ]
       },
       "inv-2": {
         "simulatedReturnPct": 0,
         "timeline": [
-          { "date": "Mar 2026", "label": "Investment during open round", "tone": "neutral" },
-          { "date": "—", "label": "Awaiting full funding close", "tone": "neutral" }
+          {
+            "date": "Mar 2026",
+            "label": "Investment during open round",
+            "tone": "neutral"
+          },
+          {
+            "date": "—",
+            "label": "Awaiting full funding close",
+            "tone": "neutral"
+          }
         ],
         "updates": [
-          { "date": "1 Mar 2026", "title": "Weaver onboarding", "body": "Twelve new weaver groups connected to the platform." }
+          {
+            "date": "1 Mar 2026",
+            "title": "Weaver onboarding",
+            "body": "Twelve new weaver groups connected to the platform."
+          }
         ],
         "messages": [
-          { "from": "innovator", "text": "Welcome aboard — quarterly export report coming soon.", "time": "5 Mar, 11:40" }
+          {
+            "from": "innovator",
+            "text": "Welcome aboard — quarterly export report coming soon.",
+            "time": "5 Mar, 11:40"
+          }
         ]
       },
       "inv-3": {
         "simulatedReturnPct": 5.1,
         "timeline": [
-          { "date": "Dec 2025", "label": "Beta launch", "tone": "neutral" },
-          { "date": "Feb 2026", "label": "10K monthly active learners", "tone": "positive" }
+          {
+            "date": "Dec 2025",
+            "label": "Beta launch",
+            "tone": "neutral"
+          },
+          {
+            "date": "Feb 2026",
+            "label": "10K monthly active learners",
+            "tone": "positive"
+          }
         ],
         "updates": [
-          { "date": "15 Mar 2026", "title": "New lesson pack", "body": "Grade 7 science module added in Amharic." }
+          {
+            "date": "15 Mar 2026",
+            "title": "New lesson pack",
+            "body": "Grade 7 science module added in Amharic."
+          }
         ],
         "messages": [
-          { "from": "you", "text": "Love the content roadmap.", "time": "10 Mar, 16:02" },
-          { "from": "innovator", "text": "Thank you! Assessment mode is next on the list.", "time": "10 Mar, 17:30" }
+          {
+            "from": "you",
+            "text": "Love the content roadmap.",
+            "time": "10 Mar, 16:02"
+          },
+          {
+            "from": "innovator",
+            "text": "Thank you! Assessment mode is next on the list.",
+            "time": "10 Mar, 17:30"
+          }
         ]
       },
       "inv-4": {
         "simulatedReturnPct": 8.0,
         "timeline": [
-          { "date": "Oct 2025", "label": "Grid commissioned", "tone": "positive" },
-          { "date": "Jan 2026", "label": "Revenue share period started", "tone": "positive" },
-          { "date": "Mar 2026", "label": "Campaign completed", "tone": "positive" }
+          {
+            "date": "Oct 2025",
+            "label": "Grid commissioned",
+            "tone": "positive"
+          },
+          {
+            "date": "Jan 2026",
+            "label": "Revenue share period started",
+            "tone": "positive"
+          },
+          {
+            "date": "Mar 2026",
+            "label": "Campaign completed",
+            "tone": "positive"
+          }
         ],
         "updates": [
-          { "date": "20 Mar 2026", "title": "Final distribution", "body": "Simulated distribution schedule posted for all investors." }
+          {
+            "date": "20 Mar 2026",
+            "title": "Final distribution",
+            "body": "Simulated distribution schedule posted for all investors."
+          }
         ],
         "messages": [
-          { "from": "innovator", "text": "Final reporting package is in your inbox tab.", "time": "21 Mar, 10:00" }
+          {
+            "from": "innovator",
+            "text": "Final reporting package is in your inbox tab.",
+            "time": "21 Mar, 10:00"
+          }
         ]
       }
     }
@@ -1333,10 +1578,22 @@
       "pending": "Pending"
     },
     "milestones": [
-      { "title": "Field research & farmer interviews", "done": true },
-      { "title": "Solar dryer prototype fabricated", "done": true },
-      { "title": "Pilot deployment in Oromia", "done": false },
-      { "title": "Scale to 50 cooperative units", "done": false }
+      {
+        "title": "Field research & farmer interviews",
+        "done": true
+      },
+      {
+        "title": "Solar dryer prototype fabricated",
+        "done": true
+      },
+      {
+        "title": "Pilot deployment in Oromia",
+        "done": false
+      },
+      {
+        "title": "Scale to 50 cooperative units",
+        "done": false
+      }
     ],
     "updates": {
       "writeUpdate": "Write Update",
@@ -1385,9 +1642,21 @@
       "download": "Download",
       "emptyList": "No documents yet. Upload technical specs, photos, or reports.",
       "initial": [
-        { "name": "Solar_Dryer_Spec_v2.pdf", "kind": "pdf", "sizeLabel": "1.2 MB" },
-        { "name": "Pilot_Site_Photo.jpg", "kind": "image", "sizeLabel": "840 KB" },
-        { "name": "Coop_Agreement_Draft.docx", "kind": "doc", "sizeLabel": "56 KB" }
+        {
+          "name": "Solar_Dryer_Spec_v2.pdf",
+          "kind": "pdf",
+          "sizeLabel": "1.2 MB"
+        },
+        {
+          "name": "Pilot_Site_Photo.jpg",
+          "kind": "image",
+          "sizeLabel": "840 KB"
+        },
+        {
+          "name": "Coop_Agreement_Draft.docx",
+          "kind": "doc",
+          "sizeLabel": "56 KB"
+        }
       ]
     },
     "investors": {
@@ -1398,11 +1667,36 @@
       "colEquity": "Equity %",
       "colDate": "Date",
       "rows": [
-        { "name": "Sarah M.", "amountEtb": 8500, "equityPct": 2.1, "date": "12 Mar 2026" },
-        { "name": "Daniel T.", "amountEtb": 6200, "equityPct": 1.5, "date": "10 Mar 2026" },
-        { "name": "GreenGrowth Fund", "amountEtb": 10000, "equityPct": 2.8, "date": "5 Mar 2026" },
-        { "name": "Hanna K.", "amountEtb": 2750, "equityPct": 0.7, "date": "1 Mar 2026" },
-        { "name": "Yonas B.", "amountEtb": 1800, "equityPct": 0.4, "date": "28 Feb 2026" }
+        {
+          "name": "Sarah M.",
+          "amountEtb": 8500,
+          "equityPct": 2.1,
+          "date": "12 Mar 2026"
+        },
+        {
+          "name": "Daniel T.",
+          "amountEtb": 6200,
+          "equityPct": 1.5,
+          "date": "10 Mar 2026"
+        },
+        {
+          "name": "GreenGrowth Fund",
+          "amountEtb": 10000,
+          "equityPct": 2.8,
+          "date": "5 Mar 2026"
+        },
+        {
+          "name": "Hanna K.",
+          "amountEtb": 2750,
+          "equityPct": 0.7,
+          "date": "1 Mar 2026"
+        },
+        {
+          "name": "Yonas B.",
+          "amountEtb": 1800,
+          "equityPct": 0.4,
+          "date": "28 Feb 2026"
+        }
       ]
     },
     "messages": {
@@ -1419,9 +1713,21 @@
           "name": "Sarah M.",
           "preview": "Can we schedule a call about the pilot?",
           "items": [
-            { "from": "them", "text": "Hi — interested in expanding support after the pilot results.", "time": "12 Mar, 09:14" },
-            { "from": "me", "text": "Absolutely. Does Thursday afternoon work for you?", "time": "12 Mar, 11:02" },
-            { "from": "them", "text": "Can we schedule a call about the pilot?", "time": "13 Mar, 08:30" }
+            {
+              "from": "them",
+              "text": "Hi — interested in expanding support after the pilot results.",
+              "time": "12 Mar, 09:14"
+            },
+            {
+              "from": "me",
+              "text": "Absolutely. Does Thursday afternoon work for you?",
+              "time": "12 Mar, 11:02"
+            },
+            {
+              "from": "them",
+              "text": "Can we schedule a call about the pilot?",
+              "time": "13 Mar, 08:30"
+            }
           ]
         },
         {
@@ -1429,8 +1735,16 @@
           "name": "GreenGrowth Fund",
           "preview": "Need Q2 impact metrics for our board.",
           "items": [
-            { "from": "them", "text": "Please share Q2 impact metrics when ready.", "time": "11 Mar, 16:40" },
-            { "from": "me", "text": "We will send a draft template by end of week.", "time": "11 Mar, 17:05" }
+            {
+              "from": "them",
+              "text": "Please share Q2 impact metrics when ready.",
+              "time": "11 Mar, 16:40"
+            },
+            {
+              "from": "me",
+              "text": "We will send a draft template by end of week.",
+              "time": "11 Mar, 17:05"
+            }
           ]
         },
         {
@@ -1438,8 +1752,16 @@
           "name": "Daniel T.",
           "preview": "Thanks for the quick reply!",
           "items": [
-            { "from": "me", "text": "Thanks for backing the campaign.", "time": "9 Mar, 10:00" },
-            { "from": "them", "text": "Thanks for the quick reply!", "time": "9 Mar, 10:22" }
+            {
+              "from": "me",
+              "text": "Thanks for backing the campaign.",
+              "time": "9 Mar, 10:00"
+            },
+            {
+              "from": "them",
+              "text": "Thanks for the quick reply!",
+              "time": "9 Mar, 10:22"
+            }
           ]
         }
       ]
@@ -1502,13 +1824,34 @@
     "successBody": "Our team will review your campaign. You will be notified when there is an update.",
     "viewProjects": "View My Projects",
     "categories": [
-      { "value": "tech", "label": "Technology" },
-      { "value": "agriculture", "label": "Agriculture" },
-      { "value": "health", "label": "Health" },
-      { "value": "education", "label": "Education" },
-      { "value": "manufacturing", "label": "Manufacturing" },
-      { "value": "energy", "label": "Energy" },
-      { "value": "other", "label": "Other" }
+      {
+        "value": "tech",
+        "label": "Technology"
+      },
+      {
+        "value": "agriculture",
+        "label": "Agriculture"
+      },
+      {
+        "value": "health",
+        "label": "Health"
+      },
+      {
+        "value": "education",
+        "label": "Education"
+      },
+      {
+        "value": "manufacturing",
+        "label": "Manufacturing"
+      },
+      {
+        "value": "energy",
+        "label": "Energy"
+      },
+      {
+        "value": "other",
+        "label": "Other"
+      }
     ],
     "errors": {
       "title": "Project title is required.",
@@ -1666,6 +2009,7 @@
       "overview": "Overview",
       "files": "Files",
       "updates": "Updates",
+      "dividends": "Dividend",
       "settings": "Settings"
     },
     "backToCampaigns": "← Back to campaigns",
@@ -1766,6 +2110,54 @@
       "confirmDeleteTitle": "Remove this update?",
       "confirmDeleteBody": "Backers will no longer see this entry."
     },
+    "dividends": {
+      "title": "Distribute dividends",
+      "subtitle": "Declare and execute profit distributions to investors for a completed campaign.",
+      "selectCampaign": "Select campaign",
+      "noCompletedCampaigns": "You have no completed campaigns eligible for dividends.",
+      "totalAmount": "Total dividend amount",
+      "totalAmountPlaceholder": "0.00",
+      "notes": "Notes",
+      "notesPlaceholder": "Optional notes for this dividend declaration",
+      "amountRequired": "Enter a valid dividend amount greater than zero.",
+      "preview": "Preview distribution",
+      "previewing": "Previewing…",
+      "declare": "Declare dividend",
+      "declaring": "Declaring…",
+      "declareSuccess": "Dividend declared successfully.",
+      "previewTitle": "Distribution preview",
+      "previewSubtitle": "Total {amount} will be distributed across {count} investor(s).",
+      "previewEmpty": "No investor allocations were returned for this preview.",
+      "historyTitle": "Dividend history",
+      "historySubtitle": "Declared dividends for the selected campaign.",
+      "historyEmpty": "No dividends have been declared for this campaign yet.",
+      "retry": "Retry",
+      "execute": "Execute",
+      "executing": "Executing…",
+      "executeSuccess": "Dividend executed successfully.",
+      "cancel": "Cancel",
+      "cancelling": "Cancelling…",
+      "cancelSuccess": "Dividend cancelled successfully.",
+      "confirmExecuteTitle": "Execute this dividend?",
+      "confirmExecuteBody": "Funds will be distributed to investors. This action cannot be undone.",
+      "confirmExecuteAmount": "Amount: {amount}",
+      "confirmCancelTitle": "Cancel this dividend?",
+      "confirmCancelBody": "This dividend will be removed and will not be paid to investors.",
+      "confirmCancelAmount": "Amount: {amount}",
+      "table": {
+        "id": "ID",
+        "amount": "Amount",
+        "status": "Status",
+        "notes": "Notes",
+        "createdAt": "Created",
+        "actions": "Actions",
+        "investor": "Investor",
+        "investmentAmount": "Investment",
+        "equityPercentage": "Equity %",
+        "dividendAmount": "Dividend",
+        "anonymousInvestor": "Investor"
+      }
+    },
     "errors": {
       "deleteCampaignFailed": "Could not delete campaign. Please try again.",
       "deleteDocumentFailed": "Could not delete document. Please try again.",
@@ -1774,7 +2166,12 @@
       "loadUpdatesFailed": "Could not load updates. Please try again.",
       "createUpdateFailed": "Could not publish this update. Please try again.",
       "deleteUpdateFailed": "Could not remove this update. Please try again.",
-      "submitCampaignFailed": "Could not submit this campaign. Please try again."
+      "submitCampaignFailed": "Could not submit this campaign. Please try again.",
+      "loadDividendsFailed": "Could not load dividends. Please try again.",
+      "previewDividendFailed": "Could not preview dividend distribution. Please try again.",
+      "declareDividendFailed": "Could not declare dividend. Please try again.",
+      "executeDividendFailed": "Could not execute dividend. Please try again.",
+      "cancelDividendFailed": "Could not cancel dividend. Please try again."
     }
   },
   "walletPage": {
@@ -1783,7 +2180,6 @@
     "badges": {
       "verified": "Verified",
       "pending": "Pending verification"
-      
     },
     "dashboard": {
       "metaTitle": "Wallet Dashboard | IdealLink",

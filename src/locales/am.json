@@ -77,23 +77,56 @@
     "tagline": "በማህበረሰብ የሚመራ ካፒታል እና በራዲካል ግልጽነት የኢትዮጵያ ፈጠራ ባለቤቶችን ማብቃት።",
     "productHeading": "ምርት",
     "productLinks": [
-      { "label": "ፕሮጀክቶችን ያስሱ", "href": "/discovery" },
-      { "label": "ለፈጠራ ባለቤቶች", "href": "/register" },
-      { "label": "እንዴት እንደሚሰራ", "href": "/#how-it-works" },
-      { "label": "ዋጋ", "href": "/contact" }
+      {
+        "label": "ፕሮጀክቶችን ያስሱ",
+        "href": "/discovery"
+      },
+      {
+        "label": "ለፈጠራ ባለቤቶች",
+        "href": "/register"
+      },
+      {
+        "label": "እንዴት እንደሚሰራ",
+        "href": "/#how-it-works"
+      },
+      {
+        "label": "ዋጋ",
+        "href": "/contact"
+      }
     ],
     "companyHeading": "ኩባንያ",
     "companyLinks": [
-      { "label": "ስለ እኛ", "href": "/about" },
-      { "label": "ውጤታችን", "href": "/about" },
-      { "label": "አድራሻ", "href": "/contact" },
-      { "label": "ሙያዎች", "href": "/contact" }
+      {
+        "label": "ስለ እኛ",
+        "href": "/about"
+      },
+      {
+        "label": "ውጤታችን",
+        "href": "/about"
+      },
+      {
+        "label": "አድራሻ",
+        "href": "/contact"
+      },
+      {
+        "label": "ሙያዎች",
+        "href": "/contact"
+      }
     ],
     "legalHeading": "ህጋዊ እና ቅንብሮች",
     "legalLinks": [
-      { "label": "የአገልግሎት ውሎች", "href": "/terms" },
-      { "label": "የግላዊነት ፖሊሲ", "href": "/privacy" },
-      { "label": "የአደጋ ይፋ ማድረግ", "href": "/privacy" }
+      {
+        "label": "የአገልግሎት ውሎች",
+        "href": "/terms"
+      },
+      {
+        "label": "የግላዊነት ፖሊሲ",
+        "href": "/privacy"
+      },
+      {
+        "label": "የአደጋ ይፋ ማድረግ",
+        "href": "/privacy"
+      }
     ],
     "copyright": "© {year} IdealLink። በህዝብ ገንዘብ ማሰባሰቢያ ውስጥ ራዲካል ግልጽነት።"
   },
@@ -220,12 +253,30 @@
     "sectorsTitle": "በዘርፍ ያስሱ",
     "sectorsBrowse": "ያስሱ",
     "sectors": [
-      { "name": "አግሮቴክ እና ምግብ", "keyword": "Agriculture" },
-      { "name": "ፋይንቴክ", "keyword": "Fintech" },
-      { "name": "ጤና", "keyword": "Health" },
-      { "name": "ትምህርት ቴክ", "keyword": "Education" },
-      { "name": "ንጹህ ኢነርጂ", "keyword": "Energy" },
-      { "name": "ንግድ", "keyword": "Commerce" }
+      {
+        "name": "አግሮቴክ እና ምግብ",
+        "keyword": "Agriculture"
+      },
+      {
+        "name": "ፋይንቴክ",
+        "keyword": "Fintech"
+      },
+      {
+        "name": "ጤና",
+        "keyword": "Health"
+      },
+      {
+        "name": "ትምህርት ቴክ",
+        "keyword": "Education"
+      },
+      {
+        "name": "ንጹህ ኢነርጂ",
+        "keyword": "Energy"
+      },
+      {
+        "name": "ንግድ",
+        "keyword": "Commerce"
+      }
     ],
     "pathInvestorEyebrow": "ለኢንቨስተሮች",
     "pathInvestorBenefits": [
@@ -1959,6 +2010,7 @@
       "overview": "አጠቃላይ እይታ",
       "files": "ፋይሎች",
       "updates": "ዝማኔዎች",
+      "dividends": "ዲቪደንድ",
       "settings": "ቅንብሮች"
     },
     "backToCampaigns": "← ወደ ፕሮጀክት ተመለስ",
@@ -2059,6 +2111,54 @@
       "confirmDeleteTitle": "ይህን ዝማኔ ያስወግዱ?",
       "confirmDeleteBody": "ኢንቨስተሮች ይህን ግብዣ ከእንግዲህ አይመለከቱም።"
     },
+    "dividends": {
+      "title": "ዲቪደንድ ይከፋፍሉ",
+      "subtitle": "ለተጠናቀቀ ዘመቻ ኢንቨስተሮች የትርፍ ገቢን ያስተዋውቁ እና ያከፋፍሉ።",
+      "selectCampaign": "ዘመቻ ይምረጡ",
+      "noCompletedCampaigns": "ለዲቪደንድ የሚያስችሉ ተጠናቀቁ ዘመቻዎች የሉዎትም።",
+      "totalAmount": "ጠቅላላ የዲቪደንድ መጠን",
+      "totalAmountPlaceholder": "0.00",
+      "notes": "ማስታወሻ",
+      "notesPlaceholder": "ለዚህ ዲቪደንድ ማስታወሻ (አማራጭ)",
+      "amountRequired": "ከዜሮ በላይ ትክክለኛ የዲቪደንድ መጠን ያስገቡ።",
+      "preview": "መከፋፈል ቅድመ-እይታ",
+      "previewing": "በመመልከት ላይ…",
+      "declare": "ዲቪደንድ አስተዋውቅ",
+      "declaring": "በመግለጽ ላይ…",
+      "declareSuccess": "ዲቪደንድ በተሳካ ሁኔታ ተገልጿል።",
+      "previewTitle": "የመከፋፈል ቅድመ-እይታ",
+      "previewSubtitle": "ጠቅላላ {amount} በ {count} ኢንቨስተር(ዎች) መካከል ይከፋፈላል።",
+      "previewEmpty": "ለዚህ ቅድመ-እይታ የኢንቨስተር መመደብ አልተመለሰም።",
+      "historyTitle": "የዲቪደንድ ታሪክ",
+      "historySubtitle": "ለተመረጠው ዘመቻ የተገለጹ ዲቪደንዶች።",
+      "historyEmpty": "ለዚህ ዘመቻ እስካሁን ዲቪደንድ አልተገለጸም።",
+      "retry": "ደግመው ይሞክሩ",
+      "execute": "አስፈጽም",
+      "executing": "በመፈጸም ላይ…",
+      "executeSuccess": "ዲቪደንድ በተሳካ ሁኔታ ተፈጽሟል።",
+      "cancel": "ሰርዝ",
+      "cancelling": "በመሰረዝ ላይ…",
+      "cancelSuccess": "ዲቪደንድ በተሳካ ሁኔታ ተሰርዟል።",
+      "confirmExecuteTitle": "ይህን ዲቪደንድ ይፈጽሙ?",
+      "confirmExecuteBody": "ገንዘብ ወደ ኢንቨስተሮች ይሄዳል። ይህ እርምጃ መልሶ ሊቀየር አይችልም።",
+      "confirmExecuteAmount": "መጠን፦ {amount}",
+      "confirmCancelTitle": "ይህን ዲቪደንድ ይሰርዙ?",
+      "confirmCancelBody": "ይህ ዲቪደንድ ይወገዳል እና ለኢንቨስተሮች አይከፈልም።",
+      "confirmCancelAmount": "መጠን፦ {amount}",
+      "table": {
+        "id": "መለያ",
+        "amount": "መጠን",
+        "status": "ሁኔታ",
+        "notes": "ማስታወሻ",
+        "createdAt": "ተፈጥሯል",
+        "actions": "እርምጃዎች",
+        "investor": "ኢንቨስተር",
+        "investmentAmount": "ኢንቨስትመንት",
+        "equityPercentage": "ኢኩዊቲ %",
+        "dividendAmount": "ዲቪደንድ",
+        "anonymousInvestor": "ኢንቨስተር"
+      }
+    },
     "errors": {
       "deleteCampaignFailed": "ዘመቻ ማስወገድ አልተቻለም። እንደገና ይሞክሩ።",
       "deleteDocumentFailed": "ሰንድ ማስወገድ አልተቻለም። እንደገና ይሞክሩ።",
@@ -2067,7 +2167,12 @@
       "loadUpdatesFailed": "ዝማኔዎች መጫን አልተቻለም። እንደገና ይሞክሩ።",
       "createUpdateFailed": "ዝማኔ ማስቀመጥ አልተቻለም። እንደገና ይሞክሩ።",
       "deleteUpdateFailed": "ዝማኔ ማስወገድ አልተቻለም። እንደገና ይሞክሩ።",
-      "submitCampaignFailed": "ይህን ዘመቻ ማስገባት አልተቻለም። እንደገና ይሞክሩ።"
+      "submitCampaignFailed": "ይህን ዘመቻ ማስገባት አልተቻለም። እንደገና ይሞክሩ።",
+      "loadDividendsFailed": "ዲቪደንዶችን መጫን አልተቻለም። እንደገና ይሞክሩ።",
+      "previewDividendFailed": "የዲቪደንድ መከፋፈል ቅድመ-እይታ ማግኘት አልተቻለም። እንደገና ይሞክሩ።",
+      "declareDividendFailed": "ዲቪደንድ መግለጽ አልተቻለም። እንደገና ይሞክሩ።",
+      "executeDividendFailed": "ዲቪደንድ መፈጸም አልተቻለም። እንደገና ይሞክሩ።",
+      "cancelDividendFailed": "ዲቪደንድ መሰረዝ አልተቻለም። እንደገና ይሞክሩ።"
     }
   },
   "walletPage": {
