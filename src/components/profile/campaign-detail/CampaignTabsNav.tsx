@@ -1,21 +1,24 @@
-export type CampaignDetailTabKey = "overview" | "files" | "updates" | "settings";
+export type CampaignDetailTabKey = "overview" | "files" | "updates" | "dividends" | "settings";
 
 type CampaignTabsNavProps = {
   activeTab: CampaignDetailTabKey;
   onTabChange: (tab: CampaignDetailTabKey) => void;
+  showDividendsTab?: boolean;
   labels: {
     overview: string;
     files: string;
     updates: string;
+    dividends: string;
     settings: string;
   };
 };
 
-export function CampaignTabsNav({ activeTab, onTabChange, labels }: CampaignTabsNavProps) {
+export function CampaignTabsNav({ activeTab, onTabChange, showDividendsTab = false, labels }: CampaignTabsNavProps) {
   const tabs: Array<{ key: CampaignDetailTabKey; label: string }> = [
     { key: "overview", label: labels.overview },
     { key: "files", label: labels.files },
     { key: "updates", label: labels.updates },
+    ...(showDividendsTab ? [{ key: "dividends" as const, label: labels.dividends }] : []),
     { key: "settings", label: labels.settings },
   ];
 

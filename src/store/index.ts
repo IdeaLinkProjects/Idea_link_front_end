@@ -46,6 +46,21 @@ export {
   useGetInnovatorWalletTransactionsQuery,
 } from "./api/innovatorApi";
 export {
+  dividendsApi,
+  useGetCampaignDividendsQuery,
+  usePreviewCampaignDividendMutation,
+  useCreateCampaignDividendMutation,
+  useExecuteCampaignDividendMutation,
+  useCancelCampaignDividendMutation,
+} from "./api/dividendsApi";
+export type {
+  CampaignDividend,
+  CampaignDividendArg,
+  CreateDividendRequest,
+  DividendAllocation,
+  DividendPreviewResponse,
+} from "./api/dividendsApi";
+export {
   investorApi,
   useGetInvestorDashboardSummaryQuery,
   useGetInvestorWalletTransactionsQuery,
