@@ -2180,7 +2180,7 @@
     "dashboard": {
       "metaTitle": "Wallet Dashboard | IdealLink",
       "title": "Company Wallet",
-      "subtitle": "View your company wallet balance and payout readiness.",
+      "subtitle": "View your company wallet balance, top up with Chapa, and manage payout readiness.",
       "currentBalance": "Current balance",
       "quickWithdraw": "Withdraw funds",
       "refresh": "Refresh",

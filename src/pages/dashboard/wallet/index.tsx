@@ -3,6 +3,7 @@ import Link from "next/link";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { DashboardPageHeader } from "@/components/dashboard/DashboardPageHeader";
 import { BankAccountCard } from "@/components/wallet/components/BankAccountCard";
+import { ChapaWalletTopUpPanel } from "@/components/wallet/components/ChapaWalletTopUpPanel";
 import { EmptyWalletState } from "@/components/wallet/components/EmptyWalletState";
 import { WalletBalanceCard } from "@/components/wallet/components/WalletBalanceCard";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
@@ -11,7 +12,7 @@ import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
 import { useGetCompanyBankAccountQuery, useGetMyCompanyQuery, useGetWalletBalanceQuery } from "@/store";
 
 export default function WalletDashboardPage() {
-  const { locale } = useAppPreferences();
+  const { locale, isDark } = useAppPreferences();
   const t = messages[locale].walletPage;
   const companyQuery = useGetMyCompanyQuery();
   const companyId = companyQuery.data?.id;
@@ -23,6 +24,10 @@ export default function WalletDashboardPage() {
     : bankQuery.isError
       ? extractApiErrorMessage(bankQuery.error, t.dashboard.loadError)
       : "";
+
+  const cardClass = isDark
+    ? "border-white/15 bg-white/10 shadow-lg shadow-black/20"
+    : "border-zinc-200 bg-white shadow-md shadow-zinc-200/60";
 
   return (
     <>
@@ -55,6 +60,17 @@ export default function WalletDashboardPage() {
               />
 
               {errorMessage ? <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{errorMessage}</p> : null}
+
+              <div className={`rounded-2xl border p-8 ${cardClass}`}>
+                <ChapaWalletTopUpPanel
+                  isDark={isDark}
+                  balance={balanceQuery.data?.balance ?? 0}
+                  loadingWallet={balanceQuery.isFetching}
+                  onVerified={async () => {
+                    await balanceQuery.refetch();
+                  }}
+                />
+              </div>
 
               <div className="grid gap-4 lg:grid-cols-2">
                 <BankAccountCard account={bankQuery.data ?? null} />
