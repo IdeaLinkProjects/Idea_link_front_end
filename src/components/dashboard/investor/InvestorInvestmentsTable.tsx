@@ -12,7 +12,6 @@ type InvestorInvestmentsTableText = {
   actions: string;
   detail: string;
   cancel: string;
-  withdraw: string;
   empty: string;
 };
 
@@ -24,7 +23,6 @@ type InvestorInvestmentsTableProps = {
   text: InvestorInvestmentsTableText;
   onOpenDetail: (investmentId: number) => void;
   onCancel: (investmentId: number) => void;
-  onWithdraw: (investmentId: number) => void;
   formatDate: (iso: string | null | undefined) => string;
 };
 
@@ -36,7 +34,6 @@ export function InvestorInvestmentsTable({
   text,
   onOpenDetail,
   onCancel,
-  onWithdraw,
   formatDate,
 }: InvestorInvestmentsTableProps) {
   return (
@@ -56,7 +53,6 @@ export function InvestorInvestmentsTable({
         {rows.map((item) => {
           const statusUpper = item.status.toUpperCase();
           const canCancel = statusUpper.includes("PENDING");
-          const canWithdraw = item.withdrawalEligible;
           return (
             <tr key={item.id} className={isDark ? "border-t border-white/10" : "border-t border-zinc-200"}>
               <td className="px-4 py-3">
@@ -84,14 +80,6 @@ export function InvestorInvestmentsTable({
                     className="rounded-lg border border-amber-500/40 px-3 py-1.5 font-medium text-amber-500 disabled:opacity-40"
                   >
                     {text.cancel}
-                  </button>
-                  <button
-                    type="button"
-                    disabled={!canWithdraw}
-                    onClick={() => onWithdraw(item.id)}
-                    className="rounded-lg border border-emerald-500/40 px-3 py-1.5 font-medium text-emerald-500 disabled:opacity-40"
-                  >
-                    {text.withdraw}
                   </button>
                 </div>
               </td>

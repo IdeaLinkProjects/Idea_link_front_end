@@ -12,7 +12,6 @@ import {
   useCancelPendingInvestmentMutation,
   useGetUserInvestmentsPageQuery,
   useLazyGetInvestmentByIdQuery,
-  useWithdrawInvestmentMutation,
 } from "@/store";
 
 const PAGE_SIZE = 10;
@@ -35,13 +34,11 @@ export default function InvestorInvestmentPage() {
   const [page, setPage] = useState(0);
   const [activeInvestmentId, setActiveInvestmentId] = useState<number | null>(null);
   const [confirmCancelId, setConfirmCancelId] = useState<number | null>(null);
-  const [confirmWithdrawId, setConfirmWithdrawId] = useState<number | null>(null);
   const [actionError, setActionError] = useState("");
 
   const listQuery = useGetUserInvestmentsPageQuery({ page, size: PAGE_SIZE });
   const [loadInvestmentDetail, detailQuery] = useLazyGetInvestmentByIdQuery();
   const [cancelPendingInvestment, cancelState] = useCancelPendingInvestmentMutation();
-  const [withdrawInvestment, withdrawState] = useWithdrawInvestmentMutation();
 
   const rows = listQuery.data?.content ?? [];
   const totalPages = listQuery.data?.totalPages ?? 0;
@@ -49,6 +46,9 @@ export default function InvestorInvestmentPage() {
   const isLast = totalPages === 0 ? true : page >= totalPages - 1;
 
   const cardClass = isDark ? "border-white/15 bg-white/10" : "border-zinc-200 bg-white";
+  const modalClass = isDark
+    ? "border-white/15 bg-zinc-900 text-zinc-100 shadow-2xl shadow-black/50"
+    : "border-zinc-200 bg-white text-zinc-900 shadow-2xl shadow-zinc-300/60";
   const tableText = {
     campaign: t.investmentTableCampaign,
     amount: t.investmentTableAmount,
@@ -59,7 +59,6 @@ export default function InvestorInvestmentPage() {
     actions: t.investmentTableActions,
     detail: t.investmentActionDetail,
     cancel: t.investmentActionCancel,
-    withdraw: t.investmentActionWithdraw,
     empty: t.investmentTableEmpty,
   };
 
@@ -83,22 +82,6 @@ export default function InvestorInvestmentPage() {
     } catch (err) {
       setActionError(extractApiErrorMessage(err, "Could not cancel this investment."));
       setConfirmCancelId(null);
-    }
-  }
-
-  async function onWithdrawConfirmed() {
-    if (confirmWithdrawId == null) return;
-    setActionError("");
-    try {
-      await withdrawInvestment(confirmWithdrawId).unwrap();
-      setConfirmWithdrawId(null);
-      await listQuery.refetch();
-      if (activeInvestmentId === confirmWithdrawId) {
-        await loadInvestmentDetail(confirmWithdrawId).unwrap();
-      }
-    } catch (err) {
-      setActionError(extractApiErrorMessage(err, "Could not withdraw this investment."));
-      setConfirmWithdrawId(null);
     }
   }
 
@@ -128,7 +111,6 @@ export default function InvestorInvestmentPage() {
               text={tableText}
               onOpenDetail={(investmentId) => void openDetail(investmentId)}
               onCancel={(investmentId) => setConfirmCancelId(investmentId)}
-              onWithdraw={(investmentId) => setConfirmWithdrawId(investmentId)}
               formatDate={(iso) => formatDate(iso, locale)}
             />
           </div>
@@ -152,7 +134,6 @@ export default function InvestorInvestmentPage() {
               {t.paginationNext}
             </button>
           </div>
-
         </section>
 
         {activeInvestmentId != null ? (
@@ -164,7 +145,7 @@ export default function InvestorInvestmentPage() {
             <div
               role="dialog"
               aria-modal="true"
-              className={`w-full max-w-3xl rounded-2xl border p-5 shadow-xl ${cardClass}`}
+              className={`w-full max-w-3xl rounded-2xl border p-5 ${modalClass}`}
               onClick={(e) => e.stopPropagation()}
             >
               {detailQuery.isFetching || !detailQuery.data ? (
@@ -184,7 +165,7 @@ export default function InvestorInvestmentPage() {
                       Close
                     </button>
                   </div>
-                  <div className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+                  <div className={`mt-3 grid gap-2 text-sm sm:grid-cols-2 ${isDark ? "text-zinc-200" : "text-zinc-700"}`}>
                     <p>Campaign: {detailQuery.data.campaign.title}</p>
                     <p>Status: {detailQuery.data.status}</p>
                     <p>Amount: {formatEtb(detailQuery.data.amount, locale)} ETB</p>
@@ -214,20 +195,6 @@ export default function InvestorInvestmentPage() {
           isDark={isDark}
           variant="danger"
           isSubmitting={cancelState.isLoading}
-        />
-
-        <ConfirmDialog
-          open={confirmWithdrawId != null}
-          title="Withdraw this investment?"
-          description="This triggers cooling-off refund if the investment is eligible."
-          cancelLabel="Close"
-          confirmLabel="Withdraw"
-          submittingLabel="Withdrawing..."
-          onCancel={() => setConfirmWithdrawId(null)}
-          onConfirm={() => void onWithdrawConfirmed()}
-          isDark={isDark}
-          variant="neutral"
-          isSubmitting={withdrawState.isLoading}
         />
       </DashboardLayout>
     </>
