@@ -2268,9 +2268,15 @@
     "transactions": {
       "metaTitle": "Transaction History | IdealLink",
       "title": "Transaction history",
-      "subtitle": "A complete ledger of wallet movements.",
-      "comingSoon": "Coming soon",
-      "description": "Detailed transaction history will be available in a future release."
+      "subtitle": "A complete ledger of company wallet movements.",
+      "empty": "No wallet transactions yet.",
+      "balanceAfter": "Balance after",
+      "reference": "Reference",
+      "loadErrorTitle": "Could not load transactions",
+      "loadErrorDescription": "Please refresh and try again.",
+      "retry": "Retry",
+      "paginationPrevious": "Previous",
+      "paginationNext": "Next"
     }
   },
   "campaignEditPage": {

@@ -2269,9 +2269,15 @@
     "transactions": {
       "metaTitle": "የግብይት ታሪክ | IdealLink",
       "title": "የግብይት ታሪክ",
-      "subtitle": "የዋሌት እንቅስቃሴዎች ሙሉ መዝገብ።",
-      "comingSoon": "በቅርቡ ይመጣል",
-      "description": "ዝርዝር የግብይት ታሪክ በቀጣይ ስሪት ይጨመራል።"
+      "subtitle": "የኩባንያ ዋሌት እንቅስቃሴዎች ሙሉ መዝገብ።",
+      "empty": "እስካሁን የዋሌት ግብይቶች የሉም።",
+      "balanceAfter": "ከዚያ በኋላ ቀሪ",
+      "reference": "ማጣቀሻ",
+      "loadErrorTitle": "ግብይቶችን መጫን አልተቻለም",
+      "loadErrorDescription": "እባክዎ ገጹን ያድሱ እና እንደገና ይሞክሩ።",
+      "retry": "ደግመው ይሞክሩ",
+      "paginationPrevious": "ቀዳሚ",
+      "paginationNext": "ቀጣይ"
     }
   },
   "campaignEditPage": {
