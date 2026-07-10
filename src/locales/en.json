@@ -894,6 +894,23 @@
     "subtitle": "Payment methods, payouts, and transaction history.",
     "placeholder": "Payment settings and history will be available here."
   },
+  "paymentSuccessPage": {
+    "metaTitle": "Payment successful | IdealLink",
+    "successTitle": "Payment successful",
+    "successBody": "Your wallet top-up was completed successfully. Your balance will update shortly.",
+    "verifyingTitle": "Confirming payment…",
+    "verifyingBody": "Please wait while we verify your Chapa payment.",
+    "failedTitle": "Could not confirm payment",
+    "failedBody": "We could not verify this payment yet. If you were charged, try again in a moment or contact support.",
+    "notVerifiedYet": "Payment is not verified yet. Please try again shortly.",
+    "verifyFailed": "Could not verify payment.",
+    "amountLabel": "Amount",
+    "methodLabel": "Payment method",
+    "referenceLabel": "Transaction reference",
+    "transactionIdLabel": "Transaction ID",
+    "backToWallet": "Back to wallet",
+    "backToDashboard": "Go to dashboard"
+  },
   "dashboardProfilePage": {
     "metaTitle": "Profile | IdealLink",
     "pageSubtitle": "Your account, roles, and profile details on IdealLink.",

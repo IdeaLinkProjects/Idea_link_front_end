@@ -894,6 +894,23 @@
     "subtitle": "የክፍያ ዘዴዎች፣ ግብዣዎች እና የግብዣ ታሪክ።",
     "placeholder": "የክፍያ ቅንብሮች እና ታሪክ እዚህ ይገኛሉ።"
   },
+  "paymentSuccessPage": {
+    "metaTitle": "ክፍያ ተሳክቷል | IdealLink",
+    "successTitle": "ክፍያ ተሳክቷል",
+    "successBody": "የዋሌት መሙላትዎ በተሳካ ሁኔታ ተጠናቋል። ቀሪዎ በቅርቡ ይዘምናል።",
+    "verifyingTitle": "ክፍያ በማረጋገጥ ላይ…",
+    "verifyingBody": "እባክዎ የቻፓ ክፍያዎን እስክናረጋግጥ ይጠብቁ።",
+    "failedTitle": "ክፍያ ማረጋገጥ አልተቻለም",
+    "failedBody": "ይህን ክፍያ ማረጋገጥ አልቻልንም። ገንዘብ ከተቆረጠ፣ ትንሽ ቆይተው እንደገና ይሞክሩ ወይም ድጋፍን ያግኙ።",
+    "notVerifiedYet": "ክፍያው ገና አልተረጋገጠም። እባክዎ ትንሽ ቆይተው እንደገና ይሞክሩ።",
+    "verifyFailed": "ክፍያ ማረጋገጥ አልተቻለም።",
+    "amountLabel": "መጠን",
+    "methodLabel": "የክፍያ ዘዴ",
+    "referenceLabel": "የግብይት ማጣቀሻ",
+    "transactionIdLabel": "የግብይት መለያ",
+    "backToWallet": "ወደ ዋሌት ተመለስ",
+    "backToDashboard": "ወደ ዳሽቦርድ ሂድ"
+  },
   "dashboardProfilePage": {
     "metaTitle": "መገለጫ | IdealLink",
     "pageSubtitle": "መለያዎ፣ ሚናዎች እና የመገለጫ ዝርዝሮች በIdealLink።",
