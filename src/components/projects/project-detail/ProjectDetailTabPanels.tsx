@@ -16,7 +16,7 @@ type ProjectDetailTabPanelsProps = {
   tab: ProjectDetailTabKey;
   campaignId: number | null;
   isLoggedIn: boolean;
-  onDocPreview: () => void;
+  onDocOpen: (url: string) => void;
 };
 
 function SectionCard({
@@ -44,7 +44,7 @@ function SectionCard({
   return <div className={`rounded-2xl border-l-4 ${border} p-5 sm:p-6 ${card}`}>{children}</div>;
 }
 
-export function ProjectDetailTabPanels({ isDark, locale, p, bundle, tab, campaignId, isLoggedIn, onDocPreview }: ProjectDetailTabPanelsProps) {
+export function ProjectDetailTabPanels({ isDark, locale, p, bundle, tab, campaignId, isLoggedIn, onDocOpen }: ProjectDetailTabPanelsProps) {
   const muted = projectDetailMutedClass(isDark);
   const title = projectDetailSectionTitleClass(isDark);
 
@@ -198,8 +198,9 @@ export function ProjectDetailTabPanels({ isDark, locale, p, bundle, tab, campaig
               <div className="flex shrink-0 gap-2 sm:pl-2">
                 <button
                   type="button"
-                  onClick={onDocPreview}
-                  className={`rounded-xl border px-4 py-2.5 text-sm font-semibold transition ${
+                  onClick={() => onDocOpen(doc.url ?? "")}
+                  disabled={!doc.url}
+                  className={`rounded-xl border px-4 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${
                     isDark ? "border-white/20 hover:bg-white/10" : "border-zinc-300 hover:bg-zinc-50"
                   }`}
                 >
@@ -207,8 +208,9 @@ export function ProjectDetailTabPanels({ isDark, locale, p, bundle, tab, campaig
                 </button>
                 <button
                   type="button"
-                  onClick={onDocPreview}
-                  className="rounded-xl bg-gradient-to-r from-primary-950 to-primary-700 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-primary-900 hover:to-primary-600"
+                  onClick={() => onDocOpen(doc.url ?? "")}
+                  disabled={!doc.url}
+                  className="rounded-xl bg-gradient-to-r from-primary-950 to-primary-700 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition hover:from-primary-900 hover:to-primary-600 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {p.download}
                 </button>

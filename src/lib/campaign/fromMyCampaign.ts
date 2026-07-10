@@ -44,7 +44,7 @@ export type PublicProjectBundle = {
   riskLevelExplanation: string;
   investorConsiderations: string;
   updates: { date: string; title: string; body: string }[];
-  documents: { name: string; kind: string; sizeLabel: string }[];
+  documents: { name: string; kind: string; sizeLabel: string; url?: string }[];
 };
 
 function daysRemaining(iso: string): number {
@@ -176,6 +176,7 @@ export function myCampaignToPublicBundle(c: MyCampaign, locale: Locale, p: Proje
       name: doc.documentName,
       kind: doc.documentType,
       sizeLabel: `${Math.round((doc.fileSize ?? 0) / 1024)} KB`,
+      url: doc.documentUrl?.trim() ?? "",
     })),
   };
 }

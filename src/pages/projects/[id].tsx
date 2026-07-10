@@ -64,9 +64,17 @@ export default function ProjectDetailPage() {
     window.setTimeout(() => setToast(""), 2600);
   }, []);
 
-  const onDocPreview = useCallback(() => {
-    showToast(p.docDemoNote);
-  }, [p.docDemoNote, showToast]);
+  const onDocOpen = useCallback(
+    (url: string) => {
+      const trimmed = url?.trim();
+      if (!trimmed) {
+        showToast(p.docDemoNote);
+        return;
+      }
+      window.open(trimmed, "_blank", "noopener,noreferrer");
+    },
+    [p.docDemoNote, showToast],
+  );
 
   const showInvestAction = from !== "investments" && isLoggedIn;
 
@@ -139,7 +147,7 @@ export default function ProjectDetailPage() {
                 tab={tab}
                 campaignId={campaignIdNum}
                 isLoggedIn={isLoggedIn}
-                onDocPreview={onDocPreview}
+                onDocOpen={onDocOpen}
               />
             </div>
             <ProjectDetailAside
