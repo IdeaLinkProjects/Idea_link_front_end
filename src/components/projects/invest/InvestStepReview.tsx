@@ -9,10 +9,6 @@ type InvestStepReviewProps = InvestViewProps & {
   onNotesChange: (value: string) => void;
   chkDisclosed: boolean;
   onChkDisclosedChange: (checked: boolean) => void;
-  chkSimulated: boolean;
-  onChkSimulatedChange: (checked: boolean) => void;
-  chkReturns: boolean;
-  onChkReturnsChange: (checked: boolean) => void;
   step2Attempted: boolean;
   acknowledgementsValid: boolean;
   submitError: string;
@@ -54,10 +50,6 @@ export function InvestStepReview({
   onNotesChange,
   chkDisclosed,
   onChkDisclosedChange,
-  chkSimulated,
-  onChkSimulatedChange,
-  chkReturns,
-  onChkReturnsChange,
   step2Attempted,
   acknowledgementsValid,
   submitError,
@@ -97,14 +89,7 @@ export function InvestStepReview({
 
       <div className="mt-8 space-y-4">
         <InvestAckCheckbox checked={chkDisclosed} onChange={onChkDisclosedChange} label={inv.chkDisclosed} />
-        <InvestAckCheckbox checked={chkSimulated} onChange={onChkSimulatedChange} label={inv.chkSimulated} />
-        <InvestAckCheckbox checked={chkReturns} onChange={onChkReturnsChange} label={inv.chkReturns} />
         {step2Attempted && !acknowledgementsValid ? <p className="text-sm font-medium text-red-400">{inv.chkError}</p> : null}
-      </div>
-
-      <div className={`mt-8 rounded-xl border p-4 ${isDark ? "border-white/10" : "border-zinc-200"}`}>
-        <h3 className="text-sm font-bold text-primary-500">{inv.termsSummaryTitle}</h3>
-        <p className={`mt-2 text-sm leading-relaxed ${theme.muted}`}>{inv.termsSummaryBody}</p>
       </div>
 
       <div className="mt-6">

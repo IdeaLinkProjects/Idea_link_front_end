@@ -100,10 +100,6 @@ export default function ProjectInvestPage() {
               onNotesChange={flow.setNotes}
               chkDisclosed={flow.chkDisclosed}
               onChkDisclosedChange={flow.setChkDisclosed}
-              chkSimulated={flow.chkSimulated}
-              onChkSimulatedChange={flow.setChkSimulated}
-              chkReturns={flow.chkReturns}
-              onChkReturnsChange={flow.setChkReturns}
               step2Attempted={flow.step2Attempted}
               acknowledgementsValid={flow.acknowledgementsValid}
               submitError={flow.submitError}

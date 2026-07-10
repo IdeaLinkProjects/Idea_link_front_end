@@ -9,8 +9,6 @@ export function useProjectInvestFlow(campaignIdNum: number | null, routeId: stri
   const [step, setStep] = useState<InvestStep>(1);
   const [numberOfShares, setNumberOfShares] = useState(100);
   const [chkDisclosed, setChkDisclosed] = useState(false);
-  const [chkSimulated, setChkSimulated] = useState(false);
-  const [chkReturns, setChkReturns] = useState(false);
   const [step1Attempted, setStep1Attempted] = useState(false);
   const [step2Attempted, setStep2Attempted] = useState(false);
   const [reference, setReference] = useState("");
@@ -22,8 +20,6 @@ export function useProjectInvestFlow(campaignIdNum: number | null, routeId: stri
   useEffect(() => {
     setStep(1);
     setChkDisclosed(false);
-    setChkSimulated(false);
-    setChkReturns(false);
     setStep1Attempted(false);
     setStep2Attempted(false);
     setReference("");
@@ -34,7 +30,7 @@ export function useProjectInvestFlow(campaignIdNum: number | null, routeId: stri
 
   const sharesValid = Number.isInteger(numberOfShares) && numberOfShares > 0;
   const step1ErrorShares = step1Attempted && !sharesValid;
-  const acknowledgementsValid = chkDisclosed && chkSimulated && chkReturns;
+  const acknowledgementsValid = chkDisclosed;
 
   const confirmDateLabel = useMemo(() => {
     return new Intl.DateTimeFormat(locale === "am" ? "am-ET" : "en-GB", {
@@ -88,10 +84,6 @@ export function useProjectInvestFlow(campaignIdNum: number | null, routeId: stri
     setNumberOfShares,
     chkDisclosed,
     setChkDisclosed,
-    chkSimulated,
-    setChkSimulated,
-    chkReturns,
-    setChkReturns,
     step1ErrorShares,
     step2Attempted,
     acknowledgementsValid,
