@@ -37,16 +37,6 @@ function formatCurrency(value: number, locale: "en" | "am") {
   }).format(value || 0);
 }
 
-function formatDate(isoDate: string, locale: "en" | "am") {
-  const parsed = new Date(isoDate);
-  if (Number.isNaN(parsed.getTime())) return "-";
-  return parsed.toLocaleDateString(locale === "am" ? "am-ET" : "en-ET", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-}
-
 function formatFileSize(bytes: number): string {
   if (!Number.isFinite(bytes) || bytes < 0) return "—";
   if (bytes < 1024) return `${Math.round(bytes)} B`;
@@ -415,14 +405,12 @@ export function CampaignDetailView({ campaignId }: CampaignDetailViewProps) {
 
           <section className={`${cardClass} p-5 sm:p-6`}>
             <h2 className={`mb-4 text-lg font-semibold ${isDark ? "text-white" : "text-zinc-900"}`}>{t.timelineAndStatus}</h2>
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-2">
               <div className={metricCardClass(isDark)}>
-                <p className={`text-xs uppercase tracking-wide ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>{t.startDate}</p>
-                <p className={`mt-1 text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{formatDate(campaign.startDate, locale)}</p>
-              </div>
-              <div className={metricCardClass(isDark)}>
-                <p className={`text-xs uppercase tracking-wide ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>{t.endDate}</p>
-                <p className={`mt-1 text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>{formatDate(campaign.endDate, locale)}</p>
+                <p className={`text-xs uppercase tracking-wide ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>{t.durationDays}</p>
+                <p className={`mt-1 text-sm font-semibold ${isDark ? "text-zinc-100" : "text-zinc-900"}`}>
+                  {t.durationDaysValue.replace("{days}", String(campaign.durationDays ?? "—"))}
+                </p>
               </div>
               <div className={metricCardClass(isDark)}>
                 <p className={`text-xs uppercase tracking-wide ${isDark ? "text-zinc-400" : "text-zinc-500"}`}>{t.status}</p>

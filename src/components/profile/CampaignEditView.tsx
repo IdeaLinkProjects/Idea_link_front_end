@@ -248,20 +248,6 @@ export function CampaignEditView({ campaignId }: CampaignEditViewProps) {
               />
             </div>
 
-            <div>
-              <label htmlFor="edit-campaign-start-date" className={labelClass}>
-                {tFields.startDate}
-              </label>
-              <input id="edit-campaign-start-date" type="datetime-local" value={form.startDate} onChange={(e) => updateField("startDate", e.target.value)} className={inputClass} />
-            </div>
-
-            <div>
-              <label htmlFor="edit-campaign-end-date" className={labelClass}>
-                {tFields.endDate}
-              </label>
-              <input id="edit-campaign-end-date" type="datetime-local" value={form.endDate} onChange={(e) => updateField("endDate", e.target.value)} className={inputClass} />
-            </div>
-
             <div className="md:col-span-2">
               <CampaignTagPicker
                 fieldId="edit-campaign-tags-search"

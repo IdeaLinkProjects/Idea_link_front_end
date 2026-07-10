@@ -234,8 +234,12 @@ export function DashboardProjectsView({ mode }: DashboardProjectsViewProps) {
                         <p className="text-sm font-semibold">{campaign.totalInvestors ?? 0}</p>
                       </div>
                       <div>
-                        <p className="opacity-80">{t.endsLabel}</p>
-                        <p className="text-sm font-semibold">{formatDate(campaign.endDate, locale)}</p>
+                        <p className="opacity-80">{t.durationLabel}</p>
+                        <p className="text-sm font-semibold">
+                          {campaign.durationDays != null
+                            ? t.durationValue.replace("{days}", String(campaign.durationDays))
+                            : "—"}
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center justify-between">

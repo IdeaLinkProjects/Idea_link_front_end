@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { type ChangeEvent, type FormEvent, useMemo, useRef, useState } from "react";
 import { rowsToStoryRisksJson } from "@/components/profile/create-campaign/rowsToJson";
 import { type CreateCampaignForm, initialCreateCampaignForm } from "@/components/profile/create-campaign/types";
-import { toIsoFromLocalDateTime } from "@/components/profile/create-campaign/utils";
+import { datesFromDurationDays } from "@/components/profile/create-campaign/utils";
 import { useKeyedRows } from "@/components/profile/create-campaign/useKeyedRows";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
@@ -132,17 +132,7 @@ export function useCreateCampaignForm() {
       return;
     }
 
-    const startDateIso = toIsoFromLocalDateTime(form.startDate);
-    const endDateIso = toIsoFromLocalDateTime(form.endDate);
-    if (!startDateIso || !endDateIso) {
-      setErrorMessage(t.errors.datesRequired);
-      return;
-    }
-    if (new Date(endDateIso).getTime() <= new Date(startDateIso).getTime()) {
-      setErrorMessage(t.errors.endAfterStart);
-      return;
-    }
-
+    const { startDate, endDate } = datesFromDurationDays(durationDays);
     const storyJson = rowsToStoryRisksJson(storyKeyed.rows);
     const risksJson = rowsToStoryRisksJson(risksKeyed.rows);
 
@@ -158,8 +148,8 @@ export function useCreateCampaignForm() {
         totalShares,
         minimumSharesPerInvestor,
         durationDays,
-        startDate: startDateIso,
-        endDate: endDateIso,
+        startDate,
+        endDate,
         tagIds: form.selectedTagIds,
       }).unwrap();
 

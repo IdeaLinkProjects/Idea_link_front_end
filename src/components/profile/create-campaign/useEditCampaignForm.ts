@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { type ChangeEvent, type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { rowsToStoryRisksJson } from "@/components/profile/create-campaign/rowsToJson";
 import { type EditCampaignForm, emptyStoryRisksRow } from "@/components/profile/create-campaign/types";
-import { isoToDatetimeLocal, toIsoFromLocalDateTime } from "@/components/profile/create-campaign/utils";
+import { datesFromDurationDays } from "@/components/profile/create-campaign/utils";
 import { useKeyedRows } from "@/components/profile/create-campaign/useKeyedRows";
 import { useAppPreferences } from "@/context/AppPreferencesContext";
 import { extractApiErrorMessage } from "@/lib/api/extractApiErrorMessage";
@@ -94,8 +94,6 @@ export function useEditCampaignForm(campaignId: number) {
       totalShares: String(c.totalShares ?? 1),
       minimumSharesPerInvestor: String(c.minimumSharesPerInvestor ?? 1),
       durationDays: String(c.durationDays ?? 1),
-      startDate: isoToDatetimeLocal(c.startDate),
-      endDate: isoToDatetimeLocal(c.endDate),
       selectedTagIds: [],
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps -- run once when GET /campaigns/:id resolves
@@ -220,17 +218,7 @@ export function useEditCampaignForm(campaignId: number) {
       return;
     }
 
-    const startDateIso = toIsoFromLocalDateTime(form.startDate);
-    const endDateIso = toIsoFromLocalDateTime(form.endDate);
-    if (!startDateIso || !endDateIso) {
-      setErrorMessage(tFields.errors.datesRequired);
-      return;
-    }
-    if (new Date(endDateIso).getTime() <= new Date(startDateIso).getTime()) {
-      setErrorMessage(tFields.errors.endAfterStart);
-      return;
-    }
-
+    const { startDate, endDate } = datesFromDurationDays(durationDays, campaignQuery.data?.startDate);
     const storyJson = rowsToStoryRisksJson(storyKeyed.rows);
     const risksJson = rowsToStoryRisksJson(risksKeyed.rows);
 
@@ -250,8 +238,8 @@ export function useEditCampaignForm(campaignId: number) {
           totalShares,
           minimumSharesPerInvestor,
           durationDays,
-          startDate: startDateIso,
-          endDate: endDateIso,
+          startDate,
+          endDate,
           tagIds: form.selectedTagIds,
         },
       }).unwrap();

@@ -186,32 +186,6 @@ export function CreateCampaignView() {
               />
             </div>
 
-            <div>
-              <label htmlFor="campaign-start-date" className={labelClass}>
-                {t.startDate}
-              </label>
-              <input
-                id="campaign-start-date"
-                type="datetime-local"
-                value={form.startDate}
-                onChange={(e) => updateField("startDate", e.target.value)}
-                className={inputClass}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="campaign-end-date" className={labelClass}>
-                {t.endDate}
-              </label>
-              <input
-                id="campaign-end-date"
-                type="datetime-local"
-                value={form.endDate}
-                onChange={(e) => updateField("endDate", e.target.value)}
-                className={inputClass}
-              />
-            </div>
-
             <div className="md:col-span-2">
               <CampaignTagPicker
                 selectedIds={form.selectedTagIds}

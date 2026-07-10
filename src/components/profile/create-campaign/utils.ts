@@ -1,17 +1,13 @@
-export function toIsoFromLocalDateTime(value: string): string {
-  if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "";
-  return date.toISOString();
-}
-
-/** For `<input type="datetime-local" />` from an ISO string. */
-export function isoToDatetimeLocal(value: string): string {
-  if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "";
-  const pad = (n: number) => String(n).padStart(2, "0");
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+/** Derive campaign start/end ISO timestamps from duration (days). */
+export function datesFromDurationDays(durationDays: number, startFrom?: string | Date | null): {
+  startDate: string;
+  endDate: string;
+} {
+  const start = startFrom ? new Date(startFrom) : new Date();
+  const safeStart = Number.isNaN(start.getTime()) ? new Date() : start;
+  const end = new Date(safeStart.getTime());
+  end.setDate(end.getDate() + durationDays);
+  return { startDate: safeStart.toISOString(), endDate: end.toISOString() };
 }
 
 export async function copyTextToClipboard(text: string): Promise<boolean> {

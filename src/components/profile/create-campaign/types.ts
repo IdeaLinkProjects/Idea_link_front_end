@@ -12,8 +12,6 @@ export type CreateCampaignForm = {
   totalShares: string;
   minimumSharesPerInvestor: string;
   durationDays: string;
-  startDate: string;
-  endDate: string;
   selectedTagIds: number[];
 };
 
@@ -31,8 +29,6 @@ export const initialCreateCampaignForm: CreateCampaignForm = {
   totalShares: "1",
   minimumSharesPerInvestor: "1",
   durationDays: "1",
-  startDate: "",
-  endDate: "",
   selectedTagIds: [],
 };
 
